@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use these results or verifications, please cite the papers and this repository."
+title: "Contextuality as cohomological obstructions — research program and verifications"
+authors:
+  - family-names: "Flores Gordillo"
+    given-names: "Manuel"
+    email: "manuel.flores@columbia.edu"
+    orcid: "https://orcid.org/0009-0006-8246-0343"
+date-released: "2026-07-05"
+license: Apache-2.0
+repository-code: "https://github.com/manuflog/contextuality-obstructions"
+keywords:
+  - quantum contextuality
+  - Kochen-Specker
+  - group cohomology
+  - Weyl-Heisenberg
+  - Peres-Mermin
+  - stabilizer

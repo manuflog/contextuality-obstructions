@@ -8,6 +8,8 @@
 \newtheorem{observation}{Observation}
 \newtheorem{openproblem}{Open Problem}
 \newtheorem{conjecture}{Conjecture}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem2}[theorem]{Theorem}
 \newcommand{\U}{\mathrm{U}}
 \newcommand{\PU}{\mathrm{PU}}
 \newcommand{\avn}{\mathrm{AvN}}
@@ -133,6 +135,48 @@ restores a two-directional equivalence.
 Propositions~\ref{prop:gap1}--\ref{prop:gap2} show no formulation at the level of the
 canonical class alone can succeed; Theorem~\ref{thm:equiv} shows the AvN sector is
 already optimally captured there.
+
+\begin{lemma}[No fully covariant qubit-pair nets]\label{lem:nonet}
+There is no two-qubit quasi-probability frame, covariant under all Pauli displacements,
+whose every Lagrangian line-sum is a stabilizer projector: the $15$ Lagrangian sign
+conditions have rank $10$ over $\mathbb{F}_2$ and are inconsistent, with minimal
+certificate a Peres--Mermin-type magic configuration (nine observables, each in exactly
+two of six contexts, $\varepsilon$-product $-1$). The order-$2$ class thus obstructs the
+global frame itself (\texttt{ghw\_net\_necessity.py}).
+\end{lemma}
+
+Genuine Gibbons--Hoffman--Wootters nets evade Lemma~\ref{lem:nonet} by retreating to
+$\mathrm{GF}(4)$ translation covariance; sweeping all $1024$ of them
+(\texttt{gf4\_net\_necessity.py}) eliminates global frames in both remaining directions:
+a state with contextual fraction $0.3462$ on the trivial-class family admits a
+nonnegative representation in some net (necessity fails), while $T\otimes T$ is negative
+in every net (best case $-1/4$) with contextual fraction $0$ (sufficiency fails); all
+$60$ stabilizer states are nonnegative in some net (construction sanity). Together with
+the $2^{15}$-frame sweep (\texttt{net\_robust\_negativity.py}), every global-frame
+formulation of the even-$d$ classifier is refuted by explicit certificate; the
+scenario-paired formulation below is not merely the surviving candidate but the forced one.
+
+The constructive half now exists (\texttt{paired\_frame\_construction.py}). For a
+closed-triple Weyl family $F$ at $d=2$, the quantum model $e(\rho)$ is a bijection of the
+characteristic vector $c(\rho)=(\mathrm{tr}\,\rho T_v)_{v\in O(F)}$, and every
+noncontextual model is supported on the solution set $L(F)$ of the family's sign system
+(parity-violating outcomes have $e\equiv 0$). Hence:
+
+\begin{theorem2}[Codeword-polytope classification; machine-validated]\label{thm:pair}
+For closed-triple Weyl families at $d=2$,
+$\;\mathrm{CF}(F,\rho)=0 \iff c(\rho)\in\mathrm{conv}\,L(F)$, the
+$\varepsilon$-shifted codeword polytope of the family's $\mathbb{F}_2$ kernel; and
+$L(F)=\varnothing$ exactly on the AvN sector, so one statement covers both sectors.
+On the two trivial-class Peres--Mermin subfamilies the polytope has exactly $24$ facets,
+all triangles $\pm c_u\pm c_v\pm c_w\le 1$; the classification holds $40/40$ on both,
+while the canonical visible frame alone ($15/40$, $20/40$) and the induced CHSH squares
+($31/40$, $29/40$) are each insufficient --- negative results retained as certificates.
+\end{theorem2}
+
+The pairing of Conjecture~\ref{conj} is thus, in the even-$d$ closed-triple case,
+membership in a polytope cut out by the same $\mathbb{F}_2$ kernel that classifies the
+AvN sector; what remains open is general $d$, mixed families, and the written proof of
+the facet structure.
 
 \begin{conjecture}[State-sector pairing]\label{conj}
 For odd prime $d$, the state-dependent sector is classified by the pairing of the state

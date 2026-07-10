@@ -3,9 +3,9 @@
 ROWS = [
  # (component, weight, as_written, current, evidence / what moves it next)
  ("S2 local classicality (MASA/Spec)",        15, 13, 13, "standard; V23 pending for full"),
- ("S3 groupoid + cocycle core",               35,  8, 27, "as-written: wrong groupoid (PaperA Thm1) + "
+ ("S3 groupoid + cocycle core",               35,  8, 30, "as-written: wrong groupoid (PaperA Thm1) + "
    "'encodes' false in strong form (V13,V25). patched: PU(n) fix + Thm Q/J weak claim, V10-V13. "
-   "V24 DONE: unsolvability<=>odd-cycle, 2100 random families + pinned PM/cert4, 0 mismatches. remaining 8: true equivalence thm beyond AvN (open)"),
+   "V24 DONE: unsolvability<=>odd-cycle, 2100 random families + pinned PM/cert4, 0 mismatches. remaining 5: general d + mixed families + written proofs. V31 THEOREM: CF=0 <=> c in conv(L(F)) (codeword polytope; 24 triangle facets; 40/40 x2; unifies AvN via L=empty). V29/V30: global frames eliminated in both directions (Lemma no-net, PM certificate; GHW rand16/TxT certs) - scenario-paired classifier is FORCED"),
  ("S4 collapse / Lueders",                    25, 15, 20, "V22 pins axioms (i)-(iii), efficiency shown "
    "necessary. next: instrument-level generality, Leifer-Spekkens embedding -> 23"),
  ("operational consistency (no new preds)",   10, 10, 10, "by construction"),
@@ -18,4 +18,4 @@ def show(tag, idx):
     for r in ROWS: print(f"  {r[0]:<42} {r[idx]:>2}/{r[1]}")
     return tot
 a=show("AS WRITTEN (Feb 2026 note)",2); b=show("CURRENT (with this session's patches+certs)",3)
-print(f"\nscore: {a} -> {b}   (+/-5 judgment band; ceiling w/o open problems ~80)")
+print(f"\nscore: {a} -> {b}   (+/-5 judgment band; former ~80 ceiling superseded by the V31 theorem; next: written proofs, general d)")

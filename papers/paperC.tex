@@ -178,6 +178,134 @@ membership in a polytope cut out by the same $\mathbb{F}_2$ kernel that classifi
 AvN sector; what remains open is general $d$, mixed families, and the written proof of
 the facet structure.
 
+\subsection*{The ghost facet theorem and a closed formula}
+The facet structure now has a proof and yields an exact formula
+(\texttt{ghost\_facet\_theorem.py}). Let $F$ be Peres--Mermin minus one context $C^*$
+with sign $\varepsilon^*$. \emph{Bijection lemma:} for a closed triple with
+$T_uT_v=\varepsilon_C T_w$, the joint distribution is supported on
+$s_us_vs_w=\varepsilon_C$ where $e_C(s)=\tfrac14(1+\sum_i s_i c_i)$; hence
+$e(\rho)\leftrightarrow c(\rho)$ affinely. \emph{Support lemma:} noncontextual models
+put no mass on parity-violating outcomes, so they are mixtures over $L(F)$, and a
+mixture's model depends only on its mean, giving Theorem~\ref{thm:pair}.
+\emph{Two-tetrahedra lemma:} every $\lambda\in L$ has ghost parity
+$\prod_{v\in C^*}\lambda_v=-\varepsilon^*$ (the product of the five remaining signs,
+$=-\varepsilon^*$ because the six Peres--Mermin signs multiply to $-1$ --- the class),
+while every quantum state's ghost coordinates lie in the opposite tetrahedron of parity
+$\varepsilon^*$ (since $T_1T_2T_3=\varepsilon^*\mathbb 1$ on $C^*$). Consequently, for
+$\sigma$ with $\prod\sigma_i=\varepsilon^*$, every $\lambda\in L$ disagrees with
+$\sigma$ in an odd number of positions, so $\sum_i\sigma_i\lambda_{v_i}\le 1$: these
+four inequalities are valid, tight on $12$ of the $16$ vertices, and are the only
+quantum-operative facets; the $20$ in-context facets are the probability positivity
+conditions $e_C(s)\ge 0$, never violated by quantum states, and the opposite-parity
+ghost directions are unconstrained ($L$ reaches $3$). The classification therefore
+collapses to a formula:
+\[ \mathrm{CF}(F,\rho)\;=\;\max\Bigl(0,\ \tfrac{S^*(\rho)-1}{2}\Bigr),\qquad
+   S^*(\rho)=\max_{\prod\sigma=\varepsilon^*}\ \sum_{v\in C^*}\sigma_v\,
+   \mathrm{tr}(\rho T_v), \]
+verified to $10^{-16}$ across $60$ states on each of three deletions. The upper bound
+$\mathrm{CF}\le(S^*-1)/2$ follows analytically from the validity above; equality now
+follows from the \emph{Completion Lemma}: for each operative pattern $\sigma$ the point
+$y_\sigma$ with ghost coordinates $\sigma$ and all others zero is a valid
+parity-supported no-signalling model (every remaining context contains at most one ghost
+observable, so its probabilities are $(1\pm1)/4$ or $1/4$), attaining $\sigma\cdot c=3$;
+Abramsky--Barbosa--Mansfield duality then gives
+$\mathrm{CF}=\max_\sigma(S_\sigma-1)/(3-1)$ exactly. The $d=2$ theorem is thus proved
+end to end. Corollary: joint eigenstates of $C^*$ with an operative
+pattern attain $S^*=3$ and hence $\mathrm{CF}=1$ --- for the deleted odd column these
+are the Bell states, so \emph{maximal contextuality survives the deletion of the very
+context that carried the class}: the class does not disappear, it flips the ghost
+tetrahedron.
+
+\subsection*{The ghost at $d=4$: the tower appears}
+The mechanism lifts to the first nontrivial tower level
+(\texttt{d4\_ghost\_tower.py}), on the certified $d=4$ magic square (six contexts, nine
+observables of mixed orders $2$ and $4$, each observable in exactly two contexts, phase
+exponents summing to $d/2$ --- the class value). Deleting any context $C^*$ leaves a
+solvable system with $|L|=64$ spectral assignments, and the ghost value
+$\sum_{v\in C^*}\lambda_v$ is constant on $L$ with
+\[ \gamma - s^{*} \;\equiv\; d/2 \pmod d : \]
+\emph{the classical ghost torus is rotated from the quantum one by exactly the top
+2-adic layer} $\omega^{d/2}=-1$, for both a pure order-$2$ ghost and a mixed
+order-$2/4$ ghost --- and the $d=2$ opposite-tetrahedra lemma is the same law, since
+there too the offset was $d/2$. Every joint eigenstate class of the deleted context
+attains $\mathrm{CF}=1.0000$ exactly ($4$ and $8$ classes respectively), and
+Haar-random states populate the sector (sampled $\mathrm{CF}$ up to $0.21$).
+Two negative results are pinned honestly: noncontextual assignments must be restricted
+to spectral values (non-spectral assignments hit zero-probability outcomes; the
+unrestricted relaxation under-computes $\mathrm{CF}$), and the $d=4$ law is \emph{not}
+a function of the Hermitian order-$2$ shadows of the ghost alone --- the Hermitianized
+$d=2$ formula predicts zero precisely where random states reach $\mathrm{CF}=0.138$.
+The exact $d=4$ classification is polytope membership in the full moment space of
+Theorem~\ref{thm:pair}. Two further results pin its structure
+(\texttt{d4\_moment\_facets.py}).
+
+\emph{Ghost-law lemma (now proved).} Since every observable lies in exactly two
+contexts, summing the remaining constraints over any $\lambda\in L$ gives
+$\gamma \;=\; \sum_{\mathrm{rem}} s \; - \; 2T \pmod d$, with
+$T=\sum_{v\notin C^*}\lambda_v \bmod 2$; using $\sum_{\mathrm{all}} s = d/2$ (the
+class) this reads $\gamma-s^{*} = d/2 - 2(s^{*}+T)$. $T$ is constant on $L$ and
+$s^{*}+T$ is even for every one of the six deletions (machine-verified), so
+$\gamma-s^{*}=d/2$ always: the tower ghost law is an identity plus a verified parity
+sub-lemma.
+
+\emph{$\tau$-necessity (twelve explicit certificates).} For each sampled state with
+$\mathrm{CF}>0$, the \emph{optimal} separating functional restricted to the
+even-character subspace --- all order-$2$ shadow data, i.e.\ everything visible below
+the top 2-adic layer --- achieves gap $\le 0$: the even projection of the quantum moment
+vector lies \emph{inside} the even projection of the classical polytope. Hence the
+$d=4$ state sector is invisible at the order-$2$ layer, and the $\tau$-level moments are
+necessary for every operative facet. The 2-adic tower is not bookkeeping; it is
+load-bearing for the state sector, exactly as the even-$d$ half of
+Conjecture~\ref{conj} asserts. The odd-sector facet structure is now partially decoded
+(\texttt{d4\_odd\_sector\_facets.py}). The polytope has affine dimension $33$; sparse
+certificate mining shows the operative geometry is two-tiered. \emph{Tier one} consists
+of triangle inequalities on \emph{closed $\tau$-twisted order-$2$ triples}: every
+$3$-sparse certificate coordinate ($21/21$) is an order-$2$ operator reached through
+odd character indices of its host context --- the shadow wearing the top-layer cocycle
+phase --- and the recurring triples are the deleted context $C^*$ itself (the
+$\tau$-twisted ghost) and a virtual closed triple
+$\{(0,2,2,0),(2,0,0,2),(2,2,2,2)\}$. This tier classifies $32/40$ sampled states.
+\emph{Tier two}, required by the remaining contextual states, involves genuinely
+order-$4$ operator moments --- the second level of the tower --- and is now pinned
+exactly (\texttt{d4\_tier2\_catalogue.py}): the extracted supporting inequalities have
+tight-vertex rank exactly $32$ (true facets of the $33$-dimensional hull), their normals
+snap with \emph{zero} error onto the $\tfrac{1}{2\sqrt2}\mathbb Z$ grid with a single
+coefficient magnitude $3/(2\sqrt2)$, and their bounds are the integers $6$ and $7$ ---
+equivalently, in unit-coefficient normalization, $4\sqrt2$ and $14\sqrt2/3$:
+\emph{Tsirelson's $\sqrt2$ sits in the tier-two bounds}, with $\tau=e^{i\pi/4}$-quantized
+phases in the normals. Together, tier one and the exact tier-two facets classify $40/40$ states of the
+construction sample; a subsequent fresh-sample audit shows this is \emph{not yet the
+complete family} --- new weak-band contextual states require further tier-two orbit
+members. Closing the extracted seeds under the two proven vertex symmetries (kernel
+translations and global conjugation, $\sim\!1152$ facets) recovers most but not all
+fresh states, and per-context outcome relabelings are provably \emph{not} symmetries
+(each observable lives in two contexts). The deleted family's automorphism group is now derived: the family is $K_{3,3}$
+(contexts as nodes, observables as edges), and the automorphisms fixing the deleted
+context form the twelve graph automorphisms dressed by a $64$-torsor of spectral
+shifts, times conjugation --- order $1536$, each element provably a bijection of the
+$64$ vertices, acting on moment space by exact monomial rotations. The census is now \emph{complete and exact}. The polytope --- $64$ integer
+$\{-1,0,1\}$ points in faithful $33$-dimensional integer coordinates --- has exactly
+$\mathbf{23{,}256}$ facets in $\mathbf{61}$ symmetry classes, derived twice by
+independent methods that agree class-for-class: an adjacency decomposition (breadth-first
+closure of the facet--ridge graph modulo the derived group, every pivot certified by
+exact integer nullspace recovery through rank-$32$ tight sets and exact validity on all
+vertices), and a direct exact enumeration of the full polytope by \textsc{Normaliz}.
+Tight-vertex counts run $36$--$60$; orbit sizes run $4$ to $768$, so the census contains
+both highly symmetric facets (stabilizers of order $192$) and free ones. Since quantum
+moment vectors lie in the affine hull (residual $\sim 10^{-14}$), the catalogue is the
+classification theorem in operational form: $\mathrm{CF}(\rho)>0$ if and only if
+$\mu(\rho)$ violates one of the $23{,}256$ inequalities; on fresh sampled states the
+facet classifier agrees with the LP $40/40$, as it must. Two method notes are pinned in
+the suite: \texttt{lrs} wedges reproducibly on several of these tight-set polytopes
+(stalling at identical partial output under different budgets) while \texttt{cdd} and
+\textsc{Normaliz} succeed; and an intermediate in-walk count of ``$121$ classes''
+was a bookkeeping duplication (two key encodings double-storing each orbit) exposed
+only by the independent cross-check --- the cross-check is not optional. The tower
+appears three times over: as the ghost rotation $d/2$, as the stratification of
+operative facets by operator order, and as the $\mathbb Z[1/\sqrt2]$ arithmetic of the
+tier-two facet data. Open: the no-signalling-normalized closed formula, mixed families,
+and the arithmetic profile of all $61$ classes.
+
 \begin{conjecture}[State-sector pairing]\label{conj}
 For odd prime $d$, the state-dependent sector is classified by the pairing of the state
 against the order-$d$ class through the Weyl transform: a state yields positive

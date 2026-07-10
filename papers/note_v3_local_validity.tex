@@ -237,12 +237,29 @@ For every closed-triple Weyl family at even $d$, $\CF(F,\rho)=0$ iff $c(\rho)\in
 \operatorname{conv}L(F)$ in the scenario-paired formulation of \cite{paperC}.
 \end{conjecture}
 The global-frame formulations of this statement are refuted (V28--V30); the pairing is
-forced, not optional.
+forced, not optional. Evidence (V48): $5{,}556$ state--family records at $d=4$ and
+$d=8$ (all six deletions of the certified family, double deletions, boundary
+bisections to $10^{-6}$, and fresh anomalous magic squares including odd order-$8$
+phases) with zero mismatches between the $\CF$ LP and hull membership, cross-arbitrated
+by the exact facet census. The residual gap to a proof is a completion lemma reducing
+the full per-context character vector to the paired coordinates --- the general-family
+analogue of the on-hull lemma (Prop.~\ref{lem:onhull}).
 
-\begin{conjecture}[Tower]\label{conj:tower}
-Loop holonomies of Weyl families at local dimension $d$ take values in $\mu_{2d}$; the
-$2$-adic tower of \cite{paperB} is exhaustive.
-\end{conjecture}
+\begin{theorem}[Tower holonomy, resolved by cases; V47]\label{conj:tower}
+(i) \emph{Operator level:} every closed Weyl word has holonomy in $\mu_{2d}$, and
+every value of $\mu_{2d}$ is attained (proved for even $d$; verified instances at odd
+$d$). (ii) \emph{Determinant-section level} (canonical $\tau$-grid section): at even
+$d$ all loop holonomies lie in $\mu_{2d}$; the attained group equals $\mu_{2d}$
+exactly when $d\equiv 2 \pmod 4$, and is \emph{constant} $\mu_4$ along the $2$-adic
+tower $d=2,4,8,16$.
+\end{theorem}
+The original conjecture's exhaustiveness clause is thus \emph{refuted}: the
+coincidence $\mu_4=\mu_{2d}$ at the base $d=2$ does not propagate up the tower. At odd
+$d$ the $\mu_{2d}$ bound is section-dependent --- the DFT section violates it at
+$d\equiv 3\pmod 4$ (pinned: the $d=3$ observer loop has holonomy $e^{i\pi/6}$), while
+the Weil-normalized section restores it (verified $d=3,5,7$; the general odd-$d$ proof
+via the Gauss-sum determinant remains open). Claims must pin the section --- the same
+lesson as v1's error (3).
 
 \section{Collapse: the unique bookkeeping, and its classical twin}\label{sec:collapse}
 \begin{theorem}[Instrument-level L\"uders; V37]\label{thm:lueders}
@@ -334,7 +351,8 @@ signatures, both sharp.
 Principle~\ref{prin} now reads as a theorem schedule. (i) is
 Theorem~\ref{thm:local}. (ii) is Theorems~\ref{thm:class}--\ref{thm:avn} for the
 state-independent sector and Theorems~\ref{thm:d2}--\ref{thm:census} for the state
-sector, with Conjectures~\ref{conj:pair}--\ref{conj:tower} marking the frontier. (iii)
+sector, with Conjecture~\ref{conj:pair} (now with $d=4,8$ evidence, V48) and the
+case-resolved tower Theorem~\ref{conj:tower} marking the frontier. (iii)
 is Theorems~\ref{thm:lueders}--\ref{thm:twin}. (iv) is
 Theorems~\ref{thm:relative}--\ref{thm:z2} and the localization
 Theorem~\ref{thm:fr}. (v) is Theorem~\ref{thm:cut}. Nothing here modifies quantum
@@ -343,9 +361,14 @@ structure rather than stance --- local flatness, one quantized global twist, for
 bookkeeping, chart-relative facts, and chart-choice for the cut.
 
 \begin{openproblem}
-(a) The cohomological home of class-invisible (KCBS-type) contextuality. (b) The
+(a) The cohomological home of class-invisible (KCBS-type) contextuality. Progress
+(V49): support-presheaf and scenario-complex cohomologies provably cannot capture it
+(pinned no-gos); on the pentagon a $\U(1)$-holonomy-twisted spectral pairing on the
+non-orthogonality graph characterizes the state sector exactly, with the $(-1)$-twist
+landing on the classical bound --- the general formulation is open. (b) The
 general-$d$ facet census and the arithmetic profile of the $61$ classes. (c)
-Conjectures~\ref{conj:pair} and \ref{conj:tower}.
+Conjecture~\ref{conj:pair} (the residual completion lemma) and the general odd-$d$
+Weil-section proof for Theorem~\ref{conj:tower}.
 \end{openproblem}
 
 \appendix
@@ -358,6 +381,8 @@ Claim & Source & Verification\\
 Thm.~\ref{thm:local} & this note & \texttt{local\_classicality.py} (V23); \texttt{mu\_d\_valuation.py} (V46)\\
 Thm.~\ref{thm:class} & \cite{paperA} Thm.~1, 8 & \texttt{thmG\_general.py}\\
 Thm.~\ref{thm:avn} & this note; \cite{paperB} Thm.~1, 4 & \texttt{solvability\_equivalence.py} (V44); \texttt{tau\_gauge\_general.py} (V45)\\
+Thm.~\ref{conj:tower} & this note & \texttt{tower\_holonomy.py} (V47)\\
+Conj.~\ref{conj:pair} (evidence) & this note; \cite{paperC} & \texttt{scenario\_paired\_evidence.py} (V48)\\
 gaps (both strict) & \cite{paperC} & \texttt{d3\_gap\_certificate.py}, \texttt{kcbs\_converse.py}\\
 Thm.~\ref{thm:d2} & \cite{paperC} Thm.~2 & \texttt{paired\_frame\_construction.py}, \texttt{ghost\_facet\_theorem.py}\\
 Thm.~\ref{thm:census} & this note; \cite{paperC} & \texttt{d4\_facet\_census.py} (V43)\\

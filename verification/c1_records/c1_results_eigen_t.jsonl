@@ -1,0 +1,4 @@
+{"family": "cert4_drop0", "state": "jointeig(2, 2)", "CF": 1.0, "hull_dist": 0.6666666666666666, "facet_margin": -4.0}
+{"family": "cert4_drop0", "state": "jointeig(0, 2)", "CF": 1.0, "hull_dist": 0.6666666666666666, "facet_margin": -4.000000000000002}
+{"family": "cert4_drop0", "state": "jointeig(2, 0)", "CF": 1.0, "hull_dist": 0.6666666666666666, "facet_margin": -4.000000000000002}
+{"family": "cert4_drop0", "state": "jointeig(0, 0)", "CF": 1.0, "hull_dist": 0.6666666666666671, "facet_margin": -3.999999267651937}

@@ -1,0 +1,150 @@
+{"family": "cert4_drop0", "state": "pure0", "CF": 3.3306690738754696e-16, "hull_dist": 0.0, "facet_margin": 0.009298646352224105}
+{"family": "cert4_drop0", "state": "pure1", "CF": 1.1102230246251565e-16, "hull_dist": 0.0, "facet_margin": 0.01288339836623642}
+{"family": "cert4_drop0", "state": "pure2", "CF": 1.1102230246251565e-16, "hull_dist": 0.0, "facet_margin": 0.005346267952351491}
+{"family": "cert4_drop0", "state": "pure3", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.05080923045259156}
+{"family": "cert4_drop0", "state": "pure4", "CF": 0.0010301285974907426, "hull_dist": 0.00023887039941830612, "facet_margin": -0.005494019186618626}
+{"family": "cert4_drop0", "state": "pure5", "CF": -2.220446049250313e-16, "hull_dist": 0.0, "facet_margin": 0.02257845216894805}
+{"family": "cert4_drop0", "state": "pure6", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.03679396889193021}
+{"family": "cert4_drop0", "state": "pure7", "CF": 3.3306690738754696e-16, "hull_dist": 0.0, "facet_margin": 0.09393293547395765}
+{"family": "cert4_drop0", "state": "pure8", "CF": -4.440892098500626e-16, "hull_dist": 0.0, "facet_margin": 0.06940197690586214}
+{"family": "cert4_drop0", "state": "pure9", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.087127364977868}
+{"family": "cert4_drop0", "state": "pure10", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.00300474804301043}
+{"family": "cert4_drop0", "state": "pure11", "CF": -4.440892098500626e-16, "hull_dist": 0.0, "facet_margin": 0.015649282440667656}
+{"family": "cert4_drop0", "state": "pure12", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.0008598796474589276}
+{"family": "cert4_drop0", "state": "pure13", "CF": 0.069297755236287, "hull_dist": 0.015399501163619322, "facet_margin": -0.27719102094514714}
+{"family": "cert4_drop0", "state": "pure14", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.008102947051324305}
+{"family": "cert4_drop0", "state": "pure15", "CF": -2.220446049250313e-16, "hull_dist": 0.0, "facet_margin": 0.036793080125846256}
+{"family": "cert4_drop0", "state": "pure16", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.07889901891859996}
+{"family": "cert4_drop0", "state": "pure17", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.03394318355783432}
+{"family": "cert4_drop0", "state": "pure18", "CF": 0.017278848651309242, "hull_dist": 0.004576227303919635, "facet_margin": -0.06911539460523919}
+{"family": "cert4_drop0", "state": "pure19", "CF": 0.036621842327244636, "hull_dist": 0.009155460581811103, "facet_margin": -0.10986552698173302}
+{"family": "cert4_drop0", "state": "pure20", "CF": 0.15694450349572198, "hull_dist": 0.10462966899714754, "facet_margin": -0.31388900699144306}
+{"family": "cert4_drop0", "state": "pure21", "CF": 0.0409440327151106, "hull_dist": 0.009098673936691226, "facet_margin": -0.16377613086044374}
+{"family": "cert4_drop0", "state": "pure22", "CF": 0.06300061083409259, "hull_dist": 0.01285249811164215, "facet_margin": -0.35986994712597653}
+{"family": "cert4_drop0", "state": "pure23", "CF": -2.220446049250313e-16, "hull_dist": 0.0, "facet_margin": 0.011942825740717478}
+{"family": "cert4_drop0", "state": "pure24", "CF": 1.1102230246251565e-16, "hull_dist": 0.0, "facet_margin": 0.009370375304267764}
+{"family": "cert4_drop0", "state": "pure25", "CF": -2.220446049250313e-16, "hull_dist": 0.0, "facet_margin": 0.03699514747861321}
+{"family": "cert4_drop0", "state": "pure26", "CF": 2.220446049250313e-16, "hull_dist": 0.0, "facet_margin": 0.05217582320716341}
+{"family": "cert4_drop0", "state": "pure27", "CF": 4.440892098500626e-16, "hull_dist": 0.0, "facet_margin": 0.052717964140939766}
+{"family": "cert4_drop0", "state": "pure28", "CF": 0.11011582066058023, "hull_dist": 0.024470182369017844, "facet_margin": -0.4404632826423218}
+{"family": "cert4_drop0", "state": "pure29", "CF": 0.11702767368167566, "hull_dist": 0.07801844912111704, "facet_margin": -0.2340553473633511}
+{"family": "cert4_drop0", "state": "mixed_r2_0", "CF": -2.220446049250313e-16, "hull_dist": 0.0, "facet_margin": 0.1675046416004441}
+{"family": "cert4_drop0", "state": "mixed_r4_1", "CF": 1.1102230246251565e-16, "hull_dist": 0.0, "facet_margin": 0.27113044079313686}
+{"family": "cert4_drop0", "state": "mixed_r8_2", "CF": -4.440892098500626e-16, "hull_dist": 0.0, "facet_margin": 0.23648740039978033}
+{"family": "cert4_drop0", "state": "mixed_r16_3", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.5676503230085166}
+{"family": "cert4_drop0", "state": "mixed_r2_4", "CF": 2.220446049250313e-16, "hull_dist": 0.0, "facet_margin": 0.0787499915408526}
+{"family": "cert4_drop0", "state": "mixed_r4_5", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.23104664890087312}
+{"family": "cert4_drop0", "state": "mixed_r8_6", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.4221386114934478}
+{"family": "cert4_drop0", "state": "mixed_r16_7", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.5070010368718763}
+{"family": "cert4_drop0", "state": "mixed_r2_8", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.22850538150721267}
+{"family": "cert4_drop0", "state": "mixed_r4_9", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.22017697425809735}
+{"family": "cert4_drop0", "state": "mixed_r8_10", "CF": 4.440892098500626e-16, "hull_dist": 0.0, "facet_margin": 0.4849973368477041}
+{"family": "cert4_drop0", "state": "mixed_r16_11", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.5238385640287945}
+{"family": "cert4_drop0", "state": "mixed_r2_12", "CF": -2.220446049250313e-16, "hull_dist": 0.0, "facet_margin": 0.21337034297292357}
+{"family": "cert4_drop0", "state": "mixed_r4_13", "CF": 3.3306690738754696e-16, "hull_dist": 0.0, "facet_margin": 0.30463040756801985}
+{"family": "cert4_drop0", "state": "mixed_r8_14", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.3936563125408069}
+{"family": "cert4_drop0", "state": "mixed_r16_15", "CF": 1.1102230246251565e-16, "hull_dist": 0.0, "facet_margin": 0.6333471991055662}
+{"family": "cert4_drop0", "state": "mixed_r2_16", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.16836171906261577}
+{"family": "cert4_drop0", "state": "mixed_r4_17", "CF": 4.440892098500626e-16, "hull_dist": 0.0, "facet_margin": 0.3105720944167668}
+{"family": "cert4_drop0", "state": "mixed_r8_18", "CF": 3.3306690738754696e-16, "hull_dist": 0.0, "facet_margin": 0.46616507234853766}
+{"family": "cert4_drop0", "state": "mixed_r16_19", "CF": 0.0, "hull_dist": 0.0, "facet_margin": 0.603269647624314}
+{"family": "cert4_drop1", "state": "pure0", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure1", "CF": 3.3306690738754696e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure2", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure3", "CF": -4.440892098500626e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure4", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure5", "CF": 0.05265821149195671, "hull_dist": 0.021063284596782625}
+{"family": "cert4_drop1", "state": "pure6", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure7", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure8", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure9", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure10", "CF": 0.2764636889224651, "hull_dist": 0.12140958431168393}
+{"family": "cert4_drop1", "state": "pure11", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure12", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure13", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure14", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure15", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure16", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure17", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure18", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure19", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure20", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure21", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure22", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure23", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure24", "CF": 0.015224452043867798, "hull_dist": 0.0060897808175472135}
+{"family": "cert4_drop1", "state": "pure25", "CF": 0.003156519946068359, "hull_dist": 0.0012626079784274103}
+{"family": "cert4_drop1", "state": "pure26", "CF": 0.1063349935091571, "hull_dist": 0.0425339974036631}
+{"family": "cert4_drop1", "state": "pure27", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "pure28", "CF": 0.05783966903345317, "hull_dist": 0.02194644506795106}
+{"family": "cert4_drop1", "state": "pure29", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r2_0", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r4_1", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r8_2", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r16_3", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r2_4", "CF": 0.17705851609384538, "hull_dist": 0.07082340643753833}
+{"family": "cert4_drop1", "state": "mixed_r4_5", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r8_6", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r16_7", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r2_8", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r4_9", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r8_10", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r16_11", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r2_12", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r4_13", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r8_14", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r16_15", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r2_16", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r4_17", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r8_18", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop1", "state": "mixed_r16_19", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure0", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure1", "CF": 0.12046506405865864, "hull_dist": 0.0481860256234634}
+{"family": "cert4_drop2", "state": "pure2", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure3", "CF": 3.3306690738754696e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure4", "CF": 0.21556029696796153, "hull_dist": 0.08404200887643087}
+{"family": "cert4_drop2", "state": "pure5", "CF": 0.04330876611539691, "hull_dist": 0.01771929800003269}
+{"family": "cert4_drop2", "state": "pure6", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure7", "CF": 0.16421968939723586, "hull_dist": 0.06568787575889443}
+{"family": "cert4_drop2", "state": "pure8", "CF": -4.440892098500626e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure9", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure10", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure11", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure12", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure13", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure14", "CF": 3.3306690738754696e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure15", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure16", "CF": 0.06895808458676012, "hull_dist": 0.025276152411380832}
+{"family": "cert4_drop2", "state": "pure17", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure18", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure19", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure20", "CF": 0.015640551371441824, "hull_dist": 0.0034756780825426405}
+{"family": "cert4_drop2", "state": "pure21", "CF": 3.3306690738754696e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure22", "CF": 0.0303344381158972, "hull_dist": 0.012133775246358856}
+{"family": "cert4_drop2", "state": "pure23", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure24", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure25", "CF": -4.440892098500626e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure26", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure27", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure28", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "pure29", "CF": 0.1219560314298932, "hull_dist": 0.04878241257195745}
+{"family": "cert4_drop2", "state": "mixed_r2_0", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r4_1", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r8_2", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r16_3", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r2_4", "CF": -4.440892098500626e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r4_5", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r8_6", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r16_7", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r2_8", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r4_9", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r8_10", "CF": 4.440892098500626e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r16_11", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r2_12", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r4_13", "CF": 3.3306690738754696e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r8_14", "CF": 3.3306690738754696e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r16_15", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r2_16", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r4_17", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r8_18", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop2", "state": "mixed_r16_19", "CF": 0.0, "hull_dist": 0.0}

@@ -1,0 +1,90 @@
+{"family": "magic4_907_1", "ctxs": [[[3, 3, 3, 2], [3, 1, 2, 2], [2, 0, 3, 0]], [[0, 0, 3, 2], [3, 1, 2, 0], [1, 3, 3, 2]], [[1, 1, 2, 0], [2, 2, 0, 2], [1, 1, 2, 2]], [[3, 3, 3, 2], [0, 0, 3, 2], [1, 1, 2, 0]], [[3, 1, 2, 2], [3, 1, 2, 0], [2, 2, 0, 2]], [[2, 0, 3, 0], [1, 3, 3, 2], [1, 1, 2, 2]]], "S": [2, 2, 0, 2, 0, 0], "nL_full": 0}
+{"family": "magic4_907_1_full", "state": "s0", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_1_full", "state": "s1", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_1_full", "state": "s2", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_1_full", "state": "s3", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_1_drop4", "state": "eig(0, 2)", "CF": 1.0, "hull_dist": 0.6666666666666665}
+{"family": "magic4_907_1_drop4", "state": "eig(1, 3)", "CF": 1.0, "hull_dist": 0.6666666666666666}
+{"family": "magic4_907_1_drop4", "state": "eig(3, 1)", "CF": 1.0, "hull_dist": 0.6666666666666665}
+{"family": "magic4_907_1_drop4", "state": "eig(2, 0)", "CF": 1.0, "hull_dist": 0.6666666666666667}
+{"family": "magic4_907_1_drop4", "state": "s0", "CF": 0.07910919454032539, "hull_dist": 0.03164367781613024}
+{"family": "magic4_907_1_drop4", "state": "s1", "CF": 4.440892098500626e-16, "hull_dist": 0.0}
+{"family": "magic4_907_1_drop4", "state": "s2", "CF": 0.033026600834080044, "hull_dist": 0.013210640333632017}
+{"family": "magic4_907_1_drop4", "state": "s3", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "magic4_907_1_drop4", "state": "s4", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "magic4_907_1_drop4", "state": "s5", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "magic4_907_2", "ctxs": [[[2, 3, 3, 1], [3, 2, 2, 1], [3, 3, 3, 2]], [[2, 2, 0, 2], [2, 0, 0, 0], [0, 2, 0, 2]], [[0, 3, 1, 1], [3, 2, 2, 3], [1, 3, 1, 0]], [[2, 3, 3, 1], [2, 2, 0, 2], [0, 3, 1, 1]], [[3, 2, 2, 1], [2, 0, 0, 0], [3, 2, 2, 3]], [[3, 3, 3, 2], [0, 2, 0, 2], [1, 3, 1, 0]]], "S": [0, 2, 0, 2, 2, 0], "nL_full": 0}
+{"family": "magic4_907_2_full", "state": "s0", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_2_full", "state": "s1", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_2_full", "state": "s2", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_2_full", "state": "s3", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_2_drop5", "state": "eig(2, 0)", "CF": 1.0, "hull_dist": 0.6666666666666669}
+{"family": "magic4_907_2_drop5", "state": "eig(3, 0)", "CF": 1.0, "hull_dist": 0.6666666666666669}
+{"family": "magic4_907_2_drop5", "state": "eig(1, 0)", "CF": 1.0, "hull_dist": 0.6666666666666665}
+{"family": "magic4_907_2_drop5", "state": "eig(0, 0)", "CF": 1.0, "hull_dist": 0.6666666666666667}
+{"family": "magic4_907_2_drop5", "state": "s0", "CF": 0.2027007197329127, "hull_dist": 0.0810802878931649}
+{"family": "magic4_907_2_drop5", "state": "s1", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "magic4_907_2_drop5", "state": "s2", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "magic4_907_2_drop5", "state": "s3", "CF": -4.440892098500626e-16, "hull_dist": 0.0}
+{"family": "magic4_907_2_drop5", "state": "s4", "CF": 4.440892098500626e-16, "hull_dist": 0.0}
+{"family": "magic4_907_2_drop5", "state": "s5", "CF": 0.0, "hull_dist": 0.0}
+{"family": "magic4_907_3", "ctxs": [[[3, 3, 1, 2], [0, 2, 1, 0], [1, 3, 2, 2]], [[3, 3, 0, 0], [0, 0, 1, 0], [1, 1, 3, 0]], [[2, 2, 3, 2], [0, 2, 2, 0], [2, 0, 3, 2]], [[3, 3, 1, 2], [3, 3, 0, 0], [2, 2, 3, 2]], [[0, 2, 1, 0], [0, 0, 1, 0], [0, 2, 2, 0]], [[1, 3, 2, 2], [1, 1, 3, 0], [2, 0, 3, 2]]], "S": [2, 2, 2, 0, 0, 0], "nL_full": 0}
+{"family": "magic4_907_3_full", "state": "s0", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_3_full", "state": "s1", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_3_full", "state": "s2", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_3_full", "state": "s3", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_3_drop1", "state": "eig(1, 1)", "CF": 1.0, "hull_dist": 0.6666666666666666}
+{"family": "magic4_907_3_drop1", "state": "eig(2, 2)", "CF": 1.0, "hull_dist": 0.6666666666666666}
+{"family": "magic4_907_3_drop1", "state": "eig(3, 3)", "CF": 1.0, "hull_dist": 0.6666666666666666}
+{"family": "magic4_907_3_drop1", "state": "eig(3, 2)", "CF": 1.0, "hull_dist": 0.6666666666666666}
+{"family": "magic4_907_3_drop1", "state": "s0", "CF": 0.04102421336333539, "hull_dist": 0.010772679257456848}
+{"family": "magic4_907_3_drop1", "state": "s1", "CF": 0.0, "hull_dist": 0.0}
+{"family": "magic4_907_3_drop1", "state": "s2", "CF": -4.440892098500626e-16, "hull_dist": 0.0}
+{"family": "magic4_907_3_drop1", "state": "s3", "CF": 0.0, "hull_dist": 0.0}
+{"family": "magic4_907_3_drop1", "state": "s4", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "magic4_907_3_drop1", "state": "s5", "CF": -6.661338147750939e-16, "hull_dist": 0.0}
+{"family": "magic4_907_4", "ctxs": [[[0, 1, 2, 1], [1, 3, 3, 0], [3, 0, 3, 3]], [[3, 0, 3, 1], [1, 0, 3, 1], [0, 0, 2, 2]], [[1, 3, 3, 2], [2, 1, 2, 3], [1, 0, 3, 3]], [[0, 1, 2, 1], [3, 0, 3, 1], [1, 3, 3, 2]], [[1, 3, 3, 0], [1, 0, 3, 1], [2, 1, 2, 3]], [[3, 0, 3, 3], [0, 0, 2, 2], [1, 0, 3, 3]]], "S": [0, 2, 0, 2, 0, 2], "nL_full": 0}
+{"family": "magic4_907_4_full", "state": "s0", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_4_full", "state": "s1", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_4_full", "state": "s2", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_4_full", "state": "s3", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_4_drop0", "state": "eig(0, 0)", "CF": 1.0, "hull_dist": 0.6666666666666669}
+{"family": "magic4_907_4_drop0", "state": "eig(0, 1)", "CF": 1.0, "hull_dist": 0.6666666666666666}
+{"family": "magic4_907_4_drop0", "state": "eig(2, 1)", "CF": 1.0, "hull_dist": 0.6666666666666667}
+{"family": "magic4_907_4_drop0", "state": "eig(2, 2)", "CF": 1.0, "hull_dist": 0.6666666666666666}
+{"family": "magic4_907_4_drop0", "state": "s0", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "magic4_907_4_drop0", "state": "s1", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "magic4_907_4_drop0", "state": "s2", "CF": -4.440892098500626e-16, "hull_dist": 0.0}
+{"family": "magic4_907_4_drop0", "state": "s3", "CF": -2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "magic4_907_4_drop0", "state": "s4", "CF": 4.440892098500626e-16, "hull_dist": 0.0}
+{"family": "magic4_907_4_drop0", "state": "s5", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "magic4_907_5", "ctxs": [[[1, 0, 3, 0], [1, 2, 3, 2], [2, 2, 2, 2]], [[2, 3, 1, 3], [3, 1, 0, 3], [3, 0, 3, 2]], [[1, 1, 0, 1], [0, 1, 1, 3], [3, 2, 3, 0]], [[1, 0, 3, 0], [2, 3, 1, 3], [1, 1, 0, 1]], [[1, 2, 3, 2], [3, 1, 0, 3], [0, 1, 1, 3]], [[2, 2, 2, 2], [3, 0, 3, 2], [3, 2, 3, 0]]], "S": [0, 2, 2, 2, 0, 0], "nL_full": 0}
+{"family": "magic4_907_5_full", "state": "s0", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_5_full", "state": "s1", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_5_full", "state": "s2", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_5_full", "state": "s3", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_5_drop4", "state": "eig(1, 1)", "CF": 1.0, "hull_dist": 0.6666666666666666}
+{"family": "magic4_907_5_drop4", "state": "eig(2, 2)", "CF": 1.0, "hull_dist": 0.6666666666666667}
+{"family": "magic4_907_5_drop4", "state": "eig(3, 3)", "CF": 1.0, "hull_dist": 0.6666666666666665}
+{"family": "magic4_907_5_drop4", "state": "eig(3, 2)", "CF": 1.0, "hull_dist": 0.6666666666666666}
+{"family": "magic4_907_5_drop4", "state": "s0", "CF": 0.0, "hull_dist": 0.0}
+{"family": "magic4_907_5_drop4", "state": "s1", "CF": 0.0, "hull_dist": 0.0}
+{"family": "magic4_907_5_drop4", "state": "s2", "CF": 0.14636787128730377, "hull_dist": 0.03287617648915599}
+{"family": "magic4_907_5_drop4", "state": "s3", "CF": -3.1086244689504383e-15, "hull_dist": 0.0}
+{"family": "magic4_907_5_drop4", "state": "s4", "CF": 0.0, "hull_dist": 0.0}
+{"family": "magic4_907_5_drop4", "state": "s5", "CF": 0.0, "hull_dist": 0.0}
+{"family": "magic4_907_6", "ctxs": [[[1, 2, 0, 0], [0, 0, 3, 3], [3, 2, 1, 1]], [[3, 2, 1, 3], [2, 2, 1, 1], [3, 0, 2, 0]], [[0, 0, 3, 1], [2, 2, 0, 0], [2, 2, 1, 3]], [[1, 2, 0, 0], [3, 2, 1, 3], [0, 0, 3, 1]], [[0, 0, 3, 3], [2, 2, 1, 1], [2, 2, 0, 0]], [[3, 2, 1, 1], [3, 0, 2, 0], [2, 2, 1, 3]]], "S": [0, 0, 2, 0, 2, 2], "nL_full": 0}
+{"family": "magic4_907_6_full", "state": "s0", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_6_full", "state": "s1", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_6_full", "state": "s2", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_6_full", "state": "s3", "CF": 1.0, "hull_dist": Infinity}
+{"family": "magic4_907_6_drop1", "state": "eig(1, 1)", "CF": 1.0, "hull_dist": 0.6666666666666669}
+{"family": "magic4_907_6_drop1", "state": "eig(2, 2)", "CF": 1.0, "hull_dist": 0.6666666666666672}
+{"family": "magic4_907_6_drop1", "state": "eig(3, 3)", "CF": 1.0, "hull_dist": 0.6666666666666666}
+{"family": "magic4_907_6_drop1", "state": "eig(3, 2)", "CF": 1.0, "hull_dist": 0.666666666666667}
+{"family": "magic4_907_6_drop1", "state": "s0", "CF": 8.881784197001252e-16, "hull_dist": 0.0}
+{"family": "magic4_907_6_drop1", "state": "s1", "CF": 3.3306690738754696e-16, "hull_dist": 0.0}
+{"family": "magic4_907_6_drop1", "state": "s2", "CF": 0.03479971360282397, "hull_dist": 0.0067490353653963395}
+{"family": "magic4_907_6_drop1", "state": "s3", "CF": 4.440892098500626e-16, "hull_dist": 0.0}
+{"family": "magic4_907_6_drop1", "state": "s4", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "magic4_907_6_drop1", "state": "s5", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}

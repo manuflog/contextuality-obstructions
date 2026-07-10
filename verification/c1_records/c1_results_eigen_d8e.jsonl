@@ -1,0 +1,12 @@
+{"family": "cert4_drop0", "state": "jointeig(4, 4)", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop0", "state": "jointeig(0, 4)", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop0", "state": "jointeig(0, 0)", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop0", "state": "jointeig(4, 0)", "CF": 1.1102230246251565e-16, "hull_dist": 0.0}
+{"family": "cert4_drop3", "state": "jointeig(4, 4)", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop3", "state": "jointeig(0, 0)", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop3", "state": "jointeig(4, 0)", "CF": 2.220446049250313e-16, "hull_dist": 0.0}
+{"family": "cert4_drop3", "state": "jointeig(0, 4)", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop3", "state": "jointeig(6, 4)", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop3", "state": "jointeig(6, 0)", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop3", "state": "jointeig(2, 0)", "CF": 0.0, "hull_dist": 0.0}
+{"family": "cert4_drop3", "state": "jointeig(2, 4)", "CF": 0.0, "hull_dist": 0.0}

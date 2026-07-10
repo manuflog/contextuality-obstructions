@@ -30,13 +30,33 @@ verifications, hardware validation, and the supporting software package.
 ## What's here
 - `papers/` — the papers (PDF; sources where applicable). All are **working drafts / preprints**
   (not yet submitted or posted to arXiv); cite as work in progress.
-- `verification/` — self-contained Python scripts; **`INDEX.md` maps every load-bearing claim to its
-  analytic proof and/or its verification script with the expected one-line result.** Heavy census
-  artifacts (`d4_facet_classes.npz`, `d4_group_seed.pkl`) ship in-repo, so no verification requires
-  heavy compute.
+- `verification/` — ~50 self-contained Python scripts (V1–V46); **`INDEX.md` is the source of
+  truth: it maps every load-bearing claim to its analytic proof and/or its verification script with
+  the expected one-line result**, and it records corrections and retractions rather than erasing
+  them. Heavy census artifacts (`d4_facet_classes.npz`, `d4_group_seed.pkl`) ship in-repo, so no
+  verification requires heavy compute.
 - `hardware/` — the $d=2$ Peres–Mermin protocol, 3-device results, and `verify_combined.py` (recomputes
   the $80\sigma$ combined figure from raw per-context correlators).
 - `qkernel/` — pointer to the public package repo.
+
+## Selected headline results (see `verification/INDEX.md` for the full ledger)
+- **Obstruction spectrum** (Paper B): achievable AvN values exactly $\{0,d/2\}$ (even $d$), $\{0\}$
+  (odd $d$); commutator-carry criterion; attainment at every even $d$.
+- **Detection equivalence** (note, Thm 3; V44/V45): no noncontextual $\mathbb{Z}_d$ assignment
+  $\iff$ a kernel-vector pairing equals $d/2$ $\iff$ odd commutator carry — a theorem, not a
+  verified coincidence.
+- **Complete $d=4$ facet census** (Paper C; V43): 61 classes / 23,256 facets, derived twice
+  independently; with the on-hull lemma, $\mathrm{CF}(\rho)>0 \iff$ a facet is violated,
+  unconditionally.
+- **Sharp local valuation** (V46): every single commuting context trivializes over $\mu_d$ (even
+  $d$) and $\mu_{2d}$ (odd $d$, sharp) — local classicality is exact, with the sharp value group
+  and an even/odd inversion of the naive expectation.
+- **Collapse** (V37/V40): statistics + repeatability + commutant-covariance pin the update to the
+  one-parameter Lüders/depolarize family per block; the classical twin of the same axioms is
+  Bayesian conditioning.
+- **Observer sector** (Paper D; V38/V39): relative facts survive Wigner enlargement; the
+  Frauchiger–Renner cycle is localized (trivial switch holonomy; the state-sector exit is a single
+  CHSH facet, $\mathrm{CF}=1/6$ exactly).
 
 ## Quick reproduce
 ```bash
@@ -48,6 +68,7 @@ python Wformula.py          # Paper B Thm W: value-bit formula, 0 violations
 python thmG_general.py      # Paper A Thm G: order exactly n (dimension-independent)
 python d4_facet_census.py   # Paper C census: 61 classes / 23,256 facets, on-hull lemma
 python solvability_equivalence.py  # Note Thm 3: detection equivalence (V44)
+python mu_d_valuation.py    # Sharp local valuation, even/odd inversion (V46)
 cd ../hardware && python verify_combined.py   # 3-device combined S = 4.76 (80 sigma)
 ```
 
@@ -71,7 +92,9 @@ standalone with its expected output pinned in `INDEX.md`.
 
 ## Status & honesty
 Claims are labelled verified / analytic / open in `verification/INDEX.md` and in the papers.
-Open problems are flagged as such there (e.g. Paper B generativity closed form; Paper A Yu–Oh scope /
-gerbe refinement; the general-$d$ facet census; the general $\mu_{4d}$ valuation). Retractions and
-corrections are recorded, not erased. This companion contains no internal working notes — only the
-papers, the canonical verifications, and the hardware artifacts.
+Open problems are flagged as such there (e.g. the scenario-paired classification and tower
+conjectures; Paper B generativity closed form; Paper A Yu–Oh scope / gerbe refinement; the
+general-$d$ facet census; the cohomological home of KCBS-type contextuality). Retractions and
+corrections are recorded, not erased — the ledger includes retracted claims and the artifacts that
+caused them. This companion contains no internal working notes — only the papers, the canonical
+verifications, and the hardware artifacts.

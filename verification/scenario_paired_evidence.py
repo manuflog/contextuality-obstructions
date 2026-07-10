@@ -59,7 +59,9 @@ if D == 8:
     CERT6 = [[tuple((2 * np.array(v)) % 8) for v in C] for C in CERT6]
 
 # Peres-Mermin doubled into d=4 (order-2 observables 2*v): a distinct closed-triple
-# Weyl family at d=4 (AvN expected: exercises the L(F) = empty branch of the iff).
+# Weyl family at d=4. ERRATUM (V52): doubling v->2v is NOT AvN under the tau
+# convention (|L|=16, all S=0) - doubling quadruples tau-phases, killing the d=2
+# anomaly. The mode auto-branches on |L|, so recorded data are unaffected.
 PM2 = [[(2,0,0,0),(0,0,2,0),(2,0,2,0)],[(0,0,0,2),(0,2,0,0),(0,2,0,2)],
        [(2,0,0,2),(0,2,2,0),(2,2,2,2)],[(2,0,0,0),(0,0,0,2),(2,0,0,2)],
        [(0,0,2,0),(0,2,0,0),(0,2,2,0)],[(2,0,2,0),(0,2,0,2),(2,2,2,2)]]
@@ -491,7 +493,10 @@ def main():
         print(f"PM2 AvN branch: CF>0 and hull empty on {ok}/{len(recs)}")
     elif args.mode == "magic":
         # Anomalous magic squares (class = D/2): full family must be CF>0 for
-        # every state (L should be empty); each deletion is probed with joint
+        # every state when L is empty. ERRATUM (V52): class sum d/2 does NOT force
+        # L empty at d=8 (the all-ones vector need not be a left-kernel vector
+        # mod 8; pinned |L|=2048 example) - both branches are auto-handled.
+        # Each deletion is probed with joint
         # eigenstates of the deleted context, Haar states, and mixtures.
         made = 0
         while made < args.nfam:

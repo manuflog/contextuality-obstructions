@@ -237,13 +237,26 @@ For every closed-triple Weyl family at even $d$, $\CF(F,\rho)=0$ iff $c(\rho)\in
 \operatorname{conv}L(F)$ in the scenario-paired formulation of \cite{paperC}.
 \end{conjecture}
 The global-frame formulations of this statement are refuted (V28--V30); the pairing is
-forced, not optional. Evidence (V48): $5{,}556$ state--family records at $d=4$ and
-$d=8$ (all six deletions of the certified family, double deletions, boundary
-bisections to $10^{-6}$, and fresh anomalous magic squares including odd order-$8$
-phases) with zero mismatches between the $\CF$ LP and hull membership, cross-arbitrated
-by the exact facet census. The residual gap to a proof is a completion lemma reducing
-the full per-context character vector to the paired coordinates --- the general-family
-analogue of the on-hull lemma (Prop.~\ref{lem:onhull}).
+forced, not optional. The status is now sharply split by the choice of paired
+coordinates (V48/V52). In the \emph{full-character} reading ($c(\rho)$ = all
+per-context characters), the classification is a \emph{theorem}: the support lemma
+confines outputs to the spectrally allowed set, the paired characters determine each
+context's distribution by Fourier completeness, and an LP mass identity converts hull
+membership into an exact mixture --- in this reading the statement is
+near-definitional, which is why the $5{,}556$-record harness (V48; $d=4,8$,
+census-arbitrated, zero mismatches) could not fail: it certifies implementations. The
+substantive open form is the \emph{compressed} reading (the correlator-type
+coordinates of \cite{paperC}, whose $d=2$ case is Theorem~\ref{thm:d2}'s actual
+content). Its residual is \emph{not} an on-hull rank identity: the natural
+generalization of Prop.~\ref{lem:onhull} to arbitrary families is \emph{false} (V52:
+pinned families with affine-dimension gaps up to $74$ at $d=8$; the census family's
+rank equality is special). The correct reduction (proven, V52): quantum behaviors lie
+in the deterministic affine hull iff a finite per-family \emph{phase-coherence law}
+holds --- characters with equal restriction to the section lattice carry a single
+Weyl label and phase; the label half is proven (Smith-form annihilator plus closure),
+and the phase half --- a cross-context $\tau$-holonomy congruence of the same species
+as the $q$-parity identity --- is the named open lemma, exactly verified on all $36$
+tested families at $d=4,6,8$.
 
 \begin{theorem}[Tower holonomy, resolved by cases; V47]\label{conj:tower}
 (i) \emph{Operator level:} every closed Weyl word has holonomy in $\mu_{2d}$, and
@@ -255,10 +268,14 @@ tower $d=2,4,8,16$.
 \end{theorem}
 The original conjecture's exhaustiveness clause is thus \emph{refuted}: the
 coincidence $\mu_4=\mu_{2d}$ at the base $d=2$ does not propagate up the tower. At odd
-$d$ the $\mu_{2d}$ bound is section-dependent --- the DFT section violates it at
-$d\equiv 3\pmod 4$ (pinned: the $d=3$ observer loop has holonomy $e^{i\pi/6}$), while
-the Weil-normalized section restores it (verified $d=3,5,7$; the general odd-$d$ proof
-via the Gauss-sum determinant remains open). Claims must pin the section --- the same
+$d$ the $\mu_{2d}$ bound is section-dependent, and both directions are now
+\emph{proven} (V51): the DFT section violates it exactly when $d\equiv 3\pmod 4$
+(Schur's determinant $\det F = i^{d(d-1)/2}$; pinned instance: the $d=3$ observer loop
+has holonomy $e^{i\pi/6}$), while in the Weil-normalized section every loop holonomy
+lies in $\mu_{2d}$ for all odd $d$ --- the Gauss phase cancels the $\mu_4$ part of
+Schur's phase exactly ($\det F_W=(-1)^{\lfloor d/4\rfloor}$), $\det M_a$ is the Jacobi
+symbol $(a|d)$ by Zolotarev, and the Weil-attained group is $\mu_6$ if $3\mid d$ and
+$\mu_2$ otherwise, exhaustive only at $d=3$. Claims must pin the section --- the same
 lesson as v1's error (3).
 
 \section{Collapse: the unique bookkeeping, and its classical twin}\label{sec:collapse}
@@ -362,13 +379,19 @@ bookkeeping, chart-relative facts, and chart-choice for the cut.
 
 \begin{openproblem}
 (a) The cohomological home of class-invisible (KCBS-type) contextuality. Progress
-(V49): support-presheaf and scenario-complex cohomologies provably cannot capture it
-(pinned no-gos); on the pentagon a $\U(1)$-holonomy-twisted spectral pairing on the
-non-orthogonality graph characterizes the state sector exactly, with the $(-1)$-twist
-landing on the classical bound --- the general formulation is open. (b) The
+(V49/V50): support-presheaf and scenario-complex cohomologies provably cannot capture
+it (pinned no-gos); a $\U(1)$-holonomy-twisted spectral pairing on the
+non-orthogonality graph characterizes the state sector exactly on odd cycles
+($C_5,C_7,C_9$: $\CF=2\max(0,S-\alpha)$, all holonomy coordinates active, trivial
+class Perron-maximal) and on the $\alpha=2$ antiholes; the once-mysterious
+``$(-1)$-twist $=$ classical bound'' is the reflection identity $G\mapsto 2I-G$ and
+holds exactly when $\alpha=2$. The general formulation --- one local system carrying
+both the state-dependent $\U(1)$ layer and the state-independent torsion (AvN) layer
+--- is open. (b) The
 general-$d$ facet census and the arithmetic profile of the $61$ classes. (c)
-Conjecture~\ref{conj:pair} (the residual completion lemma) and the general odd-$d$
-Weil-section proof for Theorem~\ref{conj:tower}.
+Conjecture~\ref{conj:pair} in the compressed reading: the $\Theta$-coherence
+congruence of V52 (its label half is proven; the odd-$d$ Weil-section case of
+Theorem~\ref{conj:tower} is now closed, V51).
 \end{openproblem}
 
 \appendix
@@ -381,8 +404,8 @@ Claim & Source & Verification\\
 Thm.~\ref{thm:local} & this note & \texttt{local\_classicality.py} (V23); \texttt{mu\_d\_valuation.py} (V46)\\
 Thm.~\ref{thm:class} & \cite{paperA} Thm.~1, 8 & \texttt{thmG\_general.py}\\
 Thm.~\ref{thm:avn} & this note; \cite{paperB} Thm.~1, 4 & \texttt{solvability\_equivalence.py} (V44); \texttt{tau\_gauge\_general.py} (V45)\\
-Thm.~\ref{conj:tower} & this note & \texttt{tower\_holonomy.py} (V47)\\
-Conj.~\ref{conj:pair} (evidence) & this note; \cite{paperC} & \texttt{scenario\_paired\_evidence.py} (V48)\\
+Thm.~\ref{conj:tower} & this note & \texttt{tower\_holonomy.py} (V47); \texttt{weil\_section\_theorem.py} (V51)\\
+Conj.~\ref{conj:pair} (split status) & this note; \cite{paperC} & \texttt{scenario\_paired\_evidence.py} (V48); \texttt{paired\_classification\_theorem.py} (V52)\\
 gaps (both strict) & \cite{paperC} & \texttt{d3\_gap\_certificate.py}, \texttt{kcbs\_converse.py}\\
 Thm.~\ref{thm:d2} & \cite{paperC} Thm.~2 & \texttt{paired\_frame\_construction.py}, \texttt{ghost\_facet\_theorem.py}\\
 Thm.~\ref{thm:census} & this note; \cite{paperC} & \texttt{d4\_facet\_census.py} (V43)\\

@@ -77,12 +77,11 @@ Manuel Flores Gordillo — manuel.flores@columbia.edu · [ORCID 0009-0006-8246-0
 See `CITATION.cff`. The `qkernel` package is at https://github.com/manuflog/qkernel.
 
 ## License
-This repository is dual-licensed, the standard split for a research-artifact companion:
-- **Code** (`verification/`, `hardware/*.py`) — **Apache-2.0** (`LICENSE`). Permissive; includes an
-  explicit patent grant, matching the `qkernel` package.
-- **Papers** (`papers/*.pdf`) — **CC-BY-4.0** (`papers/LICENSE`). Anyone may share and adapt with
-  attribution; this is the standard open-access license and is accepted by arXiv and most journals,
-  and it does not impede later journal submission (you retain copyright).
+This repository is dual-licensed:
+- **Code** (`verification/`, `hardware/*.py`) — **Apache-2.0** (`LICENSE`), matching the `qkernel`
+  package.
+- **Papers** (`papers/*.pdf`) — **CC-BY-4.0** (`papers/LICENSE`): free to share and adapt with
+  attribution. The author retains copyright.
 
 ## Requirements
 Python 3.10+, `numpy`, `sympy`; a few scripts additionally use `scipy`

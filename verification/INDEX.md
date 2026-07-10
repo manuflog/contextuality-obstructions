@@ -35,3 +35,16 @@ in the paper, a **computational verification** script here, or both. Scripts are
 ## Hardware
 See `../hardware/` — 3-device $d=2$ Peres–Mermin replication, combined $S=4.76$ at $80\sigma$;
 `verify_combined.py` recomputes it from the raw per-context correlators.
+
+## Session additions (2026-07-09) — Copenhagen-note bridge, state sector, hardware
+| Claim | Script | Expected one-liner |
+|---|---|---|
+| PM sign product −1, all 512 gauges | `pm_gauge_invariance.py` | `PASS`, product {−1} |
+| Thm E/F machine-checked (carry ≡ matrix) | `pauli_slice_bridge.py` | `PASS: routes AGREE` |
+| WF loop: ray-level +1, det-section −i (FINDING) | `wf_loop_holonomy.py` | `PASS`, {−1j}, 500/500 |
+| class ⇏ AvN (d=3, exhaustive) | `d3_gap_certificate.py` | `GAP CERTIFIED` |
+| Lüders unique under axioms (i)–(iii) | `lueders_uniqueness.py` | `PASS`, efficiency necessary |
+| contextual with zero class shadow (KCBS) | `kcbs_converse.py` | `PASS`, 2.23607 > 2 |
+| unsolvability ⟺ odd cycle, d=2,4 | `holonomy_vs_solvability.py` | 0 mismatches + pinned positives |
+| state sector: CF(PM)=1, CF(KCBS)=0.4721, discrete Hudson d=3 | `state_sector_probe.py` | `PASS`, strange −1/3 |
+| hardware: ibm_fez two-loop run | `../hardware/results/ibm_fez_holonomy_20260709.json` | loop +1; S=4.6125, 35.4σ over tight bound 4 |

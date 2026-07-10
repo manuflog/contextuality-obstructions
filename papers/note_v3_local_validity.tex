@@ -122,17 +122,31 @@ instrument-level theorem without that restriction is Theorem~\ref{thm:lueders} b
 \begin{theorem}[Local classicality]\label{thm:local}
 Let $C$ be any single Weyl context at local dimension $d$. The restriction of the
 canonical cocycle to $C$ (the Weyl cocycle on the context's label group) is a
-coboundary over $\U(1)$ (the restricted class is symmetric, and
-$\mathrm{Ext}(G,\U(1))=0$ for the divisible group $\U(1)$), with an explicit
-trivializing cochain $\lambda$; in every certified instance ($d=2,3,4$ families, V23;
-abelian two-generator groups at $d=6,8,12$, V45) $\lambda$ takes values in the
-cyclotomic group $\mu_{4d}$, and the half-steps $\tau=e^{i\pi/d}\notin\mu_d$ are in
-general necessary. (The $\mu_{4d}$ valuation in full generality is open; the obvious
-closed-form candidate fails at $d=3,4$ --- pinned in V45.)
+coboundary, with a trivializing cochain $\lambda$ valued in $\mu_d$ for \emph{even}
+$d$ and in $\mu_{2d}$ for \emph{odd} $d$; the odd-$d$ bound is sharp (an explicit
+$d=3$ group requires $\mu_{2d}$).
 \end{theorem}
-Verified with explicit $\lambda$ per context in \texttt{local\_classicality.py} (V23):
-all rows and columns of the Peres--Mermin square at $d=2$, a $d=3$ sample family, and
-the certified $d=4$ family; the same script exhibits the global contrast (no joint
+\begin{proof}[Proof sketch]
+On a commuting label group $G$ the parity of the $\tau$-exponent $c(u,v)$ equals
+$\langle u,v\rangle \bmod 2$, which vanishes for even $d$; hence $c=2c'$ with $c'$ a
+symmetric $\mathbb Z_d$-valued $2$-cocycle. Symmetric classes form
+$\mathrm{Ext}(G,\mathbb Z_d)$, additive over a cyclic decomposition of $G$ and
+detected by the cyclic transgressions $\sum_{j<a} c'(jg,g)=\tfrac12 a(a-2)q(g)-dK$,
+which are divisible by $a=\mathrm{ord}(g)$ in both parity cases; every cyclic class
+therefore vanishes, and so does the total class. For odd $d$ the same transgression
+argument at level $2d$ gives $\mu_{2d}$. Certified, with complete searches and the
+$d=3$ sharpness witness, in \texttt{mu\_d\_valuation.py} (V46).
+\end{proof}
+An immediate corollary of the parity lemma: at even $d$ every commuting closed
+context has \emph{even} $\tau$-level phase --- context products are always
+$\omega$-powers, and integrality is automatic rather than a gauge choice. (An earlier
+claim that half-steps $\tau\notin\mu_d$ are necessary at even $d$ traced to a label-layout
+artifact in a verification harness and is retracted; see V44/V46 in the suite index.
+Genuine $\tau$-steps are an odd-$d$ phenomenon. The \emph{state-sector}
+$\tau$-necessity results of \cite{paperC} are a different statement and are
+unaffected.) Explicit per-context trivializers: \texttt{local\_classicality.py} (V23),
+for all rows and columns of the Peres--Mermin square at $d=2$, a $d=3$ sample family,
+and the certified $d=4$ family; the same script exhibits the global contrast (no joint
 $\lambda$ exists across contexts where the obstruction is present, cross-referencing
 V10/V13/V33). This is tenet (i) of Principle~\ref{prin} in exact form: every chart of
 the atlas is flat, with the flattening written down.
@@ -145,7 +159,9 @@ reduction, the canonical class on $\PU(n)\ltimes X$ has order exactly $n$.
 
 \begin{theorem}[Detection equivalence]\label{thm:avn}
 Let $F$ be a closed-triple Weyl context family at even $d$, with incidence matrix $A$
-and context-phase vector $s$ (in an integral gauge, which always exists). The following
+and context-phase vector $s\in\mathbb Z_d^{\mathrm{ctx}}$ (canonical: by the parity
+lemma of Theorem~\ref{thm:local}, commuting context phases at even $d$ are
+automatically $\omega$-powers). The following
 are equivalent: (a) no noncontextual value assignment over $\mathbb Z_d$ exists; (b)
 some left-kernel vector $u$ ($uA\equiv 0 \bmod d$) has $u\cdot s\equiv d/2 \pmod d$;
 (c) some certificate carries odd commutator carry \cite[Thm.~4]{paperB}. The achievable
@@ -160,16 +176,16 @@ and $u\cdot s\not\equiv 0 \pmod d$ (double annihilation over $\mathbb Z_d$); suc
 $u$ is a certificate of the multiplicity covered by \cite[Rem.~3]{paperB}, so by the
 Obstruction Spectrum Theorem \cite[Thm.~1]{paperB} its value satisfies $2(u\cdot
 s)\equiv 0$, forcing $u\cdot s\equiv d/2$. (b)$\Leftrightarrow$(c) is
-\cite[Thm.~4]{paperB}. Finally, an integral gauge exists \emph{constructively}, and
-canonically: telescoping the Weyl product law $c(u,v)=-q(u)-q(v)+2\beta(u,v)+q(u+v)$
-around any closed context gives the $q$-parity identity $s_\tau\equiv A\bar q
-\pmod 2$, $\bar q_v = q(v)\bmod 2$, so $a=\bar q$ solves the $\mathrm{GF}(2)$ gauge
-system explicitly and $s=(s^{(2d)}-A\bar q)/2 \bmod d$ is a canonical integral phase
-vector built from the gauge-free $\tau$-level data $s^{(2d)}$; kernel pairings are
-gauge-invariant. This is the $\tau$-general form of the equivalence: no gauge choice
-enters the hypotheses. Certified end-to-end, with random and pinned positives, in
-\texttt{solvability\_equivalence.py} (V44) and \texttt{tau\_gauge\_general.py} (V45,
-including the $d=6$ extension).
+\cite[Thm.~4]{paperB}. Finally, no gauge hypothesis is needed: by the parity lemma of
+Theorem~\ref{thm:local}, every commuting closed context at even $d$ has even
+$\tau$-level phase, so $s=s^{(2d)}/2\in\mathbb Z_d^{\mathrm{ctx}}$ is canonical. (For
+general closed-triple data --- commuting or not --- the $q$-parity identity
+$s^{(2d)}\equiv A\bar q \pmod 2$, $\bar q_v=q(v)\bmod 2$, obtained by telescoping the
+Weyl product law, supplies the constructive gauge; kernel pairings are
+gauge-invariant.) Certified end-to-end, with random and pinned positives, in
+\texttt{solvability\_equivalence.py} (V44, layout-corrected),
+\texttt{tau\_gauge\_general.py} (V45, including the $d=6$ extension), and
+\texttt{mu\_d\_valuation.py} (V46).
 \end{proof}
 What was, in v2, a machine-verified converse ($2{,}100$ families, zero mismatches) is
 thus a corollary of \cite{paperB}'s proven theorems plus five lines of ring theory ---
@@ -339,7 +355,7 @@ Conjectures~\ref{conj:pair} and \ref{conj:tower}.
 \toprule
 Claim & Source & Verification\\
 \midrule
-Thm.~\ref{thm:local} & this note & \texttt{local\_classicality.py} (V23)\\
+Thm.~\ref{thm:local} & this note & \texttt{local\_classicality.py} (V23); \texttt{mu\_d\_valuation.py} (V46)\\
 Thm.~\ref{thm:class} & \cite{paperA} Thm.~1, 8 & \texttt{thmG\_general.py}\\
 Thm.~\ref{thm:avn} & this note; \cite{paperB} Thm.~1, 4 & \texttt{solvability\_equivalence.py} (V44); \texttt{tau\_gauge\_general.py} (V45)\\
 gaps (both strict) & \cite{paperC} & \texttt{d3\_gap\_certificate.py}, \texttt{kcbs\_converse.py}\\

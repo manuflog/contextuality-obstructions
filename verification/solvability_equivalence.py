@@ -27,7 +27,12 @@ def solvable_bf(A,s,d):
     G=np.array(list(itertools.product(range(d),repeat=nobs)),dtype=np.int64)
     return bool((((G@A.T)%d==s%d).all(axis=1)).any())
 def family_from_labels(labels,d,m,W,rng,max_ctx=8,must=None):
-    def sym(a,b): return int(a[:m]@b[m:]-a[m:]@b[:m])%d
+    # LAYOUT FIX (2026-07-10, pinned): weyl.build's W reads labels as PER-SITE PAIRS
+    # (a1,b1,a2,b2,...); the original sym used the BLOCK layout (a1..am,b1..bm), so for
+    # m>=2 the "commuting" filter did not match the operators (2/6 pinned PM triples
+    # were non-commuting operator families; the "PM is tau-odd" gotcha was an artifact).
+    # Correct symplectic form for the layout W actually uses:
+    def sym(a,b): return int(sum(a[2*i]*b[2*i+1]-a[2*i+1]*b[2*i] for i in range(m)))%d
     idx={tuple(v):i for i,v in enumerate(labels)}
     ctxs=[]
     for i,j in itertools.combinations(range(len(labels)),2):
@@ -51,6 +56,10 @@ def check(labels,d,m,W,rng,stats,must=None):
     A=np.zeros((len(ctxs),len(labels)),int); st=[]
     for r,(i,j,k) in enumerate(ctxs):
         A[r,i]+=1; A[r,j]+=1; A[r,k]+=1
+        # sanity (layout fix): contexts must be genuinely commuting operator triples
+        for x,y in ((i,j),(i,k),(j,k)):
+            Mx,My=W(labels[x]),W(labels[y])
+            assert np.allclose(Mx@My,My@Mx,atol=1e-9), "non-commuting context (layout)"
         M=W(labels[i])@W(labels[j])@W(labels[k])
         tr=np.trace(M); ph=np.angle(tr/abs(tr)); sc=ph/(np.pi/d)
         assert abs(sc-round(sc))<1e-6, "context phase off the tau grid"
@@ -102,8 +111,9 @@ if __name__=='__main__':
     import json as _json
     fam4=[[tuple(v) for v in it["ctx"]] for it in _json.load(open("cert4_min.json"))["items"]]
     pin4=[np.array(v) for v in sorted({t for C in fam4 for t in C})]
-    # PM labels at d=2 (two-qubit Paulis, 3x3 grid): X1,X2,X1X2 / Z2,Z1,Z1Z2 / X1Z2,Z1X2,Y1Y2
-    pin2=[np.array(v) for v in [(1,0,0,0),(0,1,0,0),(1,1,0,0),(0,0,0,1),(0,0,1,0),(0,0,1,1),(1,0,0,1),(0,1,1,0),(1,1,1,1)]]
+    # PM labels at d=2 (two-qubit Paulis, 3x3 grid), PER-SITE layout (a1,b1,a2,b2):
+    # X1,X2,X1X2 / Z2,Z1,Z1Z2 / X1Z2,Z1X2,Y1Y2   (layout fix 2026-07-10)
+    pin2=[np.array(v) for v in [(1,0,0,0),(0,0,1,0),(1,0,1,0),(0,0,0,1),(0,1,0,0),(0,1,0,1),(1,0,0,1),(0,1,1,0),(1,1,1,1)]]
     for d,m,trials,seed,pin in [(2,2,500,11,pin2),(4,2,400,12,pin4)]:
         X,Z,w,tau,W,_=build(d,m)
         rng=np.random.default_rng(seed)
@@ -127,9 +137,9 @@ if __name__=='__main__':
                 labels=[x for x in pin]+[x for x in labels if not any((x==p).all() for p in pin)]
                 li={tuple(v):i for i,v in enumerate(labels)}
                 if d==2:
-                    PMC=[[(1,0,0,0),(0,1,0,0),(1,1,0,0)],[(0,0,0,1),(0,0,1,0),(0,0,1,1)],
+                    PMC=[[(1,0,0,0),(0,0,1,0),(1,0,1,0)],[(0,0,0,1),(0,1,0,0),(0,1,0,1)],
                          [(1,0,0,1),(0,1,1,0),(1,1,1,1)],[(1,0,0,0),(0,0,0,1),(1,0,0,1)],
-                         [(0,1,0,0),(0,0,1,0),(0,1,1,0)],[(1,1,0,0),(0,0,1,1),(1,1,1,1)]]
+                         [(0,0,1,0),(0,1,0,0),(0,1,1,0)],[(1,0,1,0),(0,1,0,1),(1,1,1,1)]]
                     must={tuple(sorted(li[t] for t in C)) for C in PMC}
                 else:
                     must={tuple(sorted(li[t] for t in C)) for C in fam4 if all(t in li for t in C)}

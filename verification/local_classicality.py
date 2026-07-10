@@ -1,10 +1,12 @@
 # V23 - LOCAL CLASSICALITY (exact): within every context the Weyl cocycle restricted to
-# the abelian span is a coboundary with lambda valued in mu_{4d} (half tau-steps), solved
-# EXACTLY over Z_{4d} via Smith normal form. Mathematically: a commuting family has
-# trivial commutator pairing, so the restricted class is symmetric; symmetric 2-cocycles
-# into the divisible group U(1) are coboundaries - but the trivializing lambda genuinely
-# needs half tau-steps when order-2 elements satisfy W(u)^2 = tau^{odd} I. Globally the
-# class is obstructed (V10 PM -1, V13 d=3, V33 cert4 sum=d/2): SS2's claim verified.
+# the abelian span is a coboundary; this script searches the mu_{4d} grid, a safe upper
+# bound. Mathematically: a commuting family has trivial commutator pairing, so the
+# restricted class is symmetric; symmetric 2-cocycles into the divisible group U(1) are
+# coboundaries. SHARP VALUATION (V46, mu_d_valuation.py, 2026-07-10): lambda can be
+# taken in mu_d for even d and mu_{2d} for odd d (sharp at d=3); the former claim that
+# half tau-steps are needed at even d traced to a label-layout artifact (see V44) and
+# is RETRACTED. Globally the class is obstructed (V10 PM -1, V13 d=3, V33 cert4
+# sum=d/2): SS2's claim verified.
 import numpy as np, itertools, json, re
 import sympy as sp
 from weyl import build

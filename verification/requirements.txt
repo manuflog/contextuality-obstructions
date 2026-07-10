@@ -1,2 +1,3 @@
 numpy>=1.24
 sympy>=1.12
+scipy>=1.10  # used by a subset of scripts (e.g. d4_facet_census.py)

@@ -17,5 +17,5 @@ def show(tag, idx):
     print(f"\n{tag}: {tot}/{W}")
     for r in ROWS: print(f"  {r[0]:<42} {r[idx]:>2}/{r[1]}")
     return tot
-a=show("AS WRITTEN (Feb 2026 note)",2); b=show("CURRENT (with this session's patches+certs)",3)
+a=show("AS WRITTEN (Feb 2026 note)",2); b=show("CURRENT (with patches+certificates)",3)
 print(f"\nscore: {a} -> {b}   (+/-5 judgment band; former ~80 ceiling superseded by the V31 theorem; next: written proofs, general d)")

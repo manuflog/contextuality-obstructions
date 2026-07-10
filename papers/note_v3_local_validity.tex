@@ -1,5 +1,5 @@
 % Local Validity and Contextual Holonomy -- v3 (full rewrite)
-% Prepared by Claude for Manuel Flores Gordillo's adversarial review.
+% Working draft -- pending adversarial review.
 % Discipline: every claim is (a) a cited theorem of papers A-D, (b) a named machine
 % verification in manuflog/contextuality-obstructions, or (c) explicitly labeled
 % Conjecture/Open. No claim of readiness is made in this file.
@@ -77,7 +77,8 @@ the canonical cocycle to any one context trivializes, with an explicit trivializ
 cochain. \emph{(ii) Complementarity.} The cocycle does not trivialize globally; its
 holonomy along closed context loops is a quantized obstruction, and this obstruction is
 the all-versus-nothing sector of contextuality, with the state sector governed by an
-enumerable facet geometry. \emph{(iii) Collapse.} Statistics, repeatability, and covariance pin the
+enumerable facet geometry. \emph{(iii) Collapse.} Statistics, repeatability, and covariance under the measured
+observable's commutant pin the
 measurement update to a one-parameter family per degenerate block, with the L\"uders
 rule its unique efficient member; classically the same axioms force Bayesian
 conditioning up to the same per-cell parameter. \emph{(iv) Relative facts.} Value assignments
@@ -121,9 +122,13 @@ instrument-level theorem without that restriction is Theorem~\ref{thm:lueders} b
 \begin{theorem}[Local classicality]\label{thm:local}
 Let $C$ be any single Weyl context at local dimension $d$. The restriction of the
 canonical cocycle to $C$ (the Weyl cocycle on the context's label group) is a
-coboundary, with an explicit trivializing cochain
-$\lambda$ taking values in the cyclotomic group $\mu_{4d}$; the half-steps
-$\tau=e^{i\pi/d}\notin\mu_d$ are in general necessary.
+coboundary over $\U(1)$ (the restricted class is symmetric, and
+$\mathrm{Ext}(G,\U(1))=0$ for the divisible group $\U(1)$), with an explicit
+trivializing cochain $\lambda$; in every certified instance ($d=2,3,4$ families, V23;
+abelian two-generator groups at $d=6,8,12$, V45) $\lambda$ takes values in the
+cyclotomic group $\mu_{4d}$, and the half-steps $\tau=e^{i\pi/d}\notin\mu_d$ are in
+general necessary. (The $\mu_{4d}$ valuation in full generality is open; the obvious
+closed-form candidate fails at $d=3,4$ --- pinned in V45.)
 \end{theorem}
 Verified with explicit $\lambda$ per context in \texttt{local\_classicality.py} (V23):
 all rows and columns of the Peres--Mermin square at $d=2$, a $d=3$ sample family, and
@@ -150,16 +155,21 @@ state-independent values are exactly $\{0,d/2\}$ for even $d$ and $\{0\}$ for od
 \begin{proof}
 (b)$\Rightarrow$(a): a solution $\gamma$ would give $u\cdot s\equiv (uA)\gamma\equiv
 0$. (a)$\Rightarrow$(b): by Smith normal form over $\mathbb Z$, unsolvability of
-$A\gamma\equiv s \pmod d$ produces, constructively, $u=(d/g_i)U_i$ with $uA\equiv 0$
+$A\gamma\equiv s \pmod d$ produces, constructively, $u=\bigl(d/\gcd(g_i,d)\bigr)U_i$ with $uA\equiv 0$
 and $u\cdot s\not\equiv 0 \pmod d$ (double annihilation over $\mathbb Z_d$); such a
 $u$ is a certificate of the multiplicity covered by \cite[Rem.~3]{paperB}, so by the
 Obstruction Spectrum Theorem \cite[Thm.~1]{paperB} its value satisfies $2(u\cdot
 s)\equiv 0$, forcing $u\cdot s\equiv d/2$. (b)$\Leftrightarrow$(c) is
-\cite[Thm.~4]{paperB}. Finally, an integral gauge exists because the $\mathrm{GF}(2)$
-system $Aa\equiv s_\tau$ is solvable: any $\mathbb Z_2$-kernel vector pairs evenly
-with $s_\tau$ by the same spectrum theorem, and double annihilation over $\mathbb Z_2$
-applies; kernel pairings are gauge-invariant. Certified end-to-end, with random and
-pinned positives, in \texttt{solvability\_equivalence.py} (V44).
+\cite[Thm.~4]{paperB}. Finally, an integral gauge exists \emph{constructively}, and
+canonically: telescoping the Weyl product law $c(u,v)=-q(u)-q(v)+2\beta(u,v)+q(u+v)$
+around any closed context gives the $q$-parity identity $s_\tau\equiv A\bar q
+\pmod 2$, $\bar q_v = q(v)\bmod 2$, so $a=\bar q$ solves the $\mathrm{GF}(2)$ gauge
+system explicitly and $s=(s^{(2d)}-A\bar q)/2 \bmod d$ is a canonical integral phase
+vector built from the gauge-free $\tau$-level data $s^{(2d)}$; kernel pairings are
+gauge-invariant. This is the $\tau$-general form of the equivalence: no gauge choice
+enters the hypotheses. Certified end-to-end, with random and pinned positives, in
+\texttt{solvability\_equivalence.py} (V44) and \texttt{tau\_gauge\_general.py} (V45,
+including the $d=6$ extension).
 \end{proof}
 What was, in v2, a machine-verified converse ($2{,}100$ families, zero mismatches) is
 thus a corollary of \cite{paperB}'s proven theorems plus five lines of ring theory ---
@@ -331,7 +341,7 @@ Claim & Source & Verification\\
 \midrule
 Thm.~\ref{thm:local} & this note & \texttt{local\_classicality.py} (V23)\\
 Thm.~\ref{thm:class} & \cite{paperA} Thm.~1, 8 & \texttt{thmG\_general.py}\\
-Thm.~\ref{thm:avn} & this note; \cite{paperB} Thm.~1, 4 & \texttt{solvability\_equivalence.py} (V44)\\
+Thm.~\ref{thm:avn} & this note; \cite{paperB} Thm.~1, 4 & \texttt{solvability\_equivalence.py} (V44); \texttt{tau\_gauge\_general.py} (V45)\\
 gaps (both strict) & \cite{paperC} & \texttt{d3\_gap\_certificate.py}, \texttt{kcbs\_converse.py}\\
 Thm.~\ref{thm:d2} & \cite{paperC} Thm.~2 & \texttt{paired\_frame\_construction.py}, \texttt{ghost\_facet\_theorem.py}\\
 Thm.~\ref{thm:census} & this note; \cite{paperC} & \texttt{d4\_facet\_census.py} (V43)\\

@@ -1,0 +1,18 @@
+# OS / editor artifacts
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+
+# LaTeX build artifacts (PDFs are tracked; intermediates are not)
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# Internal / non-public working documents
+HANDOFF.md
+CLAUDE.md

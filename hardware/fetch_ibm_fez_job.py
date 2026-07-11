@@ -13,8 +13,9 @@
 import json, os, datetime
 
 JOB_ID = "d986q62f47jc73a7hm2g"
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results",
-                   "ibm_fez_holonomy_20260709.json")
+_BASE = (os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals()
+         else os.getcwd())  # notebook-safe
+OUT = os.path.join(_BASE, "results", "ibm_fez_holonomy_20260709.json")
 
 def get_service():
     from qiskit_ibm_runtime import QiskitRuntimeService

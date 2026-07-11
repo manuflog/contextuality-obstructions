@@ -1,0 +1,162 @@
+{
+ "job_id": "d986q62f47jc73a7hm2g",
+ "backend": "ibm_fez",
+ "retrieved": "2026-07-11T19:34:54.395895+00:00",
+ "pinned_figures": {
+  "loop_phase_deg": [
+   -2.93,
+   1.55
+  ],
+  "pm_S": [
+   4.6125,
+   0.0173
+  ],
+  "nc_bound": 4
+ },
+ "results": [
+  {
+   "pub": 0,
+   "metadata": {
+    "circuit_metadata": {}
+   },
+   "counts": {
+    "c": {
+     "0": 6651,
+     "1": 1541
+    }
+   }
+  },
+  {
+   "pub": 1,
+   "metadata": {
+    "circuit_metadata": {}
+   },
+   "counts": {
+    "c": {
+     "0": 4001,
+     "1": 4191
+    }
+   }
+  },
+  {
+   "pub": 2,
+   "metadata": {
+    "circuit_metadata": {}
+   },
+   "counts": {
+    "c": {
+     "0": 6044,
+     "1": 2148
+    }
+   }
+  },
+  {
+   "pub": 3,
+   "metadata": {
+    "circuit_metadata": {}
+   },
+   "counts": {
+    "c": {
+     "1": 2093,
+     "0": 6099
+    }
+   }
+  },
+  {
+   "pub": 4,
+   "metadata": {
+    "circuit_metadata": {}
+   },
+   "counts": {
+    "c": {
+     "0": 6764,
+     "1": 1428
+    }
+   }
+  },
+  {
+   "pub": 5,
+   "metadata": {
+    "circuit_metadata": {}
+   },
+   "counts": {
+    "c": {
+     "1": 3993,
+     "0": 4199
+    }
+   }
+  },
+  {
+   "pub": 6,
+   "metadata": {
+    "circuit_metadata": {}
+   },
+   "counts": {
+    "c": {
+     "0": 1465,
+     "1": 6727
+    }
+   }
+  },
+  {
+   "pub": 7,
+   "metadata": {
+    "circuit_metadata": {}
+   },
+   "counts": {
+    "c": {
+     "0": 4195,
+     "1": 3997
+    }
+   }
+  },
+  {
+   "pub": 8,
+   "metadata": {
+    "circuit_metadata": {}
+   },
+   "counts": {
+    "c": {
+     "0": 5959,
+     "1": 2233
+    }
+   }
+  },
+  {
+   "pub": 9,
+   "metadata": {
+    "circuit_metadata": {}
+   },
+   "counts": {
+    "c": {
+     "1": 2156,
+     "0": 6036
+    }
+   }
+  },
+  {
+   "pub": 10,
+   "metadata": {
+    "circuit_metadata": {}
+   },
+   "counts": {
+    "c": {
+     "0": 4227,
+     "1": 3965
+    }
+   }
+  },
+  {
+   "pub": 11,
+   "metadata": {
+    "circuit_metadata": {}
+   },
+   "counts": {
+    "c": {
+     "0": 6763,
+     "1": 1429
+    }
+   }
+  }
+ ]
+}

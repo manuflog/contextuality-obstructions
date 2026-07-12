@@ -13,9 +13,10 @@ verifications, hardware validation, and the supporting software package.
   $M_n(\mathbb{C})$, with an even/odd real shadow through the signed-permutation group $B_n$, and full
   $H^2=\mathbb{Z}/n\oplus\mathbb{Z}_2$.
 - **Paper B — *The Obstruction Spectrum of Weyl Context Families and the 2-adic Tower*.**
-  The achievable state-independent AvN obstruction value is classified **exactly** as $\{0,d/2\}$ for
-  even $d$ (and $\{0\}$ for odd), via a commutator-carry criterion with the algebraic form of a Pontryagin-square quadratic
-  refinement, with matrix-checked certificates and a 3-device hardware replication.
+  The value classification (even/odd dichotomy; fixed value $d/2$) is **due to Abramsky--Cercelescu--Constantin
+  (FSCD 2024)**; this program recasts it via an explicit commutator-carry calculus, adds a 2-adic tower
+  and a 3-device hardware replication, and gives the obstruction its geometric/cohomological home (Papers A/D).
+  The carry invariant has the algebraic form of a Pontryagin-square quadratic refinement.
 - **Paper C — *What Contextual Holonomy Detects*.**
   The state sector: the $d=2$ codeword-polytope classification with the exact contextual-fraction
   formula, the $d=4$ tower laws, $\tau$-necessity, and the complete $d=4$ facet census
@@ -41,7 +42,8 @@ verifications, hardware validation, and the supporting software package.
 
 ## Selected headline results (see `verification/INDEX.md` for the full ledger)
 - **Obstruction spectrum** (Paper B): achievable AvN values exactly $\{0,d/2\}$ (even $d$), $\{0\}$
-  (odd $d$); commutator-carry criterion; attainment at every even $d$.
+  (odd $d$) --- **classification due to Abramsky--Cercelescu--Constantin (FSCD 2024)**, recast here via the
+  commutator-carry calculus with a 2-adic tower + hardware; geometric home in Papers A/D.
 - **Detection equivalence** (note, Thm 3; V44/V45): no noncontextual $\mathbb{Z}_d$ assignment
   $\iff$ a kernel-vector pairing equals $d/2$ $\iff$ odd commutator carry — a theorem, not a
   verified coincidence.

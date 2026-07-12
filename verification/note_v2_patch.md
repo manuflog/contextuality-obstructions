@@ -11,7 +11,7 @@ transformation groupoid **G = PU(n) ⋉ X**; on U(n) ⋉ X the U(1) lifting clas
 exactly n [Paper A, Thm 8; `thmG_general.py`]. Its holonomy along closed context loops
 detects the **all-versus-nothing part** of contextuality: for Weyl context families a family
 is AvN-contextual iff some cycle carries odd anomaly self-pairing [Paper B, Thm 4;
-`criterion.py`], the achievable state-independent value being exactly {0, d/2} for even d
+`criterion.py`], the achievable state-independent value being exactly {0, d/2} for even d (classification due to Abramsky-Cercelescu-Constantin, FSCD 2024; recast here)
 and {0} for odd d [Paper B, Thm 1; `spectrum_test2.py`]. The class does **not** encode
 contextuality outright: at d = 3 the class is nontrivial of order 3 while the AvN value is
 zero [`d3_gap_certificate.py`], and state-dependent contextuality (KCBS) exists where the

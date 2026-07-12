@@ -19,7 +19,7 @@ in the paper, a **computational verification** script here, or both. Scripts are
 
 | Claim | Statement | How established |
 |---|---|---|
-| **Thm J** | Obstruction Spectrum: $2S\equiv0\ (\mathrm{mod}\ d)$; achievable value set $\{0,d/2\}$ (even $d$), $\{0\}$ (odd) | analytic + `spectrum_test2.py` (odd-$d$ ⇒ only 0) |
+| **Thm J** | Obstruction Spectrum: $2S\equiv0\ (\mathrm{mod}\ d)$; achievable value set $\{0,d/2\}$ (even $d$), $\{0\}$ (odd). **Classification due to Abramsky--Cercelescu--Constantin, FSCD 2024** (their Thm.~16/21); recovered here in Weyl-certificate language | analytic + `spectrum_test2.py` (odd-$d$ ⇒ only 0) |
 | Thm J′ | commutator-carry form of the criterion | analytic + folded into `criterion.py` |
 | Thm K | Depth Rigidity: obstruction lives at top 2-adic layer, no single lift carries it | analytic (paper §4) |
 | **Thm W** | exact value-bit formula for lifted certificates | `Wformula.py` → `violations 0/550` |

@@ -290,3 +290,22 @@ FSCD 2024** (arXiv:2603.12197), which directly anticipates the two flagship Pape
 - Lüders — translation of *Über die Zustandsänderung durch den Messprozess*: https://arxiv.org/pdf/quant-ph/0403007
 - *Lüders Instruments, Generalised Lüders Theorem, and Some Aspects of Sufficiency*, Int. J. Theor. Phys. (2014): https://link.springer.com/article/10.1007/s10773-014-2485-y
 - *Lüders channels and the existence of symmetric-informationally-complete measurements* (depolarizing/Lüders structure): https://arxiv.org/pdf/1907.10999
+
+## External assessment on file (ChatGPT, 2026-07-12)
+An external adversarial reviewer, after the reframe, scored: **mathematical soundness ~88/100,
+novelty/originality ~72/100, overall program strength ~83/100** — soundness up, novelty down because
+the Paper B headline classification was not new. Concurring judgments now reflected in the repo:
+- Paper B's `{0,d/2}` classification is **substantially ACC 2024**, correctly re-labelled as a
+  Weyl-certificate re-derivation (see `arxiv/PRIORITY_ABRAMSKY.md` dictionary + logical status).
+- The **carry calculus** must be compared to ACC's normal-form/contextual-word invariants
+  theorem-by-theorem before its originality is *established* (moderate, not established).
+- The **2-adic tower** is the strongest Paper-B novelty candidate but must be isolated as
+  cross-dimensional theorems, not per-`d` parity restated.
+- **Paper A is the intellectual center of gravity**; the geometric class is the distinctive proposal
+  (still awaiting specialist certification of the Morita/LHS-edge-map bookkeeping).
+- **Paper C** (the `d=4` facet census) may be the strongest self-contained computational contribution.
+- The hardware `80σ→~7σ` correction and the independent reimplementation both raised soundness.
+- **External specialist review remains the largest missing validation** — same-author proofs/scripts
+  cannot replace it.
+Net: not a single "foundational breakthrough" — a serious multi-paper contextuality program mixing
+known results, useful reformulations, candidate novel extensions, and one ambitious geometric proposal.

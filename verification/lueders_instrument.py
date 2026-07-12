@@ -1,17 +1,27 @@
-# V37 - INSTRUMENT-LEVEL LUEDERS THEOREM (machine-certified instances).
+# V37 - INSTRUMENT-LEVEL LUEDERS THEOREM (numerical affine-dimension stress test).
+# [CORRECTED 2026-07-11 - CP interval and evidence label; see INDEX.md ledger.]
 # Observable A = sum_j a_j P_j on C^d with degenerate eigenspaces (d_j = rank P_j).
 # An instrument {I_j} (CP maps, sum trace-preserving) measuring A satisfies:
 #  (i)   statistics:    tr I_j(rho) = tr(P_j rho)
 #  (ii)  repeatability:  I_j(rho) = P_j I_j(rho) P_j   (output in the j-th sector)
 #  (iii) covariance under the COMMUTANT unitaries U = sum_j U_j (block unitaries):
 #            I_j(U rho U*) = U I_j(rho) U*
-# THEOREM (verified exactly here at (d,degs)=(4,[2,2]) and (6,[3,2,1])):
-#   the solution set is exactly  I_j(rho) = p_j P_j rho P_j + (1-p_j) tr(P_j rho) P_j/d_j,
-#   p_j in [0,1]  (CP forces the interval);  EFFICIENCY (pure Kraus) <=> p_j = 1: LUEDERS.
+# THEOREM: the (i)+(ii)+(iii) LINEAR solution set is exactly the one-parameter AFFINE line
+#   I_j(rho) = p_j P_j rho P_j + (1-p_j) tr(P_j rho) P_j/d_j   per degenerate block.
+#   Complete positivity is a SEPARATE condition and gives the exact interval
+#     -1/(d_j^2 - 1) <= p_j <= 1     (Choi-eigenvalue bound; NOT [0,1]).
+#   So the admissible family is an AFFINE depolarizing family, not only the convex segment
+#   [Lueders, block-depolarize]. EFFICIENCY (single Kraus) <=> p_j = 1: LUEDERS is the unique
+#   single-Kraus member. (CP interval verified separately in lueders_cp_interval.py.)
+# EVIDENCE LABEL: this script is a NUMERICAL stress test - it samples finitely many Haar
+#   commutant unitaries, solves by floating-point least squares, and reads a numerical rank;
+#   it does NOT impose complete positivity and is NOT an exact/symbolic certificate. It
+#   verifies the affine dimension (one free p_j per degenerate block) at two decompositions.
 # SHARPNESS: with covariance only under the diagonal MASA the solution space is strictly
-# larger (dims reported): the commutant-covariance hypothesis is what pins Lueders.
+# larger (dims reported): the commutant-covariance hypothesis is what pins the line.
 # Analytic core: (i)+(ii) reduce I_j to a map into the j-block; block-covariance under
-# the full unitary group of the block makes it a depolarizing-family member (Schur).
+# the full unitary group of the block makes it a depolarizing-family member (Schur);
+# Choi positivity then gives the interval above.
 import numpy as np, itertools
 rng=np.random.default_rng(5)
 def haar(n):
@@ -81,7 +91,9 @@ def solve_instance(d,degs,commutant=True,nU=6):
                         for c in blk[j]:
                             vv[index[(j,k,l,r,c)]]=Bkl[r,c]
         return vv
-    tests=[[1]*js,[0]*js,[0.3]*js,[1,0]+[0.5]*(js-2)]
+    # test points on the affine line, INCLUDING the CP lower endpoint p_j = -1/(d_j^2-1)
+    low=[(-1.0/(len(blk[j])**2-1) if len(blk[j])>1 else 1.0) for j in range(js)]
+    tests=[[1]*js,[0]*js,[0.3]*js,[1,0]+[0.5]*(js-2),low]
     inside=all(np.linalg.norm(A@instr_from(p)-b)<1e-8 for p in tests)
     return ns,resid,inside
 if __name__=='__main__':

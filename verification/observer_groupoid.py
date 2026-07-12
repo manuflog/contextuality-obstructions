@@ -1,4 +1,5 @@
-# V38 - OBSERVER-CONTEXT GROUPOID: the two machine checks Paper D needs.
+# V38 - OBSERVER-CONTEXT CATEGORY (switch subgroupoid + non-invertible refinements):
+#        the two machine checks Paper D needs. [file name kept for stability.]
 # (A) PULLBACK MONOTONICITY: the Wigner-enlargement (adjoin a friend qubit, embed the
 #     system family as A (x) I_F) is a strict morphism of context groupoids pulling the
 #     cocycle back; the PM obstruction survives verbatim at d=8: any global section of

@@ -20,7 +20,7 @@ verifications, hardware validation, and the supporting software package.
   The state sector: the $d=2$ codeword-polytope classification with the exact contextual-fraction
   formula, the $d=4$ tower laws, $\tau$-necessity, and the complete $d=4$ facet census
   (61 classes, 23,256 facets, derived twice by independent methods).
-- **Paper D — *The Observer-Context Groupoid*.**
+- **Paper D — *The Observer-Context Category*.**
   Relative facts, the gauge-robust $\mathbb{Z}_2$ switching invariant, the movable cut, and the
   localization of the Frauchiger–Renner cycle.
 - **Note — *Local Validity and Contextual Holonomy* (v3).**
@@ -51,12 +51,17 @@ verifications, hardware validation, and the supporting software package.
 - **Sharp local valuation** (V46): every single commuting context trivializes over $\mu_d$ (even
   $d$) and $\mu_{2d}$ (odd $d$, sharp) — local classicality is exact, with the sharp value group
   and an even/odd inversion of the naive expectation.
-- **Collapse** (V37/V40): statistics + repeatability + commutant-covariance pin the update to the
-  one-parameter Lüders/depolarize family per block; the classical twin of the same axioms is
-  Bayesian conditioning.
+- **Collapse** (V37/V40): under Born statistics, repeatability, and full commutant covariance, each
+  projective-block instrument belongs to a one-parameter **affine depolarizing family** with exact
+  complete-positivity interval $-1/(r^2-1)\le p\le 1$ per rank-$r$ block; **Lüders is the unique
+  single-Kraus member**. The classical twin is the affine family $T_t=tI+(1-t)J/m$,
+  $-1/(m-1)\le t\le1$, whose deterministic member is identity/Bayes (for $m\ge3$; the swap is a second
+  deterministic member at $m=2$). This is a *characterization of admissible instruments conditional on
+  those axioms* — not a derivation of outcome occurrence or a solution of the measurement problem.
 - **Observer sector** (Paper D; V38/V39): relative facts survive Wigner enlargement; the
   Frauchiger–Renner cycle is localized (trivial switch holonomy; the state-sector exit is a single
-  CHSH facet, $\mathrm{CF}=1/6$ exactly).
+  CHSH facet, $\mathrm{CF}=1/6$ exactly). The observer structure is an **observer-context category**
+  (switches are isomorphisms; refinement isometries are non-invertible), not a groupoid.
 
 ## Quick reproduce
 ```bash
@@ -69,7 +74,7 @@ python thmG_general.py      # Paper A Thm G: order exactly n (dimension-independ
 python d4_facet_census.py   # Paper C census: 61 classes / 23,256 facets, on-hull lemma
 python solvability_equivalence.py  # Note Thm 3: detection equivalence (V44)
 python mu_d_valuation.py    # Sharp local valuation, even/odd inversion (V46)
-cd ../hardware && python verify_combined.py   # 3-device combined S = 4.76 (80 sigma)
+cd ../hardware && python verify_combined.py   # 3-device combined S = 4.76 (80 sigma, shot-noise only; see hardware/README.md)
 ```
 
 ## Contact & citation
@@ -86,7 +91,7 @@ This repository is dual-licensed:
 ## Requirements
 Python 3.10+, `numpy`, `sympy`; a few scripts additionally use `scipy`
 (`verification/requirements.txt`). The core canonical set runs with
-`bash verification/run_all.sh` (expect `9/9 canonical verifications passed`); every other script is
+`bash verification/run_all.sh` (expect `12/12 canonical verifications passed`); every other script is
 standalone with its expected output pinned in `INDEX.md`.
 
 ## Status & honesty

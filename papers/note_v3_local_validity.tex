@@ -41,7 +41,7 @@ facets in $61$ symmetry classes) and classified in closed form at $d=2$;
 one-parameter family per degenerate block whose unique efficient member is the
 L\"uders rule --- with a classical twin theorem identifying the same axioms' classical
 solution as Bayesian conditioning; \emph{observer-relativity of facts} and the \emph{movable cut}
-are theorems of an enlarged observer-context groupoid; and the Frauchiger--Renner
+are theorems of an enlarged observer-context category; and the Frauchiger--Renner
 argument localizes to an ordinary state-dependent violation (contextual fraction exactly
 $1/6$) carried by a single CHSH facet, with the loop holonomy of the observer switch
 provably trivial. Two of these signatures have been measured on superconducting hardware.
@@ -117,6 +117,18 @@ determinant-\emph{section} holonomy, with section-independent square $-1$
 update rule quantified only over efficient (single-Kraus) instruments. The
 instrument-level theorem without that restriction is Theorem~\ref{thm:lueders} below.
 \end{enumerate}
+
+\paragraph{Corrections (2026-07-11, second external audit).} A follow-up adversarial pass found
+further defects in the measurement-update layer, now repaired (the core obstruction-spectrum results
+of \cite{paperA,paperB} are unaffected): (a) the collapse family's complete-positivity range was
+misstated --- on a rank-$r$ block it is the affine interval $-1/(r^2-1)\le p\le 1$, not $[0,1]$
+(Theorem~\ref{thm:lueders}); (b) the sharp-core counterexample $\mathrm{diag}(1,c)$ was invalid (its
+second outcome is not repeatable) and is replaced by a qutrit example (Theorem~\ref{thm:sharp}); (c)
+the classical twin's range is $-1/(m-1)\le t\le 1$ with a second deterministic member (the swap) at
+$m=2$ (Theorem~\ref{thm:twin}); (d) the V37 evidence is a numerical stress test, not a
+``machine-exact'' certificate; (e) the observer structure of \cite{paperD} is a \emph{category} with a
+switch subgroupoid, not a groupoid; and (f) the hardware significance is statistical (shot-noise) under
+the implemented witness model, conditional on compatibility/nondisturbance assumptions.
 
 \section{Local validity is exact}\label{sec:local}
 \begin{theorem}[Local classicality]\label{thm:local}
@@ -278,17 +290,22 @@ symbol $(a|d)$ by Zolotarev, and the Weil-attained group is $\mu_6$ if $3\mid d$
 $\mu_2$ otherwise, exhaustive only at $d=3$. Claims must pin the section --- the same
 lesson as v1's error (3).
 
-\section{Collapse: the unique bookkeeping, and its classical twin}\label{sec:collapse}
+\section{Collapse: the admissible update rule, and its classical twin}\label{sec:collapse}
 \begin{theorem}[Instrument-level L\"uders; V37]\label{thm:lueders}
 Let $\{\mathcal I_j\}$ be an instrument for a projective measurement with degenerate
 blocks, satisfying (i) statistics, (ii) repeatability, and (iii) covariance under the
-commutant of the measured observable. Then each $\mathcal I_j$ is exactly
-$p_j\cdot(\text{L\"uders})+(1-p_j)\cdot(\text{block depolarization})$; the solution
-space has exactly one parameter per degenerate block (nullity $2$ at $(4,[2,2])$,
-verified also at $(6,[3,2,1])$), and the L\"uders instrument is its unique efficient
-(single-Kraus) member. Covariance under the MASA alone is strictly insufficient. Proof
-via Schur's lemma on block-covariant channels, in the v2 supplement
-(\texttt{note\_v2\_patch.md}); machine-exact certificates in V37.
+commutant of the measured observable. Then on each degenerate block of rank $r_j$,
+\[
+\mathcal I_j(\rho)=p_j\,P_j\rho P_j+(1-p_j)\,\operatorname{tr}(P_j\rho)\,\frac{P_j}{r_j},
+\qquad -\frac{1}{r_j^{2}-1}\le p_j\le 1,
+\]
+an \emph{affine} depolarizing family (the lower endpoint is forced by complete positivity; this is
+\emph{not} only the convex segment $p_j\in[0,1]$). The linear solution space has exactly one parameter
+per degenerate block (nullity $2$ at $(4,[2,2])$, verified also at $(6,[3,2,1])$), and the L\"uders
+instrument $p_j=1$ is its unique efficient (single-Kraus) member. Covariance under the MASA alone is
+strictly insufficient. Proof via Schur's lemma on block-covariant channels together with the Choi
+bound; the V37 script is a numerical affine-dimension stress test, and the CP interval is certified
+exactly in \texttt{lueders\_cp\_interval.py}.
 \end{theorem}
 
 \begin{theorem}[Sharp core; V40]\label{thm:sharp}
@@ -296,28 +313,40 @@ For a POVM instrument, statistics plus repeatability force every output of
 $\mathcal I_j$ into the eigenvalue-$1$ subspace of its effect $E_j$, and these
 subspaces are mutually orthogonal. A strictly unsharp effect (no $1$-eigenvector)
 admits no repeatable instrument at all. The folk claim ``repeatable $\Rightarrow$
-projective'' is nevertheless false as stated: a pinned counterexample with effect
-$\mathrm{diag}(1,c)$, $0<c<1$, is repeatable and non-projective.
+projective'' is nevertheless false as stated, but a valid witness must be at least
+three-dimensional: the qutrit two-effect POVM $E_1=\mathrm{diag}(1,0,c)$,
+$E_2=\mathrm{diag}(0,1,1-c)$, $0<c<1$, admits a repeatable covariant instrument on \emph{every}
+outcome while $E_1$ is non-projective. (An earlier qubit example $\mathrm{diag}(1,c)$ was
+withdrawn: its second effect $\mathrm{diag}(0,1-c)$ has no eigenvalue $1$, so that outcome is not
+repeatable.)
 \end{theorem}
 
 \begin{theorem}[Classical twin; V40]\label{thm:twin}
 The same axioms, interpreted for classical stochastic instruments on a finite outcome
-partition, force $t\cdot(\text{Bayesian conditioning})+(1-t)\cdot(\text{uniformization
-per cell})$, with nullities matching the quantum case block-for-block.
+partition, force the affine family $T_t=t\,I+(1-t)\,J/m$ per cell of size $m$, with
+$-\tfrac{1}{m-1}\le t\le 1$ (nonnegativity), the nullities matching the quantum case
+block-for-block. Its deterministic covariant members are the identity ($t=1$, Bayesian
+conditioning) for every $m$ and, in addition, the swap ($t=-1$) when $m=2$; so Bayes is the unique
+deterministic member only for $m\ge 3$.
 \end{theorem}
 
 \begin{remark}[Position]
 Theorems~\ref{thm:lueders}--\ref{thm:twin} give the Leifer--Spekkens thesis a sharpened
-form: collapse is not a dynamical anomaly but the \emph{unique} bookkeeping compatible
-with the axioms, and its classical shadow under the same axioms is Bayes' rule. What is
-quantum is not the updating; it is the geometry (\S\ref{sec:global}) on which the
-updating lives.
+form: \emph{conditional on} statistics, repeatability and full commutant covariance, the
+admissible update rule is restricted to an affine depolarizing family whose unique single-Kraus
+member is L\"uders, with Bayes' rule as the classical shadow of the same axioms. This is a
+characterization of admissible instruments --- not a derivation that collapse occurs, nor a
+resolution of the definite-outcome problem; rival interpretations can use the same formal result.
+What is quantum is not the updating; it is the geometry (\S\ref{sec:global}) on which the updating
+lives.
 \end{remark}
 
 \section{Observers, relative facts, and the cut}\label{sec:observer}
-The observer enters through the observer-context groupoid of \cite{paperD}, whose
-objects are pairs (context, observer chain) and whose fibered morphisms are switches
-within a fixed enlargement and refinement isometries.
+The observer enters through the observer-context category of \cite{paperD}, whose
+objects are pairs (context, observer chain) and whose morphisms are switches within a fixed
+enlargement (isomorphisms, forming a subgroupoid) together with refinement isometries into larger
+Hilbert spaces (non-invertible); the presence of non-invertible refinements makes this a
+\emph{category}, not a groupoid, and holonomy invariants are taken on the switch subgroupoid.
 
 \begin{theorem}[Relative facts; \cite{paperD}]\label{thm:relative}
 Value assignments exist per object and pull back monotonically along fibered morphisms;
@@ -339,7 +368,7 @@ update rule of Theorem~\ref{thm:lueders} forced on both sides.
 \end{theorem}
 
 \begin{theorem}[Frauchiger--Renner localized; \cite{paperD}]\label{thm:fr}
-In the observer-context groupoid, the FR cycle carries trivial class: all switch-loop
+In the observer-context category, the FR cycle carries trivial class: all switch-loop
 phases are $+1$, fully gauge-invariantly. The paradox localizes to an ordinary
 state-dependent violation: $\CF=1/6$ exactly, attained on the single CHSH facet
 $\langle \bar Z Z\rangle-\langle \bar Z X\rangle+\langle \bar X X\rangle+\langle \bar X
@@ -437,7 +466,7 @@ Stack and the Peres--Mermin Obstruction}, working draft, 2026.
 Families and the 2-adic Tower}, working draft, 2026.
 \bibitem{paperC} M.~Flores Gordillo, \emph{What Contextual Holonomy Detects}, working
 draft, 2026.
-\bibitem{paperD} M.~Flores Gordillo, \emph{The Observer-Context Groupoid: Relative
+\bibitem{paperD} M.~Flores Gordillo, \emph{The Observer-Context Category: Relative
 Facts, a $\mathbb Z_2$ Switching Invariant, and the Movable Cut}, working draft v0.3,
 2026.
 \bibitem{repo} \texttt{github.com/manuflog/contextuality-obstructions}, verification

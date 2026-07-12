@@ -58,7 +58,8 @@ statistics remain those of the unsharp effects.
 **Theorem B (uniqueness on the core; V37).** On the sharp core, adding
 (iii) covariance under every unitary commuting with the measured observable pins the
 solution set to exactly
-    I_j(rho) = p_j P_j rho P_j + (1 - p_j) tr(P_j rho) P_j / d_j,   p_j in [0,1],
+    I_j(rho) = p_j P_j rho P_j + (1 - p_j) tr(P_j rho) P_j / d_j,   -1/(d_j^2 - 1) <= p_j <= 1,
+(an AFFINE family; complete positivity gives this interval, NOT [0,1]),
 one parameter per degenerate block and none for nondegenerate ones; efficiency (pure
 Kraus) holds iff p_j = 1: the Lueders instrument is the unique efficient member.
 Covariance under the diagonal MASA alone is strictly insufficient (solution dimensions
@@ -66,20 +67,23 @@ Covariance under the diagonal MASA alone is strictly insufficient (solution dime
 *Proof sketch.* (i)+(ii) confine I_j to the j-th block. A channel on B(K_j) covariant
 under the full adjoint action of U(K_j) has Choi matrix commuting with U-bar (x) U for
 all U; by Schur the commutant is spanned by the identity and the maximally entangled
-projector, so the channel is a depolarizing-family member. Machine-exact certificates:
-`lueders_instrument.py`. QED
+projector, so the channel is a depolarizing-family member; Choi positivity gives the interval
+above. Evidence: `lueders_instrument.py` (numerical affine-dimension stress test) and the exact
+sympy CP certificate `lueders_cp_interval.py`. QED
 
 **Theorem C (the classical twin; V40).** On a finite sample space with partition {A_j},
 classical instruments T_j satisfying (i) mass = p(A_j), (ii) output support in A_j, and
 (iii) covariance under partition-preserving permutations form exactly the family
-    T_j = t_j (Bayes conditioning onto A_j) + (1 - t_j)(measure-and-uniformize on A_j),
-one parameter per non-singleton cell (machine-exact: nullity 2 on cells [2,2], nullity
-1 on [3,1]); the deterministic member is Bayes conditioning.
+    T_j = t_j I + (1 - t_j) J/m  on a cell of size m,   -1/(m-1) <= t_j <= 1,
+one parameter per non-singleton cell (nullity 2 on cells [2,2], nullity 1 on [3,1]); the
+deterministic covariant members are the identity (t=1, Bayes conditioning) for every m AND the
+swap (t=-1) when m=2, so Bayes is the unique deterministic member only for m>=3.
 
 **On Leifer-Spekkens.** The note's collapse rule is not a claim about a dynamical
 process; Theorems A-C show it is *conditioning forced by axioms*: the same three
 operational requirements that make Bayes' rule the unique deterministic classical
-update make Lueders the unique efficient quantum one, with identical solution-space
+update (on cells of size >=3; at size 2 the swap is a second deterministic member) make
+Lueders the unique single-Kraus (efficient) quantum one, with identical solution-space
 structure (one interpolation parameter per degenerate cell, uniformize/depolarize as
 the inefficient endpoint). The Bayesian reading of collapse is therefore not an
 alternative to the note but its classical shadow. Questions of causal neutrality and

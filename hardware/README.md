@@ -34,7 +34,24 @@ Chip-to-chip spread (4.56–4.94) is genuine variation; every device is far abov
 - `PeresMermin_d2_v4_multibackend.ipynb` — the runnable Colab notebook (needs an IBM Quantum token;
   set `QISKIT_IBM_TOKEN`). Emits the sequential protocol, auto-selects the best qubit triple per device.
 
-## Scope
-This certifies the **presence** of the $d=2$ obstruction. It does not test the value grading; by the
-value–bit corollary the $d=4$ obstruction phase is the same $-1$, so the grading is an algebraic
-(software-certified) fact and $d=4$ hardware would add no new physics at feasible gate counts.
+## Scope and significance caveat (read before quoting the σ)
+The quoted **80σ is relative to shot-noise statistical uncertainty under the implemented witness
+model** — it is *not* a loophole-free contextuality certification. Specifically the figure does **not**
+incorporate: calibration drift, gate/model systematics, measurement disturbance, inconsistent
+marginals across contexts, look-elsewhere/backend-selection effects, or device-dependent compatibility
+loopholes. A Peres–Mermin witness above 4 under *sequential* measurements certifies contextuality only
+under compatibility/nondisturbance assumptions; sequential disturbance or context-dependent
+implementations can mimic an apparent violation. Inverse-variance combination across the three devices
+assumes independent statistical errors and does **not** remove common systematics.
+
+Recommended phrasing: *"80 standard deviations relative to shot-noise uncertainty under the implemented
+witness model,"* not *"loophole-free 80σ contextuality."* Compatibility diagnostics that would harden
+the claim (same-observable marginal across every context containing it; order-reversal tests;
+repeated-measurement agreement; disturbance bounds; per-context calibration spread) are **not yet
+reported here** and are an open experimental to-do.
+
+This run certifies the **presence** of the $d=2$ obstruction under those assumptions. It does not test
+the value grading; by the value–bit corollary the $d=4$ obstruction phase is the same $-1$, so the
+grading is an algebraic (software-certified) fact and $d=4$ hardware would add no new physics at
+feasible gate counts. Kept separate: (i) hardware replication of the PM witness; (ii) algebraic
+verification of the obstruction grading; (iii) any empirical test of the higher-dimensional tower.

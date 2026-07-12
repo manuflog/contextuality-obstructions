@@ -10,7 +10,7 @@
 \begin{abstract}
 We make ``observer'' a mathematical object: an isometric enlargement of the system
 together with a measurement context on the enlarged algebra, organized into a category
-(whose invertible switches form a subgroupoid) carrying the $U(1)$ cocycle of the companion papers. Three results follow, each backed
+(whose invertible switches form a subgroupoid) carrying the $U(1)$ cocycle of the companion papers. Four results follow, each backed
 by machine certificates and one anchored by superconducting-hardware data.
 (1)~\emph{Relative facts}: every observer admits an exact local classical section,
 while no global value assignment exists for the Peres--Mermin family --- nor for any
@@ -35,11 +35,12 @@ The Copenhagen principle of the companion note asserts that quantum theory is lo
 valid --- classical within every measurement context --- and globally obstructed. This
 paper extends that structure from contexts to \emph{observers}. The blocking issue in
 earlier attempts was that ``observer'' remained informal. We repair this with a minimal
-definition sufficient for three theorems formalizing the relativity of facts, the
+definition sufficient for the core theorems formalizing the relativity of facts, the
 holonomy content of complementary switching, and the movability of the Heisenberg cut.
-Every step is pinned by a machine certificate in the public verification suite
-(\texttt{observer\_groupoid.py} and companions), and the holonomy split of
-Section~\ref{sec:inv} carries a hardware measurement.
+The finite certificates and numerical checks are supplied in the public verification suite
+(\texttt{observer\_groupoid.py} and companions), while analytic proofs and interpretive
+consequences are labeled separately; the holonomy split of Section~\ref{sec:inv} carries a
+hardware measurement.
 
 \section{The observer--context category}
 Fix the finite Weyl model at dimension $d$ with $m$ registers: observables are Weyl

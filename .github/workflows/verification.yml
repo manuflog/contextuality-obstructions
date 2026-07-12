@@ -1,0 +1,17 @@
+name: verification
+on:
+  push:
+  pull_request:
+jobs:
+  canonical:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r verification/requirements.txt
+      - name: canonical verification suite
+        run: bash verification/run_all.sh
+      - name: stale-claim guard
+        run: bash verification/check_stale_claims.sh

@@ -7,16 +7,18 @@
 # Its Choi matrix has eigenvalues  {1  (mult r^2-1 combination), and 1+p(r^2-1)}; concretely
 # CP  <=>  p <= 1  AND  1 + p*(r^2 - 1) >= 0, i.e.
 #     -1/(r^2 - 1) <= p <= 1     (r > 1);   for r = 1 the map is the identity (unique).
-# This script verifies the interval endpoints via exact rational Choi eigenvalues (sympy),
-# so the bound is a genuine exact certificate (not a float/random stress test).
+# This script verifies the interval endpoints via exact rational Choi eigenvalues (Python
+# Fraction arithmetic), so the bound is a genuine exact certificate (not a float/random test).
 import numpy as np
 from fractions import Fraction
 
 def choi_min_eig_exact(p, r):
     """Minimum Choi eigenvalue of Phi_p on rank r, as an exact Fraction.
-    Choi(Phi_p) = p * r * |Omega><Omega|  +  (1-p) * (I_r ⊗ I_r)/r   (unnormalized |Omega>=sum|ii>).
-    Eigenvalues: on span|Omega> : p*r + (1-p)/r ; elsewhere : (1-p)/r  (mult r^2-1).
-    Both scaled by 1/1; we only need their signs, so track exact Fractions."""
+    With |Omega> = sum_i |ii> unnormalized (<Omega|Omega> = r),
+        Choi(Phi_p) = p |Omega><Omega|  +  (1-p) (I_r ⊗ I_r)/r.
+    Eigenvalues: p*r + (1-p)/r on span{|Omega>}  (the p*r arises from <Omega|Omega> = r);
+                 (1-p)/r      with multiplicity r^2 - 1.
+    We only need their signs, so track exact Fractions."""
     p=Fraction(p).limit_denominator(10**6); r=Fraction(r)
     e_omega = p*r + (1-p)/r
     e_rest  = (1-p)/r

@@ -21,6 +21,13 @@ measurement twirling on; 8192 shots/context.
 
 Chip-to-chip spread (4.56–4.94) is genuine variation; every device is far above the classical bound.
 
+> **Two distinct `ibm_fez` measurements — not a discrepancy.** The `ibm_fez` value above ($S=4.56$)
+> is from this **three-device replication** (`results/pm_d2_3device_results.json`), cited in Paper B.
+> A separate **single-device holonomy job** (`results/ibm_fez_holonomy_20260709.json`, job
+> `d986q62f47jc73a7hm2g`) reports its own Peres–Mermin witness $S=4.6125\pm0.0173$ (35.4σ) alongside
+> the interferometric loop phase; that figure is cited in the synthesis note and Paper C. Same backend,
+> two different runs.
+
 ## Reproduce
 - `python verify_combined.py` — recomputes each device's $S$ from its six per-context correlators and
   the inverse-variance-weighted combined figure from `results/pm_d2_3device_results.json`.

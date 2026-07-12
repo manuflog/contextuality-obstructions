@@ -11,7 +11,8 @@
    4.6125,
    0.0173
   ],
-  "nc_bound": 4
+  "nc_bound": 4,
+  "provenance_note": "pm_S = 4.6125 (35.4 sigma) is the Peres-Mermin witness from THIS single-device holonomy job (ibm_fez, job d986q62f47jc73a7hm2g), cited by the note and Paper C. It is a DIFFERENT measurement from the three-device replication reported in Paper B and hardware/README.md, where ibm_fez gives S = 4.56 (see results/pm_d2_3device_results.json). The two figures are distinct runs on the same backend, not a discrepancy."
  },
  "results": [
   {

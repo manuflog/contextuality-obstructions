@@ -16,3 +16,6 @@ __pycache__/
 # Internal / non-public working documents
 HANDOFF.md
 CLAUDE.md
+
+# Local-only arXiv submission staging (not for public repo)
+arxiv/

@@ -21,6 +21,13 @@ measurement twirling on; 8192 shots/context.
 
 Chip-to-chip spread (4.56–4.94) is genuine variation; every device is far above the classical bound.
 
+> **The 80σ is shot-noise-only and overstates the combined significance.** The three devices fail a
+> homogeneity test (χ² ≈ 266 on 2 d.o.f., Birge ratio ≈ 11.5): their scatter is ~20× the combined
+> shot-noise SE, so a systematics-aware (Birge-scaled) combination gives **≈ 7σ**, not 80σ. Each device
+> individually is 32–61σ above the bound (shot noise), so the qualitative violation is robust — but the
+> combined 80σ is not a legitimate single-S significance. Full analysis: `compatibility_analysis.py`
+> and `COMPATIBILITY.md`.
+
 > **Two distinct `ibm_fez` measurements — not a discrepancy.** The `ibm_fez` value above ($S=4.56$)
 > is from this **three-device replication** (`results/pm_d2_3device_results.json`), cited in Paper B.
 > A separate **single-device holonomy job** (`results/ibm_fez_holonomy_20260709.json`, job

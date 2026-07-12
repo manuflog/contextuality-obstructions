@@ -74,7 +74,7 @@ python thmG_general.py      # Paper A Thm G: order exactly n (dimension-independ
 python d4_facet_census.py   # Paper C census: 61 classes / 23,256 facets, on-hull lemma
 python solvability_equivalence.py  # Note Thm 3: detection equivalence (V44)
 python mu_d_valuation.py    # Sharp local valuation, even/odd inversion (V46)
-cd ../hardware && python verify_combined.py   # 3-device combined S = 4.76 (80 sigma, shot-noise only; see hardware/README.md)
+cd ../hardware && python verify_combined.py   # 3-device combined S = 4.76 (80σ shot-noise only; ~7σ systematics-aware, see hardware/COMPATIBILITY.md)
 ```
 
 ## Contact & citation

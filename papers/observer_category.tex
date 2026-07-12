@@ -1,0 +1,756 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{construction}{Construction}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{convention}{Convention}
+
+\newcommand{\Hs}{\mathcal H}
+\newcommand{\K}{\mathcal K}
+\newcommand{\B}{\mathcal B}
+\newcommand{\Ecat}{\mathcal E}
+\newcommand{\Oc}{\mathbb O}
+\newcommand{\Sw}{\mathrm{Sw}}
+\newcommand{\Ctx}{\mathsf{Ctx}}
+\newcommand{\Gpd}{\mathbf{Gpd}}
+\newcommand{\Cat}{\mathbf{Cat}}
+\newcommand{\U}{\mathrm{U}}
+\newcommand{\PU}{\mathrm{PU}}
+\newcommand{\SU}{\mathrm{SU}}
+\newcommand{\Wop}{W}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\hol}{\mathrm{hol}}
+\newcommand{\Zt}{\mathbb Z_2}
+\newcommand{\pushf}[1]{{#1}_{!}}
+
+% status tags
+\newcommand{\STC}{{\normalfont\textsc{[Complete]}}}
+\newcommand{\STS}{{\normalfont\textsc{[Sketch]}}}
+\newcommand{\STG}{{\normalfont\textsc{[Gap]}}}
+
+\title{The Observer--Context Category:\\ Formal Architecture}
+\author{Manuel Flores Gordillo}
+\date{July 2026 --- standalone architecture note (companion to Paper D)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Paper D introduces an ``observer'' as an isometric enlargement of a system together
+with a measurement context on the enlarged algebra, with two arrow classes:
+invertible \emph{switches} (context changes at a fixed cut) and non-invertible
+\emph{refinements} (moving the Heisenberg cut, $A\mapsto A\otimes I$). The
+non-invertibility of refinements is what forced the correction from ``groupoid'' to
+``category.'' This note supplies the missing architecture. We argue that the correct
+home is a \emph{Grothendieck opfibration} $\pi:\Oc\to\Ecat$ over the category
+$\Ecat$ of enlargements --- equivalently a pseudofunctor $\Ctx:\Ecat\to\Gpd$ whose
+fibers are the switch groupoids and whose reindexing functors are the
+adjoin-and-tensor maps. This choice (i) subsumes the ``category with a wide switch
+subgroupoid'' picture (the subgroupoid is exactly the union of fibers), (ii) is more
+faithful than a bare double category because it builds the invertibility asymmetry
+into the variance rather than positing it, and (iii) makes ``the cocycle is pulled
+along a functor'' literal. We specify objects, all arrow types with sources and
+targets, composition, identities, and associativity; prove the switches form a wide
+subgroupoid; give refinement functoriality on contexts, on the $\U(1)$ cocycle, on
+value assignments, and on obstruction classes with pullback--monotonicity; locate the
+$\U(1)$ cocycle precisely (fiberwise, on the switch subgroupoid, as a
+reindexing-compatible section); define holonomy only for invertible switch loops and
+separate it from pullback-along-embeddings; and restate the movable-cut result as an
+exact five-level statement with a commutative diagram. Every claim is labeled
+\STC{} complete, \STS{} a sketch relying on a named categorical result, or \STG{} a
+gap. The Copenhagen scope is stated explicitly: the formalism \emph{supports} a
+Copenhagen-compatible reading; it does not prove Copenhagen is the unique
+interpretation.
+\end{abstract}
+
+\tableofcontents
+
+\section{The problem, and the choice of structure}\label{sec:choice}
+
+\paragraph{The data.}
+Fix the finite Weyl model: a system Hilbert space $\Hs$ of dimension $d^m$
+($m$ registers of local dimension $d$), Weyl operators $\Wop(v)$ indexed by
+$v\in V=(\mathbb Z_d)^{2m}$, with the section law
+\begin{equation}\label{eq:weyl}
+\Wop(u)\Wop(v)=\tau^{\,c(u,v)}\Wop(u+v),\qquad \tau=e^{i\pi/d},
+\end{equation}
+where $c:V\times V\to\mathbb Z_{2d}$ is the canonical $2$-cocycle of the companion
+papers. A \emph{context} is a closed commuting Weyl family (an isotropic subgroup
+$L\subseteq V$ with its operator family); it need not be maximal. An \emph{observer}
+adjoins ancillary degrees of freedom (a friend, a memory, an apparatus) by an isometry
+$\iota:\Hs\to\Hs\otimes\Hs_O$ and picks a context on the enlarged algebra.
+
+\paragraph{Two arrow classes, one asymmetry.}
+Paper D generates morphisms from two kinds of move:
+\begin{enumerate}[label=(\alph*),leftmargin=2em]
+\item \emph{Switches}: at a \emph{fixed} enlargement $\K$, a unitary $U$ on $\K$
+carrying a context $C$ to a context $C'$ (a basis change, a Wigner rotation, the
+friend performing her measurement). Switches are invertible ($U^{-1}=U^\ast$).
+\item \emph{Refinements}: \emph{changing} the enlargement, $\iota\rightsquigarrow
+\iota'\circ\iota$, and embedding observables by $A\mapsto A\otimes I$ (moving the
+Heisenberg cut outward, from friend to Wigner). Because an isometry into a strictly
+larger Hilbert space has no two-sided inverse, refinements are \emph{not} invertible.
+\end{enumerate}
+The single structural fact that organizes everything below is that these two classes
+\emph{differ in invertibility}. Any faithful formalism must encode that asymmetry, not
+merely tolerate it.
+
+\paragraph{Three candidate structures.}
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+\item \textbf{A category with a wide subgroupoid of switches.} Minimal and
+unimpeachable: declare $\Oc$ a category, observe that the switches are isomorphisms
+and form a wide subgroupoid, and take all holonomy invariants there. This is exactly
+the corrected Paper D wording. It is \emph{true} but under-informative: it says only
+that some arrows fail to be invertible, without organizing the refinement direction.
+\item \textbf{A double category.} Treat switches and refinements as two 1-cell
+directions (say vertical and horizontal) with $2$-cells the commuting squares
+``refine-then-switch $=$ switch-then-refine.'' This records the compatibility squares
+explicitly, and is the natural home for the naturality statements. But a bare double
+category posits the two directions \emph{symmetrically}; the invertibility asymmetry
+(switches invertible, refinements not) has to be added by hand, and one owes the
+interchange law and a filling of all squares.
+\item \textbf{A category (op)fibered over enlargements / a pseudofunctor.} Let the
+base $\Ecat$ be the category of enlargements, let each fiber be the switch groupoid of
+a fixed enlargement, and let refinements be the (op)cartesian lifts of enlargement
+maps. Equivalently, a pseudofunctor $\Ctx:\Ecat\to\Gpd$, $\K\mapsto\Sw(\K)$,
+$e\mapsto(-\otimes I)$.
+\end{enumerate}
+
+\paragraph{Our choice, and why.}
+\emph{We adopt structure (3): $\Oc$ is the Grothendieck opfibration of a pseudofunctor
+$\Ctx:\Ecat\to\Gpd$ into groupoids.} The reasons are exactly the three desiderata of
+the correction:
+\begin{itemize}[leftmargin=1.4em]
+\item It encodes the invertibility asymmetry \emph{intrinsically}: the invertible
+switches are precisely the \emph{fiber} (vertical) arrows; the non-invertible
+refinements are precisely the \emph{cartesian} (horizontal) arrows over non-invertible
+base maps. Invertibility is not posited; it is the statement ``fibers are groupoids.''
+\item It subsumes structure (1): the wide switch subgroupoid is literally
+$\bigsqcup_{\K}\Sw(\K)$, the union of the fibers, i.e. the vertical subcategory
+(Theorem~\ref{thm:subgpd}).
+\item It makes ``the $\U(1)$ cocycle is pulled along a functor'' literal: reindexing
+$(-\otimes I)$ is a functor between fibers, and the cocycle-on-the-nose lemma
+(Lemma~\ref{lem:pull}) is exactly the statement that the fiberwise cocycles form a
+reindexing-compatible section (\S\ref{sec:cocycle}).
+\end{itemize}
+Structure (2) is not discarded: the fibration \emph{induces} a double category
+(its ``framed'' / fibrant double category in the sense of Shulman
+\cite{Shulman}), whose squares are the naturality squares. We use those squares in the
+movable-cut diagram (\S\ref{sec:cut}) but do not take the double category as
+primitive, because it would add coherence obligations (interchange) without adding
+faithfulness. We record this relationship honestly in the status table
+(\S\ref{sec:status}).
+
+\begin{convention}[Strictification]\label{conv:strict}
+To keep composition strictly associative we fix, once and for all, a strictly monoidal
+model of enlargements: ancilla registers are indexed by a well-ordered set and
+$\otimes$ is the ordered tensor, so that $(-\otimes I_{O'})\circ(-\otimes
+I_{O})=(-\otimes I_{O\sqcup O'})$ \emph{on the nose}. Under this convention $\Ctx$ is a
+\emph{strict} $2$-functor and the Grothendieck construction is a strict opfibration.
+Dropping the convention costs only the coherence isomorphisms of a pseudofunctor, and
+the passage to a fibration is then the standard Grothendieck correspondence
+\cite{SGA1,JacobsBook,Johnstone}; we flag exactly where this is invoked.
+\end{convention}
+
+\section{The base: the category of enlargements \texorpdfstring{$\Ecat$}{E}}
+\label{sec:base}
+
+\begin{definition}[Enlargements]\label{def:base}
+The \emph{category of enlargements} $\Ecat$ has:
+\begin{itemize}[leftmargin=1.4em]
+\item \textbf{Objects:} cut data, i.e. isometries $\iota:\Hs\to\Hs\otimes\Hs_{O}$ with
+$\Hs$ the fixed system and $\Hs_O$ a (possibly trivial) ancilla; write the enlarged
+space as $\K_\iota:=\Hs\otimes\Hs_O$. The trivial enlargement $\iota_0=\id_\Hs$ is an
+object.
+\item \textbf{Morphisms} $\iota\to\iota'$: ancilla-adjoining isometries
+$e:\K_\iota\to\K_{\iota'}$ of the form $e=\id_{\K_\iota}\otimes\,\eta$, with
+$\eta:\mathbb C\to\Hs_{O'}$ a unit vector (adjoining a fresh ancilla in a fixed state),
+such that $\iota'=e\circ\iota$. Composition is composition of isometries; the identity
+is $\id_{\K_\iota}$.
+\end{itemize}
+At the level of observables, $e$ induces the unital $\ast$-embedding
+$e_\sharp:\B(\K_\iota)\to\B(\K_{\iota'})$, $A\mapsto A\otimes I$ (Heisenberg picture).
+\end{definition}
+
+\begin{proposition}[$\Ecat$ is a category; refinements are non-invertible]
+\label{prop:base}
+$\Ecat$ is a well-defined category. Under Convention~\ref{conv:strict} it is strictly
+associative and strictly monoidal under $\otimes$. A morphism $e:\iota\to\iota'$ is
+invertible in $\Ecat$ iff $\dim\K_\iota=\dim\K_{\iota'}$, i.e. iff the adjoined ancilla
+is trivial. \STC
+\end{proposition}
+\begin{proof}
+Composition of isometries is an isometry and is associative; identities act as
+identities; this is a category. Strictness is Convention~\ref{conv:strict}. If
+$\dim\K_{\iota'}>\dim\K_\iota$ then $e$ is a non-surjective isometry, hence has no
+right inverse in $\Ecat$ (any $r$ with $e\circ r=\id$ would force $e$ surjective); if
+dimensions agree, $e$ is a unitary and $e^\ast$ is its inverse. \end{proof}
+
+The trivial enlargement $\iota_0$ is initial in the full subcategory on a fixed system
+$\Hs$; the whole ``moving the cut outward'' picture is the poset-like flow away from
+$\iota_0$.
+
+\section{The fibers: switch groupoids \texorpdfstring{$\Sw(\K)$}{Sw(K)}}
+\label{sec:fiber}
+
+\begin{definition}[Switch groupoid]\label{def:sw}
+For a fixed enlarged space $\K$, the \emph{switch groupoid} $\Sw(\K)$ has:
+\begin{itemize}[leftmargin=1.4em]
+\item \textbf{Objects:} contexts $C$ on $\B(\K)$ (closed commuting Weyl families of the
+enlarged Weyl system).
+\item \textbf{Morphisms} $C\to C'$: gauge classes $[U]$ of context-carrying unitaries,
+i.e. $U$ in the Weyl normalizer (Clifford group) with $UCU^\ast=C'$, taken modulo the
+\emph{Weyl-section gauge} $\Gamma=\{\tau^{k}\Wop(a)\}$ acting by
+$U\mapsto g_2\,U\,g_1$, $g_1,g_2\in\Gamma$.
+\item \textbf{Composition:} $[U_2]\circ[U_1]=[U_2U_1]$; \textbf{identity:}
+$\id_C=[\,I\,]$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}[$\Sw(\K)$ is a groupoid]\label{prop:fibergpd}
+$\Sw(\K)$ is a well-defined groupoid: composition is associative and gauge-well-defined,
+and every morphism $[U]:C\to C'$ has inverse $[U^\ast]:C'\to C$. \STC
+\end{proposition}
+\begin{proof}
+Matrix multiplication is associative. Gauge-invariance of composition: if
+$U_1\sim g_2U_1g_1$ and $U_2\sim h_2U_2h_1$, then $U_2U_1\sim
+h_2U_2(h_1g_2)U_1g_1$; since $\Gamma$ is a group normalized by the Clifford group,
+$h_1g_2$ is absorbed into the left/right gauge of the product, so $[U_2U_1]$ depends
+only on $[U_1],[U_2]$. If $UCU^\ast=C'$ then $U^\ast C'U=C$, and
+$[U^\ast][U]=[U^\ast U]=[I]=\id_C$, $[U][U^\ast]=\id_{C'}$. Hence every arrow is
+invertible. \end{proof}
+
+\begin{remark}[Why the gauge quotient]
+The gauge $\Gamma$ is the phase/Weyl ambiguity of the section \eqref{eq:weyl}. Quotient\-ing
+by it makes objects ``contexts'' rather than ``sectioned contexts,'' and is exactly the
+freedom under which the raw holonomy $\hol$ is defined only up to sign while $\hol^2$ is
+invariant (\S\ref{sec:holonomy}). The $\U(1)$ cocycle lives on this groupoid as a
+central extension datum recording that quotient (\S\ref{sec:cocycle}).
+\end{remark}
+
+\section{The total category \texorpdfstring{$\Oc$}{O} as a Grothendieck opfibration}
+\label{sec:total}
+
+\begin{construction}[The reindexing pseudofunctor]\label{con:pf}
+Define $\Ctx:\Ecat\to\Gpd$ on objects by $\Ctx(\iota)=\Sw(\K_\iota)$ and on a
+refinement $e:\iota\to\iota'$ by the \emph{adjoin-and-tensor} functor
+\[
+\pushf{e}:=(-\otimes I):\Sw(\K_\iota)\to\Sw(\K_{\iota'}),\qquad
+C\mapsto C\otimes I,\quad [U]\mapsto[U\otimes I].
+\]
+\end{construction}
+
+\begin{lemma}[$\pushf{e}$ is a functor of groupoids]\label{lem:reindex}
+$\pushf e$ is a well-defined, faithful functor. Under Convention~\ref{conv:strict},
+$\pushf{(e'\circ e)}=\pushf{e'}\circ\pushf{e}$ and $\pushf{\id}=\id$, so $\Ctx$ is a
+strict $2$-functor. \STC
+\end{lemma}
+\begin{proof}
+$U\otimes I$ conjugates $C\otimes I$ to $C'\otimes I$; $(U_2U_1)\otimes
+I=(U_2\otimes I)(U_1\otimes I)$ and $I\otimes I=I$, so $\pushf e$ preserves composition
+and identities. It respects the gauge because $g\otimes I\in\Gamma_{\K'}$ for
+$g\in\Gamma_\K$. Faithfulness: $U\otimes I=U'\otimes I$ (mod gauge) forces $[U]=[U']$.
+Strict functoriality in $e$ is the definition of the ordered tensor
+(Convention~\ref{conv:strict}). \end{proof}
+
+\begin{definition}[The observer--context category]\label{def:O}
+$\Oc:=\displaystyle\int_{\Ecat}\Ctx$ is the Grothendieck construction of $\Ctx$:
+\begin{itemize}[leftmargin=1.4em]
+\item \textbf{Objects:} pairs $o=(\iota,C)$ with $\iota\in\Ecat$ and $C\in\Sw(\K_\iota)$
+a context on the enlarged algebra --- exactly Paper D's observers.
+\item \textbf{Morphisms} $o=(\iota,C)\to o'=(\iota',C')$: pairs $(e,[U])$ with
+$e:\iota\to\iota'$ in $\Ecat$ and $[U]:\pushf e(C)=C\otimes I\to C'$ in
+$\Sw(\K_{\iota'})$.
+\item \textbf{Source/target:} $\mathrm{src}(e,[U])=(\iota,C)$,
+$\mathrm{tgt}(e,[U])=(\iota',C')$.
+\item \textbf{Composition:} for $(e,[U]):o\to o'$ and $(e',[U']):o'\to o''$,
+\begin{equation}\label{eq:comp}
+(e',[U'])\circ(e,[U]):=\bigl(e'\circ e,\ [U']\circ\pushf{e'}[U]\bigr)
+=\bigl(e'\circ e,\ [U'\,(U\otimes I')]\bigr).
+\end{equation}
+\item \textbf{Identity:} $\id_{(\iota,C)}=(\id_\iota,[I])$.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[$\Oc$ is a strict opfibration]\label{thm:opfib}
+Under Convention~\ref{conv:strict}, $\Oc$ is a category, the projection
+$\pi:\Oc\to\Ecat$, $(\iota,C)\mapsto\iota$, $(e,[U])\mapsto e$, is a functor, and
+$\pi$ is a split Grothendieck opfibration whose fiber over $\iota$ is $\Sw(\K_\iota)$.
+Composition \eqref{eq:comp} is associative and unital. \STC{} (associativity, units,
+opfibration split structure by direct verification); the identification with the
+abstract Grothendieck construction, and the pseudofunctor version without
+Convention~\ref{conv:strict}, is \STS{} \cite{SGA1,JacobsBook,Johnstone}.
+\end{theorem}
+\begin{proof}
+\emph{Unitality.} $(\id_{\iota'},[I])\circ(e,[U])=(e,\,[I]\circ\pushf{\id}[U])=(e,[U])$
+and $(e,[U])\circ(\id_\iota,[I])=(e,\,[U]\circ\pushf e[I])=(e,[U])$ since $\pushf
+e[I]=[I]$.
+
+\emph{Associativity.} Take $(e,[U]):o_0\to o_1$, $(e',[U']):o_1\to o_2$,
+$(e'',[U'']):o_2\to o_3$. Composing the first two then the third gives base component
+$e''\circ(e'\circ e)$ and fiber component
+\[
+[U'']\circ\pushf{e''}\!\bigl([U']\circ\pushf{e'}[U]\bigr)
+=[U'']\circ\pushf{e''}[U']\circ\pushf{e''}\pushf{e'}[U],
+\]
+using functoriality of $\pushf{e''}$ (Lemma~\ref{lem:reindex}). Composing the last two
+first gives base $ (e''\circ e')\circ e$ and fiber
+$[U'']\circ\pushf{e''}[U']\circ\pushf{(e''\circ e')}[U]$. By Convention~\ref{conv:strict},
+$e''\circ(e'\circ e)=(e''\circ e')\circ e$ and
+$\pushf{e''}\pushf{e'}=\pushf{(e''\circ e')}$, so the two agree. Hence composition is
+associative.
+
+\emph{Functoriality and fibers.} $\pi$ evidently preserves composition and identities,
+and $\pi^{-1}(\iota)$ (arrows over $\id_\iota$) is $\Sw(\K_\iota)$.
+
+\emph{Opcartesian lifts.} For a base map $e:\iota\to\iota'$ and object
+$(\iota,C)$, the arrow $\rho_e:=(e,[I]):(\iota,C)\to(\iota',\pushf e C)$ is opcartesian:
+any $(e'\circ e,[V]):(\iota,C)\to(\iota'',C'')$ factors uniquely through $\rho_e$ as
+$(e',[V])\circ\rho_e$. The assignment $e\mapsto\rho_e$ is a cleavage, split because
+$\pushf{}$ is strictly functorial. This is the Grothendieck construction of a strict
+$2$-functor \cite{SGA1,JacobsBook}. \end{proof}
+
+\begin{proposition}[Opcartesian--vertical factorization]\label{prop:fact}
+Every morphism of $\Oc$ factors uniquely as a refinement followed by a switch:
+\[
+(e,[U])=\underbrace{(\id_{\iota'},[U])}_{\text{switch}}\ \circ\
+\underbrace{(e,[I])}_{\text{refinement}}.
+\]
+Refinements are the opcartesian arrows $\rho_e=(e,[I])$; switches are the vertical
+arrows $(\id_\iota,[U])$. \STC
+\end{proposition}
+\begin{proof}
+$(\id_{\iota'},[U])\circ(e,[I])=(e,\,[U]\circ\pushf e[I])=(e,[U])$. Uniqueness of the
+(opcartesian, vertical) factorization is the defining property of an opfibration
+(Theorem~\ref{thm:opfib}). \end{proof}
+
+\subsection*{Dictionary}
+\begin{center}\small
+\begin{tabular}{lll}
+\toprule
+Paper D term & Structure in $\Oc$ & Invertible?\\
+\midrule
+observer $(\iota,C)$ & object of $\Oc$ / object of fiber $\Sw(\K_\iota)$ & ---\\
+switch $C\to C'$ (fixed cut) & vertical arrow $(\id_\iota,[U])$ & yes (fiber = groupoid)\\
+refinement $A\mapsto A\otimes I$ & opcartesian arrow $(e,[I])$ & no (Prop.~\ref{prop:base})\\
+``moving the cut'' & travel along the base $\Ecat$ & no\\
+switch loop & loop in a single fiber $\Sw(\K)$ & yes (holonomy defined)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Switches form a wide subgroupoid}\label{sec:subgpd}
+
+\begin{theorem}[Wide switch subgroupoid]\label{thm:subgpd}
+The vertical arrows $\Sw(\Oc):=\{(\id_\iota,[U])\}$ form a wide subgroupoid of $\Oc$:
+it contains every object, is closed under composition and identities, and every one of
+its arrows is invertible, with $(\id_\iota,[U])^{-1}=(\id_\iota,[U^\ast])$. As a
+category $\Sw(\Oc)=\bigsqcup_{\iota\in\Ecat}\Sw(\K_\iota)$, the disjoint union of the
+fibers. \STC
+\end{theorem}
+\begin{proof}
+Verticality is preserved by \eqref{eq:comp}: if both base components are identities so
+is their composite, and $\pushf{\id}=\id$ reduces the fiber component to $[U']\circ[U]$,
+composition inside $\Sw(\K_\iota)$. Identities $(\id_\iota,[I])$ are vertical.
+Invertibility is Proposition~\ref{prop:fibergpd} transported to $\Oc$:
+$(\id_\iota,[U^\ast])\circ(\id_\iota,[U])=(\id_\iota,[U^\ast U])=(\id_\iota,[I])$.
+Wideness holds because every object $(\iota,C)$ is in the fiber $\Sw(\K_\iota)$. There
+are no vertical arrows between different fibers (their base components would differ from
+$\id$), so the subcategory is the disjoint union of fibers. \end{proof}
+
+\noindent This is precisely candidate structure (1) of \S\ref{sec:choice}, now
+\emph{derived} rather than posited: ``category with a wide switch subgroupoid'' is the
+underlying category plus its vertical subcategory. All holonomy invariants of
+\S\ref{sec:holonomy} live here.
+
+\section{Refinement functoriality}\label{sec:refine}
+
+Fix a refinement $e:\iota\to\iota'$ with reindexing $\pushf e=(-\otimes I)$. We record
+its action on each layer of structure.
+
+\paragraph{(R1) On contexts and switches. \STC}
+By Lemma~\ref{lem:reindex}, $\pushf e:\Sw(\K_\iota)\to\Sw(\K_{\iota'})$ is a faithful
+functor of groupoids: $C\mapsto C\otimes I$, $[U]\mapsto[U\otimes I]$. It is injective
+on objects and faithful on arrows, but not full (the enlarged algebra has contexts and
+switches touching the ancilla that are not of the form $-\otimes I$). Thus refinement
+embeds each observer's switch groupoid into the larger one.
+
+\paragraph{(R2) On the $\U(1)$ cocycle (on the nose). \STC}
+Let $c_{\K}$ denote the enlarged Weyl cocycle \eqref{eq:weyl} on $\Sw(\K)$.
+
+\begin{lemma}[Pullback of the cocycle]\label{lem:pull}
+$\pushf e$ pulls the cocycle back strictly: $\pushf e^{\,\ast}c_{\K_{\iota'}}=c_{\K_\iota}$.
+Equivalently $(\Wop(u)\otimes I)(\Wop(v)\otimes I)=\tau^{c(u,v)}(\Wop(u+v)\otimes I)$
+with the \emph{same} exponent $c(u,v)$, for any enlargement. \STC
+\end{lemma}
+\begin{proof}
+$(\Wop(u)\otimes I)(\Wop(v)\otimes I)=\Wop(u)\Wop(v)\otimes
+I=\tau^{c(u,v)}\Wop(u+v)\otimes I$ by \eqref{eq:weyl}; the phase $\tau^{c(u,v)}$ is
+unchanged, so the cocycle is preserved verbatim. Machine certificate: the six embedded
+Peres--Mermin context products at $d=8$ are $(+1)^{\times5},(-1)^{\times1}$, identical
+to $d=4$ (\texttt{observer\_groupoid.py}, part~A). \end{proof}
+
+\paragraph{(R3) On value assignments (pullback--monotonicity). \STC}
+A \emph{value assignment} on a family $F$ of contexts is a section of the presheaf of
+$\mathbb Z_d$-valued (or $\U(1)$-valued) noncontextual valuations.
+
+\begin{lemma}[Restriction and monotonicity]\label{lem:mono}
+Refinement induces a restriction map $\pushf e^{\,\ast}$ on value assignments: a value
+assignment on $\pushf e(F)=F\otimes I$ restricts along $\pushf e$ to one on $F$. Hence
+\[
+\text{$F$ has no global value assignment}\ \Longrightarrow\
+\text{no enlarged family containing $\pushf e(F)$ has one.}
+\]
+In particular the Peres--Mermin obstruction survives every Wigner enlargement. \STC
+\end{lemma}
+\begin{proof}
+$\pushf e$ is an injective strict morphism of context structures preserving all
+operator products (Lemma~\ref{lem:pull}); a valuation $\nu$ on a family containing
+$\pushf e(F)$ pulls back to $\nu\circ\pushf e$ on $F$, which is again noncontextual and
+consistent because products are preserved on the nose. Contrapositive gives the
+monotonicity. Certificate as in Lemma~\ref{lem:pull}. \end{proof}
+
+\paragraph{(R4) On obstruction classes (pullback--monotonicity of the class). \STC/\STS}
+Let $[\theta_F]\in H^2(-;\U(1))$ (equivalently the $\mathbb Z_d$/AvN obstruction of the
+companion papers) be the obstruction class of a family.
+
+\begin{proposition}[Class pullback]\label{prop:classpull}
+$\pushf e^{\,\ast}[\theta_{\pushf e(F)}]=[\theta_F]$: the obstruction class of the
+embedded family equals the pullback of the class upstairs. Consequently the class is
+\emph{monotone} under refinement --- it cannot be trivialized by enlarging the cut ---
+and $\pushf e$ never creates or destroys the AvN sector. \STC{} for the equality of
+representing cocycles (Lemma~\ref{lem:pull}); \STS{} for the statement at the level of
+cohomology classes, which uses functoriality of $H^2(-;\U(1))$ under the groupoid
+functor $\pushf e$ \cite[naturality of group/groupoid cohomology]{Brown,Weibel}.
+\end{proposition}
+\begin{proof}
+Cocycle representatives are preserved by Lemma~\ref{lem:pull}; naturality of $H^2$
+under $\pushf e$ turns this into an equality of classes. Monotonicity is the
+contrapositive together with (R3). \end{proof}
+
+\begin{remark}[Direction of variance]
+Refinement $\pushf e$ is \emph{covariant} on contexts/switches ($C\mapsto C\otimes I$)
+but the induced map on cocycles/classes is \emph{contravariant} (pullback). This is why
+the natural home is an \emph{op}fibration (covariant reindexing of fibers) carrying a
+\emph{contravariant} cocycle section --- see \S\ref{sec:cocycle}.
+\end{remark}
+
+\section{Where the \texorpdfstring{$\U(1)$}{U(1)} cocycle lives}\label{sec:cocycle}
+
+We can now state precisely where the cocycle lives and why.
+
+\begin{definition}[Fiberwise cocycle / reindexing-compatible section]\label{def:cocycle}
+For each enlargement $\iota$ let $c_{\K_\iota}\in Z^2(\Sw(\K_\iota);\U(1))$ be the
+enlarged Weyl cocycle, i.e. the $2$-cocycle of the central extension
+$\U(1)\to\U(\K_\iota)\to\PU(\K_\iota)$ restricted along the switch groupoid, normalized
+on Weyl operators by \eqref{eq:weyl}. The family
+$\{c_{\K_\iota}\}_{\iota\in\Ecat}$ is a \emph{reindexing-compatible section} of the
+contravariant assignment $\iota\mapsto Z^2(\Sw(\K_\iota);\U(1))$: by
+Lemma~\ref{lem:pull},
+\begin{equation}\label{eq:section}
+\pushf e^{\,\ast}c_{\K_{\iota'}}=c_{\K_\iota}\qquad\text{for every refinement } e.
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Location of the cocycle]\label{thm:location}
+The $\U(1)$ cocycle lives \emph{on the switch subgroupoid, fiberwise, as the
+reindexing-compatible section \eqref{eq:section}} --- equivalently, as a $\U(1)$-central
+extension of the vertical subcategory $\Sw(\Oc)$ that is refinement-equivariant. It does
+\emph{not} live on the whole category $\Oc$ as an ordinary group/groupoid $2$-cocycle.
+\STC{} (fiberwise existence and compatibility). The assembly into a single class on all
+of $\Oc$ is \STG{} (see below).
+\end{theorem}
+\begin{proof}[Justification]
+\emph{Why the switch subgroupoid.} A $\U(1)$ $2$-cocycle with holonomy is the datum of
+a central extension, and holonomy of a loop requires the loop to be \emph{invertible}.
+Only the vertical (switch) arrows are invertible (Theorem~\ref{thm:subgpd}); the
+non-invertible refinements cannot carry holonomy, only pull the cocycle back
+(Lemma~\ref{lem:pull}). Hence the natural carrier is $\Sw(\Oc)=\bigsqcup_\iota
+\Sw(\K_\iota)$, one central extension per fiber.
+
+\emph{Why fiberwise-plus-compatible rather than global.} A single $2$-cocycle on the
+whole category $\Oc$ would be an element of a cohomology theory of $\Oc$ that accepts
+non-invertible arrows --- Baues--Wirsching or Thomason cohomology of the category, i.e.
+$H^2$ of the nerve $N\Oc$ with the appropriate coefficient system \cite{BauesWirsching,
+Thomason}. Ordinary groupoid $2$-cocycles are not defined on non-invertible arrows.
+What we \emph{have} constructed is the next best and arguably correct object: a cocycle
+on each fiber, glued by the reindexing pullback \eqref{eq:section}. This is exactly a
+section of the fibered cohomology of $\pi$, and it is what ``the cocycle is pulled along
+a functor'' means. \end{proof}
+
+\begin{remark}[The gerbe / nerve viewpoint --- \STG]\label{rem:gerbe}
+Two stronger packagings are natural but not established here. (a) The compatible section
+\eqref{eq:section} is the cocycle data of a \emph{$\U(1)$-gerbe} over the base $\Ecat$
+(a stack of $\U(1)$-central extensions of the switch groupoids); proving it satisfies
+the gerbe descent/coherence conditions is a \STG. (b) A single class in
+$H^2(N\Oc;\U(1))$ (Baues--Wirsching) restricting to $c_{\K_\iota}$ on each fiber would
+be the ideal ``one cohomological object'' the program advertises; constructing it, or
+proving the obstruction to its existence, is the \textbf{main open architectural
+question} (\S\ref{sec:status}). Everything downstream (holonomy, movable cut) uses only
+the fiberwise section, which is complete.
+\end{remark}
+
+\section{Holonomy, and its distinction from pullback}\label{sec:holonomy}
+
+\begin{definition}[Switch-loop holonomy]\label{def:hol}
+Let $\gamma=[U_k]\circ\cdots\circ[U_1]$ be a loop in a single fiber $\Sw(\K)$ (so
+$U_k\cdots U_1$ carries a context to itself). Choose a special-unitary closer $W_c$ and
+set
+\[
+\hol(\gamma)=\det\!\bigl(W_c\,U_k\cdots U_1\bigr),\qquad
+\hol^2(\gamma)=\det\!\bigl(U_k\cdots U_1\bigr)^2 .
+\]
+\end{definition}
+
+\begin{lemma}[Holonomy is a fiber invariant; $\hol^2$ is gauge-robust]\label{lem:holinv}
+$\hol$ is defined for invertible switch loops only. $\hol$ itself is section-dependent
+(changes by $\pm1$ under Weyl regauging of any switch and by the choice of closer), but
+$\hol^2\in\{\pm1\}$ is invariant under Weyl regauging and closer choice, hence a
+well-defined $\Zt$-valued function on switch loops. \STC{} (Paper D
+Lemma~2; every Weyl element has $\det=\pm1$ and closers are special unitary;
+machine-checked over all $16$ Weyl elements, \texttt{observer\_groupoid.py} part~B).
+\end{lemma}
+
+\begin{proposition}[Holonomy vs.\ pullback are different operations]\label{prop:holvspull}
+Let $\gamma$ be a switch loop in $\Sw(\K_\iota)$ and $e:\iota\to\iota'$ a refinement.
+Then:
+\begin{enumerate}[label=(\roman*),leftmargin=2em]
+\item \emph{Holonomy} is the trace of going \emph{around an invertible loop inside one
+fiber}; it is a number in $\U(1)$ (resp. $\hol^2\in\Zt$).
+\item \emph{Pullback along a refinement} is the functor $\pushf e$ \emph{between
+different fibers}; a refinement is not a loop and has no holonomy of its own.
+\item The two interact by \emph{preservation}: $\hol(\pushf e\gamma)=\hol(\gamma)$ and
+$\hol^2(\pushf e\gamma)=\hol^2(\gamma)$, because $\pushf e$ preserves the cocycle on the
+nose (Lemma~\ref{lem:pull}) and $\det(A\otimes I_n)=\det(A)^n$ with the closer
+scaled accordingly, so the $\Zt$ residue is unchanged.
+\end{enumerate}
+\STC{} (i)--(ii) by definition; (iii) \STC{} for the $\hol^2$ residue, \STS{} for the
+raw $\hol$ phase where the ancilla dimension enters $\det(A\otimes I_n)=\det(A)^n$ and
+one must track the closer normalization.
+\end{proposition}
+
+\noindent
+The upshot, which the ``groupoid'' error obscured: \emph{moving the cut is not
+traversing a loop.} Refinement is pullback-along-an-embedding between fibers; it
+transports holonomy but is not itself a holonomy. Only genuine switch loops --- the
+friend rotating her basis and returning --- have holonomy. This is why holonomy is
+defined solely on the switch subgroupoid.
+
+\section{The movable cut, exactly}\label{sec:cut}
+
+We restate Paper D's Theorem~3 as an exact multi-level statement. Fix an observer
+$o=(\iota,C)$ (the \emph{friend} description), a refinement $e:\iota\to\iota'$ to
+$o^\uparrow=(\iota',C\otimes I)$ (the \emph{Wigner} description), and a switch
+$s=[U]:C\to C'$ in the friend fiber (the friend's basis change / measurement).
+Refinement transports $s$ to $\pushf e s=[U\otimes I]:C\otimes I\to C'\otimes I$.
+
+\begin{theorem}[Movable cut, five separated levels]\label{thm:cut}
+With the data above, and any ancilla state $\sigma$ ($\tr\sigma=1$):
+\begin{enumerate}[label=\textbf{(\arabic*)},leftmargin=2.6em]
+\item \textbf{Empirical-probability invariance \STC.} For every state $\rho$ on
+$\K_\iota$ and every outcome effect $E$ measured in the switched context,
+\[
+\tr(\rho\,E)=\tr\!\bigl((\rho\otimes\sigma)\,(E\otimes I)\bigr).
+\]
+Refinement changes no Born probability; friend and Wigner assign identical statistics.
+\item \textbf{Ray-level (projective) equivalence \STC.} The square below commutes
+\emph{strictly} in $\Oc$ (equivalently at the $\PU$/density-operator level): the
+comparison map $R=\rho_e$ intertwines the friend and Wigner descriptions, and the
+ray-level holonomy of the switch loop is $+1$ (hardware-measured on \texttt{ibm\_fez}:
+loop phase $-2.9^\circ\pm1.6^\circ$).
+\item \textbf{Section-dependent phase \STC.} Lifting rays to vectors (choosing a
+determinant section) makes the comparison defined only up to $\U(1)$: around a closed
+switch loop $\gamma$ the section phase is exactly the holonomy $\hol(\gamma)$
+(Definition~\ref{def:hol}); for the mutually-unbiased triangle $\hol=-i$ in the Clifford
+section. This phase is bookkeeping, not statistics.
+\item \textbf{Cohomology-class invariance \STC.} The gauge-robust residue
+$\hol^2(\gamma)\in\Zt$ and the obstruction class $[\theta]$ are unchanged by the move
+and by re-sectioning (Lemma~\ref{lem:holinv}, Proposition~\ref{prop:classpull}).
+\item \textbf{Interpretive conclusion --- \emph{interpretation, not theorem}.} ``The
+cut may be moved without empirical consequence, the section bookkeeping recording the
+move as a $\U(1)$ phase whose invariant residue is the class.'' This is the reading the
+formalism \emph{supports}; it is labeled interpretation and is not claimed unique
+(\S\ref{sec:copenhagen}).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\textbf{(1)} $\tr((\rho\otimes\sigma)(E\otimes I))=\tr(\rho E)\,\tr(\sigma)=\tr(\rho E)$.
+\textbf{(2)} Strict commutativity of the square is
+Proposition~\ref{prop:fact}/\eqref{eq:comp}: $(\id_{\iota'},[U\otimes
+I])\circ(e,[I])=(e,[U\otimes I])=(e,\pushf e[U])=\rho_e\circ(\text{lift of }s)$ at the
+level of gauge classes (rays). The measured ray-level loop phase is $+1$ by
+Lemma~\ref{lem:holinv} applied at the $\PU$ level.
+\textbf{(3)} Choosing a determinant section is a set-theoretic lift
+$\PU\to\U$; its failure to be a functor around $\gamma$ is precisely $\hol(\gamma)$
+(Definition~\ref{def:hol}), section-dependent by Lemma~\ref{lem:holinv}.
+\textbf{(4)} $\hol^2$ and $[\theta]$ are the gauge-/section-invariants of
+Lemma~\ref{lem:holinv} and Proposition~\ref{prop:classpull}.
+\textbf{(5)} is flagged as interpretation. \end{proof}
+
+\begin{center}
+\begin{tikzcd}[row sep=large, column sep=huge]
+(\iota,\,C)
+  \arrow[r, "{s=[U]}"]
+  \arrow[d, "{R=\rho_e}"']
+& (\iota,\,C')
+  \arrow[d, "{R=\rho_e}"]
+\\
+(\iota',\,C\otimes I)
+  \arrow[r, "{\pushf{e}\,s=[U\otimes I]}"']
+& (\iota',\,C'\otimes I)
+\end{tikzcd}
+\end{center}
+\noindent\emph{Reading of the diagram.} Horizontal arrows are switches (friend's move,
+invertible); vertical arrows are the refinement (moving the cut, non-invertible).
+\textbf{At ray level} (Theorem~\ref{thm:cut}(2)) the square commutes on the nose.
+\textbf{At vector/section level} (Theorem~\ref{thm:cut}(3)) it commutes up to a $\U(1)$
+phase; \textbf{around a closed switch loop} that phase is $\hol$, with invariant residue
+$\hol^2$ (Theorem~\ref{thm:cut}(4)). The square is the naturality square of the induced
+double category (Shulman \cite{Shulman}); we use it here only as a picture of the exact
+statement.
+
+\begin{remark}[What is \emph{not} proved]
+Theorem~\ref{thm:cut} proves invariance of statistics, of the class, and the exact
+section-phase bookkeeping for \emph{this} friend/Wigner pair and \emph{these} moves. It
+does \emph{not} prove the fully general Copenhagen ``movable cut principle'' for
+arbitrary system/apparatus splits, nor that the update rule is unique beyond the
+constrained affine depolarizing family of the companion note (whose unique single-Kraus
+member is L\"uders). Those are the boundaries of the claim.
+\end{remark}
+
+\section{Copenhagen scope}\label{sec:copenhagen}
+
+\begin{proposition}[Scope, explicit]\label{prop:scope}
+The architecture of \S\S\ref{sec:choice}--\ref{sec:cut} is
+\emph{Copenhagen-compatible}: local classicality per context, complementarity as
+holonomy of switch loops, relative facts as fiberwise value assignments obstructed
+globally, and the movable cut as pullback-along-refinement, are all theorems of the
+stated finite-Weyl axioms. It does \emph{not} establish that Copenhagen is the unique
+interpretation consistent with these structures. Everything proved here is available to
+rival interpretations verbatim; what is fixed is the mathematics (an opfibration with a
+fiberwise $\U(1)$ cocycle), not the metaphysics. \STC{} (as a scope statement).
+\end{proposition}
+
+Concretely: nothing above modifies a Born-rule prediction; the constructions are
+reorganizations of finite quantum data. A many-worlds or Bohmian reader may accept
+Theorems~\ref{thm:subgpd}--\ref{thm:cut} without accepting the interpretive gloss
+\ref{thm:cut}(5). We therefore present the results as \emph{structural
+characterizations within the axioms}, not as an interpretation-free derivation of
+Copenhagen.
+
+\section{Status, and the shape of the object}\label{sec:status}
+
+\subsection*{Status table}
+\begin{center}\small
+\begin{tabular}{p{7.9cm}l}
+\toprule
+Ingredient & Status\\
+\midrule
+Base category $\Ecat$ of enlargements; non-invertibility of refinements (Prop.~\ref{prop:base}) & \STC\\
+Fibers $\Sw(\K)$ are groupoids (Prop.~\ref{prop:fibergpd}) & \STC\\
+Reindexing $\pushf e=(-\otimes I)$ is a faithful functor; $\Ctx$ strict $2$-functor (Lem.~\ref{lem:reindex}) & \STC\\
+Objects, arrows, src/tgt, composition, identities (Def.~\ref{def:O}) & \STC\\
+Associativity and unitality of $\Oc$ (Thm.~\ref{thm:opfib}) & \STC\\
+$\Oc=\int_\Ecat\Ctx$ is a split opfibration (Thm.~\ref{thm:opfib}) & \STS{} \cite{SGA1,JacobsBook,Johnstone}\\
+Pseudofunctor version without strictification (Conv.~\ref{conv:strict}) & \STS{} \cite{SGA1,Johnstone}\\
+Switches form a wide subgroupoid $=\bigsqcup_\iota\Sw(\K_\iota)$ (Thm.~\ref{thm:subgpd}) & \STC\\
+Opcartesian--vertical factorization (Prop.~\ref{prop:fact}) & \STC\\
+Refinement action on contexts/switches (R1) & \STC\\
+Cocycle pulled back on the nose (Lem.~\ref{lem:pull}; certificate $d=8$) & \STC\\
+Value-assignment restriction \& monotonicity (Lem.~\ref{lem:mono}) & \STC\\
+Obstruction-\emph{class} pullback (Prop.~\ref{prop:classpull}) & \STC{} cocycle / \STS{} class \cite{Brown,Weibel}\\
+Cocycle located: fiberwise, switch subgroupoid, compatible section (Thm.~\ref{thm:location}) & \STC\\
+Single class on all of $\Oc$ ($H^2(N\Oc;\U(1))$, Baues--Wirsching) (Rem.~\ref{rem:gerbe}) & \STG\\
+$\U(1)$-gerbe over $\Ecat$ packaging (Rem.~\ref{rem:gerbe}) & \STG\\
+Holonomy defined on switch loops; $\hol^2\in\Zt$ gauge-robust (Lem.~\ref{lem:holinv}) & \STC{} \cite{paperD}\\
+Holonomy $\neq$ pullback; preservation $\hol(\pushf e\gamma)=\hol(\gamma)$ (Prop.~\ref{prop:holvspull}) & \STC{}/\STS\\
+Movable cut, levels (1)--(4) (Thm.~\ref{thm:cut}) & \STC\\
+Movable cut, level (5) interpretive & interpretation\\
+Copenhagen scope statement (Prop.~\ref{prop:scope}) & \STC\\
+Induced (framed) double category of squares (Shulman) & \STS{} \cite{Shulman}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Is it a category, double category, bicategory, or fibration?}
+
+\paragraph{Best judgment.}
+The correct minimal-yet-faithful structure is a \textbf{split Grothendieck opfibration
+$\pi:\Oc\to\Ecat$ over the category of enlargements, equivalently a (strict, after
+Convention~\ref{conv:strict}) pseudofunctor $\Ctx:\Ecat\to\Gpd$ into groupoids},
+carrying a \emph{fiberwise} $\U(1)$ cocycle compatible under reindexing
+\eqref{eq:section}. Concretely:
+\begin{itemize}[leftmargin=1.4em]
+\item It is \emph{not merely} a category: calling it ``a category with a wide switch
+subgroupoid'' (candidate 1) is \emph{true} (Theorem~\ref{thm:subgpd}) but forgets the
+base direction that makes the refinements organized rather than ad hoc.
+\item It is \emph{not primitively} a double category or bicategory: the double category
+(candidate 2, Shulman's framed double category of the fibration) is \emph{induced}, and
+its squares are the movable-cut naturality squares, but taking it as primitive imposes
+interchange coherence that the fibration gives for free and hides the invertibility
+asymmetry.
+\item It \emph{is} a fibration in the honest sense that the invertible/non-invertible
+split is exactly the vertical/opcartesian split, and the cocycle's ``pulled along a
+functor'' behavior is exactly reindexing.
+\end{itemize}
+
+\paragraph{The main open architectural question.}
+Whether the fiberwise, reindexing-compatible cocycle \eqref{eq:section} \emph{assembles
+into a single cohomology class on all of $\Oc$}. Precisely: does there exist a class in
+the Baues--Wirsching / Thomason cohomology $H^2(N\Oc;\U(1))$ (a cohomology theory
+admitting the non-invertible refinement arrows) restricting to the canonical Weyl
+cocycle $c_{\K_\iota}$ on every fiber, and if so is it unique; equivalently, is the
+compatible section \eqref{eq:section} the cocycle datum of a genuine $\U(1)$-gerbe over
+$\Ecat$? Our results need only the fiberwise section, which is complete; the
+single-object global class is the natural next target and is currently a \STG. A
+secondary open question is whether the raw phase $\hol$ (not merely $\hol^2$) admits a
+section-free definition once the ancilla-dimension bookkeeping of
+Proposition~\ref{prop:holvspull}(iii) is normalized functorially.
+
+\begin{thebibliography}{99}\small
+\bibitem{paperD} M.\ Flores Gordillo, \emph{The Observer--Context Category: Relative
+Facts, a $\mathbb Z_2$ Switching Invariant, and the Movable Cut}, companion Paper~D,
+2026; verification suite \texttt{observer\_groupoid.py},
+\texttt{github.com/manuflog/contextuality-obstructions}.
+\bibitem{note} M.\ Flores Gordillo, \emph{Local Validity and Contextual Holonomy: A
+Structural Formulation of the Copenhagen Principle} (note v3), 2026; companion
+Papers~A--C.
+\bibitem{SGA1} A.\ Grothendieck, \emph{Rev\^etements \'etales et groupe fondamental
+(SGA 1)}, Lecture Notes in Math.\ \textbf{224}, Springer, 1971 (Grothendieck
+construction; fibered categories).
+\bibitem{JacobsBook} B.\ Jacobs, \emph{Categorical Logic and Type Theory}, Studies in
+Logic \textbf{141}, Elsevier, 1999 (fibrations, cleavages, split (op)fibrations).
+\bibitem{Johnstone} P.\ T.\ Johnstone, \emph{Sketches of an Elephant: A Topos Theory
+Compendium}, Vol.~1, Oxford, 2002 (fibrations $\leftrightarrow$ pseudofunctors).
+\bibitem{Shulman} M.\ Shulman, \emph{Framed bicategories and monoidal fibrations},
+Theory Appl.\ Categ.\ \textbf{20} (2008), 650--738 (double category induced by a
+fibration).
+\bibitem{BauesWirsching} H.-J.\ Baues, G.\ Wirsching, \emph{Cohomology of small
+categories}, J.\ Pure Appl.\ Algebra \textbf{38} (1985), 187--211.
+\bibitem{Thomason} R.\ W.\ Thomason, \emph{Homotopy colimits in the category of small
+categories}, Math.\ Proc.\ Cambridge Philos.\ Soc.\ \textbf{85} (1979), 91--109.
+\bibitem{Brown} K.\ S.\ Brown, \emph{Cohomology of Groups}, GTM \textbf{87}, Springer,
+1982 (functoriality of group/groupoid cohomology).
+\bibitem{Weibel} C.\ A.\ Weibel, \emph{An Introduction to Homological Algebra},
+Cambridge, 1994.
+\bibitem{KS} S.\ Kochen, E.\ Specker, \emph{The problem of hidden variables in quantum
+mechanics}, J.\ Math.\ Mech.\ \textbf{17} (1967), 59--87.
+\bibitem{Wigner} E.\ P.\ Wigner, \emph{Remarks on the mind--body question}, in
+\emph{The Scientist Speculates} (1961).
+\end{thebibliography}
+
+\end{document}

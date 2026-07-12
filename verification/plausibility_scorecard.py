@@ -20,4 +20,6 @@ def show(tag, idx):
 a=show("AS WRITTEN (Feb 2026 note)",2); b=show("CURRENT (with patches+certificates)",3)
 print(f"\nscore: {a} -> {b}   (+/-5 judgment band; was 100 on 2026-07-11, moved to {b} by the second external audit "
       f"(V37/V40 CP-range + counterexample fixes; paper D groupoid->category; hardware caveat) - errors found move it DOWN. "
-      f"Core Weyl/AvN obstruction-spectrum program unaffected; next: written proofs, general d, exact certification of S4.)")
+      f"Core Weyl/AvN obstruction-spectrum program unaffected. 2026-07-12 findings (in KNOWN_LIMITATIONS/NOVELTY): "
+      f"hardware combined 80sigma is shot-noise-only (devices fail homogeneity chi2~266/2; systematics-aware ~7sigma; per-device 32-61sigma robust); "
+      f"and a directly on-topic uncited paper (Abramsky-Cercelescu-Constantin, FSCD 2024) must be compared to the spectrum result before the flagship is posted.)")

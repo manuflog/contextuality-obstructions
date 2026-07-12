@@ -9,7 +9,7 @@ interpretation** (a reading the math supports but does not uniquely force), **op
 
 | Claim | Status | Evidence | Where | External dependency |
 |---|---|---|---|---|
-| **Obstruction spectrum** `2S≡0 (mod d)`; value set `{0,d/2}` (even d), `{0}` (odd) | proved+computed | analytic (telescoping) + `spectrum_test2.py` + independent value-bit check | Paper B §2 | none |
+| **Obstruction spectrum** `2S≡0 (mod d)`; value set `{0,d/2}` (even d), `{0}` (odd) | proved+computed | analytic (telescoping) + `spectrum_test2.py` + independent value-bit check | Paper B §2 | **priority**: compare vs Abramsky–Cercelescu–Constantin (FSCD 2024) — see `NOVELTY.md` |
 | **Commutator-carry form** `b(C)=Σ⟨u,v⟩/d` | proved+computed | analytic + `criterion.py` | Paper B §3 | none |
 | **Attainment** of `d/2` at every even d | proved (inherited) + computed | ROZF construction translated + `verify_cert8/16.py` + independent re-derivation | Paper B §6 | **ROZF, Quantum 7, 979 (2023)** — attainment generality is theirs |
 | **Detection equivalence** (no NC assignment ⇔ kernel pairing d/2 ⇔ odd carry) | proved+computed | SNF double-annihilator + `solvability_equivalence.py` + brute-force d=2 | note Thm 3 / Paper B | none (composite-d SNF step should be written out in full — see limitations) |
@@ -25,7 +25,7 @@ interpretation** (a reading the math supports but does not uniquely force), **op
 | **Observer structure** = category with switch subgroupoid | proved (definitional) | Paper D §2 | Paper D | needs full category-theoretic architecture (double category / fibration choice) |
 | **Movable cut** (ray-level invariance; section-phase bookkeeping; class invariance) | proved (3 levels) + interpretation | `observer_groupoid.py`, `fr_cycle.py` | Paper D §3 | the broad "cut may be moved without empirical consequence" is a **structural interpretation** |
 | **Frauchiger–Renner localized** (trivial switch holonomy; CF=1/6 on one CHSH facet) | proved+computed | `fr_cycle.py` + independent LP (CF=1/6) | Paper D §4 | none |
-| **Hardware PM witness** S=4.76, 80σ | hardware, **assumption-dependent** | 3-device replication; `verify_combined.py` | hardware/ | **compatibility/nondisturbance controls + systematics not yet reported** |
+| **Hardware PM witness** (per-device 32–61σ; combined 80σ **shot-noise-only**) | hardware, **assumption-dependent** | 3-device replication; `verify_combined.py` + `compatibility_analysis.py` | hardware/ | devices fail homogeneity (χ²≈266/2) ⇒ systematics-aware combined ≈**7σ**, not 80σ; nondisturbance controls not reported |
 | **Copenhagen commitments are theorems** | **structural interpretation** | the five tenets map to the results above | note | the formalism *supports* a Copenhagen-compatible reading; it does not prove Copenhagen is the unique interpretation, nor solve the measurement problem |
 
 See `KNOWN_LIMITATIONS.md` for the scope boundaries and `PROOF_DEPENDENCIES.md` for the dependency

@@ -1,0 +1,841 @@
+% ============================================================
+% The Obstruction Spectrum: Consolidated Theorem-Proof Package
+% A NEW standalone document. Self-contained proofs of the
+% Paper B abstract theorems + the local valuation theorem.
+% Intellectual-honesty discipline: every proof step is tagged
+%   [COMPLETE], [SKETCH: cited], or [GAP].
+% Self-contained: manual thebibliography, no BibTeX.
+% ============================================================
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{lmodern}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Zd}{\Z_d}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\providecommand{\ket}[1]{\lvert #1\rangle}
+\providecommand{\bra}[1]{\langle #1\rvert}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\rowspace}{rowspace}
+\DeclareMathOperator{\col}{col}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\ord}{ord}
+
+% Honesty tags
+\newcommand{\CO}{\textnormal{\textsc{[complete]}}}
+\newcommand{\SK}{\textnormal{\textsc{[sketch:\,cited]}}}
+\newcommand{\GAP}{\textnormal{\textsc{[gap]}}}
+\newcommand{\flag}[1]{\par\smallskip\noindent\textbf{Status of the step.} #1\par\smallskip}
+
+\title{The Obstruction Spectrum:\\ A Consolidated Theorem--Proof Package}
+\author{Manuel Flores Gordillo\thanks{ORCID \texttt{0009-0006-8246-0343}. Companion
+verification suite: \url{https://github.com/manuflog/contextuality-obstructions}.}}
+\date{July 2026 --- consolidation build}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document collects, in one place and with self-contained proofs, the theorems asserted in
+the abstract of \emph{The Obstruction Spectrum of Weyl Context Families and the 2-adic Tower}
+(``Paper B'') together with the local-valuation theorem of the companion note. Each proof step is
+explicitly tagged \CO{} (complete self-contained proof), \SK{} (sketch relying on a named external
+result, cited), or \GAP{} (an open sub-lemma). The acceptance target is that every theorem in the
+Paper~B abstract have a proof here, not merely a pointer to a script; where a step is genuinely
+inherited (notably the general-$d$ attainment of Raussendorf--Okay--Zurel--Feldmann) or genuinely
+open, we say so. A Status table closes the document. The single most load-bearing external input is
+the Weyl--Heisenberg product law (Lemma~\ref{lem:product}), which we derive; everything in
+Part~I is then combinatorial modular arithmetic. The one substantive residual gap is the general
+even-$d$ \emph{attainment} beyond the residue class $d\equiv2\pmod4$, which we prove in full, and
+beyond the explicit certificates at $d=8,16$: for $d\equiv0\pmod4$ in general we rely on
+\cite{ROZF}.
+\end{abstract}
+
+\tableofcontents
+\bigskip
+
+\section{Conventions and the standing hypotheses}\label{sec:conv}
+
+Fix a local dimension $d\ge2$ and a number of qudits $m\ge1$. Phase space is $V=\Z^{2m}$ with
+coordinates written per site $v=(a_1,b_1,\dots,a_m,b_m)$; we reduce mod $d$ when needed and take
+representatives in $\{0,\dots,d-1\}$. Write
+\[
+q(v)=\sum_{i=1}^m a_ib_i,\qquad
+\beta(u,v)=\sum_{i=1}^m u_{b,i}\,v_{a,i},\qquad
+\ip{u}{v}=\beta(u,v)-\beta(v,u)=\sum_{i=1}^m\bigl(u_{a,i}v_{b,i}-u_{b,i}v_{a,i}\bigr),
+\]
+so $q$ is a $\Z$-valued quadratic form, $\beta$ a $\Z$-bilinear form, and $\ip{\cdot}{\cdot}$ the
+(alternating, $\Z$-bilinear) symplectic form. Let $\omega=e^{2\pi i/d}$ and $\tau=e^{i\pi/d}$, so
+$\tau^2=\omega$, $\tau$ has multiplicative order $2d$, and $\tau^d=e^{i\pi}=-1$. On a single qudit
+$X\ket{j}=\ket{j+1\bmod d}$, $Z\ket{j}=\omega^j\ket{j}$; the \emph{symmetric (Weyl) lift} is
+\[
+W(v)=\tau^{-q(v)}\,X^{a_1}Z^{b_1}\otimes\cdots\otimes X^{a_m}Z^{b_m}.
+\]
+
+\begin{definition}[Contexts, families, certificates]\label{def:ctx}
+A \emph{context} $C=(v_1,\dots,v_n)$ is a finite word (repetitions allowed) of \emph{pairwise
+commuting} vectors, $\ip{v_i}{v_j}\equiv0\pmod d$, that is \emph{closed}: $\sum_i v_i\equiv0\pmod d$.
+Its product is a scalar, $\prod_iW(v_i)=\omega^{s(C)}I$ for a well-defined $s(C)\in\Zd$ (see
+Lemma~\ref{lem:integral}; for now $s(C)$ names the $\omega$-exponent when it exists). A
+\emph{family} $\mathcal F=\{C_1,\dots,C_k\}$ has \emph{incidence (multiplicity) matrix}
+$A\in\Z^{k\times N}$, $A_{r,v}=$ number of times observable $v$ occurs in $C_r$, over the set of
+$N$ distinct observables, and \emph{phase vector} $s=(s(C_r))_r\in\Zd^{k}$. A \emph{certificate} is
+$\lambda\in\Zd^{k}$ with $\lambda^{\mathsf T}A\equiv0\pmod d$; its \emph{value} is
+$S=\lambda^{\mathsf T}s\bmod d$. A nonzero value certifies that no $\Zd$-valued noncontextual
+assignment is consistent with $\mathcal F$ (an all-versus-nothing obstruction).
+\end{definition}
+
+\noindent\textbf{Scope declared once.} Throughout Part~I the \emph{only} hypotheses on a family are
+those in Definition~\ref{def:ctx}: each context is closed and internally commuting. We
+\emph{explicitly permit}: (i) arbitrary multiplicities and repeated observables inside a context
+(a letter may recur); (ii) nonmaximal contexts (a context need not be a maximal commuting set);
+(iii) disconnected incidence structures (the observable--context bipartite graph may have several
+components); (iv) certificates $\lambda$ with arbitrary $\Zd$ entries, not only $0/1$. Where a
+result needs more (e.g.\ ``pure fiber pool'' in Theorem~\ref{thm:valuebit}) it is stated locally.
+
+\begin{lemma}[Weyl product law]\label{lem:product}
+For all $u,v\in\Z^{2m}$,
+\[
+W(u)W(v)=\tau^{\,c(u,v)}\,W\bigl((u+v)\bmod d\bigr),\qquad
+c(u,v)=-q(u)-q(v)+2\beta(u,v)+q\bigl((u+v)\bmod d\bigr),
+\]
+with $c(u,v)$ read modulo $2d$. Consequently $W(u)W(v)=\omega^{\ip{u}{v}}W(v)W(u)$, so $u,v$
+commute iff $\ip{u}{v}\equiv0\pmod d$.
+\end{lemma}
+\begin{proof}
+\CO{} It suffices to treat one qudit and tensor. On one qudit $ZX=\omega XZ$, hence
+$Z^bX^{a'}=\omega^{a'b}X^{a'}Z^b$ and
+$X^aZ^bX^{a'}Z^{b'}=\omega^{a'b}X^{a+a'}Z^{b+b'}$. Because $X^d=Z^d=I$, $X^{a+a'}=X^{s_a}$,
+$Z^{b+b'}=Z^{s_b}$ with $s=(u+v)\bmod d$; and $X^{s_a}Z^{s_b}=\tau^{q(s)}W(s)$. Collecting the
+$\tau$-powers, using $\omega^{a'b}=\tau^{2a'b}=\tau^{2\beta(u,v)}$ (single qudit
+$\beta(u,v)=b\,a'$),
+\[
+W(u)W(v)=\tau^{-q(u)-q(v)}\,\tau^{2\beta(u,v)}\,\tau^{q(s)}W(s),
+\]
+which is the claim. Swapping $u,v$ changes the exponent by $2(\beta(u,v)-\beta(v,u))=2\ip{u}{v}$,
+and $\tau^{2\ip{u}{v}}=\omega^{\ip{u}{v}}$. The multi-qudit statement is the tensor product; all
+three forms $q,\beta,\ip{\cdot}{\cdot}$ are the site-wise sums, so the identity adds over sites.
+\end{proof}
+
+\begin{lemma}[Telescoped context phase]\label{lem:telescope}
+For a context $C=(v_1,\dots,v_n)$ let $P_i=(v_1+\dots+v_{i-1})\bmod d$ (so $P_1=0$). Then
+$\prod_{i=1}^nW(v_i)=\tau^{T}W\bigl(\sum_iv_i\bmod d\bigr)$ with
+\[
+T=-\sum_{i}q(v_i)+2\sum_{i}\beta(P_i,v_i)\ \equiv\ -\sum_iq(v_i)+2\!\!\sum_{j<i}\beta(v_j,v_i)
+\pmod{2d}.
+\]
+If $C$ is closed then the product is $\tau^{T}I$.
+\end{lemma}
+\begin{proof}
+\CO{} Induct with Lemma~\ref{lem:product}: multiplying the partial product
+$\tau^{\cdots}W(P_{i})$ by $W(v_i)$ adds $c(P_i,v_i)=-q(P_i)-q(v_i)+2\beta(P_i,v_i)+q(P_{i+1})$,
+where $P_{i+1}=(P_i+v_i)\bmod d$. Summing $i=1,\dots,n$, the pair $-q(P_i)+q(P_{i+1})$ telescopes to
+$q(P_{n+1})-q(P_1)=q(0)-q(0)=0$. This leaves $T=-\sum_iq(v_i)+2\sum_i\beta(P_i,v_i)$. Finally
+$\beta(P_i,v_i)\equiv\beta(\sum_{j<i}v_j,v_i)=\sum_{j<i}\beta(v_j,v_i)\pmod d$ by $\Z$-bilinearity
+(replacing $P_i$ by the unreduced prefix changes $\beta$ by a multiple of $d$), so
+$2\sum_i\beta(P_i,v_i)\equiv2\sum_{j<i}\beta(v_j,v_i)\pmod{2d}$.
+\end{proof}
+
+\part*{Part I. The Obstruction Spectrum}
+\addcontentsline{toc}{section}{Part I. The Obstruction Spectrum}
+
+\section{The Obstruction Spectrum Theorem}\label{sec:spectrum}
+
+\begin{theorem}[Obstruction Spectrum]\label{thm:spectrum}
+For every $d$, every $m$, every family $\mathcal F$ satisfying Definition~\ref{def:ctx}, and every
+certificate $\lambda$, the value obeys
+\[
+2S\equiv0\pmod d.
+\]
+Hence $S\in\{0,d/2\}$ for even $d$, and $S=0$ for odd $d$. Thus the set $H(d,m)$ of achievable
+state-independent values satisfies $H\subseteq\{0,d/2\}$ (even $d$) and $H=\{0\}$ (odd $d$). The
+bound holds verbatim in the presence of multiplicities, repeated observables, nonmaximal contexts,
+and disconnected incidence.
+\end{theorem}
+\begin{proof}
+\CO{} Fix a closed commuting context $C$. Reduce the exact identity of
+Lemma~\ref{lem:telescope} modulo $d$:
+\begin{equation}\label{eq:2s}
+2s(C)\equiv-\sum_iq(v_i)+2\sum_{j<i}\beta(v_j,v_i)\pmod d .
+\end{equation}
+(Here $\tau^{T}=\omega^{s(C)}$ means $2s(C)\equiv T\pmod{2d}$; we use it mod $d$.) Now set
+$\sigma=\sum_iv_i$. Bilinearity gives
+\[
+\beta(\sigma,\sigma)=\sum_i\beta(v_i,v_i)+\sum_{i<j}\bigl(\beta(v_i,v_j)+\beta(v_j,v_i)\bigr)
+=\sum_iq(v_i)+\sum_{i<j}\bigl(\beta(v_i,v_j)+\beta(v_j,v_i)\bigr),
+\]
+using $\beta(v,v)=q(v)$. On commuting pairs $\beta(v_i,v_j)\equiv\beta(v_j,v_i)\pmod d$ (because
+their difference is $\ip{v_i}{v_j}\equiv0$), so
+$\beta(\sigma,\sigma)\equiv\sum_iq(v_i)+2\sum_{i<j}\beta(v_j,v_i)\pmod d$. Closedness gives
+$\sigma\equiv0\pmod d$, i.e.\ $\sigma=d\,t$ for an integer vector $t$, whence
+$\beta(\sigma,\sigma)=d^2\beta(t,t)\equiv0\pmod d$. Therefore
+\begin{equation}\label{eq:polar}
+2\sum_{i<j}\beta(v_j,v_i)\equiv-\sum_iq(v_i)\pmod d .
+\end{equation}
+Substituting \eqref{eq:polar} into \eqref{eq:2s},
+\begin{equation}\label{eq:coboundary}
+2s(C)\equiv-2\sum_{v\in C}q(v)\pmod d .
+\end{equation}
+Equation \eqref{eq:coboundary} says $2s\equiv-2Aq\pmod d$ as vectors over contexts, where
+$q=(q(v))_v$. For any certificate ($\lambda^{\mathsf T}A\equiv0$),
+\[
+2S=\lambda^{\mathsf T}(2s)\equiv-2\,(\lambda^{\mathsf T}A)\,q\equiv0\pmod d .
+\]
+For even $d$, $2S\equiv0$ forces $S\in\{0,d/2\}$; for odd $d$, $2$ is invertible so $S=0$. None of
+the steps used maximality, distinctness of observables, connectivity, or a bound on multiplicities;
+$C$ was an arbitrary closed commuting word and $\lambda$ an arbitrary left-kernel vector.
+\end{proof}
+
+\begin{corollary}[Odd $d$ is trivial, sharply]\label{cor:odd}
+For odd $d$, dividing \eqref{eq:coboundary} by the invertible $2$ gives $s(C)\equiv-\sum_{v\in
+C}q(v)\pmod d$ outright, so $s\equiv-Aq$ is an exact coboundary and every certificate value is $0$.
+\CO
+\end{corollary}
+
+\begin{corollary}[The obstruction is one bit]\label{cor:bit}
+For even $d$, \eqref{eq:coboundary} gives $s(C)+\sum_{v\in C}q(v)\equiv0\pmod{d/2}$, so
+\[
+b(C):=\frac{s(C)+\sum_{v\in C}q(v)}{d/2}\bmod2\ \in\Z_2
+\]
+is well defined, and $s(C)\equiv-\sum_{v\in C}q(v)+\tfrac d2\,b(C)\pmod d$. For any certificate,
+$S\equiv\tfrac d2(\bar\lambda\cdot b)\pmod d$ with $\bar\lambda=\lambda\bmod2$; only $\lambda\bmod2$
+carries value, and an attaining certificate must have odd $\bar\lambda\cdot b$. \CO
+\end{corollary}
+\begin{proof}
+\CO{} $b(C)$ is well defined by \eqref{eq:coboundary}. For a certificate,
+$S=\lambda^{\mathsf T}s\equiv-\lambda^{\mathsf T}Aq+\tfrac d2\lambda^{\mathsf T}b\equiv\tfrac d2
+(\lambda\cdot b)\pmod d$, and $\tfrac d2(\lambda\cdot b)\bmod d$ depends only on $\lambda\cdot b\bmod
+2=\bar\lambda\cdot b$.
+\end{proof}
+
+\begin{remark}[No obstruction of order $>2$]\label{rem:nohigher}
+Corollary~\ref{cor:bit} shows the value always lies in the order-$2$ subgroup
+$\{0,d/2\}\subset\Zd$, \emph{whatever} the multiplicity structure. If each observable lies in $r$
+contexts, the value group is still $\subseteq\{0,d/2\}$, independent of $r$: there are no genuine
+order-$d$ ``qudit parity proofs''. \CO
+\end{remark}
+
+\section{The commutator--carry form}\label{sec:carry}
+
+\begin{theorem}[Carry form]\label{thm:carry}
+Exactly, $2s(C)\equiv-\sum_iq(v_i)+2\sum_{j<i}\beta(v_j,v_i)\pmod{2d}$
+(Lemma~\ref{lem:telescope}), and for even $d$ the obstruction bit of
+Corollary~\ref{cor:bit} equals the total commutator carry:
+\[
+b(C)\equiv\sum_{\{u,v\}\subseteq C}\frac{\ip{u}{v}}{d}\pmod2,
+\]
+the sum over unordered pairs of positions in the word $C$. The entire even-$d$ obstruction theory is
+thus combinatorial: no phases, no matrices, only symplectic carries $\ip{u}{v}/d\in\Z$.
+\end{theorem}
+\begin{proof}
+\CO{} We derive the carry expression from the cocycle formula rather than assert it. Start from the
+polarization computed inside Theorem~\ref{thm:spectrum}, but keep the symmetric/antisymmetric split
+exactly. Using $\beta(v_i,v_j)=\beta(v_j,v_i)+\ip{v_i}{v_j}$,
+\[
+\beta(\sigma,\sigma)=\sum_iq(v_i)+\sum_{i<j}\bigl(2\beta(v_j,v_i)+\ip{v_i}{v_j}\bigr)
+=\Bigl[\sum_iq(v_i)+2\sum_{i<j}\beta(v_j,v_i)\Bigr]+\sum_{i<j}\ip{v_i}{v_j}.
+\]
+Hence, with $\sigma=d\,t$ so $\beta(\sigma,\sigma)=d^2\beta(t,t)$,
+\begin{equation}\label{eq:carrycore}
+\sum_iq(v_i)+2\sum_{i<j}\beta(v_j,v_i)=d^2\beta(t,t)-\sum_{i<j}\ip{v_i}{v_j}.
+\end{equation}
+Now compute $b(C)$ from its definition. By Corollary~\ref{cor:bit},
+$\tfrac d2\,b(C)\equiv s(C)+\sum q(v_i)\pmod d$, so
+$d\,b(C)\equiv2s(C)+2\sum q(v_i)\pmod{2d}$, and by \eqref{eq:2s} lifted to the exact mod-$2d$
+identity of Lemma~\ref{lem:telescope},
+\[
+d\,b(C)\equiv\Bigl(-\sum q(v_i)+2\sum_{j<i}\beta(v_j,v_i)\Bigr)+2\sum q(v_i)
+=\sum q(v_i)+2\sum_{i<j}\beta(v_j,v_i)\pmod{2d}.
+\]
+Insert \eqref{eq:carrycore}: $d\,b(C)\equiv d^2\beta(t,t)-\sum_{i<j}\ip{v_i}{v_j}\pmod{2d}$. Each
+commuting pair has $\ip{v_i}{v_j}\equiv0\pmod d$, so $\ip{v_i}{v_j}/d\in\Z$ and we may divide by $d$:
+\[
+b(C)\equiv d\,\beta(t,t)-\sum_{i<j}\frac{\ip{v_i}{v_j}}{d}\pmod2 .
+\]
+For even $d$ the term $d\,\beta(t,t)\equiv0\pmod2$, and $-1\equiv1\pmod2$, giving
+$b(C)\equiv\sum_{i<j}\ip{v_i}{v_j}/d\pmod2$. Diagonal ``pairs'' from a repeated letter contribute
+$\ip{v}{v}/d=0$, so the formula is insensitive to repetitions, as claimed.
+\end{proof}
+
+\begin{corollary}[Closed-form contextuality criterion; cycle $=$ self-pairing]\label{cor:cycle}
+Let $d$ be even and let $A$ (over $\F_2$) be the incidence matrix, $b=(b(C_r))_r$ the carry vector.
+Call a $\Z_2$ left-kernel vector $\lambda$ ($\lambda^{\mathsf T}A\equiv0\bmod2$) a \emph{cycle}. Then
+\[
+\lambda\cdot b\ \equiv\ Q(\lambda):=\!\!\sum_{a<b\ \text{in the observable multiset of }\lambda}
+\!\!\frac{\ip{v_a}{v_b}}{d}\pmod2 ,
+\]
+and the family carries a $\Z_2$ all-versus-nothing obstruction iff some cycle has $Q(\lambda)$ odd.
+\end{corollary}
+\begin{proof}
+\CO{} Write $Q(\lambda)=\text{intra}+\text{inter}$ over pairs inside a single selected context and
+pairs across two selected contexts. By definition $\text{intra}=\sum_{r:\lambda_r=1}\sum_{i<j\in
+C_r}\ip{v_i}{v_j}/d=\lambda\cdot b$ (Theorem~\ref{thm:carry}). For the inter term, bilinearity gives
+$\sum_{u\in C_a,v\in C_b}\ip{u}{v}=\ip{S_a}{S_b}$ with $S_r=\sum_{v\in C_r}v=d\,t_r$ (closedness),
+so $\ip{S_a}{S_b}=d^2\ip{t_a}{t_b}$ and $\text{inter}=\sum_{a<b}d\ip{t_a}{t_b}\equiv0\pmod2$ for even
+$d$. Hence $Q(\lambda)=\lambda\cdot b$. The obstruction is $b\notin\rowspace_{\F_2}(A)$, i.e.\ some
+left-kernel $\lambda$ pairs oddly with $b$.
+\end{proof}
+
+\begin{proposition}[The exact $\Zd$ criterion; $Q$ is its mod-$2$ shadow]\label{prop:zd}
+Let $M$ be the $\Zd$ incidence matrix and $\gamma\in\Zd^{k}$ the context-scalar vector. By the
+Fredholm alternative over $\Zd$ (Lemma~\ref{lem:snf}), $\mathcal F$ is state-independent contextual
+iff some $\Zd$-cycle $\lambda$ ($\lambda^{\mathsf T}M\equiv0\bmod d$) has
+$\lambda\cdot\gamma\not\equiv0\pmod d$. The odd-$Q$ test of Corollary~\ref{cor:cycle} is the mod-$2$
+reduction: a $\Zd$-cycle reduces to a $\Z_2$-cycle (so odd-$Q$ is \emph{sound}), but a $\Z_2$-cycle
+need not lift, so odd-$Q$ can be \emph{incomplete} on engineered minimal supports.
+\CO{} for soundness; the empirical faithfulness on \emph{Weyl} families (that the $\Z_2$ shadow and
+the $\Zd$ obstruction agree except on engineered supports) is a verified phenomenon, not proved here
+\GAP.
+\end{proposition}
+
+\section{Detection equivalence}\label{sec:detect}
+
+We first isolate the pure linear algebra, then feed in the Spectrum Theorem.
+
+\begin{lemma}[Fredholm alternative / double annihilator over $\Zd$]\label{lem:snf}
+Let $A\in\Z^{k\times N}$ and $s\in\Z^{k}$. Exactly one of the following holds:
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em,itemsep=1pt]
+\item there is $\gamma\in\Zd^{N}$ with $A\gamma\equiv s\pmod d$ \emph{(a noncontextual assignment)};
+\item there is $\lambda\in\Zd^{k}$ with $\lambda^{\mathsf T}A\equiv0\pmod d$ and
+$\lambda^{\mathsf T}s\not\equiv0\pmod d$ \emph{(a certificate)}.
+\end{enumerate}
+Moreover in case (b) an explicit $\lambda$ is produced constructively from the Smith Normal Form,
+valid for \emph{composite} $d$.
+\end{lemma}
+\begin{proof}
+\CO{} \emph{Mutual exclusion.} If both held, $\lambda^{\mathsf T}s\equiv\lambda^{\mathsf
+T}A\gamma\equiv0$, contradiction. \emph{Exhaustiveness with construction.} Compute the Smith Normal
+Form over $\Z$: $UAV=D=\operatorname{diag}(g_1,\dots,g_r,0,\dots,0)$ with $U\in\mathrm{GL}_k(\Z)$,
+$V\in\mathrm{GL}_N(\Z)$, $g_1\mid\cdots\mid g_r$. Put $s'=Us$. Since $U,V$ are unimodular they are
+invertible mod $d$, so $A\gamma\equiv s\pmod d$ is solvable iff $D\gamma'\equiv s'\pmod d$ is (with
+$\gamma'=V^{-1}\gamma$), which decouples into $g_i\gamma'_i\equiv s'_i\pmod d$ ($i\le r$) and
+$0\equiv s'_i\pmod d$ ($i>r$). The scalar congruence $g_i\gamma'_i\equiv s'_i\pmod d$ is solvable iff
+$\gcd(g_i,d)\mid s'_i$; the $i>r$ rows are solvable iff $d\mid s'_i$ (the case $\gcd(0,d)=d$).
+
+If (a) fails, some index $i$ violates its condition. Set $\mu^{\mathsf T}=\dfrac{d}{\gcd(g_i,d)}\,
+e_i^{\mathsf T}$ (with $g_i=0$ read as $\gcd=d$, i.e.\ $\mu^{\mathsf T}=e_i^{\mathsf T}$), and
+$\lambda^{\mathsf T}=\mu^{\mathsf T}U$. Then
+$\lambda^{\mathsf T}A=\mu^{\mathsf T}UA=\mu^{\mathsf T}DV^{-1}$, and
+$\mu^{\mathsf T}D=\frac{d}{\gcd(g_i,d)}g_i\,e_i^{\mathsf T}=d\cdot\frac{g_i}{\gcd(g_i,d)}\,
+e_i^{\mathsf T}\equiv0\pmod d$, so $\lambda^{\mathsf T}A\equiv0$. And
+$\lambda^{\mathsf T}s=\mu^{\mathsf T}s'=\frac{d}{\gcd(g_i,d)}s'_i$, which is
+$\not\equiv0\pmod d$ precisely because $\gcd(g_i,d)\nmid s'_i$. This is a certificate, giving (b).
+\end{proof}
+
+\begin{remark}[Why $d/\gcd(g_i,d)$ and not $d/g_i$]
+The invariant factor $g_i$ need \emph{not} divide $d$; writing $u=(d/g_i)U_i$ would be ill-formed for
+composite $d$. The correct annihilator multiplier is $d/\gcd(g_i,d)$, which coincides with $d/g_i$
+only when $g_i\mid d$. \CO
+\end{remark}
+
+\begin{lemma}[Integrality/gauge]\label{lem:integral}
+For even $d$ and a closed commuting context $C$, the product $\prod_{v\in C}W(v)$ is an
+$\omega$-power $\omega^{s(C)}I$ with $s(C)\in\Zd$ \emph{canonically} (no $\tau$-half-steps). Kernel
+pairings $\lambda^{\mathsf T}s$ are independent of any admissible regauging of the $W(v)$.
+\end{lemma}
+\begin{proof}
+\CO{} By Lemma~\ref{lem:telescope} the product is $\tau^{T}I$ with
+$T=-\sum q(v_i)+2\sum_{j<i}\beta(v_j,v_i)$. By the parity lemma (Lemma~\ref{lem:parity} of
+Part~II) at even $d$ every commuting pair has $c(v_j,v_i)$ even; telescoping, $T$ is even, so
+$\tau^{T}=\omega^{T/2}$ and $s(C)=T/2\bmod d\in\Zd$. A regauging $W(v)\mapsto\zeta_vW(v)$ with
+$\zeta_v\in U(1)$ shifts $s(C)\mapsto s(C)+\sum_{v\in C}\theta_v$ ($\zeta_v=\omega^{\theta_v}$), i.e.\
+$s\mapsto s+A\theta$; hence $\lambda^{\mathsf T}s\mapsto\lambda^{\mathsf T}s+(\lambda^{\mathsf
+T}A)\theta=\lambda^{\mathsf T}s$ for a certificate.
+\end{proof}
+
+\begin{theorem}[Detection equivalence]\label{thm:detect}
+Let $d$ be even and $\mathcal F$ a closed commuting Weyl family with incidence matrix $A$ (over
+$\Zd$) and canonical phase vector $s\in\Zd^{k}$ (Lemma~\ref{lem:integral}). The following are
+equivalent:
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em,itemsep=1pt]
+\item no noncontextual $\Zd$-assignment exists (the system $A\gamma\equiv s\bmod d$ is infeasible);
+\item some certificate $\lambda$ ($\lambda^{\mathsf T}A\equiv0$) has $\lambda^{\mathsf T}s\equiv
+d/2\pmod d$;
+\item some certificate has odd commutator carry, $\bar\lambda\cdot b\equiv1\pmod2$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\CO{} (a)$\Leftrightarrow$``$\exists$ certificate with $\lambda^{\mathsf T}s\not\equiv0$'' is exactly
+Lemma~\ref{lem:snf} with the identifications $M=A$, phase $=s$. Given such a certificate, the
+Obstruction Spectrum Theorem~\ref{thm:spectrum} (which applies to \emph{any} left-kernel vector, by
+the scope declared in \S\ref{sec:conv} and Remark~\ref{rem:nohigher}) forces $2(\lambda^{\mathsf
+T}s)\equiv0$, hence the nonzero value is exactly $d/2$: this is (b). Trivially (b)$\Rightarrow$(a) by
+mutual exclusion in Lemma~\ref{lem:snf}. Finally (b)$\Leftrightarrow$(c) is
+Corollary~\ref{cor:bit}: $\lambda^{\mathsf T}s\equiv\tfrac d2(\bar\lambda\cdot b)$, which is $d/2$ iff
+$\bar\lambda\cdot b$ is odd. The canonical integral gauge needed to even state (a) is
+Lemma~\ref{lem:integral}; kernel pairings are gauge invariant, so the equivalence is gauge free.
+\end{proof}
+
+\begin{remark}[What is new here vs.\ assembly]
+The three-way equivalence is five lines of ring theory (Lemma~\ref{lem:snf}) bolted onto two proven
+theorems of Part~I. The composite-$d$ subtlety --- that Fredholm over $\Zd$ needs SNF and the
+$d/\gcd(g_i,d)$ multiplier --- is genuine and fully discharged above. \CO
+\end{remark}
+
+\section{The exact value-bit formula}\label{sec:valuebit}
+
+We now promote the computational value-bit identity to a theorem. The setting is a \emph{pure fiber
+pool}: a base family $F$ at level $d$ and, at level $2d$, observables $\tilde v=u+d\,x$ with
+$u=\tilde v\bmod d\in\{0,\dots,d-1\}^{2m}$ the base residue and $x=\tilde v\ \mathrm{div}\ d\in
+\{0,1\}^{2m}$ the lift bits; a mod-$2d$ kernel element $\tilde\lambda$ with odd support $\supp$.
+
+\begin{lemma}[Sum-of-floors carry identity]\label{lem:floors}
+For integers $M_1,\dots,M_n$ with $\Sigma=\sum_aM_a$ and $\kappa=\#\{a:M_a\text{ odd}\}$,
+\[
+\sum_a\Big\lfloor\frac{M_a}{2}\Big\rfloor\equiv\Big\lfloor\frac\Sigma2\Big\rfloor+
+\Big\lfloor\frac\kappa2\Big\rfloor\pmod2 .
+\]
+\end{lemma}
+\begin{proof}
+\CO{} $\lfloor M/2\rfloor=(M-(M\bmod2))/2$ gives $\sum_a\lfloor M_a/2\rfloor=(\Sigma-\kappa)/2$.
+Since $\Sigma\equiv\kappa\pmod2$, $\lfloor\Sigma/2\rfloor=(\Sigma-(\kappa\bmod2))/2$, and the
+difference is $\bigl((\kappa\bmod2)-\kappa\bigr)/2=-\lfloor\kappa/2\rfloor\equiv\lfloor\kappa/2\rfloor
+\pmod2$.
+\end{proof}
+
+\begin{lemma}[Exact per-pair lift carry]\label{lem:pairfloor}
+With $q_u=\lfloor\ip{u_a}{u_b}/d\rfloor$ replaced by $\ip{u_a}{u_b}\bmod d\in[0,d)$ in the numerator,
+write $M_{ab}=\ip{u_a}{x_b}+\ip{x_a}{u_b}$, $s_{xx}=\ip{x_a}{x_b}$. Then for a level-$2d$ commuting
+pair,
+\[
+\Big\lfloor\frac{\ip{\tilde v_a}{\tilde v_b}}{2d}\Big\rfloor\equiv
+\Big\lfloor\frac{(\ip{u_a}{u_b}/d)+M_{ab}+d\,s_{xx}}{2}\Big\rfloor\pmod2 ,
+\]
+a pure floor identity because $0\le\ip{u_a}{u_b}\bmod d<d$ prevents the base remainder from carrying.
+\end{lemma}
+\begin{proof}
+\SK{} Expand $\ip{\tilde v_a}{\tilde v_b}=\ip{u_a}{u_b}+dM_{ab}+d^2s_{xx}$; divide by $2d$ and use
+that the pair commutes at level $2d$ (numerator $\equiv0\bmod 2d$) so the fraction is an integer, and
+that $\ip{u_a}{u_b}=d\lfloor\ip{u_a}{u_b}/d\rfloor+(\ip{u_a}{u_b}\bmod d)$ with the remainder in
+$[0,d)$. The remainder cannot contribute a $2d$-carry; the residual is the displayed floor. The
+boundary bookkeeping is verified exactly at $d=4,6,8$ in \texttt{Wformula.py}. \emph{Cited:}
+Paper~B, App.~A.
+\end{proof}
+
+\begin{theorem}[Value-bit formula]\label{thm:valuebit}
+For a mod-$2d$ kernel element $\tilde\lambda$ of a pure fiber pool with odd support $\supp$, the
+value bit $P$ (defined by $S=d\,P$) is
+\[
+P\equiv\frac12\Big[\sum_{\supp}K+\sum_{\supp}\Lambda(x)+\frac d2\sum_{\supp}Q(x)\Big]\pmod2,
+\]
+where, per selected context, $K=\sum_{i<i'}\ip{u_i}{u_{i'}}/d$,
+$\Lambda(x)=\ip{\textstyle\sum_ix_i}{\sigma}-\sum_i\ip{x_i}{u_i}-2\sum_i\ip{x_i}{P_i}$,
+$Q(x)=\sum_{i<i'}\ip{x_i}{x_{i'}}$, $\sigma=\sum_iu_i$, $P_i$ the base prefix sums. The bracket is
+always even, and the $(d/2)$-terms survive mod $2$ only for $d\equiv2\pmod4$.
+\end{theorem}
+\begin{proof}
+\SK{} By Corollary~\ref{cor:bit} at level $2d$, $P=\bar{\tilde\lambda}\cdot b_{2d}=\sum_{C\in\supp}
+b_{2d}(C)\bmod2$, and by Theorem~\ref{thm:carry} $b_{2d}(C)=\sum_{i<i'}\ip{\tilde v_i}{\tilde
+v_{i'}}/(2d)$. Lemma~\ref{lem:pairfloor} rewrites each summand as
+$\lfloor((\ip{u_i}{u_{i'}}/d)+M_{ii'}+d\,s_{ii'})/2\rfloor$; Lemma~\ref{lem:floors} then converts the
+sum of per-pair floors into (i) $\lfloor(\sum_{i<i'}(\ldots))/2\rfloor$ and (ii) a parity-count carry
+$\lfloor\kappa/2\rfloor$. Grouping the base term into $K$, the cross term $\sum_{i<i'}M_{ii'}$ into
+$\Lambda$ (the identity $\sum_{i<i'}M_{ii'}=\ip{\sum x_i}{\sigma}-\sum\ip{x_i}{u_i}-2\sum\ip{x_i}{P_i}$
+is bilinearity plus the prefix expansion), and the quadratic term $\sum s_{ii'}$ into $Q(x)$ with the
+explicit $d/2$ weight, yields the displayed bracket. Bracket evenness is equivalent to $P\in\Z$,
+which holds because $S\in\{0,d\}$ at level $2d$ (Theorem~\ref{thm:spectrum}). The exact matching of
+the residual carry $\lfloor\kappa/2\rfloor$ against the stated coefficients is the content verified
+non-vacuously ($0/550$) in \texttt{Wformula.py}. \emph{Cited:} Paper~B, Thm.~W.
+\end{proof}
+\flag{Structure (reduction to $\sum b_{2d}$ and the three natural terms) is \CO; the exact integer
+coefficients and bracket-evenness rest on Lemma~\ref{lem:pairfloor} and are computationally
+certified, hence \SK{} overall. This is the one Part-I theorem not fully closed by hand here.}
+
+\section{Attainment and the classification}\label{sec:attain}
+
+\begin{theorem}[Attainment / classification]\label{thm:attain}
+For every even $d$ and every $m\ge2$, the value $d/2$ is attained by a closed commuting Weyl family;
+combined with Theorem~\ref{thm:spectrum}, $H(d,m)=\{0,d/2\}$ for even $d$ and $H(d,m)=\{0\}$ for odd
+$d$.
+\end{theorem}
+
+We prove attainment in three pieces of decreasing self-containment, and label each honestly.
+
+\subsection*{(A) A complete parametric construction for $d\equiv2\pmod4$}
+
+\begin{proposition}[Signed scaled Peres--Mermin]\label{prop:scaledPM}
+Let $d\equiv2\pmod4$ and $\delta=d/2$ (odd). Let $\{v_1,\dots,v_9\}\subset\Z_2^4$ be the nine
+Peres--Mermin vectors on $m=2$ qudits arranged in a $3\times3$ grid, with the six line-contexts
+(three rows, three columns). Scale every vector to $\delta v\in\Zd^{4}$. Then the six scaled lines
+are closed commuting contexts, and the signed vector $\lambda=(+1,+1,+1,-1,-1,-1)$ (rows $+1$,
+columns $-1$) is a genuine $\Zd$-certificate with value $S\equiv d/2$.
+\end{proposition}
+\begin{proof}
+\CO{} \emph{Grid.} Take, in per-site coordinates $(a_1,b_1,a_2,b_2)$,
+\[
+\begin{array}{ccc}
+X{\otimes}I=(1,0,0,0) & I{\otimes}X=(0,0,1,0) & X{\otimes}X=(1,0,1,0)\\
+I{\otimes}Z=(0,0,0,1) & Z{\otimes}I=(0,1,0,0) & Z{\otimes}Z=(0,1,0,1)\\
+X{\otimes}Z=(1,0,0,1) & Z{\otimes}X=(0,1,1,0) & Y{\otimes}Y=(1,1,1,1),
+\end{array}
+\]
+rows and columns being the six contexts. Each of the six lines sums to an even vector
+($(2,0,2,0)$, $(0,2,0,2)$, $(2,2,2,2)$, $(2,0,0,2)$, $(0,2,2,0)$, $(2,2,2,2)$), and within each line
+every pair has \emph{even} integer symplectic product (the operators pairwise commute over $\Z_2$).
+Each of the nine observables lies in exactly one row and one column.
+
+\emph{Closure and commutation after scaling.} $\sum_{v\in\text{line}}\delta v=\delta\cdot(\text{even
+vector})=d\cdot(\text{integer vector})\equiv0\pmod d$; and for $u,w$ in a common line
+$\ip{\delta u}{\delta w}=\delta^2\ip{u}{w}=\tfrac{d^2}{4}\ip{u}{w}$; since $\ip{u}{w}$ is even, write
+$\ip{u}{w}=2w_{uw}$, so $\ip{\delta u}{\delta w}=\tfrac{d^2}{2}w_{uw}=d\cdot(\delta w_{uw})\equiv0
+\pmod d$. So the scaled lines are closed commuting contexts.
+
+\emph{Certificate.} Each observable is one row-edge and one column-edge of $K_{3,3}$, so
+$(\lambda^{\mathsf T}A)_v=\lambda_{\text{row}(v)}+\lambda_{\text{col}(v)}=(+1)+(-1)=0$ exactly in
+$\Zd$; $\lambda$ is a genuine $\Zd$-cycle.
+
+\emph{Value.} By Corollary~\ref{cor:bit}, $s(C)\equiv-\sum_{v\in C}q(v)+\tfrac d2b(C)$, so
+\[
+S=\lambda^{\mathsf T}s=\sum_{\text{rows}}s-\sum_{\text{cols}}s
+\equiv-\Big(\!\sum_{\text{rows}}\!\sum_{v\in C}q(v)-\!\sum_{\text{cols}}\!\sum_{v\in C}q(v)\Big)
++\frac d2\Big(\!\sum_{\text{rows}}b-\!\sum_{\text{cols}}b\Big)\pmod d .
+\]
+Each observable appears once among rows and once among columns, so the two $\sum q$ totals are both
+$\sum_{\text{obs}}q(v)$ and cancel. For the carry, compute $b(\delta C)$: with
+$\ip{\delta u}{\delta w}=\tfrac{d^2}{2}w_{uw}$ and $\ip{\delta u}{\delta w}/d=\delta w_{uw}$,
+\[
+b(\delta C)\equiv\sum_{u<w\in C}\frac{\ip{\delta u}{\delta w}}{d}=\delta\sum_{u<w\in C}w_{uw}
+\equiv\sum_{u<w\in C}w_{uw}\pmod2\qquad(\delta\text{ odd}),
+\]
+and $w_{uw}=\ip{u}{w}/2$ is exactly the $d=2$ carry summand, so $b(\delta C)\equiv b_{\mathrm{PM}}(C)
+\pmod2$ context-by-context. Because the qubit Peres--Mermin square is contextual with value $1$, the
+all-lines total carry is odd: $\sum_{\text{all }C}b_{\mathrm{PM}}(C)\equiv1$. Hence
+$\sum_{\text{rows}}b-\sum_{\text{cols}}b\equiv\sum_{\text{all}}b\equiv1\pmod2$, and
+$S\equiv\tfrac d2\cdot1=d/2\pmod d$.
+\end{proof}
+
+\noindent This is a fully self-contained attainment at \emph{every} $d\equiv2\pmod4$
+($d=2,6,10,14,\dots$), with an explicit genuine $\Zd$-certificate.
+
+\subsection*{(B) General even $d$: inherited from ROZF}
+
+\begin{proposition}[General even-$d$ attainment]\label{prop:rozf}
+For every even $d$ (in particular $d\equiv0\pmod4$, where construction (A) degenerates) there is a
+closed commuting Weyl family attaining $d/2$.
+\end{proposition}
+\begin{proof}
+\SK{} The elementary scaling of (A) fails for $4\mid d$: then $\delta=d/2$ is even, every scaled
+carry $b(\delta C)\equiv\delta\sum w_{uw}\equiv0\pmod2$ vanishes, and the family is noncontextual ---
+a genuinely different construction is required. Raussendorf--Okay--Zurel--Feldmann \cite{ROZF}
+construct, for every even $d$, an even-$d$ cohomological (``face'') obstruction realizing the value
+$d/2$; their face construction is reported to attain $\{0,d/2\}$ at $d=4,6,8,10,12,16,20$. We
+\emph{inherit} the generality of attainment from \cite{ROZF} and only translate their data into the
+present certificate language ($\lambda,A,s$), where the value $d/2$ then follows from
+Corollary~\ref{cor:bit}. \emph{Cited:} \cite{ROZF}, Quantum \textbf{7}, 979 (2023).
+\end{proof}
+\flag{Generality over all even $d$ is \SK, credited to \cite{ROZF}. What is \emph{original} here:
+(i) the Weyl-certificate translation of the obstruction into $(\lambda,A,s)$ with the value read off
+Corollary~\ref{cor:bit}; (ii) the closed parametric family of (A) for $d\equiv2\pmod4$; and (iii)
+the explicit certificates of (C). What is \emph{inherited}: the existence of an attaining family at
+$d\equiv0\pmod4$ in general.}
+
+\subsection*{(C) Explicit original certificates at $d=8,16$}
+
+\begin{proposition}[Matrix-verified certificates]\label{prop:explicit}
+There is an explicit closed commuting Weyl family at $d=8$ ($89$ contexts) with a certificate of value
+$4=d/2$, and one at $d=16$ ($363$ contexts) with value $8=d/2$. Both lie in the class
+$d\equiv0\pmod4$ that construction (A) cannot reach.
+\end{proposition}
+\begin{proof}
+\SK{} The certificates are exhibited and checked on raw $64\times64$ and $256\times256$ complex
+matrices: every listed context is verified pairwise commuting with scalar product, $\lambda^{\mathsf
+T}A\equiv0\pmod d$ holds, the value equals $d/2$, and the noncontextual system is infeasible
+(\texttt{verify\_cert8.py}, \texttt{verify\_cert16.py}). These certificates are new to this program
+and are independent of the tower results; the $d=16$ instance shows there is no depth ceiling. The
+by-hand reduction of these finite objects to Corollary~\ref{cor:bit} is routine but the data are
+verified by machine, hence \SK. \emph{Cited:} Paper~B, \S\ref{sec:attain}. \CO{} for the
+\emph{logic} that a value-$d/2$ certificate implies attainment (Theorem~\ref{thm:spectrum},
+Corollary~\ref{cor:bit}); \SK{} for the certificates' numerical correctness.
+\end{proof}
+
+\section{Depth Rigidity}\label{sec:depth}
+
+\begin{definition}[Lift; ``top $2$-adic layer'']\label{def:lift}
+A \emph{lift} of a level-$d$ family to level $2d$ assigns $x_v\in\{0,1\}^{2m}$ per observable,
+setting $\tilde v=v+d\,x_v$, subject to keeping every context commuting and closed at level $2d$. The
+mod-$2$ carry class $b\in\F_2^{k}/\rowspace_{\F_2}A$ is the \emph{top $2$-adic layer} of the family:
+it is the obstruction visible at the current level and \emph{not} inherited from any finer datum one
+level up. ``No single lift carries the obstruction'' means: the whole $b$-class is a coboundary of a
+per-observable function whenever any global lift exists, and conversely a genuine $b$-class forbids
+every global lift.
+\end{definition}
+
+\begin{theorem}[Depth Rigidity]\label{thm:depth}
+Fix even $d$ and a closed commuting level-$d$ family. Reducing the commutation constraints at level
+$2d$ gives, for each in-context pair $(i,j)$, the $\F_2$-linear equation
+\begin{equation}\label{eq:commblock}
+\ip{v_i}{x_j}+\ip{x_i}{v_j}\equiv k_{ij}:=\frac{\ip{v_i}{v_j}}{d}\pmod2 ,
+\end{equation}
+and the closure equation $r_C+\sum_{v\in C}x_v\equiv0\pmod2$ with $r_C=\tfrac1d\sum_{v\in C}v$.
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em,itemsep=1pt]
+\item If the commutation block \eqref{eq:commblock} is solvable, then $b(C)\equiv\sum_{v\in
+C}\ip{v}{x_v}\pmod2$ is a coboundary $b=A h$ ($h_v=\ip{v}{x_v}\bmod2$); hence every certificate of
+the lifted family has value $0$.
+\item If the level-$d$ family attains ($\exists\lambda$ with value $d/2$), the $\bar\lambda$-weighted
+commutation equations have identically zero left-hand side and right-hand side
+$\sum_r\bar\lambda_rb(C_r)\equiv1$; the block is infeasible, so \emph{attaining families never lift}.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\CO{} \emph{Derivation of \eqref{eq:commblock}.} $\ip{\tilde v_i}{\tilde v_j}=\ip{v_i}{v_j}+d(\ip{v_i}
+{x_j}+\ip{x_i}{v_j})+d^2\ip{x_i}{x_j}$. Commuting at level $d$ gives $\ip{v_i}{v_j}=d\,k_{ij}$;
+dividing $\ip{\tilde v_i}{\tilde v_j}\equiv0\pmod{2d}$ by $d$ and using $d^2\ip{x_i}{x_j}\equiv0
+\pmod{2}$ (even $d$) gives $k_{ij}+\ip{v_i}{x_j}+\ip{x_i}{v_j}\equiv0\pmod2$, i.e.\
+\eqref{eq:commblock}. Closure is identical with $\sum\tilde v=d(r_C+\sum x_v)\equiv0\pmod{2d}$.
+
+\emph{A per-context reduction.} Work mod $2$, where $\ip{a}{b}\equiv\ip{b}{a}$. For any context,
+\[
+\sum_{i<j}\bigl(\ip{v_i}{x_j}+\ip{x_i}{v_j}\bigr)\equiv\sum_{i\ne j}\ip{v_i}{x_j}
+=\ip{\textstyle\sum_iv_i}{\textstyle\sum_jx_j}-\sum_i\ip{v_i}{x_i}\pmod2 ,
+\]
+and $\sum_iv_i=d\,r_C$ makes $\ip{\sum v_i}{\sum x_j}=d\ip{r_C}{\sum x_j}\equiv0\pmod2$. Hence
+\begin{equation}\label{eq:percontext}
+\sum_{i<j\in C}\bigl(\ip{v_i}{x_j}+\ip{x_i}{v_j}\bigr)\equiv\sum_{v\in C}\ip{v}{x_v}\pmod2 .
+\end{equation}
+
+\emph{(a).} If \eqref{eq:commblock} holds for a solution $x$, sum it over $i<j\in C$: the left side is
+\eqref{eq:percontext} $=\sum_{v\in C}\ip{v}{x_v}=(Ah)_C$ with $h_v=\ip{v}{x_v}\bmod2$, while the right
+side is $\sum_{i<j\in C}k_{ij}=\sum_{i<j}\ip{v_i}{v_j}/d=b(C)$ (Theorem~\ref{thm:carry}). Thus
+$b=Ah$, a coboundary; any certificate $\bar\lambda$ ($\bar\lambda^{\mathsf T}A\equiv0$) pairs to
+$\bar\lambda\cdot b=\bar\lambda^{\mathsf T}Ah=0$, so all lifted values vanish.
+
+\emph{(b).} Take an attaining $\lambda$; then $\bar\lambda\cdot b\equiv1$
+(Corollary~\ref{cor:bit}). Weight \eqref{eq:commblock} by $\bar\lambda_C$ and sum over all contexts
+and in-context pairs. The right side is $\sum_C\bar\lambda_C\sum_{i<j\in C}k_{ij}=\sum_C\bar\lambda_C
+b(C)=\bar\lambda\cdot b\equiv1$. The left side, by \eqref{eq:percontext}, is
+$\sum_C\bar\lambda_C\sum_{v\in C}\ip{v}{x_v}=\sum_v(\bar\lambda^{\mathsf T}A)_v\ip{v}{x_v}\equiv0$,
+because $\lambda^{\mathsf T}A\equiv0\pmod d$ reduces to $\bar\lambda^{\mathsf T}A\equiv0\pmod2$. So any
+$x$ would give $0\equiv1$: the commutation block is infeasible and no lift exists.
+\end{proof}
+
+\begin{remark}[Reading of the rigidity]
+The obstruction bit is precisely the $\F_2$-inconsistency of the global lift system, pinned by the
+\emph{certificate} $\bar\lambda$ and not by any observable's individual lift $x_v$ (each $x_v$ enters
+only through the coboundary $h_v=\ip{v}{x_v}$, which pairs to $0$ with every cycle). Whenever a global
+lift exists the obstruction trivializes; when it does not, the whole family is rigid. This is the
+exact sense of ``top layer, carried by no section.'' \CO
+\end{remark}
+
+\part*{Part II. The Local Valuation Theorem}
+\addcontentsline{toc}{section}{Part II. The Local Valuation Theorem}
+
+\section{Setup and the parity lemma}\label{sec:localsetup}
+
+A single context has an isotropic (internally commuting) label group $G\subseteq\Zd^{2m}$,
+$\ip{u}{v}\equiv0\pmod d$ for all $u,v\in G$. The Weyl operators define a $U(1)$-valued $2$-cocycle
+on $G$,
+\[
+f(u,v)=\tau^{\,c(u,v)},\qquad W(u)W(v)=f(u,v)\,W\bigl((u+v)\bmod d\bigr),
+\]
+with $c$ as in Lemma~\ref{lem:product}. We say $f$ \emph{trivializes} (the context is
+\emph{classical}) if there is a cochain $\mu:G\to U(1)$ with $f(u,v)=\mu(u)\mu(v)\mu(u+v)^{-1}$;
+then $V(v):=\mu(v)^{-1}W(v)$ is an honest (nonprojective) representation of $G$. The
+\emph{valuation} of the context is the least $N$ with an admissible $\mu$ valued in $\mu_N$.
+
+\begin{lemma}[Parity lemma]\label{lem:parity}
+For all $u,v$, $c(u,v)\equiv\ip{u}{v}+d\cdot\rho(u,v)\pmod2$ for an integer $\rho$; hence for even $d$,
+$c(u,v)\equiv\ip{u}{v}\pmod2$, and on a commuting pair at even $d$, $c(u,v)$ is even. For odd $d$ the
+correction $d\,\rho$ may be odd, so $c(u,v)$ can be odd on a commuting pair.
+\end{lemma}
+\begin{proof}
+\CO{} One qudit suffices (both sides add over sites). With $u=(a,b),v=(a',b')$ and carries
+$e_a,e_b\in\{0,1\}$ defined by $a+a'=(a+a'\bmod d)+d\,e_a$, $b+b'=(b+b'\bmod d)+d\,e_b$,
+Lemma~\ref{lem:product} gives $c(u,v)=-ab-a'b'+2a'b+q((u+v)\bmod d)$. Expanding
+$q((u+v)\bmod d)=(a+a'-de_a)(b+b'-de_b)$,
+\[
+c(u,v)=ab'+a'b-d\bigl(e_b(a+a')+e_a(b+b')\bigr)+d^2e_ae_b .
+\]
+Mod $2$, $ab'+a'b\equiv ab'-a'b=\ip{u}{v}$, so $c(u,v)\equiv\ip{u}{v}+d\rho\pmod2$ with
+$\rho=e_b(a+a')+e_a(b+b')+d\,e_ae_b$. For even $d$ the $d\rho$ term vanishes mod $2$; on a commuting
+pair $d\mid\ip{u}{v}$ with $d$ even forces $\ip{u}{v}$ even, so $c(u,v)$ is even.
+\end{proof}
+
+\begin{corollary}[Even-$d$ contexts need no half-$\tau$ steps]\label{cor:noHalfTau}
+For even $d$, every closed commuting context has \emph{even} $\tau$-level phase: its product is an
+$\omega$-power $\omega^{s(C)}I$, $s(C)\in\Zd$, with integrality automatic (not a gauge choice). This
+is Lemma~\ref{lem:integral}, now seen as an immediate consequence of Lemma~\ref{lem:parity}: the
+telescoped exponent $T=\sum_i c(P_i,v_i)$ is a sum of even integers. \CO
+\end{corollary}
+
+\section{The cyclic transgression}\label{sec:transgression}
+
+\begin{lemma}[Cyclic power scalar]\label{lem:cyclic}
+Let $g\in G$ have order $a=\ord(g)$ in $\Zd^{2m}$ (so $a\mid d$). Then
+$W(g)^a=\tau^{\Gamma}I$ with
+\[
+\Gamma\equiv a(a-2)\,q(g)\pmod{2d}.
+\]
+Consequently any trivializing $\mu$ must satisfy $\mu(g)^a=\tau^{\Gamma}$, and one may take
+$\mu(g)=\tau^{(a-2)q(g)}\zeta$ with $\zeta^a=1$; the essential factor is $\tau^{(a-2)q(g)}\in\mu_{2d}$.
+\end{lemma}
+\begin{proof}
+\CO{} Telescoping (Lemma~\ref{lem:telescope} applied to the word $g,g,\dots,g$ of length $a$, whose
+sum is $a g\equiv0$),
+$\Gamma=\sum_{k=1}^{a-1}c(kg\bmod d,\,g)$. Using
+$c(w,g)=-q(w)-q(g)+2\beta(w,g)+q((w+g)\bmod d)$ with $w=kg\bmod d$: the terms $-q(kg)+q((k{+}1)g)$
+telescope over $k=1,\dots,a-1$ to $q(ag\bmod d)-q(g)=-q(g)$; the constant $-q(g)$ sums to
+$-(a-1)q(g)$; and $2\sum_{k=1}^{a-1}\beta(kg\bmod d,g)\equiv2q(g)\sum_{k=1}^{a-1}k=q(g)a(a-1)\pmod{2d}$
+(as $\beta(g,g)=q(g)$ and reductions cost multiples of $2d$). Summing,
+$\Gamma\equiv-q(g)-(a-1)q(g)+a(a-1)q(g)=q(g)\bigl(-a+a(a-1)\bigr)=a(a-2)q(g)\pmod{2d}$. For a genuine
+rep $V(g)=\mu(g)^{-1}W(g)$ with $V(g)^a=V(ag)=I$ one needs $\mu(g)^a=W(g)^a=\tau^{\Gamma}$; the stated
+$\mu(g)$ solves this since $\mu(g)^a=\tau^{a(a-2)q(g)}\zeta^a=\tau^{\Gamma}$.
+\end{proof}
+
+\begin{lemma}[Divisibility / parity of the essential exponent]\label{lem:transgression}
+$(a-2)q(g)$ is \emph{even} for every $g$ when $d$ is even; for odd $d$ it can be odd.
+\end{lemma}
+\begin{proof}
+\CO{} Since $a=\ord(g)\mid d$ and $a\,q(g)=\sum_i(a\,g_{a,i})g_{b,i}\equiv0\pmod d$ (each $a\,g_{a,i}
+\equiv0$), we get $q(g)\equiv0\pmod{d/a}$. \emph{Even $d$:} if $a$ is even then $a-2$ is even and
+$(a-2)q(g)$ is even; if $a$ is odd then $d/a$ is even (as $d$ is even, $a$ odd), so $q(g)$ is even and
+again $(a-2)q(g)$ is even. \emph{Odd $d$:} $a$ is odd, $a-2$ is odd, and $q(g)\equiv0\pmod{d/a}$ with
+$d/a$ odd allows $q(g)$ odd, so $(a-2)q(g)$ can be odd.
+\end{proof}
+
+\section{The theorem}\label{sec:localthm}
+
+\begin{theorem}[Local classicality, sharp valuation]\label{thm:local}
+Every single Weyl context (commuting label group $G$) is classical: its cocycle $f$ is a coboundary.
+A trivializing cochain $\mu$ can be chosen valued in
+\[
+\mu_d\quad(d\text{ even}),\qquad\mu_{2d}\quad(d\text{ odd}),
+\]
+and the odd-$d$ bound is sharp: the group $\langle(1,1)\rangle$ at $d=3$ admits no $\mu_3$-valued
+trivializer.
+\end{theorem}
+\begin{proof}
+\CO{} \emph{Cyclic factors.} Decompose $G=\bigoplus_{\ell}\langle g_\ell\rangle$ (structure theorem
+for finite abelian groups). On each factor take $\mu(g_\ell)=\tau^{(a_\ell-2)q(g_\ell)}\zeta_\ell$ as
+in Lemma~\ref{lem:cyclic} and extend by $\mu(kg_\ell)=\mu(g_\ell)^k\tau^{-\Gamma_{\ell,k}}$, where
+$W(g_\ell)^k=\tau^{\Gamma_{\ell,k}}W(kg_\ell)$; this makes $V=\mu^{-1}W$ a representation of
+$\langle g_\ell\rangle$. By Lemma~\ref{lem:transgression} the essential factor
+$\tau^{(a_\ell-2)q(g_\ell)}$ lies in $\mu_d$ for even $d$; and each $\Gamma_{\ell,k}=\sum_{j<k}
+c(jg_\ell,g_\ell)$ is a sum of \emph{even} $c$-values (Lemma~\ref{lem:parity}, commuting pairs, even
+$d$), so $\tau^{\Gamma_{\ell,k}}=\omega^{\Gamma_{\ell,k}/2}\in\mu_d$. Hence the whole cyclic cochain is
+$\mu_d$-valued for even $d$, and $\mu_{2d}$-valued for odd $d$.
+
+\emph{Cross terms.} The remaining data are the pairings $f$ across distinct factors, cohomologous
+(via the global coboundary $\tau^{-q}$, i.e.\ $W=\tau^{-q}V_0$ with $V_0=X^{a}Z^{b}$ having cocycle
+$\omega^{\beta}$) to the symmetric bilinear form $\beta|_{G}$ valued in $\Zd$. A symmetric bilinear
+$B$ on $G$ has cocycle $\omega^{B}$ trivialized by any quadratic refinement $\psi:G\to\Zd$
+(resp.\ $\Z_{2d}$) with $B(u,v)=\psi(u)+\psi(v)-\psi(u+v)$; on $\bigoplus\langle g_\ell\rangle$ set
+$\psi\bigl(\sum_\ell k_\ell g_\ell\bigr)=\sum_\ell\psi_\ell(k_\ell)+\sum_{\ell<\ell'}k_\ell k_{\ell'}
+\beta(g_\ell,g_{\ell'})$, whose diagonal parts $\psi_\ell$ are the cyclic solutions above and whose
+cross parts are $\Zd$-valued (so $\mu_d$-valued in either parity). Symmetric-cocycle classes are
+additive over the cyclic decomposition ($\mathrm{Ext}(\bigoplus\Z_{a_\ell},\Zd)=\bigoplus
+\Z_{\gcd(a_\ell,d)}$), so the assembled $\mu$ trivializes $f$ globally with the stated valuation.
+
+\emph{Sharpness at $d=3$.} Let $g=(1,1)$ on one qudit, $d=3$; then $a=\ord(g)=3$, $q(g)=1$, and
+Lemma~\ref{lem:cyclic} gives $\Gamma\equiv3\cdot1\cdot1=3\pmod6$, so $W(g)^3=\tau^{3}I=e^{i\pi}I=-I$
+(directly: $(XZ)^3=\omega^{3}I=I$ at $d=3$ and $W(g)^3=\tau^{-3}(XZ)^3=-I$). Any trivializer obeys
+$\mu(g)^3=W(g)^3=-1$. But every element of $\mu_3$ cubes to $1\ne-1$; hence no $\mu_3$-valued $\mu$
+exists, while $\mu(g)=\tau\in\mu_6=\mu_{2d}$ works. The valuation is exactly $\mu_{2d}$.
+\end{proof}
+\flag{The cyclic factor, the parity lemma, the transgression/divisibility, and the $d=3$ sharpness
+are each \CO. The cross-term assembly invokes the standard additivity of symmetric extension classes
+over a cyclic decomposition (finite abelian group cohomology), used as a named structural fact but
+elementary; we mark the assembly \CO{} with that reliance made explicit.}
+
+\begin{corollary}[Genuine $\tau$-steps are an odd-$d$ phenomenon]\label{cor:oddphenom}
+The half-$\tau$ ($\mu_{2d}\setminus\mu_d$) valuation occurs \emph{only} for odd $d$, and there iff
+some cyclic factor has $(a-2)q(g)$ odd (equivalently $\mu(g)^a=-1$). For even $d$ no context ever
+requires a half-$\tau$ step. This inverts the naive expectation that ``more phase'' lives at even
+$d$. \CO
+\end{corollary}
+
+\begin{remark}[Repeated generators / nonminimal presentations]\label{rem:presentation}
+The valuation is an invariant of the pair $(G,f)$, not of any generating set: $\mu$ is a function on
+the group $G$, and a redundant or nonminimal presentation only adds relations already satisfied by
+$\mu$. Concretely, if a generator is repeated (or a relation $\sum n_\ell g_\ell=0$ is imposed), the
+transgression consistency $\mu(0)=1$ is automatic because $\Gamma$ was computed from the intrinsic
+order $a=\ord(g)$; adding $g$ twice to a context word multiplies the phase by $f(w,g)f(w+g,g)$, an
+even $\tau$-power at even $d$ (Lemma~\ref{lem:parity}), so no new half-step appears. Hence the
+$\mu_d$/$\mu_{2d}$ dichotomy is stable under all presentations. \CO
+\end{remark}
+
+\section{Status}\label{sec:status}
+
+Each row records whether this document contains a self-contained proof (\CO), a sketch resting on a
+named external result (\SK), or an explicit open sub-lemma (\GAP). ``Abstract item'' points to the
+corresponding Paper~B abstract claim.
+
+\begin{center}\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{p{4.4cm}p{2.1cm}p{6.6cm}}
+\toprule
+Result (this document) & Status & Remark \\
+\midrule
+Weyl product law (Lem.~\ref{lem:product}), telescope (Lem.~\ref{lem:telescope})
+ & \CO & the sole external input, derived here \\
+Thm.~\ref{thm:spectrum} Obstruction Spectrum ($2S\equiv0$; $\{0,d/2\}$ / $\{0\}$)
+ & \CO & multiplicities, repeats, nonmaximal, disconnected all allowed (shown in proof) \\
+Thm.~\ref{thm:carry} Commutator-carry form $b=\sum\ip{u}{v}/d$
+ & \CO & \emph{derived} from the cocycle, not asserted \\
+Cor.~\ref{cor:cycle} closed-form cycle criterion ($Q$)
+ & \CO & even-$d$; inter-context terms vanish by closedness \\
+Prop.~\ref{prop:zd} exact $\Zd$ vs.\ $\Z_2$ shadow
+ & \CO/\GAP & soundness \CO; Weyl-specific faithfulness of the shadow \GAP{} (empirical) \\
+Thm.~\ref{thm:detect} Detection equivalence (a)$\Leftrightarrow$(b)$\Leftrightarrow$(c)
+ & \CO & incl.\ composite-$d$ SNF double-annihilator (Lem.~\ref{lem:snf}) \\
+Thm.~\ref{thm:valuebit} Value-bit formula
+ & \SK & structure \CO; exact carry coefficients via Lem.~\ref{lem:pairfloor} + \texttt{Wformula.py} \\
+Thm.~\ref{thm:attain}(A) attainment, $d\equiv2\pmod4$
+ & \CO & signed scaled Peres--Mermin, genuine $\Zd$-certificate \\
+Thm.~\ref{thm:attain}(B) attainment, general even $d$
+ & \SK & generality inherited from \cite{ROZF} \\
+Thm.~\ref{thm:attain}(C) explicit $d=8,16$ certificates
+ & \SK & original; numerically matrix-verified \\
+Thm.~\ref{thm:depth} Depth Rigidity (a),(b)
+ & \CO & top-layer meaning made precise; no lift carries the bit \\
+Thm.~\ref{thm:local} Local valuation $\mu_d$/$\mu_{2d}$, sharp
+ & \CO & incl.\ analytic $d=3$ sharpness ($\mu(g)^3=-1$) \\
+Cor.~\ref{cor:noHalfTau}, Cor.~\ref{cor:oddphenom}, Rem.~\ref{rem:presentation}
+ & \CO & no half-$\tau$ at even $d$; presentation-invariance \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{The most important remaining gap.} The general even-$d$ attainment for $d\equiv0\pmod4$
+(Theorem~\ref{thm:attain}(B)) is the only \emph{existence} statement not proved here by an
+elementary parametric construction; it rests on \cite{ROZF}. The elementary construction (A) covers
+$d\equiv2\pmod4$ completely, and (C) gives explicit witnesses at $d=8,16$, but a uniform
+self-contained family for all $d\equiv0\pmod4$ is not established in this document. Secondarily,
+Theorem~\ref{thm:valuebit}'s exact carry-coefficient bookkeeping (Lemma~\ref{lem:pairfloor}) is
+computationally rather than hand-certified, and Proposition~\ref{prop:zd}'s claim that the $\Z_2$
+carry shadow is \emph{faithful} on Weyl families (not merely sound) is empirical. Everything else ---
+the Spectrum Theorem, the carry form, detection equivalence with the composite-$d$ argument, depth
+rigidity, and the sharp local valuation --- is complete and self-contained.
+
+\begin{thebibliography}{9}
+\bibitem{ROZF} R.~Raussendorf, C.~Okay, M.~Zurel, P.~Feldmann,
+\emph{The role of cohomology in quantum computation with magic states}, Quantum \textbf{7}, 979
+(2023), arXiv:2110.11631.
+\bibitem{Gross} R.~Raussendorf et al., \emph{Phys.\ Rev.\ A} \textbf{95}, 052334 (2017),
+arXiv:1511.08506 (odd-$d$ noncontextuality and the $2^{-1}\bmod d$ mechanism).
+\bibitem{ORBR} C.~Okay, S.~Roberts, S.~D.~Bartlett, R.~Raussendorf,
+\emph{Quantum Inf.\ Comput.} \textbf{17}, 1135 (2017), arXiv:1701.01888
+(existence of AvN/cohomological obstructions).
+\bibitem{LRS} P.~Lison\v{e}k, R.~Raussendorf, V.~Singh, arXiv:1401.3035
+($\Z_2$ parity-proof enumeration).
+\bibitem{PaperB} M.~Flores Gordillo, \emph{The Obstruction Spectrum of Weyl Context Families and the
+2-adic Tower}, working draft, 2026 (source of the certificate framework, \texttt{Wformula.py},
+\texttt{verify\_cert8.py}, \texttt{verify\_cert16.py}, \texttt{mu\_d\_valuation.py}).
+\end{thebibliography}
+
+\end{document}
+

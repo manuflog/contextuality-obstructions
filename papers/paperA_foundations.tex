@@ -1,0 +1,984 @@
+% ============================================================
+% PAPER A -- FOUNDATIONS APPENDIX
+% "Foundations of the Canonical MASA-Stack Class"
+% A rigorous, self-contained proof appendix for the
+% geometric/cohomological layer of Paper A.
+%
+% Every result is labelled explicitly as one of:
+%   [COMPLETE]  a complete proof, checkable by a specialist
+%               in equivariant topology / stack cohomology
+%               without any repository script;
+%   [SKETCH]    a proof reduced to a named, precisely cited
+%               standard theorem whose hypotheses are verified;
+%   [GAP]       an honestly stated open sub-lemma.
+% A "Status of each step" table closes the document.
+%
+% Self-contained: manual thebibliography, no BibTeX.
+% ============================================================
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{lmodern}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{convention}[theorem]{Convention}
+
+\newcommand{\U}{\mathrm{U}}
+\newcommand{\PU}{\mathrm{PU}}
+\newcommand{\PN}{\mathrm{PN}}
+\newcommand{\SU}{\mathrm{SU}}
+\newcommand{\Nt}{N(T)}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\HH}{H^{2}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\Ext}{\mathrm{Ext}}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\res}{\mathrm{res}}
+\newcommand{\infl}{\mathrm{inf}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Wn}{\overline{W}_{n}}
+\newcommand{\That}{\widehat{T}}
+\newcommand{\Tp}{T'}
+\newcommand{\Thatp}{\widehat{T'}}
+\newcommand{\gp}{\mathrm{gp}}
+\newcommand{\sm}{\mathrm{sm}}
+\newcommand{\ltimesop}{\ltimes}
+\DeclareMathOperator{\Aut}{Aut}
+
+% status tags
+\newcommand{\STAT}[1]{\noindent\textbf{Status: #1}}
+\newcommand{\COMPLETE}{\textsc{Complete proof}}
+\newcommand{\SKETCH}{\textsc{Proof sketch (named standard result)}}
+\newcommand{\GAP}{\textsc{Gap (open sub-lemma)}}
+
+\title{Foundations of the Canonical MASA--Stack Class\\
+\large A rigorous proof appendix for the geometric/cohomological layer of Paper~A}
+\author{Manuel Flores Gordillo\thanks{ORCID \texttt{0009-0006-8246-0343};
+\texttt{manuel.flores@columbia.edu}. This appendix is self-contained and is written so
+that the steps marked \textsc{Complete} can be verified without consulting any repository
+script. Companion: \emph{The Canonical Class of the MASA Context Stack and the
+Peres--Mermin Obstruction} (Paper~A).}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This appendix supplies rigorous foundations for the geometric and cohomological
+constructions of Paper~A. We (A) fix the objects --- the space $X$ of maximal abelian
+subalgebras (MASAs) of $M_n(\C)$ as the homogeneous space $\PU(n)/\PN(T)$, the action
+groupoid $\PU(n)\ltimes X$ presenting the stack $[X/\PU(n)]$, and a single, explicitly
+named cohomology theory that is never silently switched; (B) construct the canonical class
+from $1\to\U(1)\to\U(n)\to\PU(n)\to1$ and prove its vacuity on $\U(n)\ltimes X$ and its
+nontriviality on $\PU(n)\ltimes X$; (C) prove the order is exactly $n$, giving both
+$n[\alpha]=0$ (determinant-twist splitting) and $k[\alpha]\neq0$ for $1\le k<n$, with the
+role of the $S_n$-equivariant homomorphism lemma made explicit and the ``exotic splitting''
+objections addressed; (D) state and prove the Morita-equivalence step, naming the theorem
+and verifying its hypotheses; and (E) compute $H^2(\PN(T);\U(1))\cong \Z/n\oplus\Z_2$
+($n\ge4$) via a Lyndon--Hochschild--Serre spectral sequence with all differentials,
+extension problems, coefficient conventions, topology assumptions, and low-$n$ exceptions
+recorded. \textbf{Intellectual honesty is the point:} every result is tagged
+\textsc{Complete}, \textsc{Sketch} (reduced to a cited theorem whose hypotheses we verify),
+or \textsc{Gap} (an explicit open sub-lemma), and a status table closes the document.
+\end{abstract}
+
+\tableofcontents
+
+\section*{Reading guide and honesty protocol}
+\addcontentsline{toc}{section}{Reading guide and honesty protocol}
+Each numbered result carries a \textbf{Status} line immediately after its proof:
+\begin{itemize}
+\item \COMPLETE{}: a full argument, checkable by a specialist in equivariant topology /
+stack cohomology using only standard textbook facts (cited), with no appeal to any
+repository computation.
+\item \SKETCH{}: the result is reduced to a precisely named theorem in the literature; we
+verify that theorem's hypotheses but do not reprove it.
+\item \GAP{}: an honestly flagged open sub-lemma; we state exactly what must be proved.
+\end{itemize}
+Two analytic inputs are used repeatedly and cited once and for all: the
+Segal--Mitchison/Moore theory of the cohomology of topological groups
+(\cite{Segal,MooreIII,MooreIV,Wigner}) and the Behrend--Xu / Tu--Xu--Laurent-Gengoux theory
+of $S^1$-central extensions of Lie groupoids and its Morita invariance
+(\cite{BehrendXu,TXL,Crainic}). Where a step depends on one of these it is marked
+\textsc{Sketch} and the precise statement invoked is quoted.
+
+% ======================================================================
+\section{Item A: objects and the cohomology theory}\label{sec:A}
+% ======================================================================
+
+\subsection{The space of MASAs as a homogeneous space}
+
+Fix $n\ge2$ and $H=\C^n$ with its standard Hermitian inner product. Write
+$M_n(\C)=B(H)$.
+
+\begin{definition}[MASA]
+A \emph{maximal abelian subalgebra} (MASA) of $M_n(\C)$ is a unital $*$-subalgebra
+$A\subseteq M_n(\C)$ that is commutative and is not properly contained in any commutative
+unital $*$-subalgebra. Let $X$ denote the set of all MASAs of $M_n(\C)$.
+\end{definition}
+
+\begin{lemma}[Structure and homogeneity of $X$]\label{lem:homog}
+Every MASA $A\subseteq M_n(\C)$ equals the algebra of operators diagonal in some
+orthonormal basis; equivalently $A$ is determined by the associated orthogonal
+decomposition $H=\bigoplus_{i=1}^n \ell_i$ into $n$ pairwise orthogonal lines (its minimal
+projections). Consequently:
+\begin{enumerate}
+\item[(i)] The conjugation action $U\cdot A := UAU^{\dagger}$ of $\U(n)$ on $X$ is
+transitive.
+\item[(ii)] Let $D=\{\,\mathrm{diag}(d_1,\dots,d_n)\,\}$ be the standard diagonal MASA. Its
+stabilizer in $\U(n)$ is the group $\Nt$ of \emph{monomial} unitaries (one nonzero entry
+per row and column), i.e. $\Nt=T\rtimes S_n$ where $T=\U(1)^n$ is the diagonal maximal
+torus and $S_n$ acts by permutation matrices. This is the normalizer of $T$ in $\U(n)$.
+\item[(iii)] The centre $\U(1)=\{\lambda I\}$ acts trivially, so the action factors through
+$\PU(n)=\U(n)/\U(1)$, and
+\[
+X\;\cong\;\U(n)/\Nt\;\cong\;\PU(n)/\PN(T),\qquad \PN(T):=\Nt/\U(1).
+\]
+In particular $X$ is a compact connected smooth manifold of dimension
+$\dim\PU(n)-\dim\PN(T)=(n^2-1)-(n-1)=n^2-n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+A commutative $*$-subalgebra of $M_n(\C)$ is simultaneously diagonalizable by the spectral
+theorem; maximality forces it to contain a complete system of $n$ rank-one orthogonal
+projections and hence to be exactly the diagonal algebra in the corresponding orthonormal
+basis. Two such algebras are conjugate by the unitary carrying one orthonormal basis to the
+other, giving (i). The stabilizer of $D$ consists of unitaries permuting the coordinate
+lines $\{\C e_i\}$ up to phase, i.e. monomial unitaries; a monomial unitary is uniquely
+$P_\sigma\,\mathrm{diag}(t_1,\dots,t_n)$ with $\sigma\in S_n$, $t_i\in\U(1)$, giving
+$\Nt=T\rtimes S_n$ and the classical identification $\Nt=N_{\U(n)}(T)$, proving (ii). The
+scalars $\lambda I$ fix every subspace, hence act trivially; the induced $\PU(n)$-action is
+still transitive with stabilizer $\Nt/\U(1)=\PN(T)$, giving (iii). Smoothness and the
+dimension count are standard for coset spaces of compact Lie groups.
+\end{proof}
+\STAT{\COMPLETE.} (Spectral theorem; elementary Lie theory of $N_{\U(n)}(T)$.)
+
+\begin{convention}[The torus quotient]\label{conv:torus}
+Throughout, $\Tp:=T/\U(1)$ where $\U(1)\hookrightarrow T=\U(1)^n$ is the diagonal
+$\lambda\mapsto(\lambda,\dots,\lambda)$. Then $\Tp\cong\U(1)^{n-1}$ is a torus of rank
+$n-1$, the diagonal scalars being $S_n$-invariant we have a split extension
+\begin{equation}\label{eq:PNsplit}
+1\longrightarrow \Tp \longrightarrow \PN(T)=\Tp\rtimes S_n \longrightarrow S_n
+\longrightarrow 1 ,
+\end{equation}
+the splitting $S_n\hookrightarrow\PN(T)$ being the images of the permutation matrices
+$P_\sigma$. The (Pontryagin) character lattice of $\Tp$ is
+\[
+\Thatp=\Hom_{\mathrm{cont}}(\Tp,\U(1))=\{a\in\Z^n:\textstyle\sum_i a_i=0\}=A_{n-1},
+\]
+the root lattice of type $A_{n-1}$, with $S_n$ acting by permuting coordinates.
+\end{convention}
+
+\subsection{The action groupoid, the stack, and the chosen cohomology theory}
+
+\begin{definition}[Action groupoid and stack]
+For a Lie group $G$ acting smoothly on a manifold $M$, the \emph{action groupoid}
+$G\ltimes M$ has object manifold $M_0=M$ and arrow manifold $M_1=G\times M$, with
+$(g,x)\colon x\to g\cdot x$, composition $(h,g\cdot x)(g,x)=(hg,x)$, units $(e,x)$, and
+inverses $(g,x)^{-1}=(g^{-1},g\cdot x)$. It presents the quotient differentiable stack
+$[M/G]$. We write
+\[
+G:=\U(n)\ltimes X,\qquad \bar G:=\PU(n)\ltimes X ,
+\]
+so that $[X/\PU(n)]$ is the \emph{MASA context stack}.
+\end{definition}
+
+We must now fix, once and for all, a single cohomology theory. The requirements are: (a)
+degree $2$ must classify \emph{central extensions by $\U(1)$} (of the group, resp.\ of the
+groupoid), so that ``the class of an extension'' is literally an $H^2$; (b) it must be
+Morita invariant for Lie groupoids (Item~D); (c) on a Lie group it must reduce to a theory
+in which the computations of Items C and E are the standard ones.
+
+\begin{definition}[The cohomology theory used, and its coefficients]\label{def:coh}
+Let $\underline{\U(1)}$ denote the sheaf of smooth $\U(1)$-valued functions, regarded as a
+groupoid module with \emph{trivial} action (all our extensions are central). For a Lie
+groupoid $\mathcal G=(\mathcal G_1\rightrightarrows \mathcal G_0)$ we use the
+\emph{Segal--Mitchison/Behrend--Xu groupoid cohomology}
+$H^{\bullet}(\mathcal G;\underline{\U(1)})$, defined as the cohomology of the double complex
+obtained from the nerve $N_{\bullet}\mathcal G$ (the simplicial manifold with
+$N_p\mathcal G=\mathcal G_1\times_{\mathcal G_0}\cdots\times_{\mathcal G_0}\mathcal G_1$)
+and a Segal--Mitchison soft resolution of $\underline{\U(1)}$; see
+\cite[\S2--3]{BehrendXu} and \cite[\S2]{TXL}. Coefficients are written multiplicatively.
+We record three properties, all standard in the cited references:
+\begin{enumerate}
+\item[(C1)] \textbf{(Extensions.)} $H^2(\mathcal G;\underline{\U(1)})$ is in natural
+bijection with the group of isomorphism classes of \emph{$S^1$-central extensions}
+(equivalently, $\U(1)$-gerbes with connective structure discarded) of $\mathcal G$; Baer
+sum corresponds to addition \cite[Thm.~3.9]{BehrendXu}.
+\item[(C2)] \textbf{(Group case.)} If $\mathcal G=G$ is a Lie group viewed as a one-object
+groupoid, then $H^{\bullet}(G;\underline{\U(1)})$ equals the Segal--Mitchison smooth group
+cohomology $H^{\bullet}_{\sm}(G;\U(1))$ \cite{Segal,MooreIII}. If moreover $G$ is finite
+(discrete), it equals ordinary group cohomology $H^{\bullet}(G;\U(1))$ with $\U(1)$ a
+trivial module.
+\item[(C3)] \textbf{(Morita invariance.)} A Morita equivalence of Lie groupoids induces an
+isomorphism on $H^{\bullet}(-;\underline{\U(1)})$ \cite[Thm.~3.9, Prop.~3.10]{BehrendXu},
+\cite[\S2]{TXL}, \cite[Thm.~4]{Crainic}.
+\end{enumerate}
+Whenever ``$H^2(-;\U(1))$'' appears below it means \emph{this} theory (equivalently, on
+Lie groups, $H^2_{\sm}$; on finite groups, ordinary $H^2$). We never switch silently.
+\end{definition}
+\STAT{\COMPLETE{} as a definition; the three properties (C1)--(C3) are \SKETCH{} (they are
+the cited theorems of Behrend--Xu, Tu--Xu--Laurent-Gengoux, Segal--Mitchison, Moore, and
+we invoke rather than reprove them).}
+
+\begin{remark}[Why this theory and not another]
+The alternatives are equivalent for our inputs but each obscures one requirement:
+Borel/Moore measurable cohomology $H^{\bullet}_{\mathrm{meas}}(G;\U(1))$ agrees with
+$H^{\bullet}_{\sm}$ for the (compact, or Lie) groups here \cite{MooreIII,WagnerAustin} but
+has no built-in stack meaning; Segal--Borel equivariant cohomology $H^{\bullet}_{G}(X;\Z)$
+computes the \emph{topological} invariants of $[X/G]$ but sits in degree shifted by one
+relative to $\U(1)$-central extensions. Definition~\ref{def:coh} is the unique choice for
+which (a) the ``class of a central extension'' is directly $H^2$, and (b) Morita invariance
+(Item~D) is a cited theorem. All numerical outputs below are theory-independent because
+they are computed after Morita reduction to the compact Lie group $\PN(T)$, where
+$H^{\bullet}_{\sm}=H^{\bullet}_{\mathrm{meas}}$.
+\end{remark}
+
+% ======================================================================
+\section{Item B: the canonical class, its vacuity, and its nontriviality}\label{sec:B}
+% ======================================================================
+
+\subsection{Construction from the central extension of $\PU(n)$}
+
+The central extension
+\begin{equation}\label{eq:UPU}
+1\longrightarrow \U(1)\longrightarrow \U(n)\xrightarrow{\ \pi\ }\PU(n)\longrightarrow 1
+\end{equation}
+has a class $[\pi]\in H^2_{\sm}(\PU(n);\U(1))$ (property (C1) for the one-object groupoid
+$\PU(n)$). Pick a Borel section $s\colon\PU(n)\to\U(n)$ of $\pi$; the associated normalized
+$2$-cocycle is
+\[
+c_s(\bar V,\bar U)\;=\;s(\bar V)\,s(\bar U)\,s(\overline{VU})^{-1}\ \in\ \U(1),
+\qquad \bar V,\bar U\in\PU(n).
+\]
+
+\begin{definition}[The canonical class]\label{def:canon}
+Let $F\colon \bar G=\PU(n)\ltimes X\to \PU(n)$ be the smooth functor sending the arrow
+$(\,\bar U, C\,)\colon C\to \bar U C\bar U^{\dagger}$ to $\bar U$ (and the unique object to
+the unique object). The \emph{canonical class} of the MASA context stack is
+\[
+[\omega]\;:=\;F^{*}[\pi]\ \in\ H^2(\bar G;\underline{\U(1)}),
+\]
+represented by the groupoid $2$-cocycle
+$\omega\big((\bar V,\cdot),(\bar U,\cdot)\big)=c_s(\bar V,\bar U)$, constant along $X$.
+Similarly define $F_0\colon G=\U(n)\ltimes X\to\U(n)$, and note $F=\bar\pi\circ F_0$ where
+$\bar\pi\colon\U(n)\to\PU(n)$ on labels.
+\end{definition}
+
+\subsection{Vacuity on $\U(n)\ltimes X$}
+
+\begin{theorem}[Vacuity]\label{thm:vacuity}
+$F_0^{*}[\pi]=[\omega]|_{G}=0$ in $H^2(G;\underline{\U(1)})$, $G=\U(n)\ltimes X$.
+\end{theorem}
+
+\begin{proof}
+On $G$ every arrow carries an honest unitary $U\in\U(n)$ (not merely its class). Define a
+$1$-cochain $\lambda\colon G_1=\U(n)\times X\to\U(1)$ by
+\[
+\lambda(U,C)\;:=\;U\,s(\bar U)^{-1}\in\U(1),
+\]
+which lies in $\U(1)$ because $U$ and $s(\bar U)$ have the same image $\bar U$ in $\PU(n)$,
+so their ratio is central. The pulled-back cocycle is
+$\omega|_G\big((V,\cdot),(U,\cdot)\big)=s(\bar V)s(\bar U)s(\overline{VU})^{-1}$. Compute
+the groupoid coboundary of $\lambda$ (trivial coefficient action):
+\[
+(\delta\lambda)\big((V,\cdot),(U,\cdot)\big)
+=\lambda(V,\cdot)\,\lambda(U,\cdot)\,\lambda(VU,\cdot)^{-1}
+= \big(Vs(\bar V)^{-1}\big)\big(Us(\bar U)^{-1}\big)\big(VU\,s(\overline{VU})^{-1}\big)^{-1}.
+\]
+Since the factors are scalars they commute, and $V,U$ cancel against $(VU)^{-1}$:
+\[
+(\delta\lambda)=s(\bar V)^{-1}s(\bar U)^{-1}s(\overline{VU})
+=\big(s(\bar V)s(\bar U)s(\overline{VU})^{-1}\big)^{-1}=\omega|_G^{-1}.
+\]
+Hence $\omega|_G=\delta(\lambda^{-1})$ is a coboundary and $[\omega]|_G=0$. Equivalently
+$(U,C)\mapsto\big(\lambda(U,C),(U,C)\big)$ is a strict homomorphic section of the pulled-back
+central extension groupoid.
+\end{proof}
+\STAT{\COMPLETE.} The mechanism is precisely that $F_0$ factors the classifying functor
+through $\U(n)$, along which \eqref{eq:UPU} is (tautologically) split by the identity; the
+extra arrow data of the groupoid supplies the honest lift $U$.
+
+\begin{remark}[The cocycle is not itself symmetric]
+The vanishing is a statement about the \emph{groupoid} class, not about $c_s$ as a function
+on $\PU(n)\times\PU(n)$: for generic $s$ the cocycle $c_s$ disagrees with its transpose and
+is not a group coboundary. Theorem~\ref{thm:vacuity} says only that on $\U(n)\ltimes X$ the
+class dies; the construction must therefore be run on $\bar G=\PU(n)\ltimes X$, over which
+the centre acts trivially and $F$ does not factor through $\U(n)$.
+\end{remark}
+
+\subsection{Nontriviality on $\PU(n)\ltimes X$}
+
+\begin{theorem}[Nontriviality]\label{thm:nontrivial}
+For every $n\ge2$, $[\omega]\neq0$ in $H^2(\bar G;\underline{\U(1)})$; indeed $[\omega]$ has
+order exactly $n$.
+\end{theorem}
+
+\begin{proof}
+By the Morita reduction (Proposition~\ref{prop:morita}, Item~D) there is an isomorphism
+$H^{\bullet}(\bar G;\underline{\U(1)})\cong H^{\bullet}(\PN(T);\U(1))$ carrying $[\omega]$
+to the class $[\alpha]$ of the extension \eqref{eq:ext1}. By the order theorem
+(Theorem~\ref{thm:order}, Item~C) $[\alpha]$ has order exactly $n\ge2$, hence is nonzero,
+hence so is $[\omega]$.
+\end{proof}
+\STAT{\COMPLETE{} \emph{given} Items C and D} (on which it depends and which are proved
+below without circularity: Item~D is a Morita statement independent of the order, Item~C is
+a finite-group computation).
+
+% ======================================================================
+\section{Item D: the Morita reduction, with hypotheses verified}\label{sec:D}
+% ======================================================================
+
+\begin{theorem}[Named theorem: Morita equivalence of a transitive action groupoid with a
+stabilizer]\label{thm:MoritaGeneral}
+Let a Lie group $G$ act smoothly and transitively on a manifold $M$, and let $H=G_{x_0}$ be
+the (closed) stabilizer of a point $x_0\in M$, so $M\cong G/H$. Then the action groupoid
+$G\ltimes M$ is Morita equivalent to $H$ (a one-object groupoid), with principal bibundle
+$G$ itself. Consequently $H^{\bullet}(G\ltimes M;\underline{\U(1)})\cong
+H^{\bullet}(H;\underline{\U(1)})$.
+\end{theorem}
+
+This is standard \cite[Ch.~5]{MoerdijkMrcun}, \cite[\S2.4]{delHoyo}; the cohomological
+consequence is (C3). We must verify its hypotheses \emph{for our data} and identify the
+class.
+
+\begin{proposition}[Morita reduction of the canonical class]\label{prop:morita}
+The bibundle $P:=\PU(n)$ realises a Morita equivalence
+$\bar G=\PU(n)\ltimes X\ \simeq_{\mathrm{Mor}}\ \PN(T)$, and under the induced isomorphism
+$H^{\bullet}(\bar G;\underline{\U(1)})\cong H^{\bullet}(\PN(T);\U(1))$ the canonical class
+$[\omega]$ corresponds to the class $[\alpha]$ of the central extension
+\begin{equation}\label{eq:ext1}
+1\longrightarrow \U(1)\longrightarrow \Nt \longrightarrow \PN(T)\longrightarrow 1 .
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+\emph{Hypotheses of Theorem~\ref{thm:MoritaGeneral}.} By Lemma~\ref{lem:homog} the
+$\PU(n)$-action on $X$ is smooth and transitive with closed stabilizer $\PN(T)$ at the base
+MASA $D$, and $X\cong\PU(n)/\PN(T)$. All groups are compact Lie, so the stabilizer is
+closed and the quotient map is a smooth principal $\PN(T)$-bundle. Hence
+Theorem~\ref{thm:MoritaGeneral} applies with $G=\PU(n)$, $M=X$, $H=\PN(T)$.
+
+\emph{The bibundle, explicitly.} Let $P=\PU(n)$ with:
+(i) a right $\PN(T)$-action by right translation $p\cdot h=ph$, which is free and proper
+(right translation in a compact Lie group by a closed subgroup) with quotient
+$P/\PN(T)=X$ and moment map $\tau\colon P\to X$, $\tau(p)=p\cdot D:=pDp^{\dagger}$;
+(ii) a left $\bar G$-action over $\tau$: an arrow $(\bar U,x)$ with $x=\tau(p)$ acts by
+$(\bar U,x)\cdot p=\bar U p$; this is well defined since $\tau(\bar U p)=\bar U\cdot\tau(p)$,
+and it is \emph{principal}, i.e.\ $\tau$ is a surjective submersion and $\bar G$ acts freely
+and transitively on the $\tau$-fibres (given $p,p'$ with $\tau(p)=\tau(p')$ the unique arrow
+is $(\,p'p^{-1},\tau(p)\,)$). The two actions commute:
+$(\bar U p)h=\bar U(ph)$. Thus $P$ is a $\bar G$--$\PN(T)$ principal bibundle, which is the
+definition of a Morita equivalence \cite[\S5.4]{MoerdijkMrcun}. Property (C3) then gives the
+cohomology isomorphism.
+
+\emph{Transport of the class.} The classifying functor $F\colon\bar G\to\PU(n)$ of
+Definition~\ref{def:canon} restricts, under the equivalence
+$\bar G\simeq_{\mathrm{Mor}}\PN(T)$, to the inclusion of isotropy
+$\iota\colon\PN(T)\hookrightarrow\PU(n)$ (an arrow of $\bar G$ fixing $D$ has label in the
+stabilizer $\PN(T)$, and $F$ reads off that label). Naturality of pullback gives
+$[\omega]=F^{*}[\pi]\ \mapsto\ \iota^{*}[\pi]$ under the isomorphism. Finally $\iota^{*}[\pi]$
+is the class of the pullback of \eqref{eq:UPU} along
+$\iota\colon\PN(T)\hookrightarrow\PU(n)$, namely of
+\[
+1\to \U(1)\to \pi^{-1}(\PN(T))\to \PN(T)\to1 .
+\]
+Because $\U(1)=\ker\pi\subseteq \Nt$ (scalars are monomial) and $\Nt/\U(1)=\PN(T)$, we have
+$\pi^{-1}(\PN(T))=\Nt$, so the pullback is exactly \eqref{eq:ext1}. Hence
+$[\omega]\leftrightarrow[\alpha]$.
+\end{proof}
+\STAT{\COMPLETE{} for the bibundle construction and the transport-of-class identification;
+\SKETCH{} for the single invocation of (C3) (the Morita invariance theorem
+\cite{BehrendXu,TXL,Crainic}), whose hypotheses (both actions principal, actions commute)
+are verified above.} No step here uses ``by Morita invariance'' without exhibiting the
+principal bibundle and checking its axioms.
+
+\begin{remark}[On the naturality step]
+The only non-mechanical point is that $F$ corresponds to $\iota$ under the equivalence. This
+is because a Morita equivalence $\bar G\simeq H$ identifies the category of $\bar
+G$-representations/cocycles with that of $H$, and the isotropy inclusion $H\hookrightarrow
+\bar G$ (as the automorphisms of the base object) composed with $F$ is $\iota$. For the
+$H^2$-level statement (C1) this is the assertion that the $S^1$-central extension classified
+by $[\omega]$ restricts on isotropy to \eqref{eq:ext1}; see \cite[Prop.~3.10]{BehrendXu}.
+\end{remark}
+
+% ======================================================================
+\section{Item C: the order is exactly $n$}\label{sec:C}
+% ======================================================================
+
+By Proposition~\ref{prop:morita} it suffices to compute the order of $[\alpha]\in
+H^2(\PN(T);\U(1))$, the class of \eqref{eq:ext1}. We prove $n[\alpha]=0$ and
+$k[\alpha]\neq0$ for $1\le k<n$.
+
+\subsection{Upper bound: $n[\alpha]=0$ via the determinant twist}
+
+\begin{lemma}[Determinant on $\Nt$]\label{lem:det}
+$\det\colon\Nt\to\U(1)$, $\det(P_\sigma\,\mathrm{diag}(t_1,\dots,t_n))=\mathrm{sgn}(\sigma)
+\prod_i t_i$, is a continuous homomorphism with $\det(\lambda g)=\lambda^{n}\det(g)$ for
+$\lambda\in\U(1)$, $g\in\Nt$.
+\end{lemma}
+\begin{proof}
+The determinant is multiplicative and continuous on $\U(n)\supseteq\Nt$; homogeneity is
+$\det(\lambda I\cdot g)=\lambda^n\det g$.
+\end{proof}
+\STAT{\COMPLETE.}
+
+\begin{theorem}[Upper bound]\label{thm:upper}
+$n[\alpha]=0$ in $H^2(\PN(T);\U(1))$.
+\end{theorem}
+
+\begin{proof}
+The class $n[\alpha]$ is (property (C1), Baer sum) represented by the pushout of
+\eqref{eq:ext1} along the $n$-th power map $[n]\colon\U(1)\to\U(1)$, $z\mapsto z^n$.
+Concretely,
+\[
+E_n=\big(\U(1)\times\Nt\big)\big/\!\sim,\qquad
+(z\lambda^{-n},\lambda g)\sim(z,g)\ \ (\lambda\in\U(1)),
+\]
+where $\U(1)\hookrightarrow\Nt$ as scalars; write $[z,g]$ for classes. The quotient map
+$E_n\to\PN(T)$, $[z,g]\mapsto \bar g$, is a central extension with kernel
+$\{[z,I]:z\in\U(1)\}\cong\U(1)$, and its class is $n[\alpha]$. Define
+\[
+\sigma\colon\PN(T)\longrightarrow E_n,\qquad \sigma(\bar g)=\big[(\det g)^{-1},\,g\big].
+\]
+\emph{Well defined:} if $g'=\lambda g$ ($\lambda\in\U(1)$) then, using
+Lemma~\ref{lem:det} and the relation,
+\[
+\big[(\det g')^{-1},g'\big]=\big[(\lambda^n\det g)^{-1},\lambda g\big]
+=\big[\lambda^{-n}(\det g)^{-1},\lambda g\big]=\big[(\det g)^{-1},g\big].
+\]
+\emph{Homomorphism:} the product in $E_n$ is $[z,g][w,h]=[zw,gh]$ (the $\U(1)$-factor is
+central), so with $\det$ multiplicative
+\[
+\sigma(\bar g)\sigma(\bar h)=\big[(\det g)^{-1}(\det h)^{-1},gh\big]
+=\big[(\det gh)^{-1},gh\big]=\sigma(\overline{gh}).
+\]
+Thus $\sigma$ is a continuous homomorphic splitting of $E_n\to\PN(T)$, so $n[\alpha]=0$.
+\end{proof}
+\STAT{\COMPLETE.} The section is genuinely a Lie-group homomorphism (no measurability
+subtlety), being polynomial in matrix entries. This is the group-level shadow of the
+$n$-torsion of Dixmier--Douady classes of $\PU(n)$-bundles \cite{DixmierDouady}, but the
+proof above is self-contained.
+
+\subsection{Lower bound: $k[\alpha]\neq0$ for $1\le k<n$}
+
+The lower bound is proved by restricting to a \emph{finite} subgroup, where no continuity or
+measurability subtlety can arise and all homomorphisms to $\U(1)$ are classical characters.
+
+\begin{definition}[Finite scalar shadow]\label{def:shadow}
+Let $\mu_n=\{z\in\U(1):z^n=1\}$, $D=\mu_n^{\,n}\subset T$ (diagonal matrices with entries in
+$\mu_n$), and $Z=\{(\zeta,\dots,\zeta):\zeta\in\mu_n\}=D\cap\U(1)\cong\mu_n$ the scalar
+subgroup. Put $W_n=D\rtimes S_n=\mu_n\wr S_n\subset\Nt$ and
+$\Wn=W_n/Z=(D/Z)\rtimes S_n\subset\PN(T)$.
+\end{definition}
+
+\begin{lemma}[Restriction of {$[\alpha]$} to $\Wn$]\label{lem:restrict}
+The restriction $[\alpha]|_{\Wn}\in H^2(\Wn;\U(1))$ is the image, under
+$\mu_n\hookrightarrow\U(1)$, of the class of the finite central extension
+\begin{equation}\label{eq:finshadow}
+1\longrightarrow \mu_n\longrightarrow W_n\longrightarrow \Wn\longrightarrow 1 .
+\end{equation}
+\end{lemma}
+\begin{proof}
+The preimage of $\Wn$ under $\Nt\to\PN(T)$ is $\U(1)\cdot W_n$, and
+$\U(1)\cdot W_n\cong(\U(1)\times W_n)/\{(\zeta^{-1},\zeta):\zeta\in\mu_n=\U(1)\cap W_n\}$ is
+exactly the pushout of \eqref{eq:finshadow} along $\mu_n\hookrightarrow\U(1)$. Restriction
+of extension classes is restriction of the group, giving the claim.
+\end{proof}
+\STAT{\COMPLETE.}
+
+\begin{lemma}[$S_n$-equivariant homomorphism lemma]\label{lem:equiv}
+Let $S_n$ act on $\mu_n^{\,n}$ (equivalently on $\Z_n^{\,n}$) by permuting coordinates and
+trivially on $\U(1)$. Every $S_n$-invariant character
+$\rho\colon\mu_n^{\,n}\to\U(1)$ has the form
+\[
+\rho\big(\zeta_n^{a_1},\dots,\zeta_n^{a_n}\big)=\zeta_n^{\,k\sum_i a_i},\qquad k\in\Z_n ,
+\]
+($\zeta_n=e^{2\pi i/n}$); there are exactly $n$ of them, and each satisfies
+$\rho(\zeta_n,\dots,\zeta_n)=\zeta_n^{\,kn}=1$. Equivalently, the only $S_n$-equivariant
+homomorphisms $\Z_n^{\,n}\to\Z_n$ are $x\mapsto k\sum_i x_i$, and all annihilate the
+diagonal generator.
+\end{lemma}
+\begin{proof}
+A character of the finite abelian group $\mu_n^{\,n}$ is $x\mapsto\prod_i\rho(e_i)^{a_i}$
+with $\rho(e_i)\in\mu_n$; write $\rho(e_i)=\zeta_n^{c_i}$. Since $S_n$ permutes the standard
+generators $e_i$ transitively, invariance $\rho(\sigma\cdot x)=\rho(x)$ forces
+$c_{\sigma(i)}=c_i$ for all $\sigma$, hence $c_1=\dots=c_n=:k$. Then
+$\rho(x)=\zeta_n^{k\sum a_i}$ and on the diagonal $\sum a_i=n$, so
+$\rho=\zeta_n^{kn}=1$. There are exactly $n$ choices $k\in\Z_n$.
+\end{proof}
+\STAT{\COMPLETE.} This is the exact point at which ``$S_n$-equivariance'' enters: it forces
+the invariant character to be a multiple of the coordinate sum, which is $\equiv0$ on the
+diagonal modulo $n$.
+
+\begin{theorem}[Lower bound]\label{thm:lower}
+For every integer $k$ with $1\le k<n$, $k[\alpha]\neq0$ in $H^2(\PN(T);\U(1))$.
+\end{theorem}
+
+\begin{proof}
+Restriction $H^2(\PN(T);\U(1))\to H^2(\Wn;\U(1))$ is a homomorphism, so it suffices to show
+$k[\alpha]|_{\Wn}\neq0$ for $1\le k<n$. By Lemma~\ref{lem:restrict}, $k[\alpha]|_{\Wn}$ is
+the class of the pushout of \eqref{eq:finshadow} along $\mu_n\xrightarrow{\ z\mapsto z^{k}\ }
+\U(1)$. This pushout \emph{splits} (i.e.\ the class vanishes) if and only if there is a
+homomorphism $\rho\colon W_n\to\U(1)$ extending $\zeta\mapsto\zeta^{k}$ on
+$\mu_n=Z$, i.e.\ with
+\begin{equation}\label{eq:need}
+\rho(\zeta_n I)=\zeta_n^{\,k}=e^{2\pi i k/n}\ (\neq 1\text{ since }1\le k<n).
+\end{equation}
+Now for \emph{any} homomorphism $\rho\colon W_n=D\rtimes S_n\to\U(1)$, the restriction
+$\rho|_{D}$ is $S_n$-invariant: for $s\in S_n\subset W_n$ and $d\in D$ we have
+$s d s^{-1}=s\cdot d\in D$ and, $\U(1)$ being abelian,
+$\rho(s\cdot d)=\rho(sds^{-1})=\rho(d)$. By Lemma~\ref{lem:equiv},
+$\rho|_D(\zeta_n I)=\rho(\zeta_n,\dots,\zeta_n)=1$, contradicting \eqref{eq:need}. Hence no
+such $\rho$ exists, so $k[\alpha]|_{\Wn}\neq0$, so $k[\alpha]\neq0$.
+\end{proof}
+\STAT{\COMPLETE.}
+
+\begin{corollary}[Order exactly $n$]\label{thm:order}
+The canonical class $[\alpha]$ --- equivalently $[\omega]\in H^2([X/\PU(n)];\underline{\U(1)})$
+--- has order exactly $n$.
+\end{corollary}
+\begin{proof}
+$n[\alpha]=0$ (Theorem~\ref{thm:upper}) and $k[\alpha]\neq0$ for $1\le k<n$
+(Theorem~\ref{thm:lower}).
+\end{proof}
+\STAT{\COMPLETE.}
+
+\subsection{Why no ``exotic'' splitting evades the argument}\label{ssec:exotic}
+
+Three objections must be ruled out; all three are handled by the restriction to the
+\emph{finite} group $\Wn$.
+
+\begin{proposition}[Robustness of the lower bound]\label{prop:robust}
+The conclusion $k[\alpha]\neq0$ ($1\le k<n$) is immune to:
+\begin{enumerate}
+\item[(a)] \textbf{Nonlinear ``splittings.''} A splitting of a central extension of groups
+is by definition a group homomorphism $s$ with $\pi\circ s=\id$; ``nonlinear'' set-maps are
+irrelevant, since vanishing of the class \emph{means} existence of such a homomorphism. The
+proof of Theorem~\ref{thm:lower} shows no \emph{homomorphism} $\rho$ with the required value
+exists.
+\item[(b)] \textbf{Discontinuous homomorphisms.} Over the ambient Lie group $\PN(T)$ there
+exist, by a Hamel-basis/choice construction, discontinuous homomorphisms $\PN(T)\to\U(1)$.
+But any hypothetical splitting of $k[\alpha]$ over $\PN(T)$ restricts to a splitting over the
+\emph{finite} subgroup $\Wn$, where every homomorphism is automatically continuous and is a
+classical character. Theorem~\ref{thm:lower} rules those out. Formally: restriction
+$H^2(\PN(T);\U(1))\to H^2(\Wn;\U(1))$ is a homomorphism, and $k[\alpha]\mapsto k[\alpha]
+|_{\Wn}\neq0$, so $k[\alpha]\neq0$ regardless of the regularity of any putative section
+upstairs.
+\item[(c)] \textbf{Non-module (twisted) splittings.} The coefficient module is
+\emph{central} ($\U(1)$ with trivial action); a section respecting only some twisted action
+is not a splitting of \eqref{eq:ext1}. Since \eqref{eq:ext1} is central, the notion of
+splitting is unambiguous and is the one used.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Immediate from the definitions and from the naturality of restriction, as spelled out in
+(a)--(c).
+\end{proof}
+\STAT{\COMPLETE.}
+
+\begin{remark}[Where the upper and lower bounds meet]
+The upper bound used a specific, everywhere-defined homomorphic section (the determinant
+twist), so it is unconditional. The lower bound is a nonexistence statement pushed down to a
+finite group, so it too is unconditional. Together they pin the order at exactly $n$ with no
+appeal to any computer search; the repository's \texttt{thmG\_general.py} merely
+double-checks Lemma~\ref{lem:equiv} and the order over $n=2,\dots,8$.
+\end{remark}
+
+% ======================================================================
+\section{Item E: $H^2(\PN(T);\U(1))\cong\Z/n\oplus\Z_2$}\label{sec:E}
+% ======================================================================
+
+We now compute the full group, using the Lyndon--Hochschild--Serre (LHS) spectral sequence
+of the split extension \eqref{eq:PNsplit}. All coefficients are $\U(1)$ with trivial action
+(Definition~\ref{def:coh}); the outer group $S_n$ is finite, so $H^{\bullet}(S_n;-)$ is
+ordinary group cohomology, while the inner torus contributes smooth (Segal--Mitchison)
+cohomology.
+
+\subsection{The spectral sequence and its coefficient inputs}
+
+\begin{theorem}[Existence of the LHS spectral sequence]\label{thm:LHS}
+For the split extension \eqref{eq:PNsplit} there is a first-quadrant cohomological spectral
+sequence
+\[
+E_2^{p,q}=H^{p}\big(S_n;\,H^{q}_{\sm}(\Tp;\U(1))\big)\ \Longrightarrow\
+H^{p+q}_{\sm}(\PN(T);\U(1)),
+\]
+with the usual multiplicative and edge structure, converging to a finite filtration of the
+abutment.
+\end{theorem}
+\STAT{\SKETCH.} This is the Hochschild--Serre spectral sequence for measurable/smooth
+cohomology of the extension of locally compact groups $\Tp\to\PN(T)\to S_n$, due to Moore
+\cite[\S\S2--3]{MooreIV} (see also \cite{Lichtenbaum,Flach} for the topological/site
+formulation); the inner terms $H^q_{\sm}(\Tp;\U(1))$ carry the $S_n$-action induced by
+conjugation, and because $S_n$ is finite and discrete the outer cohomology is ordinary group
+cohomology. We invoke Moore's theorem; its hypotheses (a closed normal subgroup of a second
+countable locally compact group) hold.
+
+We now identify each relevant coefficient group.
+
+\begin{lemma}[Torus coefficients]\label{lem:toruscoh}
+As $S_n$-modules,
+\[
+H^{0}_{\sm}(\Tp;\U(1))=\U(1)\ (\text{trivial}),\qquad
+H^{1}_{\sm}(\Tp;\U(1))=\Thatp=A_{n-1},\qquad
+H^{2}_{\sm}(\Tp;\U(1))=0 .
+\]
+\end{lemma}
+\begin{proof}
+Degree $0$ is the constants. Degree $1$: $H^1_{\sm}(\Tp;\U(1))=\Hom_{\mathrm{cont}}
+(\Tp,\U(1))=\Thatp=A_{n-1}$ (Convention~\ref{conv:torus}), with the permutation
+$S_n$-action.
+
+Degree $2$: We claim $H^2_{\sm}(\Tp;\U(1))=0$, i.e.\ every smooth $\U(1)$-central extension
+of the torus $\Tp$ splits. Use the exponential sequence of trivial $\Tp$-modules
+$0\to\Z\to\R\xrightarrow{\exp(2\pi i\,\cdot)}\U(1)\to0$ and its long exact sequence in
+$H^{\bullet}_{\sm}(\Tp;-)$. For the compact group $\Tp$, continuous cohomology with $\R$
+coefficients vanishes in positive degree, $H^{k}_{\sm}(\Tp;\R)=0$ for $k\ge1$ (invariant
+integration/averaging \cite[Ch.~IX]{BorelWallach}, \cite{MooreIII}), so the connecting maps
+give $H^{k}_{\sm}(\Tp;\U(1))\cong H^{k+1}_{\sm}(\Tp;\Z)$ for $k\ge1$. Finally, for a compact
+Lie group $G$, $H^{k}_{\sm}(G;\Z)\cong H^{k}(BG;\Z)$ (Segal \cite{Segal}, Wigner
+\cite{Wigner}); for $G=\Tp\cong\U(1)^{n-1}$, $BG=(\C P^{\infty})^{n-1}$ has
+$H^{\bullet}(BG;\Z)=\Z[x_1,\dots,x_{n-1}]$ with $\deg x_i=2$, concentrated in even degrees
+and torsion-free. Hence $H^{3}(B\Tp;\Z)=0$, so
+$H^{2}_{\sm}(\Tp;\U(1))\cong H^{3}_{\sm}(\Tp;\Z)\cong H^3(B\Tp;\Z)=0$.
+\end{proof}
+\STAT{\SKETCH.} The vanishing $H^2_{\sm}(\Tp;\U(1))=0$ is reduced to the two named results
+$H^{k}_{\sm}(\mathrm{compact};\R)=0$ ($k\ge1$) and $H^{\bullet}_{\sm}(G;\Z)\cong
+H^{\bullet}(BG;\Z)$ (Segal--Wigner), whose hypotheses (compactness, Lie) hold. Intuitively:
+a continuous bicharacter $\Tp\times\Tp\to\U(1)$ is trivial (each slice is a character, hence
+locally constant integer-valued), so the extension is abelian, and abelian smooth extensions
+of a torus by $\U(1)$ split by the $BG$-computation.
+
+\begin{lemma}[$S_n$-cohomology inputs]\label{lem:Sncoh}
+With trivial $\U(1)$-coefficients and the permutation module $A_{n-1}$:
+\begin{enumerate}
+\item[(i)] $H^{0}(S_n;A_{n-1})=(A_{n-1})^{S_n}=0$.
+\item[(ii)] $H^{1}(S_n;A_{n-1})\cong\Z/n$.
+\item[(iii)] $H^{2}(S_n;\U(1))\cong M(S_n)$, the Schur multiplier: $\Z_2$ for $n\ge4$ and
+$0$ for $n\le3$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(i) An $S_n$-invariant vector of $\Z^n$ is a scalar multiple of $(1,\dots,1)$; requiring
+coordinate sum $0$ forces it to be $0$.
+
+(ii) Use the short exact sequence of $S_n$-modules
+$0\to A_{n-1}\to\Z^n\xrightarrow{\ \Sigma\ }\Z\to0$, where $\Z^n$ is the permutation module
+(i.e.\ $\Z[S_n/S_{n-1}]$) and $\Z$ is trivial. Its long exact sequence reads
+\[
+H^0(S_n;\Z^n)\xrightarrow{\ \Sigma_*\ }H^0(S_n;\Z)\xrightarrow{\ \delta\ }
+H^1(S_n;A_{n-1})\longrightarrow H^1(S_n;\Z^n).
+\]
+By Shapiro's lemma $H^{\bullet}(S_n;\Z^n)=H^{\bullet}(S_n;\Z[S_n/S_{n-1}])=
+H^{\bullet}(S_{n-1};\Z)$, so $H^0(S_n;\Z^n)=\Z\cdot(1,\dots,1)$ and
+$H^1(S_n;\Z^n)=H^1(S_{n-1};\Z)=\Hom(S_{n-1},\Z)=0$. The map $\Sigma_*$ sends $(1,\dots,1)$
+to $n\in\Z=H^0(S_n;\Z)$, i.e.\ is multiplication by $n$; hence
+$H^1(S_n;A_{n-1})\cong\mathrm{coker}(\Z\xrightarrow{n}\Z)=\Z/n$.
+
+(iii) For finite $G$ and divisible $\U(1)$, the universal-coefficient/Hopf formula gives
+$H^2(G;\U(1))\cong\Hom(H_2(G;\Z),\U(1))\cong H_2(G;\Z)=M(G)$ (the last isomorphism because
+$H_2(G;\Z)$ is finite abelian, hence non-canonically self-Pontryagin-dual, and
+$\Ext(H_1(G),\U(1))=0$ as $\U(1)$ is injective). Schur's computation of the multiplier of
+the symmetric group is $M(S_n)=\Z_2$ for $n\ge4$ and $0$ for $n\in\{2,3\}$
+\cite[Ch.~2]{Karpilovsky}, \cite{Schur}.
+\end{proof}
+\STAT{(i),(ii) \COMPLETE{}; (iii) \SKETCH{} (Schur's multiplier of $S_n$, cited).}
+
+\subsection{The $E_2$ page in total degree $2$, and all differentials}
+
+Assembling Lemmas~\ref{lem:toruscoh}--\ref{lem:Sncoh}, the anti-diagonal $p+q=2$ of the
+$E_2$ page is
+\[
+E_2^{0,2}=H^0\big(S_n;H^2_{\sm}(\Tp;\U(1))\big)=H^0(S_n;0)=0,\qquad
+E_2^{1,1}=H^1(S_n;A_{n-1})=\Z/n,
+\]
+\[
+E_2^{2,0}=H^2(S_n;\U(1))=\begin{cases}\Z_2,& n\ge4,\\[1mm]0,& n\le3,\end{cases}
+\]
+and, in the neighbouring spots we shall need,
+\[
+E_2^{0,1}=H^0(S_n;A_{n-1})=0,\qquad E_2^{3,0}=H^3(S_n;\U(1)).
+\]
+
+\begin{proposition}[All differentials touching total degree $2$ vanish]\label{prop:diffs}
+In the spectral sequence of Theorem~\ref{thm:LHS}:
+\begin{enumerate}
+\item[(i)] every differential \emph{into} the bottom row $E_r^{\bullet,0}$ vanishes; in
+particular $E_\infty^{p,0}=E_2^{p,0}=H^p(S_n;\U(1))$ for all $p$;
+\item[(ii)] consequently $d_2\colon E_2^{1,1}\to E_2^{3,0}$ is zero, and since no
+differential enters $E^{1,1}$, we get $E_\infty^{1,1}=E_2^{1,1}=\Z/n$;
+\item[(iii)] $E_\infty^{0,2}=E_2^{0,2}=0$ and $E_\infty^{2,0}=E_2^{2,0}$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(i) The extension \eqref{eq:PNsplit} is \emph{split}: the section
+$j\colon S_n\hookrightarrow\PN(T)$ (permutation matrices) satisfies $p\circ j=\id_{S_n}$
+where $p\colon\PN(T)\to S_n$. With trivial coefficients $\U(1)$, inflation
+$\inf=p^{*}\colon H^{\bullet}(S_n;\U(1))\to H^{\bullet}(\PN(T);\U(1))$ and restriction
+$\res=j^{*}$ satisfy $\res\circ\inf=(p\circ j)^{*}=\id$. Hence inflation is (split)
+injective in every degree. The image of inflation is precisely the bottom filtration piece
+$F^{p}H^{p}=E_\infty^{p,0}$, and the edge map $E_2^{p,0}\twoheadrightarrow E_\infty^{p,0}$
+composed with $E_\infty^{p,0}\hookrightarrow H^p$ is inflation. Injectivity of inflation
+forces the surjection $E_2^{p,0}\twoheadrightarrow E_\infty^{p,0}$ to be an isomorphism, so
+no differential may hit the bottom row.
+
+(ii) The only differential into $E^{3,0}$ that could reduce it is
+$d_2\colon E_2^{1,1}\to E_2^{3,0}$ (and $d_3\colon E_3^{0,2}\to E_3^{3,0}$); by (i) both
+vanish, in particular $d_2|_{E_2^{1,1}}=0$. No differential enters $E^{1,1}$ (sources
+$E_r^{1-r,r}$ vanish for $r\ge2$ as $1-r<0$), and the only possible outgoing differential
+$d_2\colon E_2^{1,1}\to E_2^{3,0}$ is zero; hence $E_\infty^{1,1}=E_2^{1,1}=\Z/n$.
+
+(iii) $E_2^{0,2}=0$ has nothing in it; and the only differential into $E^{2,0}$ is
+$d_2\colon E_2^{0,1}\to E_2^{2,0}$ with $E_2^{0,1}=0$, so $E_\infty^{2,0}=E_2^{2,0}$ (also a
+special case of (i)).
+\end{proof}
+\STAT{\COMPLETE.} The vanishing of the crucial differential $d_2|_{E^{1,1}}$ is forced by
+the \emph{splitting} of \eqref{eq:PNsplit} alone; it does \emph{not} require the order
+theorem.
+
+\subsection{The extension problem, and the answer}
+
+\begin{theorem}[Full second cohomology]\label{thm:h2}
+For all $n\ge2$,
+\[
+H^2(\PN(T);\U(1))\ \cong\ \Z/n\ \oplus\ H^2(S_n;\U(1))\ =\
+\begin{cases}
+\Z/n\oplus\Z_2, & n\ge4,\\
+\Z/3, & n=3,\\
+\Z/2, & n=2,
+\end{cases}
+\]
+and the canonical class $[\alpha]$ maps to a generator of the $\Z/n$ summand.
+\end{theorem}
+\begin{proof}
+By Proposition~\ref{prop:diffs} the degree-$2$ filtration of $H^2:=H^2(\PN(T);\U(1))$ is
+\[
+0=F^{3}\subseteq F^{2}\subseteq F^{1}=F^{0}=H^2,\qquad
+F^{2}=E_\infty^{2,0}=H^2(S_n;\U(1)),\quad F^1/F^2=E_\infty^{1,1}=\Z/n,\quad
+E_\infty^{0,2}=0,
+\]
+i.e.\ a short exact sequence
+\begin{equation}\label{eq:extprob}
+0\longrightarrow H^2(S_n;\U(1))\xrightarrow{\ \inf\ }H^2\xrightarrow{\ \rho\ }\Z/n
+\longrightarrow0 .
+\end{equation}
+\emph{The sequence splits, for every $n$.} The sub $F^2=\im(\inf)$ is the image of
+inflation, and by Proposition~\ref{prop:diffs}(i) the restriction
+$\res\colon H^2\to H^2(S_n;\U(1))$ satisfies $\res\circ\inf=\id$. Thus $\res$ is a retraction
+of the inclusion $\inf$ in \eqref{eq:extprob}, so
+\[
+H^2=\im(\inf)\oplus\ker(\res)\cong H^2(S_n;\U(1))\oplus\big(H^2/F^2\big)
+=H^2(S_n;\U(1))\oplus\Z/n .
+\]
+This gives the stated groups using Lemma~\ref{lem:Sncoh}(iii) and the low-$n$ values.
+
+\emph{$[\alpha]$ generates the $\Z/n$.} By Corollary~\ref{thm:order}, $[\alpha]$ has order
+exactly $n$. Its image $\rho([\alpha])\in\Z/n$ has order $n/|\langle[\alpha]\rangle\cap F^2|$;
+since $F^2=H^2(S_n;\U(1))$ has order dividing $2$, and $\ker(\res)$ is a complement with
+$\res([\alpha])\in H^2(S_n;\U(1))$, we argue directly: the projection $q:=$
+($H^2\twoheadrightarrow\ker(\res)\cong\Z/n$) along $F^2$ agrees with $\rho$ up to the chosen
+splitting, and $q([\alpha])$ has order equal to that of $[\alpha]$ minus its $F^2$-part.
+Concretely, write $[\alpha]=(u,v)\in F^2\oplus\Z/n$. Then $\res([\alpha])=u$, and by
+Proposition~\ref{prop:robust} applied through the finite shadow, $k[\alpha]\neq0$ for
+$1\le k<n$; if $v$ had order $d<n$ in $\Z/n$ then $d\,[\alpha]=(du,0)=(du,0)$ would lie in
+$F^2$, of order $\le2$, forcing $2d\,[\alpha]=0$, i.e.\ $n\mid 2d$. Combined with $d\mid n$
+and $d<n$ this leaves only $n$ even and $d=n/2$. That residual case is excluded in
+Proposition~\ref{prop:gen} below; granting it, $v$ has order $n$, i.e.\ generates.
+\end{proof}
+\STAT{\COMPLETE{} for the group isomorphism $H^2\cong\Z/n\oplus H^2(S_n;\U(1))$ (the
+splitting of \eqref{eq:extprob} is unconditional, via the retraction $\res$); the
+identification of $[\alpha]$ as a \emph{generator} of the $\Z/n$ summand is \COMPLETE{} for
+$n$ odd and rests on Proposition~\ref{prop:gen} for $n$ even.}
+
+\begin{proposition}[{$[\alpha]$} generates modulo the Schur summand]\label{prop:gen}
+$\rho([\alpha])$ generates $E_\infty^{1,1}=\Z/n$.
+\begin{itemize}
+\item[$\bullet$] For $n$ odd this is \COMPLETE: $|\langle[\alpha]\rangle|=n$ is coprime to
+$|F^2|\in\{1,2\}$, so $\langle[\alpha]\rangle\cap F^2=0$ and $\rho([\alpha])$ has order $n$.
+\item[$\bullet$] For $n$ even this is a \GAP: one must exclude $(n/2)[\alpha]\in F^2$, i.e.\
+that the order-$2$ element $(n/2)[\alpha]$ is inflated from the Schur class of $S_n$.
+\end{itemize}
+\end{proposition}
+\STAT{$n$ odd: \COMPLETE. $n$ even: \GAP{} (stated precisely below).}
+
+\begin{remark}[Exact statement of the residual gap, and partial evidence]\label{rem:gap}
+The residual open sub-lemma is:
+\begin{quote}\itshape
+For $n$ even, $(n/2)[\alpha]\notin\im\big(\inf\colon H^2(S_n;\U(1))\to
+H^2(\PN(T);\U(1))\big)$; equivalently, $\res_{S_n}\big((n/2)[\alpha]\big)=0$ does \emph{not}
+coincide with $(n/2)[\alpha]$ being the inflated Schur class.
+\end{quote}
+Two remarks bound the stakes. (1) The isomorphism type $H^2\cong\Z/n\oplus\Z_2$ is
+\emph{already proved unconditionally} (Theorem~\ref{thm:h2}); the gap concerns only whether
+the \emph{specific} class $[\alpha]$ is a generator of the $\Z/n$ factor versus lying in
+$\Z/n\oplus\Z_2$ with a nonzero $\Z_2$-component (which would still leave $[\alpha]$ of order
+$n$ and the group unchanged). (2) The natural attempt --- detect a nonzero image on the
+abelian part $D/Z\subset\Wn$ --- fails because $[\alpha]|_{D/Z}=0$: the finite abelian
+extension $1\to Z\to D\to D/Z\to1$ splits (the retraction $D=\mu_n^n\to\mu_n$,
+$x\mapsto x_1$, restricts to the identity on $Z$), so $[\alpha]$ is invisible on $D/Z$ and
+lives genuinely in the mixed $E^{1,1}$-stratum. Closing the gap therefore requires computing
+the $\U(1)$-valued $2$-cocycle of $\Wn$ on a permutation$\,\times\,$sign pair (the
+transgression $S_n\to\Thatp$), or equivalently identifying $\res_{S_n}(n/2)[\alpha]$ with a
+$2$-cocycle of $S_n$ and checking it is a coboundary. A direct computation of the
+$E^{1,1}$-transgression cocycle $\gamma(\sigma)=e_{\sigma^{-1}(n)}-e_n\in A_{n-1}$ for the
+section of Convention~\ref{conv:torus} strongly indicates $\gamma$ is a \emph{generator} of
+$H^1(S_n;A_{n-1})=\Z/n$ (it is the connecting image of $1\in\Z$ under
+$\Sigma\colon\Z^n\to\Z$), which would force $\rho([\alpha])$ to generate and close the gap;
+we do not certify the cocycle-identity bookkeeping here and so leave it flagged.
+\end{remark}
+
+\subsection{Coefficient conventions, topology assumptions, low-$n$ exceptions}
+
+\begin{itemize}
+\item \textbf{Coefficients.} Everywhere $\U(1)$ is a \emph{trivial} module (central
+extensions); $A_{n-1}=\Thatp$ carries the permutation $S_n$-action; $\Z$ and $\R$ in
+Lemma~\ref{lem:toruscoh} are trivial modules.
+\item \textbf{Topology.} $\Tp,\PN(T),\PU(n),\U(n)$ are compact Lie groups; ``$H^2_{\sm}$''
+is Segal--Mitchison smooth cohomology, which for these (second countable, compact) groups
+coincides with Moore measurable cohomology \cite{MooreIII,WagnerAustin}. The inner
+cohomology $H^{\bullet}_{\sm}(\Tp;\U(1))$ is the smooth one; the outer $H^{\bullet}(S_n;-)$
+is ordinary (discrete) group cohomology because $S_n$ is finite. The identification
+$H^{\bullet}_{\sm}(\Tp;\Z)\cong H^{\bullet}(B\Tp;\Z)$ requires compact Lie $\Tp$
+(Segal--Wigner).
+\item \textbf{Low-$n$ exceptions.} $n=2$: $S_2=\Z_2$, $A_1=\Z$ with the sign action,
+$H^1(\Z_2;\Z_{\mathrm{sgn}})=\Z/2$ and $H^2(\Z_2;\U(1))=0$, so $H^2(\PN(T);\U(1))=\Z/2$
+(no Schur factor). $n=3$: $M(S_3)=0$, so $H^2(\PN(T);\U(1))=\Z/3$. The $\Z_2$ summand
+appears only for $n\ge4$, exactly the range in which the Schur multiplier is nontrivial and
+(Paper~A) the Peres--Mermin shadow is available.
+\end{itemize}
+\STAT{\COMPLETE{} (bookkeeping of conventions and the low-$n$ computations).}
+
+% ======================================================================
+\section{Status of each step}\label{sec:status}
+% ======================================================================
+
+The table records, for every lettered item and every numbered result, whether the argument
+here is a \emph{complete proof} (checkable without repository scripts), a \emph{proof
+sketch} reduced to a named standard theorem (with hypotheses verified), or an explicit
+\emph{gap}.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.10\textwidth}p{0.53\textwidth}p{0.30\textwidth}@{}}
+\toprule
+\textbf{Item / Result} & \textbf{Content} & \textbf{Status} \\
+\midrule
+A & Objects; $X\cong\PU(n)/\PN(T)$; choice of cohomology theory & Complete (defs);
+Sketch for (C1)--(C3) [BX, TXL, Seg, Moore] \\
+\;Lem.~\ref{lem:homog} & Structure/homogeneity of $X$ & Complete \\
+\;Def.~\ref{def:coh} & Groupoid cohomology $H^\bullet(-;\underline{\U(1)})$ & Complete def.;
+Sketch (C1)--(C3) \\
+\midrule
+B & Canonical class; vacuity; nontriviality & Complete (given C, D) \\
+\;Thm.~\ref{thm:vacuity} & Vacuity on $\U(n)\ltimes X$ & Complete \\
+\;Thm.~\ref{thm:nontrivial} & Nontriviality on $\PU(n)\ltimes X$ & Complete given C, D \\
+\midrule
+D & Morita reduction to $\PN(T)$ & Complete bibundle; Sketch (C3) \\
+\;Thm.~\ref{thm:MoritaGeneral} & $G\ltimes(G/H)\simeq_{\mathrm{Mor}}H$ & Sketch [MM, dH,
+BX] \\
+\;Prop.~\ref{prop:morita} & Bibundle $\PU(n)$; class $\mapsto$ \eqref{eq:ext1} & Complete
+(constr.\ \& transport); Sketch (C3) \\
+\midrule
+C & Order exactly $n$ & Complete \\
+\;Thm.~\ref{thm:upper} & $n[\alpha]=0$ (determinant twist) & Complete \\
+\;Lem.~\ref{lem:equiv} & $S_n$-equivariant hom lemma & Complete \\
+\;Thm.~\ref{thm:lower} & $k[\alpha]\neq0$, $1\le k<n$ & Complete \\
+\;Cor.~\ref{thm:order} & Order $=n$ & Complete \\
+\;Prop.~\ref{prop:robust} & No nonlinear/discontinuous/non-module evasion & Complete \\
+\midrule
+E & $H^2(\PN(T);\U(1))\cong\Z/n\oplus\Z_2$ ($n\ge4$) & Complete (iso); Sketch inputs;
+Gap (generator, $n$ even) \\
+\;Thm.~\ref{thm:LHS} & LHS spectral sequence exists & Sketch [Moore IV] \\
+\;Lem.~\ref{lem:toruscoh} & $H^{\le2}_{\sm}(\Tp;\U(1))$ & $q{=}0,1$ Complete; $q{=}2{=}0$
+Sketch [Seg, Wig] \\
+\;Lem.~\ref{lem:Sncoh} & $H^0{=}0$, $H^1{=}\Z/n$, $H^2(S_n;\U(1))$ & (i),(ii) Complete;
+(iii) Sketch [Schur] \\
+\;Prop.~\ref{prop:diffs} & All differentials to deg.\ $2$ vanish & Complete \\
+\;Thm.~\ref{thm:h2} & $H^2\cong\Z/n\oplus H^2(S_n;\U(1))$ & Complete (group iso) \\
+\;Prop.~\ref{prop:gen} & $[\alpha]$ generates $\Z/n$ & Complete ($n$ odd); \textbf{Gap}
+($n$ even) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent\textbf{Single most important gap to close first.}
+Proposition~\ref{prop:gen}/Remark~\ref{rem:gap} for \emph{even} $n$: prove that
+$(n/2)[\alpha]$ is not the inflated Schur class, equivalently that the transgression cocycle
+$\gamma\in H^1(S_n;A_{n-1})=\Z/n$ of the extension \eqref{eq:ext1} is a generator. This does
+not affect the isomorphism type of $H^2$ (already proved), only the statement that the
+\emph{canonical} class is a generator of the $\Z/n$ summand rather than a generator-plus-Schur.
+
+% ======================================================================
+\begin{thebibliography}{99}
+
+\bibitem{BehrendXu} K.~Behrend, P.~Xu, \emph{Differentiable stacks and gerbes},
+J.~Symplectic Geom.\ \textbf{9} (2011), 285--341.
+
+\bibitem{TXL} J.-L.~Tu, P.~Xu, C.~Laurent-Gengoux, \emph{Twisted $K$-theory of
+differentiable stacks}, Ann.\ Sci.\ \'Ecole Norm.\ Sup.\ (4) \textbf{37} (2004), 841--910.
+
+\bibitem{Crainic} M.~Crainic, \emph{Differentiable and algebroid cohomology, van Est
+isomorphisms, and characteristic classes}, Comment.\ Math.\ Helv.\ \textbf{78} (2003),
+681--721.
+
+\bibitem{Segal} G.~Segal, \emph{Cohomology of topological groups}, in \emph{Symposia
+Mathematica IV} (INDAM, 1968/69), Academic Press (1970), 377--387.
+
+\bibitem{MooreIII} C.~C.~Moore, \emph{Group extensions and cohomology for locally compact
+groups. III}, Trans.\ Amer.\ Math.\ Soc.\ \textbf{221} (1976), 1--33.
+
+\bibitem{MooreIV} C.~C.~Moore, \emph{Group extensions and cohomology for locally compact
+groups. IV}, Trans.\ Amer.\ Math.\ Soc.\ \textbf{221} (1976), 35--58.
+
+\bibitem{Wigner} D.~Wigner, \emph{Algebraic cohomology of topological groups}, Trans.\
+Amer.\ Math.\ Soc.\ \textbf{178} (1973), 83--93.
+
+\bibitem{WagnerAustin} T.~Austin, C.~C.~Moore, \emph{Continuity properties of measurable
+group cohomology}, Math.\ Ann.\ \textbf{356} (2013), 885--937.
+
+\bibitem{BorelWallach} A.~Borel, N.~Wallach, \emph{Continuous Cohomology, Discrete
+Subgroups, and Representations of Reductive Groups}, 2nd ed., Math.\ Surveys Monogr.\
+\textbf{67}, Amer.\ Math.\ Soc.\ (2000).
+
+\bibitem{Lichtenbaum} S.~Lichtenbaum, \emph{The Weil-\'etale topology on schemes over finite
+fields}, Compos.\ Math.\ \textbf{141} (2005), 689--702. (Hochschild--Serre for site
+cohomology.)
+
+\bibitem{Flach} M.~Flach, \emph{Cohomology of topological groups with applications to the
+Weil group}, Compos.\ Math.\ \textbf{144} (2008), 633--656.
+
+\bibitem{MoerdijkMrcun} I.~Moerdijk, J.~Mr\v{c}un, \emph{Introduction to Foliations and Lie
+Groupoids}, Cambridge Stud.\ Adv.\ Math.\ \textbf{91}, Cambridge Univ.\ Press (2003).
+
+\bibitem{delHoyo} M.~del Hoyo, \emph{Lie groupoids and their orbispaces}, Port.\ Math.\
+\textbf{70} (2013), 161--209.
+
+\bibitem{Karpilovsky} G.~Karpilovsky, \emph{The Schur Multiplier}, London Math.\ Soc.\
+Monogr.\ (N.S.)\ \textbf{2}, Oxford Univ.\ Press (1987).
+
+\bibitem{Schur} I.~Schur, \emph{\"Uber die Darstellung der symmetrischen und der
+alternierenden Gruppe durch gebrochene lineare Substitutionen}, J.~Reine Angew.\ Math.\
+\textbf{139} (1911), 155--250.
+
+\bibitem{DixmierDouady} J.~Dixmier, A.~Douady, \emph{Champs continus d'espaces hilbertiens
+et de $C^*$-alg\`ebres}, Bull.\ Soc.\ Math.\ France \textbf{91} (1963), 227--284.
+
+\bibitem{Brown} K.~S.~Brown, \emph{Cohomology of Groups}, Grad.\ Texts in Math.\
+\textbf{87}, Springer (1982). (LHS spectral sequence, Shapiro's lemma, inflation--restriction.)
+
+\end{thebibliography}
+
+\end{document}

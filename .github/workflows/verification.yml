@@ -15,3 +15,5 @@ jobs:
         run: bash verification/run_all.sh
       - name: stale-claim guard
         run: bash verification/check_stale_claims.sh
+      - name: independent reimplementation
+        run: python3 independent_verification/independent_checks.py

@@ -1,0 +1,81 @@
+{
+  "1_weyl_commutation_matrix_eq_symplectic": {
+    "ok": true,
+    "value": "200/200 agree at d=4"
+  },
+  "2_peres_mermin_obstruction": {
+    "ok": true,
+    "value": "row signs [1, 1, 1], col signs [1, 1, -1], product -1 (=-1 => no NC assignment)"
+  },
+  "3_spectrum_value_bit_in_{0,d/2}": {
+    "ok": true,
+    "value": {
+      "2": {
+        "n_contexts": 308,
+        "value_bits_seen": [
+          0,
+          1
+        ]
+      },
+      "4": {
+        "n_contexts": 147,
+        "value_bits_seen": [
+          0,
+          2
+        ]
+      },
+      "6": {
+        "n_contexts": 108,
+        "value_bits_seen": [
+          0,
+          3
+        ]
+      },
+      "8": {
+        "n_contexts": 85,
+        "value_bits_seen": [
+          0,
+          4
+        ]
+      }
+    }
+  },
+  "4_detection_equivalence_d2_bruteforce": {
+    "ok": true,
+    "value": "line signs (from matrices) [1, 1, 1, 1, 1, -1], product -1; feasible assignment exists: False"
+  },
+  "5_local_valuation_mu_d_even_mu_2d_odd": {
+    "ok": true,
+    "value": {
+      "2": {
+        "target_group": "mu_2",
+        "trivializer_found": true
+      },
+      "3": {
+        "target_group": "mu_6",
+        "trivializer_found": true
+      },
+      "4": {
+        "target_group": "mu_4",
+        "trivializer_found": "n/a"
+      }
+    }
+  },
+  "6_cp_interval": {
+    "ok": true,
+    "value": {
+      "2": "lo=-1/3",
+      "3": "lo=-1/8",
+      "4": "lo=-1/15",
+      "formula": "-1/(r^2-1)<=p<=1"
+    }
+  },
+  "7_qutrit_repeatable_nonprojective_povm": {
+    "ok": true,
+    "value": "both outcomes repeatable, E1 unsharp"
+  },
+  "8_fr_contextual_fraction": {
+    "ok": true,
+    "value": "CF = 0.166667 (claim 1/6 = 0.166667)"
+  }
+}

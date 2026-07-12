@@ -23,7 +23,7 @@ in the paper, a **computational verification** script here, or both. Scripts are
 | Thm J′ | commutator-carry form of the criterion | analytic + folded into `criterion.py` |
 | Thm K | Depth Rigidity: obstruction lives at top 2-adic layer, no single lift carries it | analytic (paper §4) |
 | **Thm W** | exact value-bit formula for lifted certificates | `Wformula.py` → `violations 0/550` |
-| **Thm Q** | closed-form criterion: contextual ⟺ some cycle has odd $Q=\sum_{a<b}\langle v_a,v_b\rangle/d$ (Pontryagin square) | `criterion.py` |
+| **Thm Q** | closed-form criterion: contextual ⟺ some cycle has odd $Q=\sum_{a<b}\langle v_a,v_b\rangle/d$ (Pontryagin-square-type quadratic refinement) | `criterion.py` |
 | **Thm attain** | attainment at every even $d$; explicit certificates | `verify_cert8.py` → `ALL CHECKS PASS` ($S{=}4$); `verify_cert16.py` → `PASS` ($S{=}8$) |
 | Doubling law (geometric step) | $T_{\mathrm{mix}}\equiv0$; $\mathbb{F}_2$ system is $d$-independent | `close_T2_proof.py` (structural) + `tmix_dindep.py` (byte-identical across $d\equiv2\bmod4$) |
 

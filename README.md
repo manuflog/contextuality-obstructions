@@ -14,8 +14,8 @@ verifications, hardware validation, and the supporting software package.
   $H^2=\mathbb{Z}/n\oplus\mathbb{Z}_2$.
 - **Paper B — *The Obstruction Spectrum of Weyl Context Families and the 2-adic Tower*.**
   The achievable state-independent AvN obstruction value is classified **exactly** as $\{0,d/2\}$ for
-  even $d$ (and $\{0\}$ for odd), via a commutator-carry criterion equal to a Pontryagin-square /
-  type-III anomaly, with matrix-checked certificates and a 3-device hardware replication.
+  even $d$ (and $\{0\}$ for odd), via a commutator-carry criterion with the algebraic form of a Pontryagin-square quadratic
+  refinement, with matrix-checked certificates and a 3-device hardware replication.
 - **Paper C — *What Contextual Holonomy Detects*.**
   The state sector: the $d=2$ codeword-polytope classification with the exact contextual-fraction
   formula, the $d=4$ tower laws, $\tau$-necessity, and the complete $d=4$ facet census
@@ -96,6 +96,7 @@ standalone with its expected output pinned in `INDEX.md`.
 
 ## Status & honesty
 Claims are labelled verified / analytic / open in `verification/INDEX.md` and in the papers.
+See `CLAIMS.md` (per-claim status + external dependencies), `KNOWN_LIMITATIONS.md`, `PROOF_DEPENDENCIES.md`, and `REPRODUCIBILITY.md`. An independent, no-shared-code re-derivation of the core lives in `independent_verification/`.
 Open problems are flagged as such there (e.g. the scenario-paired classification and tower
 conjectures; Paper B generativity closed form; Paper A Yu–Oh scope / gerbe refinement; the
 general-$d$ facet census; the cohomological home of KCBS-type contextuality). Retractions and

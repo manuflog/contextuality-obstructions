@@ -1,0 +1,147 @@
+% ============================================================
+% COMPARISON NOTE — Paper B (Weyl obstruction spectrum) vs.
+%   Abramsky–Cercelescu–Constantin, "Commutation Groups and
+%   State-Independent Contextuality," FSCD 2024.
+% Purpose: make the "recast" precise -- an explicit equivalence,
+% not a descriptive assertion -- and delimit exactly what is new.
+% Self-contained; manual thebibliography.
+% ============================================================
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{lmodern}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\title{Paper B and Abramsky--Cercelescu--Constantin:\\ an explicit equivalence, and what is new}
+\author{Manuel Flores Gordillo\thanks{ORCID \texttt{0009-0006-8246-0343};
+\texttt{manuel.flores@columbia.edu}. Machine check: \texttt{verification/acc\_correspondence.py}.}}
+\date{July 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The value classification of state-independent qudit contextuality --- the even/odd dichotomy and the
+fixed obstruction value $d/2$ --- is due to Abramsky, Cercelescu and Constantin~\cite{ACC24}. Paper B
+of this program re-derives it in the Weyl--Heisenberg realization. This note makes that relationship
+\emph{precise}: we give an object dictionary, prove that the Weyl commutator carry is their commutation
+factor under it, and conclude that Paper B's Obstruction Spectrum Theorem is the Weyl specialization of
+their Theorem~16 --- neither independent of nor a strengthening of it. We then delimit exactly the
+content that is \emph{not} in~\cite{ACC24}. Every correspondence claimed here is machine-checked in
+\texttt{verification/acc\_correspondence.py} (PM, and certificates at $d=2,8,16$).
+\end{abstract}
+
+\section{The two frameworks}
+\textbf{Abramsky--Cercelescu--Constantin~\cite{ACC24}.} A \emph{commutation group} $\mathsf{G}(\mu)$ is
+presented by generators $x_1,\dots,x_n$ over $\Z_d$ with a commutator matrix $\mu(x,y)=v_{x,y}$ and a
+central phase group $\Z_d$. A \emph{contextual word} $(w,\beta,k)$ is a bracketed word of
+commuting subproducts whose evaluated central phase is $k\neq0$; it witnesses state-independent
+contextuality (their Thm.~9: one exists iff $\mathsf{G}(\mu)$ is state-independently contextual). Their
+\emph{inversion sum} $\sum\mathcal I(w)$ records the central phase accrued in reducing $w$ to normal
+form, and (their Lemma~15) for a word of commuting products
+\begin{equation}\label{eq:acc}
+2\sum\mathcal I(w)\;=\;\sum_{x<y} n_x\,n_y\,v_{y,x},
+\end{equation}
+$n_x$ the multiplicity of generator $x$. Their Theorem~16 concludes: for a contextual word,
+$2k\equiv0\pmod d$ with $k=\sum\mathcal I(w)$, so $d$ must be even and the only nonzero value is $d/2$;
+their Theorem~18 gives noncontextuality for odd $d$; Theorem~21 classifies the Darboux-normal-form
+matrices that admit contextual words.
+
+\medskip
+\noindent\textbf{Paper B (Weyl realization).} Observables are symmetric Weyl operators
+$W(v)=\tau^{-q(v)}X^{a_1}Z^{b_1}\otimes\cdots$, $\tau=e^{i\pi/d}$, with symplectic form
+$\ip{u}{v}=\sum_i(u_{a,i}v_{b,i}-u_{b,i}v_{a,i})$. A \emph{context} $C$ is a commuting, sum-zero word;
+its product is $\omega^{s(C)}I$, $\omega=e^{2\pi i/d}$. A \emph{certificate} $\lambda$
+($\lambda^{\mathsf T}A\equiv0$) has value $S=\lambda^{\mathsf T}s\bmod d$, and the \emph{commutator
+carry} is $b(C)=\sum_{i<j}\ip{c_i}{c_j}_{\Z}/d\bmod2$. Theorem~1 (Obstruction Spectrum): $2S\equiv0
+\pmod d$, so $S\in\{0,d/2\}$ (even $d$), $\{0\}$ (odd $d$).
+
+\section{The dictionary}
+\begin{center}
+\begin{tabular}{ll}
+\hline
+\emph{Paper B (Weyl)} & \emph{ACC~\cite{ACC24}}\\
+\hline
+Weyl label $v$ & commutation-group generator/vector\\
+symplectic form $\ip{u}{v}$ & commutator matrix entry $\mu(x,y)=v_{x,y}$\\
+closed context $C$ & commuting-product (sub)word\\
+certificate $\lambda$ & contextual word $(w,\beta,k)$\\
+obstruction value $S$ & central phase $k$\\
+commutator carry $b(C)$ & parity of the commutation factor $\sum\mathcal I(w)$\\
+$\Z_d$ value assignment & left splitting / noncontextual homomorphism\\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{proposition}[Carry $=$ commutation factor]\label{prop:carry}
+Under the dictionary, the Weyl integer pair-sum of a context equals the right-hand side of the ACC
+identity~\eqref{eq:acc}:
+\[
+\sum_{i<j}\ip{c_i}{c_j}_{\Z}\;=\;\sum_{x<y}n_x n_y\,\ip{x}{y}_{\Z}\;=\;2\sum\mathcal I(w).
+\]
+Hence $b(C)$ is the mod-$2$ reduction of $\sum\mathcal I(w)$, and the Weyl polarization step in the
+proof of Theorem~1 is exactly ACC's Lemma~15.
+\end{proposition}
+\begin{proof}
+The first equality is the standard expansion of a sum over an ordered multiset into distinct-generator
+multiplicity products (self-pairs contribute $\ip{x}{x}=0$); the second is~\eqref{eq:acc} with
+$v_{y,x}=\ip{x}{y}_{\Z}$. Machine-verified on the six Peres--Mermin contexts and on random closed
+contexts at $d=2,4,6,8$ in \texttt{acc\_correspondence.py} (all ``[II identical] True'').
+\end{proof}
+
+\begin{theorem}[Paper B Thm.~1 is the Weyl specialization of ACC Thm.~16]\label{thm:equiv}
+For any Weyl context family, the certificate value $S$ equals the ACC central phase $k$ of the
+corresponding contextual word, and Theorem~1's conclusion $2S\equiv0\Rightarrow S\in\{0,d/2\}$ is
+Theorem~16's conclusion $2k\equiv0\Rightarrow k\in\{0,d/2\}$. In particular Paper B's Theorem~1 is
+neither independent of, nor a strengthening of, ACC's Theorem~16: it is that theorem realized in the
+Weyl--Heisenberg group.
+\end{theorem}
+\begin{proof}
+By Proposition~\ref{prop:carry} the two derivations share the polarization identity, and the Weyl
+telescoping $2s(C)\equiv-2\sum_{u\in C}q(u)$ paired against a certificate ($\lambda^{\mathsf T}A\equiv0$)
+gives $2S\equiv0$, matching $2k\equiv0$; the carried value is $S=k$. The certificate values realized on
+concrete AvN witnesses are $S=k=d/2$: Peres--Mermin ($S=1$), the ROZF $d=8$ certificate ($S=4$), and the
+fibered $d=16$ certificate ($S=8$), machine-checked in \texttt{acc\_correspondence.py}.
+\end{proof}
+
+\section{What is new (and what is not)}
+\noindent\textbf{Not new.} The even/odd dichotomy, the value $\{0,d/2\}$, the parity mechanism
+$2k\equiv0$, and the classification of which families are contextual are ACC's
+(Thms.~16,~18,~21). The carry $b(C)$ is their commutation factor in symplectic-form coordinates: a
+change of realization and an explicit closed form, not a new invariant. Their $\Z_2\to\Z_{2k}$
+transfer construction is prior art for lifting witnesses up the tower.
+
+\medskip
+\noindent\textbf{Candidate new content} (offered at exactly this strength):
+\begin{enumerate}
+\item an \emph{explicit value-bit closed form} for $2$-adically lifted certificates (Paper B, Thm.~W),
+a computation ACC do not perform (they have no $2$-adic lift);
+\item the \emph{cross-dimensional} tower statements --- Depth Rigidity and the fiber doubling law ---
+which are theorems about relations \emph{between} $d$ and $2d$, and are new only insofar as they are not
+corollaries of ``the only nonzero value is $d/2$'' restated at each $d$; the ACC transfer is their
+baseline;
+\item a three-device superconducting replication of the $d=2$ witness (statistical, assumption-dependent
+--- see the repository's hardware notes);
+\item the \emph{geometric/cohomological home}: the identification of the obstruction with a canonical
+degree-$2$ class of order $n$ on the stack $[X/\mathrm{PU}(n)]$ of maximal abelian subalgebras (companion
+paper), which ACC's combinatorial (rewriting-system) treatment does not address. This is the program's
+distinctive contribution.
+\end{enumerate}
+
+\noindent\emph{Honest status.} Items 1 and 3 are established at the stated (computational / experimental)
+strength. Item 2 requires each tower statement to be proved genuinely cross-dimensional; that separation
+is the natural next step. Item 4 is the subject of the companion paper and awaits specialist
+certification of its Morita / spectral-sequence bookkeeping.
+
+\begin{thebibliography}{9}
+\bibitem{ACC24} S.~Abramsky, \c{S}.-I.~Cercelescu, C.~Constantin, \emph{Commutation Groups and
+State-Independent Contextuality}, FSCD 2024, LIPIcs \textbf{299}, 28:1--28:20; arXiv:2603.12197.
+\bibitem{ORBR} C.~Okay, S.~Roberts, S.~D.~Bartlett, R.~Raussendorf, \emph{Topological proofs of
+contextuality}, Quantum Inf.\ Comput.\ \textbf{17}, 1135 (2017).
+\bibitem{ROZF} R.~Raussendorf, C.~Okay, M.~Zurel, P.~Feldmann, \emph{The role of cohomology in quantum
+computation with magic states}, Quantum \textbf{7}, 979 (2023).
+\end{thebibliography}
+\end{document}

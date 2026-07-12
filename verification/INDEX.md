@@ -15,6 +15,7 @@ in the paper, a **computational verification** script here, or both. Scripts are
 | Thm E / F | $n=4$ Pauli slice: PM pairing $=-1$, equals the obstruction | analytic (paper §4–5) |
 | Prop H2 | $H^2(\mathrm{PN}(T);\mathrm{U}(1))=\mathbb{Z}/n\oplus\mathbb{Z}_2$, canonical class generates $\mathbb{Z}/n$ | analytic (paper §7, spectral sequence) |
 | **Even-n generation (NEW 2026-07-12)** | canonical class generates the $\mathbb{Z}/n$ summand for **every $n$ incl. $n=4$** (permutation splitting $\Rightarrow$ zero Schur component; + order $n$) | `paperA_evenN.py` (`paperA_evenN PASS`) + `papers/paperA_foundations.tex` §resolution |
+| **ACC correspondence (NEW 2026-07-12)** | Paper B Thm 1 = ACC (FSCD 2024) Thm 16 in the Weyl realization: their Lemma-15 polarization identity holds on Weyl labels; certificate values $S$ = their central phase $k=d/2$ (PM, cert8, cert16) | `acc_correspondence.py` (`ACC-correspondence PASS`) + `papers/paperB_ACC_comparison.tex` |
 
 ## Paper B — *The Obstruction Spectrum of Weyl Context Families and the 2-adic Tower*
 

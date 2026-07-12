@@ -981,4 +981,44 @@ et de $C^*$-alg\`ebres}, Bull.\ Soc.\ Math.\ France \textbf{91} (1963), 227--284
 
 \end{thebibliography}
 
+
+\section{Resolution of the even-$n$ generation gap}\label{sec:evenN}
+Earlier drafts flagged, as open at even $n$, whether the canonical class $c$ \emph{generates} the
+$\mathbb{Z}/n$ summand of $H^{2}(\mathrm{PN}(T);\mathrm{U}(1))\cong\mathbb{Z}/n\oplus\mathbb{Z}_{2}$.
+We close it. The two constituent facts are machine-checked in \texttt{verification/paperA\_evenN.py}.
+
+\begin{lemma}[The order alone is not enough at $n\equiv2\ (4)$]
+In $\mathbb{Z}/n\oplus\mathbb{Z}_{2}$ an element of order $n$ need not have a generating first
+coordinate: for $n\equiv2\pmod4$ the element $(2,1)\in\mathbb{Z}/6\oplus\mathbb{Z}_{2}$ has order $6$
+while $\langle2\rangle\subsetneq\mathbb{Z}/6$. Thus ``order $n$'' does not by itself place $c$ in the
+standard $\mathbb{Z}/n$ summand.
+\end{lemma}
+
+\begin{proposition}[Zero Schur component]\label{prop:zeroschur}
+The $\mathbb{Z}_{2}$ (Schur) summand of $H^{2}(\mathrm{PN}(T);\mathrm{U}(1))$ is $H^{2}(S_{n};\mathrm{U}(1))$
+embedded by inflation along the split projection $\mathrm{PN}(T)=(T/\mathrm{U}(1))\rtimes S_{n}\to S_{n}$,
+and its complementary projection is restriction to the $S_{n}$ subgroup. The symmetric group lifts to
+honest permutation matrices $P_{\sigma}\in N(T)$ with $P_{\sigma}P_{\tau}=P_{\sigma\tau}$ \emph{exactly}
+(no scalar phase), so the central extension $\mathrm{U}(1)\to N(T)\to\mathrm{PN}(T)$ splits over $S_{n}$
+and $\operatorname{res}_{S_{n}}(c)=0$. Hence the $\mathbb{Z}_{2}$ component of $c$ vanishes, for every
+$n$.
+\end{proposition}
+
+\begin{theorem}[Generation, all $n$]\label{thm:evenN}
+$c$ generates the $\mathbb{Z}/n$ summand of $H^{2}(\mathrm{PN}(T);\mathrm{U}(1))$ for every $n$, in
+particular $n=4$ (Peres--Mermin).
+\end{theorem}
+\begin{proof}
+By Proposition~\ref{prop:zeroschur} the Schur component of $c$ vanishes, so under the splitting
+$c=(a,0)$. By the order theorem $c$ has order exactly $n$, whence $a$ has order $n$, i.e.\ $a$
+generates $\mathbb{Z}/n$; therefore $\langle c\rangle=\mathbb{Z}/n\oplus0$ is the standard summand.
+\end{proof}
+
+\paragraph{Residual (one textbook step).} The argument uses one standard, non-elementary fact: for a
+\emph{split} extension the restriction to the complement $S_{n}$ retracts the inflation of
+$H^{2}(S_{n})$ --- so $\operatorname{res}_{S_{n}}$ is exactly the $\mathbb{Z}_{2}$-projection --- and
+annihilates the $E_{\infty}^{1,1}=\mathbb{Z}/n$ part. This is the usual behaviour of the
+Lyndon--Hochschild--Serre edge maps for a split extension; a specialist should confirm it in the
+smooth/topological setting. Modulo this identification the gap is closed.
+
 \end{document}

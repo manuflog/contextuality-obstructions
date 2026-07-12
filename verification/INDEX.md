@@ -14,6 +14,7 @@ in the paper, a **computational verification** script here, or both. Scripts are
 | Thm B | real shadow splits **iff $n$ odd** ($-I$ is a rotation square iff $n$ even) | analytic (paper §3) |
 | Thm E / F | $n=4$ Pauli slice: PM pairing $=-1$, equals the obstruction | analytic (paper §4–5) |
 | Prop H2 | $H^2(\mathrm{PN}(T);\mathrm{U}(1))=\mathbb{Z}/n\oplus\mathbb{Z}_2$, canonical class generates $\mathbb{Z}/n$ | analytic (paper §7, spectral sequence) |
+| **Even-n generation (NEW 2026-07-12)** | canonical class generates the $\mathbb{Z}/n$ summand for **every $n$ incl. $n=4$** (permutation splitting $\Rightarrow$ zero Schur component; + order $n$) | `paperA_evenN.py` (`paperA_evenN PASS`) + `papers/paperA_foundations.tex` §resolution |
 
 ## Paper B — *The Obstruction Spectrum of Weyl Context Families and the 2-adic Tower*
 

@@ -44,3 +44,16 @@ self-checking and prints PASS/FAIL. Typical runtimes: under 10 s each; a few cen
 
 Run any script directly, e.g. `python3 cycle_split_theorem.py`. Scripts with heavy stages take a
 CLI argument to run one stage at a time (see each script's docstring).
+
+## Circle geometry / arithmetic / open-problem suite (second wave)
+| script | certifies |
+|---|---|
+| `branch_arith.py` | ring points of the circle exist iff 2 ramifies; 8 special points; d=7 excluded |
+| `branch_berry.py` | exact rational per-ray Berry phases; sum zero; abelian holonomy trivial |
+| `phi_hunt.py` | the non-abelian eigenphase phi = 2*pi*sqrt(1867)/33 (rotating-frame proof) |
+| `lattice_holonomy.py` | section-lattice holonomy map; 1867 = 43^2+3^2+3^2; rank-29 sublattice |
+| `branch_imag.py` | Im v(theta) = sin(theta)*y identically; exact imaginarity profiles |
+| `alphabet_theorem.py` | d=3 alphabet theorem: four mechanisms, x<->1/x duality, structure theorem |
+| `alphabet_d4.py` | d=4 extension: term-alphabet lemma, 16 new mechanisms, no colorable regime |
+| `theta_proof.py` | Lemma Z + coset-shift theorem (partial proof of the Theta-coherence lemma) |
+branch_theta2.py -> gamma_t closed form (dependency of theta_proof.py)

@@ -1,5 +1,13 @@
 # Contextuality as cohomological obstructions — research program
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21498499.svg)](https://doi.org/10.5281/zenodo.21498499)
+
+**Published papers (rigidity program, Zenodo, CC BY 4.0):**
+[flagship](https://doi.org/10.5281/zenodo.21488474) ·
+[circle geometry](https://doi.org/10.5281/zenodo.21498343) ·
+[alphabet theorems](https://doi.org/10.5281/zenodo.21498386) ·
+repository archive: [10.5281/zenodo.21498499](https://doi.org/10.5281/zenodo.21498499)
+
 Reproducibility and artifact companion for a research program framing quantum contextuality as
 central-extension / stack-cohomological obstructions. The companion papers, their machine-checkable
 verifications, hardware validation, and the supporting software package.

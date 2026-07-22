@@ -65,3 +65,4 @@ invariance) on ibm_marrakesh (Heron): 297 circuits, 4000 shots. Grand mean Sum<P
 `hardware_results/HARDWARE_RESULTS.md`. First hardware confirmation of the loop's witness-invariance
 theorem.
 `hardware_results/exp2_holonomy_ibm_marrakesh_2026-07-22.ipynb` — EXP2 Hadamard-test run: N=4 gives phi/2pi = 0.3174 vs exact sqrt(1867)/33 = 0.3094 (angle survives decoherence); N=8 decohered as predicted. See HARDWARE_RESULTS.md.
+`hardware_results/exp2_shortcut_ibm_fez_2026-07-22.ipynb` — constant-connection shortcut (no Trotter error, depth 74): multi-m fit slope 0.3155 vs exact 0.3094 (+2%), cross-machine consistent with marrakesh. See HARDWARE_RESULTS.md.

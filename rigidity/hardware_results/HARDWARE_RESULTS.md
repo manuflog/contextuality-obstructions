@@ -28,3 +28,17 @@ the design's cost table predicted; error mitigation or a shallower compilation w
 VERDICT: a first, noisy but genuine hardware measurement CONSISTENT with phi = 2pi*sqrt(1867)/33.
 sqrt(1867) has been measured on a quantum processor to ~3%. Improvements: readout mitigation, ZNE,
 dynamical decoupling, or the constant-connection shortcut (compile e^{2pi Atilde} directly, ~6 CX).
+
+# EXP2-SHORTCUT HARDWARE RESULTS — 2026-07-22, ibm_fez, instance "Rigidity"
+Constant-connection shortcut (W = e^{2pi Atilde}, NO Trotter error; 16 native 2q gates, depth 74).
+Job d9g2anineu4c739q88k0, m = 1,2,3 controlled powers, 8000 shots:
+  m=1: 0.355910 | m=2: 0.674269 | m=3: 0.986852   (targets 0.309357/0.618715/0.928072)
+Simulator z-scores ~1 (clean); hardware z ~30 in shot-noise units => SYSTEMATICS-dominated.
+KEY ANALYSIS — the multi-m data separates signal from systematic: linear fit phase(m) = slope*m + c
+gives SLOPE = 0.3155 (vs exact 0.309357; +2.0%) and intercept c = 0.040 (a per-circuit systematic,
+prep/readout coherent error). CROSS-MACHINE CONSISTENCY: marrakesh N=4 Trotter gave 0.3174; fez
+shortcut slope 0.3155 — two processors, two protocols, both ~+2-3% above the exact value with the
+same sign, suggesting a common coherent-overrotation bias rather than a physics discrepancy.
+NEXT: readout mitigation + dynamical decoupling; or interleave with an identity-loop reference
+circuit to cancel the prep systematic. Current best hardware statement: phi/2pi measured to ~2%
+(multi-m fit) on two devices, consistent with sqrt(1867)/33.

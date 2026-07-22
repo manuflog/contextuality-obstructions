@@ -1484,6 +1484,49 @@ explicit, reproducible, resumable procedure (cached to JSON) rather than an uncl
     print("PASS")
 
 
+
+# ---------------------------------------------------------------------------
+# STAGE 10 -- the 49-ray core: fully self-contained certificate (no caches).
+# The core arose as the ray-union of the best 21-triad MUS found in stage 9b
+# (resumed 2026-07-22); greedy shrink removes nothing (critical), and the
+# two-prime Hermitian rank certificate gives flex = 0 exactly. The pool
+# indices below refer to the DETERMINISTIC pool built by _pool9() and make
+# this stage reproducible with no cache files.
+CORE49_IDX = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19,
+              20, 21, 24, 25, 28, 33, 34, 36, 42, 43, 45, 46, 49, 54, 55, 63,
+              64, 69, 74, 75, 77, 78, 81, 82, 103, 104, 105, 110, 111, 125, 126]
+
+def stage10():
+    hdr("STAGE 10 -- the 49-ray Gaussian core: uncolorable + critical + EXACTLY RIGID (self-contained)")
+    t0 = time.time()
+    rays_c, pairs0, triads0, B, C = _pool9()
+    core = [rays_c[i] for i in CORE49_IDX]
+    edges, triads, _ = kfc.build_structure(core, kfc.herm_dot, B, C)
+    print(f"49-core structure: {len(core)} rays, {len(edges)} pairs, {len(triads)} triads (expect 49/116/22)")
+    ok_shape = (len(core), len(edges), len(triads)) == (49, 116, 22)
+    u, nodes, _, _ = kfc.uncolorable(core, kfc.herm_dot, B, C)
+    print(f"KS-uncolorable (exhaustive backtracking, SAT-independent): {u} ({nodes} nodes)")
+    # criticality: every single-ray deletion restores colorability
+    crit = True
+    for k in range(len(core)):
+        sub = core[:k] + core[k+1:]
+        u_k, _, _, _ = kfc.uncolorable(sub, kfc.herm_dot, B, C)
+        if u_k:
+            crit = False
+            print(f"  NOT critical: removing ray {k} leaves it uncolorable")
+            break
+    print(f"critical (every single-ray deletion colorable): {crit}")
+    # exact flex certificate (identical machinery to the census islands)
+    Dmag = abs(B * B + 4 * C)
+    primes = kfc.find_primes_ring(0, Dmag, count=2, below=200003)
+    cert = kfc.exact_flex_hermitian_quadratic(core, B, C, primes)
+    print(f"exact flex certificate (primes={[p for p, s in primes]}): 0 <= flex <= {cert['bound']}")
+    rigid = cert["bound"] == 0
+    print(f"=> EXACTLY RIGID: {rigid}")
+    print(f"\ntotal stage10 time: {time.time()-t0:.2f}s")
+    print("PASS" if (ok_shape and u and crit and rigid) else "FAIL")
+    return dict(shape_ok=ok_shape, uncolorable=u, critical=crit, flex=cert["bound"])
+
 def main():
     which = sys.argv[1] if len(sys.argv) > 1 else "all"
     stages = {
@@ -1500,6 +1543,7 @@ def main():
         "stage9c": stage9c,
         "stage9d": stage9d,
         "stage9e": stage9e,
+        "stage10": stage10,
     }
     if which == "all":
         for name, fn in stages.items():

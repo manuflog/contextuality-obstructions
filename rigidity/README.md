@@ -56,7 +56,7 @@ CLI argument to run one stage at a time (see each script's docstring).
 | `alphabet_theorem.py` | d=3 alphabet theorem: four mechanisms, x<->1/x duality, structure theorem |
 | `alphabet_d4.py` | d=4 extension: term-alphabet lemma, 16 new mechanisms, no colorable regime |
 | `theta_proof.py` | Lemma Z + coset-shift theorem (partial proof of the Theta-coherence lemma) |
-| `branch_m3m2.py` | the M2 mirror: circle-stable graph uncolorable; 5 exact points; the new 53-ray Gaussian core (stages 9a-9e need `pip install python-sat`) |
+| `branch_m3m2.py` | the M2 mirror: circle-stable graph uncolorable; 5 exact points; the new 49-ray exactly-rigid Gaussian core (`stage10` is cache-free; stages 9a-9e need `pip install python-sat`) |
 branch_theta2.py -> gamma_t closed form (dependency of theta_proof.py)
 
 ## Hardware results

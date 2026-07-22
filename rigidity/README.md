@@ -1,7 +1,14 @@
 # Rigidity–contextuality verification suite
 
-Verification scripts for the paper **"Exact rigidity certificates for Kochen–Specker sets, the
-graded flex dictionary, and the Peres–Penrose circle"** (M. Flores Gordillo, preprint 2026).
+Verification scripts for the three published papers of the rigidity program
+(M. Flores Gordillo, 2026):
+
+1. **Exact rigidity certificates for Kochen–Specker sets, the graded flex dictionary, and the
+   Peres–Penrose circle** — https://doi.org/10.5281/zenodo.21488474
+2. **Geometry and arithmetic of the Kochen–Specker circle** —
+   https://doi.org/10.5281/zenodo.21498343
+3. **The alphabet theorems: cancellation mechanisms, mechanism moduli, and the unique flexible
+   family of two-symbol Kochen–Specker sets** — https://doi.org/10.5281/zenodo.21498386
 Every claim in the paper carries an evidence label (PROVED / EXACT / NUMERICAL / LITERATURE / OPEN);
 each label is backed by one of the scripts here. All exact certificates use rational / ℤ[√2] /
 ℤ[ω] arithmetic (sympy ranks over ℚ, or two-prime modular rank bounds at primes where the relevant

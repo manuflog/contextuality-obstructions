@@ -57,3 +57,10 @@ CLI argument to run one stage at a time (see each script's docstring).
 | `alphabet_d4.py` | d=4 extension: term-alphabet lemma, 16 new mechanisms, no colorable regime |
 | `theta_proof.py` | Lemma Z + coset-shift theorem (partial proof of the Theta-coherence lemma) |
 branch_theta2.py -> gamma_t closed form (dependency of theta_proof.py)
+
+## Hardware results
+`hardware_results/exp1_ks_loop_ibm_marrakesh_2026-07-22.ipynb` — executed Colab run of EXP1 (witness
+invariance) on ibm_marrakesh (Heron): 297 circuits, 4000 shots. Grand mean Sum<P_j> = 11.0490
+(+0.45% of the exact prediction 11) across 3 states x 3 points of the KS moduli circle; analysis in
+`hardware_results/HARDWARE_RESULTS.md`. First hardware confirmation of the loop's witness-invariance
+theorem.

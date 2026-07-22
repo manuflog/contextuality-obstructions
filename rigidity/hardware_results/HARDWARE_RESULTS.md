@@ -15,3 +15,16 @@ mitigation / dynamical decoupling) should tighten toward 11.000. VERDICT: the ti
 identity of the KS loop is CONFIRMED on real quantum hardware at three arithmetic points of the
 moduli circle (Peres real, Gaussian, Penrose Z[sqrt-2]). First hardware data of the program.
 EXP2 (holonomy eigenphase, target phi/2pi = 0.309357) running at time of writing.
+
+# EXP2 HARDWARE RESULTS — 2026-07-22, ibm_marrakesh, instance "Rigidity" (pay-as-you-go)
+Hadamard-test estimate of the KS-loop holonomy eigenphase. Exact target phi/2pi = sqrt(1867)/33
+= 0.309357436; Trotterized noiseless truths: N=4 -> 0.307395, N=8 -> 0.308910.
+  N=4 (43 CX):  <X>=-0.3292 <Y>=+0.7302  ->  phi/2pi = 0.317415
+  N=8 (283 CX): <X>=-0.1993 <Y>=-0.0060  ->  phi/2pi = 0.504791
+HONEST READ: N=4 SUCCEEDED within noise — the Bloch vector contracted (|r| 0.80 vs ideal 1.0,
+classic decoherence) but the ANGLE survived: 0.3174 vs exact 0.3094 (2.6% high; 1.0e-2 from the
+N=4 Trotter truth). N=8 DECOHERED completely (283 CX; |r|~0.2, phase uninformative) — exactly as
+the design's cost table predicted; error mitigation or a shallower compilation would be needed.
+VERDICT: a first, noisy but genuine hardware measurement CONSISTENT with phi = 2pi*sqrt(1867)/33.
+sqrt(1867) has been measured on a quantum processor to ~3%. Improvements: readout mitigation, ZNE,
+dynamical decoupling, or the constant-connection shortcut (compile e^{2pi Atilde} directly, ~6 CX).

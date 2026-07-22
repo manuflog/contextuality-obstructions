@@ -64,3 +64,4 @@ invariance) on ibm_marrakesh (Heron): 297 circuits, 4000 shots. Grand mean Sum<P
 (+0.45% of the exact prediction 11) across 3 states x 3 points of the KS moduli circle; analysis in
 `hardware_results/HARDWARE_RESULTS.md`. First hardware confirmation of the loop's witness-invariance
 theorem.
+`hardware_results/exp2_holonomy_ibm_marrakesh_2026-07-22.ipynb` — EXP2 Hadamard-test run: N=4 gives phi/2pi = 0.3174 vs exact sqrt(1867)/33 = 0.3094 (angle survives decoherence); N=8 decohered as predicted. See HARDWARE_RESULTS.md.

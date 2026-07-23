@@ -356,6 +356,12 @@ def greedy_critical_core(rays, dotfn, B, C, trials=3, seed0=0, verbose=True):
 # primes splitting Dmag (rank_mod_p is fully generic — reused UNMODIFIED from sic_zoo.py).
 # ============================================================================================
 def exact_flex_hermitian_quadratic(rays, B, C, primes):
+    """Two-prime mod-p flex certificate over the quadratic ring t^2 = B t + C.
+    KNOWN EDGE CASE (2026-07-22): for heavily merged/deduped ray sets at degenerate ring
+    points (observed: the d=4 M9 pool's x=+-i collapse), the trivial-space accounting can
+    exceed the constraint nullspace and the raw bound goes NEGATIVE -- such configurations
+    violate this certificate's assumptions. A negative bound now raises ValueError instead
+    of being returned; use an independent flex diagnostic there (see branch_m9str.py)."""
     V, d = len(rays), len(rays[0])
     Re = [[2 * rays[i][c][0] + B * rays[i][c][1] for c in range(d)] for i in range(V)]
     Imq = [[rays[i][c][1] for c in range(d)] for i in range(V)]
@@ -406,6 +412,9 @@ def exact_flex_hermitian_quadratic(rays, B, C, primes):
         rJ, rT = rank_mod_p(rows, p, s), rank_mod_p(triv, p, s)
         b_ = (n - rJ) - rT
         best = b_ if best is None else min(best, b_)
+    if best is not None and best < 0:
+        raise ValueError(f"exact_flex_hermitian_quadratic: negative bound {best} -- internal "
+                         "inconsistency; refusing to return it.")
     return dict(bound=best, E=len(E), n=n, V=V, d=d, triv_expected=V + d * d - 1)
 
 # ============================================================================================
@@ -465,6 +474,9 @@ def exact_flex_real_quadratic(rays, B, C, primes):
         rJ, rT = rank_mod_p(rows, p, s), rank_mod_p(triv, p, s)
         b_ = (n - rJ) - rT
         best = b_ if best is None else min(best, b_)
+    if best is not None and best < 0:
+        raise ValueError(f"exact_flex_real_quadratic: negative bound {best} -- internal "
+                         "inconsistency; refusing to return it.")
     return dict(bound=best, E=len(E), n=n, V=V, d=d, triv_expected=V + d * d - 1)
 
 # ============================================================================================

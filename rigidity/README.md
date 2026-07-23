@@ -74,6 +74,7 @@ CLI argument to run one stage at a time (see each script's docstring).
 | `branch_d4unique.py` | the d=4 decoupling certificates (8 mechanisms, ~120k exact checks): conditional uniqueness — every modulus-motion two-symbol d=4 family arises from M9 or M10 |
 | `branch_intflex.py` | integer-pool flexibility sweep: 2082 exact flex computations, all critical {0,±1}^4 KS cores rigid; the 3 non-minimal decoration flexes diagnosed |
 | `branch_m10x.py` | M10's second flex identified: exactly-integrable SO(2) twin-ray rotation (core-local, not pool-portable) => mechanism-level flex(M10)=1=dim V |
+| `branch_red.py` | M9 is genuinely new: operator-system irreducible (algebra dim 16 at generic points) + holonomy-inequivalent to the d=3 circle (padded d=3 forces eigenvalue 1; M9 has no rational eigenvalue) |
 branch_theta2.py -> gamma_t closed form (dependency of theta_proof.py)
 
 ## Hardware results

@@ -71,6 +71,9 @@ CLI argument to run one stage at a time (see each script's docstring).
 | `branch_d4flex.py` | the d=4 landscape: 16-mechanism triage; Peres-24 anchor theorem; the M9 circle family (89 rays, exact flex=1) and M10 line family (21 rays, exact flex=2); M12/M13 Moebius-rigid |
 | `branch_m9geo.py` | M9 circle geometry: ring-point collapses, imaginarity closed forms, CONSTANT WZ connection with S4-irreducible eigenphase quartic, det W = exp(2pi i 23/35) |
 | `branch_m9str.py` | M9 structure card: conjugation loci degenerate+rigid (Hypothesis L inverted in d=4), J-symmetry absent on the greedy core, second-order integration check |
+| `branch_d4unique.py` | the d=4 decoupling certificates (8 mechanisms, ~120k exact checks): conditional uniqueness — every modulus-motion two-symbol d=4 family arises from M9 or M10 |
+| `branch_intflex.py` | integer-pool flexibility sweep: 2082 exact flex computations, all critical {0,±1}^4 KS cores rigid; the 3 non-minimal decoration flexes diagnosed |
+| `branch_m10x.py` | M10's second flex identified: exactly-integrable SO(2) twin-ray rotation (core-local, not pool-portable) => mechanism-level flex(M10)=1=dim V |
 branch_theta2.py -> gamma_t closed form (dependency of theta_proof.py)
 
 ## Hardware results

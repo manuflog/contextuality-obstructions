@@ -5,9 +5,39 @@
 # recovery (unique hyperplane through a rank-32 tight set), exact validity on all 64
 # integer vertices. Closure of the BFS = completeness (facet-ridge graphs of polytopes
 # are connected): the class list is then the COMPLETE facet catalogue up to symmetry.
+#
+# INPUT CHAIN + EXTERNAL DEPENDENCY (guard added 2026-07-24). This script needs:
+#   /tmp/v42_proj.npz     <- produced by d4_exact_dd.py (V42); the save step has now been
+#                            added there (it used to write only d4_exact_dd_input.npz).
+#   /tmp/v43_seed.pkl     <- the vertex-symmetry group seed; the repo ships the same
+#                            object as d4_group_seed.pkl, used automatically below.
+#   the `lrs` binary      <- exact-arithmetic ridge enumeration. NOT bundled and NOT
+#                            pip-installable; there is no pure-python substitute here.
+# Without lrs the script cannot run; the guard below says so and exits 0.
+import sys, shutil
 import numpy as np, pickle, subprocess, os, time
 from fractions import Fraction
 from math import gcd
+
+_HERE=os.path.dirname(os.path.abspath(__file__))
+_SEED='/tmp/v43_seed.pkl' if os.path.exists('/tmp/v43_seed.pkl') else os.path.join(_HERE,'d4_group_seed.pkl')
+_problems=[]
+if not os.path.exists('/tmp/v42_proj.npz'):
+    _problems.append("missing /tmp/v42_proj.npz  -> produce it with:  python3 d4_exact_dd.py"
+                     "  (writes the 64x33 integer projection; pycddlib optional)")
+if not os.path.exists(_SEED):
+    _problems.append(f"missing the group seed ({_SEED})  -> expected repo file d4_group_seed.pkl")
+if shutil.which('lrs') is None:
+    _problems.append("missing external binary `lrs` (lrslib) -- required for exact ridge "
+                     "enumeration; install lrslib (e.g. apt-get install lrslib) and re-run")
+if _problems:
+    print("SKIP d4_ridge_walk: prerequisites not satisfied.")
+    for p in _problems: print("  "+p)
+    print("  This script's RESULT is already pinned in the repo as d4_facet_classes.npz")
+    print("  (61 facet classes / 23,256 facets); d4_facet_census.py verifies that artifact")
+    print("  with no external engine and is the runnable entry point.")
+    print("d4_ridge_walk SKIP (missing prerequisites)")
+    sys.exit(0)
 def int_nullvec(M):
     # exact 1-dim nullspace of integer matrix M (n x m) via Fraction RREF; returns primitive int vector
     n,m=len(M),len(M[0])
@@ -38,7 +68,7 @@ def int_nullvec(M):
     for x in w: g=gcd(g,abs(x))
     return [x//g for x in w]
 Y=np.load('/tmp/v42_proj.npz')['Y'].astype(np.int64)
-st=pickle.load(open('/tmp/v43_seed.pkl','rb'))
+st=pickle.load(open(_SEED,'rb'))
 G=[np.array(g) for g in st['G']]
 def canon_mask(bits):
     best=None

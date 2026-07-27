@@ -4,7 +4,15 @@ If true, on the diagonal generator (1,...,1) any equivariant hom acts as k*n ≡
 so the m-pushout splits iff exists k: k*n ≡ m (mod n) <=> m ≡ 0 (mod n).  => order = n.
 Verify the lemma exhaustively (count equivariant homs = n, one per k) for small n,
 and confirm the diagonal-image = {k*n mod n} = {0} forcing the congruence n|m.
+
+VERIFIED CLAIMS (asserted below; failure raises and exits nonzero):
+  [1] for every n = 2..8 the number of S_n-equivariant homs Z_n^n -> Z_n is EXACTLY n,
+      counted TWO independent ways (all-c_i-equal characterisation, and direct
+      invariance under the transposition + cycle generators) which must agree;
+  [2] the diagonal image {k*n mod n} is exactly {0} for every n = 2..8, so the set of
+      splittable m is {0} mod n and the class order is exactly n.
 """
+import sys
 import numpy as np
 from itertools import product
 
@@ -29,6 +37,7 @@ def count_equivariant_homs(n):
     direct=[cs for cs in product(range(d),repeat=n) if is_equiv(cs)]
     return len(equivariant), len(direct)
 
+checks=[]   # (label, ok) -- every load-bearing quantity gets an entry
 print("Load-bearing lemma: #{S_n-equivariant homs Z_n^n -> Z_n} == n (one per k in Z_n):")
 ok=True
 for n in range(2,9):
@@ -36,7 +45,9 @@ for n in range(2,9):
     match=(a==n==b)
     ok&=match
     print(f"  n={n}: equivariant homs = {b} (expected {n})  {'OK' if match else 'MISMATCH'}")
+    checks.append((f"n={n}: both counts equal n (all-equal={a}, direct={b}, n={n})", a==n==b))
 print(f"  lemma holds n=2..8: {ok}")
+checks.append((f"lemma holds for all n=2..8 (got {ok})", bool(ok)))
 print()
 print("Diagonal image under each equivariant hom x->k*sum(x):  k*n mod n = 0  (always) =>")
 print("  no section of the class; m-pushout splits iff exists k: k*n ≡ m (mod n) <=> n | m.")
@@ -45,6 +56,17 @@ for n in range(2,9):
     # m-pushout splittable set = {m : exists k, k*n ≡ m mod n} = {0}
     splittable_m=sorted({(k*n)%n for k in range(n)})
     print(f"  n={n}: diagonal images {diag_images}; splittable m (mod n) = {splittable_m} => order = n")
+    checks.append((f"n={n}: diagonal image == [0] (got {diag_images})", diag_images==[0]))
+    checks.append((f"n={n}: splittable m set == [0] (got {splittable_m})", splittable_m==[0]))
 print()
 print("CONCLUSION: with the lemma proven (only equivariant homs are x->k*sum x),")
 print("Theorem G (order exactly n) is dimension-INDEPENDENT, not just verified to n=8.")
+
+print()
+print("--- verdict ---")
+_bad=[l for l,okk in checks if not okk]
+for l in _bad: print(f"  FAILED CHECK: {l}")
+assert not _bad, "thmG_general load-bearing checks FAILED: "+"; ".join(_bad)
+print(f"thmG_general: {len(checks)}/{len(checks)} load-bearing checks passed")
+print("thmG_general PASS")
+sys.exit(0)

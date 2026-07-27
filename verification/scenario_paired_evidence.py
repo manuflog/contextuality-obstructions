@@ -39,11 +39,13 @@ import sys, os, json, itertools, argparse, time
 import numpy as np
 import scipy.optimize as so
 
-REPO_VER = "/sessions/quirky-eloquent-babbage/mnt/contextuality-obstructions/verification"
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "c1_records")
-if not os.path.isdir(REPO_VER):
-    REPO_VER = "/Users/manuflog/Developer/contextuality-obstructions/verification"
-    OUT = os.path.dirname(os.path.abspath(__file__))
+# Paths are derived from THIS FILE's location so the script runs from any checkout and
+# from any working directory (the old absolute-sandbox-path + macOS-fallback pair was
+# dead on a fresh machine).
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO_VER = HERE
+OUT = os.path.join(HERE, "c1_records")
+os.makedirs(OUT, exist_ok=True)
 sys.path.insert(0, REPO_VER)
 from weyl import build  # W(v) = tau^{-q(v)} kron_i X^{a_i} Z^{b_i}, per-site labels
 

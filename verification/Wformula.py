@@ -64,7 +64,11 @@ def test_formula(base, dd, label):
         if F!=P: bad+=1
         p1+=P; tested+=1
     print(f"{label}: derived-W formula violations {bad}/{tested} (P=1 cases {p1})")
+    # Thm W is the claim "violations 0/550" (INDEX.md): make it load-bearing, not decorative.
+    _CHECKS.append((f"{label}: derived-W formula violations == 0 (got {bad}/{tested})", bad==0))
+    _CHECKS.append((f"{label}: sample non-vacuous (tested {tested} cycles)", tested>0))
 
+_CHECKS=[]
 XI=(1,0,0,0); IX=(0,0,1,0); XX=(1,0,1,0)
 IY=(0,0,1,1); YI=(1,1,0,0); YY=(1,1,1,1)
 XY=(1,0,1,1); YX=(1,1,1,0); ZZ=(0,1,0,1)
@@ -74,3 +78,12 @@ c4=json.load(open("cert4_min.json"))
 test_formula([[tuple(v) for v in it["ctx"]] for it in c4["items"]],4,"cert4 4->8")
 test_formula([rand_ctx(2) for _ in range(6)],2,"random d=2")
 test_formula([rand_ctx(4) for _ in range(6)],4,"random d=4")
+
+import sys
+print("\n--- verdict ---")
+_bad=[l for l,ok in _CHECKS if not ok]
+for l in _bad: print(f"  FAILED CHECK: {l}")
+assert not _bad, "Wformula load-bearing checks FAILED: "+"; ".join(_bad)
+print(f"Wformula: {len(_CHECKS)}/{len(_CHECKS)} load-bearing checks passed")
+print("Wformula PASS")
+sys.exit(0)

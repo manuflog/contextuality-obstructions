@@ -65,10 +65,13 @@
 #
 # Expected final line: 'CU UNIFY PROBE PASS'. Each part < 40 s (full run a few s;
 # part F dominates). Usage: python3 cu_unify_probe.py [A B C D E F]
-import sys, itertools, collections, time
+import sys, os, itertools, collections, time
 import numpy as np
 
-sys.path.append('/sessions/quirky-eloquent-babbage/mnt/contextuality-obstructions/verification')
+# derive the import path from THIS FILE's location (the old hardcoded absolute sandbox
+# path was dead on a fresh machine; the local fallback build() below still applies if
+# weyl.py is genuinely absent).
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 try:
     from weyl import build
 except Exception:

@@ -1,6 +1,26 @@
 # Global Arf test: is W the Arf invariant of q on the CERTIFICATE KERNEL (matched-cycle space),
 # not the per-context sum? Build one quadratic form over all fiber lift-bits, restrict to the
 # kernel of the fiber incidence map, compute its Arf; compare to the attaining bit.
+#
+# VERIFIED CLAIM (asserted below; failure raises and exits nonzero):
+#   [1] the cert4 fiber pool (base d=4 -> fiber dd=8) has 896 lifted contexts and
+#       attaining bit 1: it DOES attain the value dd/2 = 4.
+#   [2] the three random "trivial" control bases are genuinely trivial AT BASE LEVEL,
+#       i.e. their base-level attaining bit (dd = d = 4) is 0.
+#
+# ANOMALY, INVESTIGATED AND RESOLVED (2026-07-24): the original inline comment claimed
+# the trivial bases "should not" attain at FIBER level.  THAT COMMENT WAS WRONG, and the
+# script's own output has always contradicted it (trivial base 0 attains at seed 5).
+# It is NOT a seed artifact.  Sweep: 40 seeds x 3 random 6-context d=4 bases = 120 bases.
+#   * base-level attaining bit = 0 for 120/120 (they really are base-trivial), BUT
+#   * fiber-level attaining bit = 1 for 31/120 (~26%).
+# Reason: build_fiber_pool replaces the 6 base contexts by ALL of their lifts -- a family
+# of ~768 contexts with a large GF(2) left-kernel.  A base-noncontextual family therefore
+# has no trouble acquiring an odd-carry cycle after lifting to Z_{2d}.  So fiber-level
+# attainment is generic-ish and these random bases are NOT a negative control for it.
+# Consequently the fiber bit of the random bases is PRINTED but deliberately NOT asserted;
+# only the base-level triviality (which is the actual premise) is asserted.
+import sys
 import json, numpy as np
 from itertools import product
 def symp(u,v):
@@ -63,12 +83,16 @@ def attaining_bit(pool,dd):
     return 1 if 1 in vb else 0
 
 if __name__=='__main__':
-    # attaining bases (should attain) vs trivial bases (should not) at base d=4 -> fiber dd=8
+    # attaining base (cert4, DOES attain) vs base-trivial controls, at base d=4 -> fiber dd=8
     d=4; dd=8
+    checks=[]   # (label, ok) -- every load-bearing quantity gets an entry
     fam4=load("cert4_min.json")
     pool=build_fiber_pool(fam4,d)
-    print(f"cert4 fiber pool: {len(pool)} contexts -> attains value {dd//2}?  bit = {attaining_bit(pool,dd)}")
-    
+    cert_bit=attaining_bit(pool,dd)
+    print(f"cert4 fiber pool: {len(pool)} contexts -> attains value {dd//2}?  bit = {cert_bit}")
+    checks.append((f"cert4 fiber pool has 896 lifted contexts (got {len(pool)})", len(pool)==896))
+    checks.append((f"cert4 fiber pool ATTAINS value {dd//2} (bit=1, got {cert_bit})", cert_bit==1))
+
     rng=np.random.default_rng(5); m=2
     def rand_ctx():
         for _ in range(400):
@@ -76,7 +100,26 @@ if __name__=='__main__':
             if symp(u,v)%d==0:
                 w=tuple((-(u[i]+v[i]))%d for i in range(2*m))
                 if symp(u,w)%d==0 and symp(v,w)%d==0: return [u,v,w]
+    fiber_bits=[]
     for t in range(3):
         base=[c for c in (rand_ctx() for _ in range(6)) if c]
+        base_bit=attaining_bit(base,d)          # triviality AT BASE LEVEL: this is the premise
         pool=build_fiber_pool(base,d)
-        print(f"trivial base {t}: fiber pool {len(pool)} ctx -> attaining bit = {attaining_bit(pool,dd)}")
+        fb=attaining_bit(pool,dd)
+        fiber_bits.append(fb)
+        print(f"trivial base {t}: fiber pool {len(pool)} ctx -> attaining bit = {fb}"
+              f"   [base-level bit = {base_bit}]")
+        checks.append((f"control base {t} is trivial AT BASE LEVEL (bit 0, got {base_bit})", base_bit==0))
+    print("NOTE: the fiber-level bits of the controls are NOT asserted -- see header. A")
+    print("      base-trivial family attains at fiber level ~26% of the time (31/120 over")
+    print("      a 40-seed sweep), so these are not a negative control for fiber attainment.")
+    print(f"      observed control fiber bits this run: {fiber_bits}")
+
+    print()
+    print("--- verdict ---")
+    _bad=[l for l,ok in checks if not ok]
+    for l in _bad: print(f"  FAILED CHECK: {l}")
+    assert not _bad, "arf_global load-bearing checks FAILED: "+"; ".join(_bad)
+    print(f"arf_global: {len(checks)}/{len(checks)} load-bearing checks passed")
+    print("arf_global PASS")
+    sys.exit(0)

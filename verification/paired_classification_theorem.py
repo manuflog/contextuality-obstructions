@@ -34,9 +34,11 @@ from math import gcd
 import numpy as np
 import scipy.optimize as so
 
-VER = "/sessions/quirky-eloquent-babbage/mnt/contextuality-obstructions/verification"
-if not os.path.isdir(VER):
-    VER = "/Users/manuflog/Developer/contextuality-obstructions/verification"
+# Paths are derived from THIS FILE's location so the script runs from any checkout and
+# from any working directory (the old absolute-sandbox-path + macOS-fallback pair was
+# dead on a fresh machine).
+HERE = os.path.dirname(os.path.abspath(__file__))
+VER = HERE
 sys.path.insert(0, VER)
 from weyl import build  # W(v) = tau^{-q(v)} kron_i X^{a_i} Z^{b_i}, per-site labels
 
@@ -621,7 +623,10 @@ def run_family(fam, rng, use_frac=False):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["selftest", "probe", "pm2", "magic"])
+    # INDEX.md documents "Default run: selftest" -- make that literally true, so a bare
+    # `python3 paired_classification_theorem.py` runs the selftest instead of erroring.
+    ap.add_argument("mode", nargs="?", default="selftest",
+                    choices=["selftest", "probe", "pm2", "magic"])
     ap.add_argument("--d", type=int, default=4)
     ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--nfam", type=int, default=3)

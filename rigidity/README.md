@@ -47,6 +47,7 @@ self-checking and prints PASS/FAIL. Typical runtimes: under 10 s each; a few cen
 | `hermitian_bilinear.py` | the real block = classical bilinear OR-rigidity (two code paths) |
 | `flex_criterion.py` | Maxwell/stress counts do not predict the skew flex |
 | `dminus1_bound.py` | flex_ℝ−flex_skew ≤ d−1 reduced to rank(A)≥rank(B) |
+| `branch_rank_ineq.py` | rank(A)≥rank(B) counterexample hunt + the pseudoforest lemmas (imported by `branch_rank2.py`) |
 | `branch_rank2.py` | rank(A)=rank(B)=|E| proved for 2-degenerate graphs; 3-core reduction |
 | `branch_second_order.py` | second-order criterion; Peres-33's flex provably integrates |
 | `branch_global.py` | arithmetic points of the circle (real / ℤ[√−2] / Gaussian / no Eisenstein) |

@@ -30,13 +30,12 @@ from math import gcd, isqrt
 import numpy as np
 
 T0 = time.time()
-OUT = os.path.dirname(os.path.abspath(__file__))
-for _cand in ('/sessions/quirky-eloquent-babbage/mnt/contextuality-obstructions/verification',
-              os.path.expanduser('~/Developer/contextuality-obstructions/verification')):
-    if os.path.isdir(_cand):
-        VER = _cand; break
-else:
-    raise SystemExit('verification dir not found')
+# Paths are derived from THIS FILE's location so the script runs from any checkout and
+# from any working directory (the old absolute-sandbox-path + macOS-fallback pair was
+# dead on a fresh machine).
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = HERE
+VER = HERE
 os.chdir(VER); sys.path.insert(0, VER)
 JS = os.path.join(OUT, 'ap_species_table.json')
 

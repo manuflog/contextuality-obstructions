@@ -33,3 +33,9 @@ bad=[v for v,c in obs_mult.items() if c%d]
 print("lambda^T A == 0 mod 16:",len(bad)==0)
 print("certificate value S =",S,"(claim: 8)")
 print("VERDICT:", "PASS - independent matrix path confirms S=8 at d=16" if (not bad and S==8) else "FAIL")
+# gating fix (2026-07-24): this script used to print FAIL and still exit 0, so an exit-code
+# -only harness would have counted a failed certificate as a pass. Now it exits nonzero.
+import sys
+assert not bad, f"lambda^T A != 0 mod 16: {len(bad)} observables with wrong multiplicity"
+assert S == 8, f"certificate value S = {S}, expected 8"
+sys.exit(0)

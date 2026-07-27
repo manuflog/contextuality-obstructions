@@ -1000,7 +1000,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 6
  },
  {
   "id": 23,
@@ -1043,7 +1043,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 6
  },
  {
   "id": 24,
@@ -1254,7 +1254,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 6
  },
  {
   "id": 29,
@@ -1297,7 +1297,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 6
  },
  {
   "id": 30,
@@ -1340,7 +1340,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 6
  },
  {
   "id": 31,
@@ -1469,7 +1469,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 6
  },
  {
   "id": 34,
@@ -1639,7 +1639,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 7
  },
  {
   "id": 38,
@@ -1810,7 +1810,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 6
  },
  {
   "id": 42,
@@ -2107,7 +2107,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 7
  },
  {
   "id": 49,
@@ -2148,7 +2148,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 7
  },
  {
   "id": 50,
@@ -2274,7 +2274,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 7
  },
  {
   "id": 53,
@@ -2316,7 +2316,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 7
  },
  {
   "id": 54,
@@ -2444,7 +2444,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 6
  },
  {
   "id": 57,
@@ -2487,7 +2487,7 @@
   "ghost_factor": false,
   "even_factor": false,
   "ghost_even_factor": false,
-  "tier2_raw_bound": null
+  "tier2_raw_bound": 6
  },
  {
   "id": 58,

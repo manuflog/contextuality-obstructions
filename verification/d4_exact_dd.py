@@ -48,7 +48,19 @@ if __name__=='__main__':
     Y,P=build_Y()
     print(f"polytope: {Y.shape} integer points, entries {sorted(set(Y.flatten().tolist()))}")
     np.savez('d4_exact_dd_input.npz',Y=Y,P=P)
-    import cdd
+    # PRODUCER STEP (added 2026-07-24): d4_ridge_walk.py and d4_heavy_finish.py (V43/V43b)
+    # consume this same faithful 64x33 integer projection as /tmp/v42_proj.npz['Y'].
+    # It was computed here but only ever saved under the other name, which made those two
+    # scripts unrunnable from a clean checkout. Written BEFORE the optional cdd import so
+    # this file works as a pure producer with no pycddlib installed.
+    np.savez('/tmp/v42_proj.npz',Y=Y,P=P)
+    print("wrote /tmp/v42_proj.npz (Y,P) for d4_ridge_walk.py / d4_heavy_finish.py")
+    try:
+        import cdd
+    except ImportError:
+        print("pycddlib not installed -- projection emitted, skipping the DD enumeration.")
+        print("Install with: pip install pycddlib  (needs libcdd-dev libgmp-dev on Linux)")
+        raise SystemExit(0)
     rows=[[1.0]+[float(x) for x in r] for r in Y]
     t0=time.time()
     mat=cdd.matrix_from_array(rows,rep_type=cdd.RepType.GENERATOR)

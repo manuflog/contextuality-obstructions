@@ -3,11 +3,42 @@
 # Gsub, each as (global tight mask, local integer inequality). Direct lrs when it
 # finishes under budget; otherwise seed from a capped harvest and close by pivot-walk,
 # recursing for ridge enumeration. All certifications exact-integer.
+#
+# INPUT CHAIN + EXTERNAL DEPENDENCY (guard added 2026-07-24). This script needs:
+#   /tmp/v42_proj.npz   <- produced by d4_exact_dd.py (V42); save step added there.
+#   /tmp/v43_seed.pkl   <- group seed; the repo ships the same object as d4_group_seed.pkl.
+#   /tmp/v43_state.pkl  <- the BFS state left behind by d4_ridge_walk.py (V43); this
+#                          script only finishes the six heavy classes that walk sets aside.
+#   the `lrs` binary    <- exact ridge enumeration; not bundled, not pip-installable.
+import sys, shutil
 import numpy as np, pickle, subprocess, time, os
 from fractions import Fraction
 from math import gcd
+
+_HERE=os.path.dirname(os.path.abspath(__file__))
+_SEED='/tmp/v43_seed.pkl' if os.path.exists('/tmp/v43_seed.pkl') else os.path.join(_HERE,'d4_group_seed.pkl')
+_problems=[]
+if not os.path.exists('/tmp/v42_proj.npz'):
+    _problems.append("missing /tmp/v42_proj.npz  -> produce it with:  python3 d4_exact_dd.py")
+if not os.path.exists(_SEED):
+    _problems.append(f"missing the group seed ({_SEED})  -> expected repo file d4_group_seed.pkl")
+if not os.path.exists('/tmp/v43_state.pkl'):
+    _problems.append("missing /tmp/v43_state.pkl  -> produce it by running d4_ridge_walk.py first "
+                     "(this script only finishes the heavy classes that walk sets aside)")
+if shutil.which('lrs') is None:
+    _problems.append("missing external binary `lrs` (lrslib) -- required for exact ridge "
+                     "enumeration; install lrslib (e.g. apt-get install lrslib) and re-run")
+if _problems:
+    print("SKIP d4_heavy_finish: prerequisites not satisfied.")
+    for p in _problems: print("  "+p)
+    print("  This script's RESULT is already pinned in the repo as d4_facet_classes.npz")
+    print("  (61 facet classes / 23,256 facets); d4_facet_census.py verifies that artifact")
+    print("  with no external engine and is the runnable entry point.")
+    print("d4_heavy_finish SKIP (missing prerequisites)")
+    sys.exit(0)
+
 Y=np.load('/tmp/v42_proj.npz')['Y'].astype(np.int64)
-SEED=pickle.load(open('/tmp/v43_seed.pkl','rb'))
+SEED=pickle.load(open(_SEED,'rb'))
 G=[np.array(g) for g in SEED['G']]
 def int_nullvec(M):
     n,m=len(M),len(M[0])

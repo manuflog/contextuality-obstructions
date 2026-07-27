@@ -5,7 +5,28 @@
 # matching s_{pi C}-s_C): 768 elements; with global conjugation, order 1536. The action
 # on moment space is an exact monomial-rotation matrix (character indices through
 # GL2(Z4), phases from t and s-substitution), so facets transport exactly - no snapping.
+#
+# INPUT CHAIN (guard added 2026-07-24). This script consumes two scratch artifacts:
+#   /tmp/v35_cache.npz   <- produced by d4_odd_sector_facets.py   (V35)
+#   /tmp/v36_facets.npz  <- produced by d4_tier2_catalogue.py     (V36)
+# Neither is in the repo. d4_tier2_catalogue.py computed the facet data but never saved
+# it; that save step has now been added there. Run the producers first (see guard below).
+import sys
 import numpy as np, itertools, json, os, pickle, time
+
+_NEEDED=[('/tmp/v35_cache.npz','d4_odd_sector_facets.py  (V35, regenerates the moment cache)'),
+         ('/tmp/v36_facets.npz','d4_tier2_catalogue.py    (V36, emits the tier-2 facets F,B)')]
+_missing=[(p,who) for p,who in _NEEDED if not os.path.exists(p)]
+if _missing:
+    print("SKIP d4_tier2_orbit: required input(s) not present.")
+    for p,who in _missing:
+        print(f"  missing {p}")
+        print(f"    -> produce it with:  python3 {who}")
+    print("  Both producers are pure-python (numpy/scipy only, no cdd/lrs/normaliz).")
+    print("  Run them from this directory, then re-run d4_tier2_orbit.py.")
+    print("d4_tier2_orbit SKIP (missing prerequisites)")
+    sys.exit(0)
+
 from weyl import build
 X,Z,w,tau,W,_=build(4,2)
 fam=[[tuple(v) for v in it["ctx"]] for it in json.load(open("cert4_min.json"))["items"]]

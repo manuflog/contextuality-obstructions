@@ -49,4 +49,13 @@ print(f"unit-normalized bounds: {[round(b*2*s2/3,4) for b in bset]}  (= 4*sqrt2 
 print(f"COMBINED CLASSIFICATION (tier1 + tier2 exact): {ag}/40")
 print("NOTE: 40/40 above is the CONSTRUCTION sample (partially circular); fresh-sample")
 print("completeness is open - see header. Exact facet arithmetic is the pinned result.")
+# PRODUCER STEP (added 2026-07-24): d4_tier2_orbit.py (V41) consumes exactly these
+# extracted tier-2 facets as /tmp/v36_facets.npz with arrays F (normals) and B (bounds).
+# The data was computed here but never saved, which made V41 unrunnable from a clean
+# checkout. Emit it now so the V36 -> V41 chain is closed.
+np.savez('/tmp/v36_facets.npz',
+         F=np.array([fs for _,fs,_ in facets], dtype=float),
+         B=np.array([b for _,_,b in facets], dtype=float),
+         idx=np.array([i for i,_,_ in facets], dtype=int))
+print(f"wrote /tmp/v36_facets.npz  (F {len(facets)}x{D}, B {len(facets)}) for d4_tier2_orbit.py")
 print("PASS" if (mags==[3] and bset==[6,7] and ag==40) else "FAIL")

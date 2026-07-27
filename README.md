@@ -1,18 +1,18 @@
 # Contextuality as cohomological obstructions — research program
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21498499.svg)](https://doi.org/10.5281/zenodo.21498499)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21498498.svg)](https://doi.org/10.5281/zenodo.21498498)
 
 **Rigidity program (Zenodo, CC BY 4.0):**
-[flagship](https://doi.org/10.5281/zenodo.21488474) ·
-[circle geometry](https://doi.org/10.5281/zenodo.21498343) ·
-[alphabet theorems](https://doi.org/10.5281/zenodo.21498386) ·
-[a second KS circle, in dimension four](https://doi.org/10.5281/zenodo.21519814)
+[flagship](https://doi.org/10.5281/zenodo.21488473) ·
+[circle geometry](https://doi.org/10.5281/zenodo.21498342) ·
+[alphabet theorems](https://doi.org/10.5281/zenodo.21498385) ·
+[a second KS circle, in dimension four](https://doi.org/10.5281/zenodo.21516711)
 
 **Obstruction program (Zenodo, CC BY 4.0, posted 2026-07-27):**
-[Paper A — MASA context stack](https://doi.org/10.5281/zenodo.21630432) ·
-[Paper B — obstruction spectrum](https://doi.org/10.5281/zenodo.21630631) ·
-[Paper D — observer-context category](https://doi.org/10.5281/zenodo.21630698) ·
-[Note — local validity (v3)](https://doi.org/10.5281/zenodo.21630740)
+[Paper A — MASA context stack](https://doi.org/10.5281/zenodo.21630431) ·
+[Paper B — obstruction spectrum](https://doi.org/10.5281/zenodo.21630630) ·
+[Paper D — observer-context category](https://doi.org/10.5281/zenodo.21630697) ·
+[Note — local validity (v3)](https://doi.org/10.5281/zenodo.21630739)
 
 Paper C is **not posted**. The draft in `papers/` now carries the retraction, the
 Abramsky–Cercelescu–Constantin and ROZF attributions, and the hardware caveat, but three
@@ -20,7 +20,7 @@ adversarial gate passes left items that need the author's judgement rather than 
 they are enumerated under "Why paper C is still NOT published" in
 [`verification/INDEX.md`](verification/INDEX.md). It goes up when those are settled, not before.
 
-Repository archive: [10.5281/zenodo.21498499](https://doi.org/10.5281/zenodo.21498499)
+Repository archive: [10.5281/zenodo.21498498](https://doi.org/10.5281/zenodo.21498498)
 
 Reproducibility and artifact companion for a research program framing quantum contextuality as
 central-extension / stack-cohomological obstructions. The companion papers, their machine-checkable

@@ -9,7 +9,15 @@
 #  (iv)  top-layer law probe: apply the d=2 ghost formula to the ORDER-2 SHADOWS
 #        W_v^2 of the deleted triple and compare to CF.
 import numpy as np, itertools, json
-from state_sector_probe import contextual_fraction
+# Imported helper modules below print their own verdicts at import time. Their output is
+# suppressed here so that this script's stdout contains ONLY this script's verdict.
+# Reason (2026-07-27): run_all.sh judges a script by grepping for a verdict token. When an
+# imported module printed its own PASS into this script's stdout, that gate could be satisfied
+# by a token belonging to a different process -- which is exactly how nine dead scripts passed.
+# A verdict is only evidence if it is attributable to the thing being judged.
+import contextlib as _ctx, io as _io
+with _ctx.redirect_stdout(_io.StringIO()):
+    from state_sector_probe import contextual_fraction
 from weyl import build
 X,Z,w,tau,W,N=build(4,2)   # dim 16, w=i
 fam=[[tuple(v) for v in it["ctx"]] for it in json.load(open("cert4_min.json"))["items"]]

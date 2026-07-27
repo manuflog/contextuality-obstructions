@@ -29,8 +29,13 @@
 # tier-1 (tau-twisted ghost triangles) + tier-2 exact facets classifying 40/40 states.
 import numpy as np, itertools, json, os
 import scipy.optimize as so
+# d4_odd_sector_facets prints its own verdict at import time; suppressed so that this
+# script's stdout carries only this script's verdict (see the 2026-07-27 token-bleed note
+# in KNOWN_LIMITATIONS.md -- a verdict is only evidence if it is attributable).
+import contextlib as _ctx, io as _io
 if not os.path.exists('/tmp/v35_cache.npz'):
-    import d4_odd_sector_facets  # regenerates the cache
+    with _ctx.redirect_stdout(_io.StringIO()):
+        import d4_odd_sector_facets  # regenerates the cache
 d=np.load('/tmp/v35_cache.npz'); V=d['V']; mus=d['mus']; cfs=d['cfs']; vis=d['vis']
 D=V.shape[1]; s2=np.sqrt(2)
 resid=[i for i in range(40) if cfs[i]>1e-4 and not vis[i]]

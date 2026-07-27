@@ -6,7 +6,15 @@
 # Question: are all CF>0 states negative in EVERY net? (T x T stays negative automatically:
 # subset of the V28 sweep.)
 import numpy as np, itertools
-from evend_frame_probe import CTX5, Pv, model, contextual_fraction, T
+# Imported helper modules below print their own verdicts at import time. Their output is
+# suppressed here so that this script's stdout contains ONLY this script's verdict.
+# Reason (2026-07-27): run_all.sh judges a script by grepping for a verdict token. When an
+# imported module printed its own PASS into this script's stdout, that gate could be satisfied
+# by a token belonging to a different process -- which is exactly how nine dead scripts passed.
+# A verdict is only evidence if it is attributable to the thing being judged.
+import contextlib as _ctx, io as _io
+with _ctx.redirect_stdout(_io.StringIO()):
+    from evend_frame_probe import CTX5, Pv, model, contextual_fraction, T
 I2=np.eye(2); X=np.array([[0,1],[1,0]]); Y=np.array([[0,-1j],[1j,0]]); Z=np.diag([1,-1])
 P1={'I':I2,'X':X,'Y':Y,'Z':Z}
 names=[a+b for a in 'IXYZ' for b in 'IXYZ' if a+b!='II']

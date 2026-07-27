@@ -128,10 +128,18 @@ exempted by accident, including `arf_global`, which sits one link further up the
 as `criterion`. A gate with a hole in exactly the place it was written to cover is worse than no
 gate, because it is trusted. Ten evasion cases are now checked explicitly.
 
-**What this gate does NOT do.** It does not detect token bleed: `criterion.py` still prints
-`criterion PASS` into the stdout of the four scripts that import it, and `state_sector_probe.py`
-prints its verdict block into its importers. `run_all.sh`'s failure-token regex can likewise fire
-on an imported module's failure and mis-attribute it to the importer. That surface is open.
+**Token bleed — the underlying surface — is now closed too.** The import-safety gate stops a
+module from *killing* its importer, but the deeper problem was that a module could *speak for*
+its importer: `criterion.py` printed `criterion PASS` into the stdout of its four importers, and
+`evend_frame_probe`, `state_sector_probe` and `d4_odd_sector_facets` did the same to theirs. That
+is what let nine dead scripts satisfy a token gate. Every importer now wraps the noisy import in
+`contextlib.redirect_stdout`, so each script's stdout contains only its own verdict. Verified:
+`d3_gap_certificate` went from emitting `criterion PASS` to three clean lines of its own, and no
+canonical script emits another's token. 21/21 green.
+
+The principle worth keeping: **a verdict is only evidence if it is attributable to the thing being
+judged.** Both silent-failure incidents in this program came from violating it — once by a script
+that printed no verdict of its own, once by a script that printed someone else's.
 
 **The general lesson, which is the reason this section exists.** Two of the three silent-failure
 incidents in this program were introduced by the commit that was *supposed* to eliminate silent

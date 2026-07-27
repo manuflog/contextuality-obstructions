@@ -6,7 +6,15 @@
 #       => AvN value 0 (Paper B Thm J, odd d).
 # This machine-certifies the weakening adopted in the CMP repair plan. Expected: GAP CERTIFIED.
 import numpy as np, itertools
-from criterion import carry_data, left_kernel, sympinv
+# Imported helper modules below print their own verdicts at import time. Their output is
+# suppressed here so that this script's stdout contains ONLY this script's verdict.
+# Reason (2026-07-27): run_all.sh judges a script by grepping for a verdict token. When an
+# imported module printed its own PASS into this script's stdout, that gate could be satisfied
+# by a token belonging to a different process -- which is exactly how nine dead scripts passed.
+# A verdict is only evidence if it is attributable to the thing being judged.
+import contextlib as _ctx, io as _io
+with _ctx.redirect_stdout(_io.StringIO()):
+    from criterion import carry_data, left_kernel, sympinv
 pts=[(a,b) for a in range(3) for b in range(3)]
 sy=lambda u,v:(u[0]*v[1]-u[1]*v[0])%3
 def cobound(lam):  # lam: dict pt->Z3, delta lam(u,v)=lam(u)+lam(v)-lam(u+v)

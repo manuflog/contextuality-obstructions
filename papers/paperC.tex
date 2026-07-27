@@ -1,7 +1,7 @@
 % Paper C -- preprint source.
 % All claims cite machine verifications in manuflog/contextuality-obstructions.
 \documentclass[11pt]{article}
-\usepackage{amsmath,amssymb,amsthm,geometry,booktabs,hyperref}
+\usepackage{amsmath,amssymb,amsthm,geometry,booktabs,hyperref,url}
 \geometry{margin=1.1in}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
@@ -10,7 +10,10 @@
 \newtheorem{conjecture}{Conjecture}
 \newtheorem{lemma}{Lemma}
 \newtheorem{theorem2}[theorem]{Theorem}
+\theoremstyle{remark}
 \newtheorem{retraction}{Retraction}
+\newtheorem{remark}{Remark}
+\theoremstyle{plain}
 \newcommand{\U}{\mathrm{U}}
 \newcommand{\PU}{\mathrm{PU}}
 \newcommand{\avn}{\mathrm{AvN}}
@@ -25,9 +28,11 @@ The slogan ``contextual holonomy encodes quantum contextuality'' is attractive a
 usually stated, false. We give it a sharp, machine-verified form. On the context stack
 $[X/\PU(n)]$ of maximal abelian subalgebras the canonical degree-2 class has order exactly
 $n$; its cocycle holonomy along closed context loops detects \emph{exactly} the
-all-versus-nothing (AvN) sector of contextuality for Weyl context families
-(Theorem~\ref{thm:equiv}), a two-directional equivalence stress-tested on $2{,}100$ random
-families at $d=2,4$ with zero mismatches. Both containments are strict: at $d=3$ the class
+all-versus-nothing (AvN) sector of contextuality for \emph{closed-triple} Weyl context
+families at \emph{even} local dimension (Theorem~\ref{thm:equiv}), a two-directional equivalence stress-tested on
+$2{,}100$ random families at $d=2,4$ with zero mismatches. The evenness hypothesis is real
+and is stated as such (Remark~\ref{rem:evend}); at odd $d$ the achievable AvN value is $0$
+and the equivalence is not claimed. Both containments are strict: at $d=3$ the class
 is nontrivial of order $3$ while the achievable state-independent AvN value is $0$
 (Proposition~\ref{prop:gap1}, exhaustive certificate), and KCBS exhibits state-dependent
 contextuality where the class shadow vanishes (Proposition~\ref{prop:gap2}). Finally, the
@@ -36,11 +41,12 @@ projective (Pancharatnam) holonomy is $+1$, while its determinant-section holono
 exactly $-i$, a $\tau$-level invariant of the 2-adic tower
 (Observation~\ref{obs:wf}). Interpretational claims must therefore specify loop and level.
 We state the residual equivalence problem precisely and give hardware-testable predictions.
-\textbf{Attribution.} The classification of achievable state-independent values for qudit
-Weyl families --- the even/odd dichotomy and the fixed value $d/2$ --- on which the
-state-independent side of the equivalence rests is \textbf{due to Abramsky, Cercelescu and
-Constantin} (FSCD 2024)~\cite{ACC}; this paper uses it and does not rediscover it. Its
-recasting in Weyl-certificate language is in the companion~\cite{paperB}.
+\textbf{Attribution.} The classification of state-independent values for qudit Weyl families
+--- the even/odd dichotomy and the fixed value $d/2$ --- on which the state-independent side
+of the equivalence rests is \textbf{due to Abramsky, Cercelescu and Constantin} (FSCD
+2024)~\cite{ACC}, and the general even-$d$ \emph{attainment} is the \textbf{Raussendorf--Okay--Zurel--Feldmann}
+construction~\cite{ROZF}. This paper uses both and rediscovers neither; the recasting in
+Weyl-certificate language is in the companion~\cite{paperB}.
 \textbf{Status.} This is a preprint, not a peer-reviewed article. One claim of an earlier
 draft is withdrawn here (Retraction~\ref{ret:sqrt2}), and the hardware significances are
 shot-noise statistical only, with the caveat stated where they appear.
@@ -50,7 +56,8 @@ shot-noise statistical only, with the caveat stated where they appear.
 Let $X$ be the space of maximal abelian $*$-subalgebras (MASAs) of $M_n(\mathbb{C})$,
 $n\geq 3$. The unitary group acts by conjugation; on $\U(n)\ltimes X$ the
 $\U(1)$-lifting class is vacuous, and after Morita reduction the canonical class on
-$\PU(n)\ltimes X$ has order exactly $n$ \cite[Thm.~1, Thm.~8]{paperA}
+$\PU(n)\ltimes X$ has order exactly $n$ \cite[Vacuity, Upper bound and Lower bound
+theorems]{paperA}
 (\texttt{thmG\_general.py}). Weyl context families and their commutator-carry invariant
 $Q$ are as in \cite{paperB}. Throughout, ``verified'' means: reproduced by the named
 script in the companion repository \cite{repo}; expected one-line outputs are pinned in
@@ -60,35 +67,60 @@ The repaired slogan is: \emph{the class detects the AvN sector of contextuality,
 and no less}. The next three results make each clause exact.
 
 \section{The equivalence on the AvN sector}
-Fix $d\geq 2$, $m\geq 1$, and a Weyl context family $F$ whose contexts are commuting
+Fix $m\geq 1$ and a Weyl context family $F$ whose contexts are commuting
 triples multiplying to a central element. Write the value-assignment system of $F$ as
 $A\gamma \equiv s \pmod d$, where $A$ is the context--observable incidence matrix and
 $s$ collects the matrix-computed context phase exponents under the pinned Weyl
 convention.
 
 \begin{theorem}[Equivalence, AvN sector]\label{thm:equiv}
-$F$ admits no noncontextual value assignment over $\mathbb{Z}_d$ if and only if some
-cycle of $F$ carries odd anomaly self-pairing $Q$.
+Let $d$ be \emph{even}. Then $F$ admits no noncontextual value assignment over
+$\mathbb{Z}_d$ if and only if some cycle of $F$ carries odd anomaly self-pairing $Q$.
 \end{theorem}
 
+\begin{remark}[Scope, stated deliberately]\label{rem:evend}
+Two hypotheses are doing work here and neither is decoration.
+
+\emph{Evenness.} It is what makes the context phases automatically $\omega$-powers (the
+parity lemma of \cite{note}), and every source the proof rests on --- \cite[Thm.~8]{paperB},
+the companion note's detection equivalence, and verification V44 --- is stated at even $d$.
+At odd $d$ the achievable state-independent AvN value is $0$ (see
+Proposition~\ref{prop:gap1} at $d=3$), so the equivalence has no content there beyond that
+vanishing; we do not claim it, and the supporting evidence at odd $d$ is sampling, not proof.
+
+\emph{Closed triples.} The odd-$Q$ criterion is not asserted for arbitrary Weyl families:
+\cite[Prop.~9]{paperB} records that it can be incomplete in general. The families fixed
+above are closed-triple, which is the regime the certificates cover, and
+\texttt{shadow\_gap.py} samples exactly that regime and finds no false certificate at
+$d=2,4,8$. Readers should not extrapolate the theorem past that hypothesis.
+\end{remark}
+
 Both directions of Theorem~\ref{thm:equiv} are now proved: the criterion direction is
-\cite[Thm.~4]{paperB}, and the converse is established by the Smith-normal-form
+\cite[Thm.~8]{paperB}, and the converse is established by the Smith-normal-form
 double-annihilator argument recorded in the companion note \cite{note} (verification
-V44--V46). The $2{,}100$-family stress test in \texttt{holonomy\_vs\_solvability.py} --- over
+V44--V46). The $2{,}100$-family stress test in
+\path{holonomy_vs_solvability.py} --- over
 $1{,}500$ random families at $d=2$ and $600$ at $d=4$, unsolvability of $A\gamma\equiv s$
 (decided by exhaustive dual search) coinciding with the odd-$Q$ cycle test in every instance,
 with the Peres--Mermin square ($d=2$) and the certified $d=4$ family of \cite{paperB} pinned
 as positives so that both truth values of the equivalence are exercised at both $d$ --- now
 stands as an independent numerical cross-check of the analytic result, no longer its sole
-support. The achievable obstruction values themselves are classified as $\{0,d/2\}$ for even
-$d$ and $\{0\}$ for odd $d$ \cite[Thm.~1]{paperB}.
+support. \emph{The random draw should be read honestly}: at $d=4$ it produced no unsolvable
+family at all, so the ``only if'' direction is exercised there by the pinned certificate rather
+than by the sample. The achievable obstruction values themselves are classified as $\{0,d/2\}$
+for even $d$ and $\{0\}$ for odd $d$; \textbf{that classification is due to Abramsky,
+Cercelescu and Constantin} \cite{ACC} (upper bound and odd-$d$ vanishing recast in
+\cite[Thm.~1]{paperB}), and \textbf{attainment at general even $d$ is the ROZF
+construction} \cite{ROZF} (recast in \cite[Thm.~7]{paperB}). Both are used here, not
+rederived.
 
 \section{Both containments are strict}
 \begin{proposition}[Nontrivial class, zero AvN]\label{prop:gap1}
 On $\mathbb{Z}_3^2$ the Heisenberg cocycle $\omega(u,v)=\zeta_3^{\langle u,v\rangle}$ and
 its square are coboundaries for none of the $3^9=19{,}683$ cochains; the class has order
 exactly $3$. Simultaneously, every cycle of every sampled qutrit Weyl family has even
-self-pairing, and the achievable AvN value at $d=3$ is $0$.
+self-pairing, and the achievable AvN value at $d=3$ is $0$ --- the odd-$d$ half of the
+Abramsky--Cercelescu--Constantin classification \cite{ACC}.
 \end{proposition}
 Verified exhaustively in \texttt{d3\_gap\_certificate.py}. Hence a nontrivial canonical
 class does not imply operational (AvN) contextuality: the weakening adopted for the
@@ -121,8 +153,8 @@ are interferometrically measurable with two-qubit Hadamard tests; on the same de
 Peres--Mermin loop yields context signs $(+,+,+,+,+,-)$, i.e.\ ray-level holonomy $-1$.
 One machine, two loops, opposite holonomies, both sharp.
 
-\emph{Measured} (\texttt{ibm\_fez}, 2026-07-09, job \texttt{d986q62f47jc73a7hm2g}; registry
-record \texttt{hardware/results/ibm\_fez\_holonomy\_20260709.json}): strand phases
+\emph{Measured} (\texttt{ibm\_fez}, 2026-07-09, job \texttt{d986q62f47jc73a7hm2g};
+registry record \path{hardware/results/ibm_fez_holonomy_20260709.json}): strand phases
 $+45.88^\circ$ and $-48.81^\circ$ against targets $\pm45^\circ$ (per-strand statistical error
 $\approx1.1^\circ$; the $\sim3.5\sigma$ offset on the $X$-prepared strand is a plausible
 preparation systematic), loop phase $-2.93^\circ\pm1.55^\circ$ against target $0^\circ$. The
@@ -291,22 +323,26 @@ $\tau$-twisted ghost) and a virtual closed triple
 $\{(0,2,2,0),(2,0,0,2),(2,2,2,2)\}$. This tier classifies $32/40$ sampled states.
 \emph{Tier two}, required by the remaining contextual states, involves genuinely
 order-$4$ operator moments --- the second level of the tower --- and is now pinned
-exactly (\texttt{d4\_tier2\_catalogue.py}): the extracted supporting inequalities have
-tight-vertex rank exactly $32$ (true facets of the $33$-dimensional hull), their normals
-snap with \emph{zero} error onto the $\tfrac{1}{2\sqrt2}\mathbb Z$ grid with a single
-coefficient magnitude $3/(2\sqrt2)$, and their bounds are the integers $6$ and $7$, with
-$\tau=e^{i\pi/4}$-quantized phases in the normals.
+exactly (\texttt{d4\_tier2\_catalogue.py}, corrected by \texttt{d4\_arithmetic\_profile.py}):
+the extracted supporting inequalities have tight-vertex rank exactly $32$ (true facets of the
+$33$-dimensional hull), and each admits an exact $\{0,\pm1\}$-coefficient lift attaining an
+\emph{integer} bound, $6$ or $7$, with equality on its tight set. The tier-two data is
+rational throughout.
 
 \begin{retraction}\label{ret:sqrt2}
-An earlier draft of this paper read the unit-coefficient rescaling of those bounds,
-$4\sqrt2$ and $14\sqrt2/3$, as placing Tsirelson's $\sqrt2$ inside the tier-two geometry.
-\emph{That was a normalization artifact and is withdrawn.} Every tier-two facet admits an
-exact $\{0,\pm1\}$-coefficient lift with integer bound in $\{6,7\}$, and a normal of
-constant magnitude $3/(2\sqrt2)$ can never attain an integer bound on integer vertices, so
-the $\sqrt2$ was carried entirely by the choice of scale. Every facet functional in the
-census is rational, and $\mathbb Q(\sqrt2)$ is not among the eighteen canonical arithmetic
-fields of the $61$ classes: it appears only in the $33$-coordinate metric on the bound-$7$
-subfamily $\{48,49,52\}$. Certificate: \texttt{d4\_arithmetic\_profile.py}.
+An earlier draft presented these facets on a $\tfrac{1}{2\sqrt2}\mathbb Z$ grid with a single
+coefficient magnitude $3/(2\sqrt2)$, and read the resulting unit-coefficient bounds
+$4\sqrt2$ and $14\sqrt2/3$ as placing Tsirelson's $\sqrt2$ inside the tier-two geometry.
+The whole presentation was a normalization artifact and is withdrawn: not only the reading,
+but the grid and the coefficient magnitude. The stored lift has coefficients in
+$\{0,\pm1\}$, which do not lie on that grid at all, and no vector of constant magnitude
+$3/(2\sqrt2)$ can attain a nonzero integer bound on integer vertices. The artifact arose from a
+rounding collision in the earlier magnitude bookkeeping, where $|{\pm1}|\cdot2\sqrt2$ and
+$|3/(2\sqrt2)|\cdot2\sqrt2$ both round to $3$; the $\sqrt2$ was injected by that convention
+and by nothing in the geometry. Consequently every facet functional in the census is
+rational, and $\mathbb Q(\sqrt2)$ is not among the eighteen canonical arithmetic fields of
+the $61$ classes: it survives only in the auxiliary $33$-coordinate metric on the bound-$7$
+classes $\{48,49,52\}$ (which are bound-$7$ classes, though not the only ones). Certificate: \texttt{d4\_arithmetic\_profile.py}.
 \end{retraction}
 
 Together, tier one and the exact tier-two facets classify $40/40$ states of the
@@ -370,7 +406,7 @@ odd/even divide of \cite{paperA} resurfaces at the level of quasi-probability fr
 \toprule
 Claim & Script & Expected one-liner\\
 \midrule
-Thm.~\ref{thm:equiv} & \texttt{holonomy\_vs\_solvability.py} & $0$ mismatches; pinned PM/cert4 agree\\
+Thm.~\ref{thm:equiv} & \path{holonomy_vs_solvability.py} & $0$ mismatches; pinned PM/cert4 agree\\
 Prop.~\ref{prop:gap1} & \texttt{d3\_gap\_certificate.py} & order $3$; AvN $\{0\}$; gap certified\\
 Prop.~\ref{prop:gap2} & \texttt{kcbs\_converse.py} & $2.23607>2$; converse gap certified\\
 Obs.~\ref{obs:wf} & \texttt{wf\_loop\_holonomy.py} & strands $\pm\pi/4$; $\det$-holonomy $-i$\\
@@ -392,6 +428,8 @@ and the Peres--Mermin Obstruction}, Zenodo, 2026. \texttt{doi:10.5281/zenodo.216
 Families and the 2-adic Tower}, Zenodo, 2026. \texttt{doi:10.5281/zenodo.21630631}
 \bibitem{cmp} M.~Flores Gordillo, \emph{Contextual Holonomy, Lifting Bundle Gerbes, and
 the Geometric Structure of Quantum Contextuality}, in preparation.
+\bibitem{ROZF} R.~Raussendorf, C.~Okay, M.~Zurel, P.~Feldmann,
+\emph{Quantum} \textbf{7}, 979 (2023), arXiv:2110.11631.
 \bibitem{ACC} S.~Abramsky, \c{S}.-I.~Cercelescu, C.~Constantin, \emph{Commutation Groups and
 State-Independent Contextuality}, in \emph{9th International Conference on Formal Structures for
 Computation and Deduction (FSCD 2024)}, LIPIcs \textbf{299}; extended version arXiv:2603.12197

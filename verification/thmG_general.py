@@ -69,4 +69,5 @@ for l in _bad: print(f"  FAILED CHECK: {l}")
 assert not _bad, "thmG_general load-bearing checks FAILED: "+"; ".join(_bad)
 print(f"thmG_general: {len(checks)}/{len(checks)} load-bearing checks passed")
 print("thmG_general PASS")
-sys.exit(0)
+# (no sys.exit here: a bare module-level exit kills any script that IMPORTS this one,
+#  silently, with status 0. See KNOWN_LIMITATIONS.md. Falling off the end already exits 0.)

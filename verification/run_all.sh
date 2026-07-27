@@ -7,11 +7,20 @@
 # exactly how close_T2_proof.py sat inside a suite reporting "14/14 passed".
 # Each script must now ALSO print its expected verdict token on stdout, and must NOT
 # print any failure token. All three conditions are checked; any one failing is loud.
+#
+# HARDENED AGAIN 2026-07-27, because the 07-24 hardening itself introduced the next
+# silent failure. A bare module-level `sys.exit(0)` appended to criterion.py killed the
+# SEVEN scripts that import it (directly or through evend_frame_probe): each died during
+# the import, ran none of its own checks, printed criterion.py's "criterion PASS", and
+# exited 0. Exit code: clean. Verdict token: present. Both gates satisfied, by a token
+# belonging to a different script. check_import_safety.py now runs FIRST and refuses any
+# module-level exit in a module that anything imports.
 set -uo pipefail
 cd "$(dirname "$0")"
 
 # "script|regex that MUST appear in the output for the run to count as a pass"
 SCRIPTS=(
+  "check_import_safety|check_import_safety PASS"
   "verify_cert8|ALL CHECKS PASS"
   "verify_cert16|VERDICT: PASS"
   "spectrum_test2|spectrum_test2 PASS"
@@ -26,6 +35,12 @@ SCRIPTS=(
   "s4_povm_bayes|^PASS$"
   "paperA_evenN|paperA_evenN PASS"
   "acc_correspondence|ACC-correspondence PASS"
+  "d3_gap_certificate|GAP CERTIFIED"
+  "holonomy_vs_solvability|pinned cert4 d=4: unsolvable=True, odd-cycle=True, agree=True"
+  "evend_frame_probe|PASS\(E4\)"
+  "ghost_facet_theorem|PASS\(completion\)"
+  "paired_frame_construction|PASS\(unified\)"
+  "pauli_slice_bridge|PASS: routes AGREE"
 )
 
 # any of these in the output is a hard failure even when the exit code is 0

@@ -86,3 +86,54 @@ gap. The gaps they flag:
 - **Paper D observer category.** The fiberwise U(1) cocycle is complete; assembling it into a
   **single class on the whole category** (Baues–Wirsching/Thomason H² / a U(1)-gerbe over the
   enlargement category) is open. Holonomy and the movable cut need only the fiberwise section.
+
+## Harness failure, found and fixed 2026-07-27 (recorded, not quietly patched)
+
+For roughly one day the verification suite reported green on nine scripts that never ran.
+
+**What happened.** A commit whose message was "harden the suite" appended a bare module-level
+`sys.exit(0)` to `verification/criterion.py`. Python executes a module's entire body on import,
+so every script doing `import criterion` died *during the import*: it executed none of its own
+checks, printed `criterion PASS` (criterion's own token, emitted before the exit), and returned
+status 0. Affected, directly or through `evend_frame_probe`:
+
+`holonomy_vs_solvability.py`, `d3_gap_certificate.py`, `evend_frame_probe.py`,
+`pauli_slice_bridge.py`, `ghost_facet_theorem.py`, `paired_frame_construction.py`,
+`ghw_net_necessity.py`, `gf4_net_necessity.py`, `net_robust_negativity.py`.
+
+Between them these carry the Paper C equivalence stress test, the d=3 gap certificate, the ghost
+facet theorem, Lemma 1's net necessity, and the 2^15 frame sweep.
+
+**Why neither existing gate caught it.** `run_all.sh` checks exit code *and* a verdict token. The
+exit code was 0 and the token was present — it just belonged to a different script. A gate that
+greps for a string cannot tell which process printed it.
+
+**What the failure did NOT do.** It did not make any published claim wrong. All nine scripts were
+re-run after the fix and every quoted number reproduced exactly (1500/600 families, 0 mismatches;
+0 coboundary hits over 19683 cochains; 24 = 20 + 4 facets; 40/40; rank 10 over F2; 1024 nets).
+The mathematics was sound; the harness was lying about having checked it.
+
+**Fix.** The bare exits are removed (falling off the end of a script already exits 0), and
+`verification/check_import_safety.py` now runs FIRST in `run_all.sh`. It AST-parses every script,
+works out which modules are imported by another, and fails on any exit-like effect reachable at
+IMPORT time in one of them: `sys.exit` / `exit` / `quit` / `os._exit` / `raise SystemExit`,
+including behind an `if`, inside a `try`, via an alias (`import sys as s`), or through a
+module-level call into a module-level helper. Exits inside a real `if __name__ == '__main__':`
+guard are allowed, and the guard is resolved structurally.
+
+**That last point is itself a corrected error.** The first version of this gate, written the same
+day, tested for the guard with `"__main__" in src` — a bare substring test that skipped the scan
+entirely for any file merely containing the string. Seven of the thirteen imported modules were
+exempted by accident, including `arf_global`, which sits one link further up the same import chain
+as `criterion`. A gate with a hole in exactly the place it was written to cover is worse than no
+gate, because it is trusted. Ten evasion cases are now checked explicitly.
+
+**What this gate does NOT do.** It does not detect token bleed: `criterion.py` still prints
+`criterion PASS` into the stdout of the four scripts that import it, and `state_sector_probe.py`
+prints its verdict block into its importers. `run_all.sh`'s failure-token regex can likewise fire
+on an imported module's failure and mis-attribute it to the importer. That surface is open.
+
+**The general lesson, which is the reason this section exists.** Two of the three silent-failure
+incidents in this program were introduced by the commit that was *supposed* to eliminate silent
+failures. Hardening is itself a change, and changes need the gate applied to them. A verdict
+token is only evidence if it is attributable to the process being judged.

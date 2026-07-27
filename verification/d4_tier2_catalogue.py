@@ -4,18 +4,29 @@
 # under the PROVEN symmetries: kernel translations x global conjugation, ~1152 facets).
 # Per-context outcome relabelings are NOT symmetries (each observable lives in two
 # contexts; pinned counterexample: bound violation 25.9 on vertices). Every facet ever
-# extracted shares the exact arithmetic: tight-rank 32, |coeff| = 3/(2*sqrt2), integer
-# bound in {6,7} (unit-normalized 4*sqrt2, 14*sqrt2/3). The complete tier-2 family =
-# one orbit question for the family's true automorphism group - OPEN.
+# extracted shares the exact arithmetic: tight-rank 32 and integer bound in {6,7}. The
+# complete tier-2 family = one orbit question for the family's true automorphism group - OPEN.
 # Method: for each triangle-invisible CF>0 state, extract a supporting inequality via the
 # separation LP, keep those with tight-vertex rank exactly 32 (true facets of the 33-dim
-# hull), and SNAP the normal onto the (1/(2*sqrt2))Z grid. PINNED FACTS:
-#   * snapping is EXACT (error 0): tier-2 facet normals live on the Z[1/sqrt2] grid with a
-#     SINGLE coefficient magnitude 3/(2*sqrt2) across all extracted facets;
-#   * bounds are integers {6,7}; in unit-coefficient normalization: {4*sqrt2, 14*sqrt2/3} -
-#     Tsirelson's sqrt2 sits in the bound;
-#   * five (bound, tight-count) classes; the b=7 class is uniform (48 tight vertices);
-#   * tier-1 (tau-twisted ghost triangles) + tier-2 exact facets classify 40/40 states.
+# hull), and snap the normal onto a grid.
+#
+# *** RETRACTED 2026-07-27 -- READ THIS BEFORE QUOTING ANYTHING FROM THIS HEADER. ***
+# The version of these PINNED FACTS that stood here until 2026-07-27 read:
+#     "tier-2 facet normals live on the Z[1/sqrt2] grid with a SINGLE coefficient
+#      magnitude 3/(2*sqrt2)"  and  "in unit-coefficient normalization: {4*sqrt2,
+#      14*sqrt2/3} - Tsirelson's sqrt2 sits in the bound".
+# BOTH ARE WITHDRAWN, and so is the grid itself. V53 (d4_arithmetic_profile.py) shows the
+# stored lift has coefficients in {0,+-1} -- which do not lie on that grid at all -- with
+# integer bounds {6,7} attained exactly, and that no vector of constant magnitude
+# 3/(2*sqrt2) can attain a nonzero integer bound on integer vertices. The sqrt2 was an
+# artifact of a rounding collision in this script's magnitude bookkeeping, where
+# |+-1|*2*sqrt2 and |3/(2*sqrt2)|*2*sqrt2 both round to 3. Every facet functional in the
+# census is RATIONAL and Q(sqrt2) is not among the 18 canonical arithmetic fields.
+# The retraction is carried in Paper C (Retraction 1) and in INDEX.md V53.
+#
+# WHAT SURVIVES from this script: tight-rank exactly 32; integer bounds {6,7}; five
+# (bound, tight-count) classes with the b=7 class uniform at 48 tight vertices; and
+# tier-1 (tau-twisted ghost triangles) + tier-2 exact facets classifying 40/40 states.
 import numpy as np, itertools, json, os
 import scipy.optimize as so
 if not os.path.exists('/tmp/v35_cache.npz'):

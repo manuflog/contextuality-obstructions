@@ -2,11 +2,23 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21498499.svg)](https://doi.org/10.5281/zenodo.21498499)
 
-**Published papers (rigidity program, Zenodo, CC BY 4.0):**
+**Rigidity program (Zenodo, CC BY 4.0):**
 [flagship](https://doi.org/10.5281/zenodo.21488474) ·
 [circle geometry](https://doi.org/10.5281/zenodo.21498343) ·
 [alphabet theorems](https://doi.org/10.5281/zenodo.21498386) ·
-repository archive: [10.5281/zenodo.21498499](https://doi.org/10.5281/zenodo.21498499)
+[a second KS circle, in dimension four](https://doi.org/10.5281/zenodo.21519814)
+
+**Obstruction program (Zenodo, CC BY 4.0, posted 2026-07-27):**
+[Paper A — MASA context stack](https://doi.org/10.5281/zenodo.21630432) ·
+[Paper B — obstruction spectrum](https://doi.org/10.5281/zenodo.21630631) ·
+[Paper D — observer-context category](https://doi.org/10.5281/zenodo.21630698) ·
+[Note — local validity (v3)](https://doi.org/10.5281/zenodo.21630740)
+
+Paper C is **not posted**: it is under revision to remove a claim retracted elsewhere in the
+program, to attribute Abramsky–Cercelescu–Constantin properly, and to caveat a hardware
+significance. It will go up when those are fixed.
+
+Repository archive: [10.5281/zenodo.21498499](https://doi.org/10.5281/zenodo.21498499)
 
 Reproducibility and artifact companion for a research program framing quantum contextuality as
 central-extension / stack-cohomological obstructions. The companion papers, their machine-checkable
@@ -25,10 +37,11 @@ verifications, hardware validation, and the supporting software package.
   (FSCD 2024)**; this program recasts it via an explicit commutator-carry calculus, adds a 2-adic tower
   and a 3-device hardware replication, and gives the obstruction its geometric/cohomological home (Papers A/D).
   The carry invariant has the algebraic form of a Pontryagin-square quadratic refinement.
-- **Paper C — *What Contextual Holonomy Detects*.**
+- **Paper C — *What Contextual Holonomy Detects*. (UNDER REVISION — not posted.)**
   The state sector: the $d=2$ codeword-polytope classification with the exact contextual-fraction
   formula, the $d=4$ tower laws, $\tau$-necessity, and the complete $d=4$ facet census
-  (61 classes, 23,256 facets, derived twice by independent methods).
+  (61 classes, 23,256 facets, derived twice by independent methods). Held back because the current
+  draft repeats a Tsirelson-bound claim that the Note retracts.
 - **Paper D — *The Observer-Context Category*.**
   Relative facts, the gauge-robust $\mathbb{Z}_2$ switching invariant, the movable cut, and the
   localization of the Frauchiger–Renner cycle.

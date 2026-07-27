@@ -1,4 +1,4 @@
-% Paper C -- working draft, pending revision.
+% Paper C -- preprint source.
 % All claims cite machine verifications in manuflog/contextuality-obstructions.
 \documentclass[11pt]{article}
 \usepackage{amsmath,amssymb,amsthm,geometry,booktabs,hyperref}
@@ -10,12 +10,13 @@
 \newtheorem{conjecture}{Conjecture}
 \newtheorem{lemma}{Lemma}
 \newtheorem{theorem2}[theorem]{Theorem}
+\newtheorem{retraction}{Retraction}
 \newcommand{\U}{\mathrm{U}}
 \newcommand{\PU}{\mathrm{PU}}
 \newcommand{\avn}{\mathrm{AvN}}
 \title{What Contextual Holonomy Detects:\\ the All-versus-Nothing Sector, Two Gap Certificates,\\ and the Section Dependence of Wigner--Friend Holonomy}
 \author{Manuel Flores Gordillo\\ \small Independent Researcher \quad ORCID 0009-0006-8246-0343\\ \small \texttt{manuel.flores@columbia.edu}}
-\date{July 2026 --- working draft v0}
+\date{July 2026}
 \begin{document}
 \maketitle
 
@@ -35,6 +36,14 @@ projective (Pancharatnam) holonomy is $+1$, while its determinant-section holono
 exactly $-i$, a $\tau$-level invariant of the 2-adic tower
 (Observation~\ref{obs:wf}). Interpretational claims must therefore specify loop and level.
 We state the residual equivalence problem precisely and give hardware-testable predictions.
+\textbf{Attribution.} The classification of achievable state-independent values for qudit
+Weyl families --- the even/odd dichotomy and the fixed value $d/2$ --- on which the
+state-independent side of the equivalence rests is \textbf{due to Abramsky, Cercelescu and
+Constantin} (FSCD 2024)~\cite{ACC}; this paper uses it and does not rediscover it. Its
+recasting in Weyl-certificate language is in the companion~\cite{paperB}.
+\textbf{Status.} This is a preprint, not a peer-reviewed article. One claim of an earlier
+draft is withdrawn here (Retraction~\ref{ret:sqrt2}), and the hardware significances are
+shot-noise statistical only, with the caveat stated where they appear.
 \end{abstract}
 
 \section{Setting and the repaired slogan}
@@ -62,14 +71,17 @@ $F$ admits no noncontextual value assignment over $\mathbb{Z}_d$ if and only if 
 cycle of $F$ carries odd anomaly self-pairing $Q$.
 \end{theorem}
 
-The criterion direction is \cite[Thm.~4]{paperB}. The solvability reformulation above is
-verified two-directionally in \texttt{holonomy\_vs\_solvability.py}: over $1{,}500$ random
-families at $d=2$ and $600$ at $d=4$, unsolvability of $A\gamma\equiv s$ (decided by
-exhaustive dual search) coincided with the odd-$Q$ cycle test in every instance, with the
-Peres--Mermin square ($d=2$) and the certified $d=4$ family of \cite{paperB} pinned as
-positives so that both truth values of the equivalence are exercised at both $d$. The
-achievable obstruction values themselves are classified as $\{0,d/2\}$ for even $d$ and
-$\{0\}$ for odd $d$ \cite[Thm.~1]{paperB}.
+Both directions of Theorem~\ref{thm:equiv} are now proved: the criterion direction is
+\cite[Thm.~4]{paperB}, and the converse is established by the Smith-normal-form
+double-annihilator argument recorded in the companion note \cite{note} (verification
+V44--V46). The $2{,}100$-family stress test in \texttt{holonomy\_vs\_solvability.py} --- over
+$1{,}500$ random families at $d=2$ and $600$ at $d=4$, unsolvability of $A\gamma\equiv s$
+(decided by exhaustive dual search) coinciding with the odd-$Q$ cycle test in every instance,
+with the Peres--Mermin square ($d=2$) and the certified $d=4$ family of \cite{paperB} pinned
+as positives so that both truth values of the equivalence are exercised at both $d$ --- now
+stands as an independent numerical cross-check of the analytic result, no longer its sole
+support. The achievable obstruction values themselves are classified as $\{0,d/2\}$ for even
+$d$ and $\{0\}$ for odd $d$ \cite[Thm.~1]{paperB}.
 
 \section{Both containments are strict}
 \begin{proposition}[Nontrivial class, zero AvN]\label{prop:gap1}
@@ -123,6 +135,18 @@ $S=4.6125\pm0.0173$: a $35.4\sigma$ violation of the exact deterministic noncont
 $4$ (the run-time script carried the loose $n_c-1=5$ bound, since replaced in
 \texttt{qkernel} by the exhaustive tight bound), consistent with the archived
 \texttt{ibm\_fez} value $4.558\pm0.018$.
+
+\paragraph{Hardware caveat.} Both significances quoted above are \emph{shot-noise
+statistical only}, computed under the implemented witness model and conditional on the
+usual compatibility and nondisturbance assumptions. They are not systematics-aware, and
+neither measurement is loophole-free; the $\approx3.5\sigma$ preparation offset on the
+$X$-prepared strand is itself evidence that unmodelled systematics are present at a level
+the statistical error does not capture. We record one further discrepancy rather than
+suppress it: the pinned value $S=4.6125$ cannot be recomputed from the stored counts, a
+naive recomputation giving $4.5662$, a gap of about $2.7$ standard errors. The archived
+value $4.558\pm0.018$ is the one an independent reader can reproduce from the deposited
+data. Read these numbers as consistency checks of the sign predictions on real hardware,
+not as precision measurements or as certifications.
 
 \section{The residual problem}
 \begin{openproblem}\label{op}
@@ -270,10 +294,22 @@ order-$4$ operator moments --- the second level of the tower --- and is now pinn
 exactly (\texttt{d4\_tier2\_catalogue.py}): the extracted supporting inequalities have
 tight-vertex rank exactly $32$ (true facets of the $33$-dimensional hull), their normals
 snap with \emph{zero} error onto the $\tfrac{1}{2\sqrt2}\mathbb Z$ grid with a single
-coefficient magnitude $3/(2\sqrt2)$, and their bounds are the integers $6$ and $7$ ---
-equivalently, in unit-coefficient normalization, $4\sqrt2$ and $14\sqrt2/3$:
-\emph{Tsirelson's $\sqrt2$ sits in the tier-two bounds}, with $\tau=e^{i\pi/4}$-quantized
-phases in the normals. Together, tier one and the exact tier-two facets classify $40/40$ states of the
+coefficient magnitude $3/(2\sqrt2)$, and their bounds are the integers $6$ and $7$, with
+$\tau=e^{i\pi/4}$-quantized phases in the normals.
+
+\begin{retraction}\label{ret:sqrt2}
+An earlier draft of this paper read the unit-coefficient rescaling of those bounds,
+$4\sqrt2$ and $14\sqrt2/3$, as placing Tsirelson's $\sqrt2$ inside the tier-two geometry.
+\emph{That was a normalization artifact and is withdrawn.} Every tier-two facet admits an
+exact $\{0,\pm1\}$-coefficient lift with integer bound in $\{6,7\}$, and a normal of
+constant magnitude $3/(2\sqrt2)$ can never attain an integer bound on integer vertices, so
+the $\sqrt2$ was carried entirely by the choice of scale. Every facet functional in the
+census is rational, and $\mathbb Q(\sqrt2)$ is not among the eighteen canonical arithmetic
+fields of the $61$ classes: it appears only in the $33$-coordinate metric on the bound-$7$
+subfamily $\{48,49,52\}$. Certificate: \texttt{d4\_arithmetic\_profile.py}.
+\end{retraction}
+
+Together, tier one and the exact tier-two facets classify $40/40$ states of the
 construction sample; a subsequent fresh-sample audit shows this is \emph{not yet the
 complete family} --- new weak-band contextual states require further tier-two orbit
 members. Closing the extracted seeds under the two proven vertex symmetries (kernel
@@ -301,10 +337,13 @@ the suite: \texttt{lrs} wedges reproducibly on several of these tight-set polyto
 \textsc{Normaliz} succeed; and an intermediate in-walk count of ``$121$ classes''
 was a bookkeeping duplication (two key encodings double-storing each orbit) exposed
 only by the independent cross-check --- the cross-check is not optional. The tower
-appears three times over: as the ghost rotation $d/2$, as the stratification of
-operative facets by operator order, and as the $\mathbb Z[1/\sqrt2]$ arithmetic of the
-tier-two facet data. Open: the no-signalling-normalized closed formula, mixed families,
-and the arithmetic profile of all $61$ classes.
+appears twice over: as the ghost rotation $d/2$, and as the stratification of operative
+facets by operator order. (An earlier draft counted a third appearance, a
+$\mathbb Z[1/\sqrt2]$ arithmetic of the tier-two facet data; that reading is withdrawn
+with Retraction~\ref{ret:sqrt2} --- the tier-two data is rational.) The arithmetic profile
+of all $61$ classes is now complete: exactly $18$ arithmetic species, classified by the
+pair (integer bound, squared norm of the exact minimal-norm lift), all functionals
+rational. Open: the no-signalling-normalized closed formula, and mixed families.
 
 \begin{conjecture}[State-sector pairing]\label{conj}
 For odd prime $d$, the state-dependent sector is classified by the pairing of the state
@@ -340,14 +379,27 @@ PM anchor & \texttt{pm\_gauge\_invariance.py} & product $-1$ over all $512$ gaug
 \end{tabular}
 \end{center}
 
+\paragraph{Note on methods.} Large-language-model assistants (Anthropic Claude) were used
+substantially in drafting this paper, in developing the verification scripts, in literature
+search and in proposing proofs. Every load-bearing claim is machine-verified independently
+of that assistance by the scripts named in the text, and the author takes full
+responsibility for the results, including any errors.
+
 \begin{thebibliography}{9}
 \bibitem{paperA} M.~Flores Gordillo, \emph{The Canonical Class of the MASA Context Stack
-and the Peres--Mermin Obstruction}, working draft, 2026.
+and the Peres--Mermin Obstruction}, Zenodo, 2026. \texttt{doi:10.5281/zenodo.21630432}
 \bibitem{paperB} M.~Flores Gordillo, \emph{The Obstruction Spectrum of Weyl Context
-Families and the 2-adic Tower}, working draft, 2026.
+Families and the 2-adic Tower}, Zenodo, 2026. \texttt{doi:10.5281/zenodo.21630631}
 \bibitem{cmp} M.~Flores Gordillo, \emph{Contextual Holonomy, Lifting Bundle Gerbes, and
 the Geometric Structure of Quantum Contextuality}, in preparation.
+\bibitem{ACC} S.~Abramsky, \c{S}.-I.~Cercelescu, C.~Constantin, \emph{Commutation Groups and
+State-Independent Contextuality}, in \emph{9th International Conference on Formal Structures for
+Computation and Deduction (FSCD 2024)}, LIPIcs \textbf{299}; extended version arXiv:2603.12197
+(2026).
 \bibitem{hwve} M.~Howard, J.~Wallman, V.~Veitch, J.~Emerson, \emph{Contextuality supplies the magic for quantum computation}, Nature 510, 351 (2014).
+\bibitem{note} M.~Flores Gordillo, \emph{Local validity and contextual holonomy: a structural
+formulation of the Copenhagen principle}, companion note v3, Zenodo, 2026.
+\texttt{doi:10.5281/zenodo.21630740}
 \bibitem{repo} \texttt{github.com/manuflog/contextuality-obstructions}, verification
 suite, 2026.
 \end{thebibliography}

@@ -11,15 +11,19 @@
 **Obstruction program (Zenodo, CC BY 4.0, posted 2026-07-27):**
 [Paper A — MASA context stack](https://doi.org/10.5281/zenodo.21630431) ·
 [Paper B — obstruction spectrum](https://doi.org/10.5281/zenodo.21630630) ·
+[Paper C — what contextual holonomy detects](https://doi.org/10.5281/zenodo.21633744) ·
 [Paper D — observer-context category](https://doi.org/10.5281/zenodo.21630697) ·
 [Note — local validity (v3)](https://doi.org/10.5281/zenodo.21630739)
 
-Paper C went up after three adversarial gate passes; what each pass found, and how it was
-closed, is recorded in [`verification/INDEX.md`](verification/INDEX.md) rather than quietly
-fixed. It carries a labelled retraction of an earlier $\sqrt2$ reading, and it states plainly
-where its own evidence is thin — two of its sweeps drew no positive instances at all.
+Paper C was held back from the first batch and went up only after three adversarial review
+passes; what each pass found, and how each item was closed, is in
+[`verification/INDEX.md`](verification/INDEX.md) rather than quietly fixed. It carries a labelled
+retraction of an earlier $\sqrt2$ reading, and it says plainly where its own evidence is thin —
+two of its sweeps drew no positive instances at all. One item is **not** closed and belongs to
+Paper B, which cites a false-certificate artifact that is not in the repository; that is recorded
+too.
 
-Repository archive: [10.5281/zenodo.21498498](https://doi.org/10.5281/zenodo.21498498)
+Repository archive: [10.5281/zenodo.21498498](https://doi.org/10.5281/zenodo.21498498) (**v1.1.0**, 2026-07-27; v1.0.0 is superseded)
 
 Reproducibility and artifact companion for a research program framing quantum contextuality as
 central-extension / stack-cohomological obstructions. The companion papers, their machine-checkable
@@ -52,9 +56,11 @@ verifications, hardware validation, and the supporting software package.
   companion papers, with every claim mapped to a verification script.
 
 ## What's here
-- `papers/` — the papers (PDF; sources where applicable). All are **working drafts / preprints**
-  (not yet submitted or posted to arXiv); cite as work in progress.
-- `verification/` — ~50 self-contained Python scripts (V1–V46); **`INDEX.md` is the source of
+- `papers/` — the papers (PDF; sources where applicable). All are **preprints, not peer-reviewed**.
+  All are now posted to Zenodo with DOIs (linked above); none is on arXiv, for want of an
+  endorsement rather than for want of readiness. Cite the concept DOIs, which always resolve to the
+  current version.
+- `verification/` — ~60 self-contained Python scripts (V1–V53); **`INDEX.md` is the source of
   truth: it maps every load-bearing claim to its analytic proof and/or its verification script with
   the expected one-line result**, and it records corrections and retractions rather than erasing
   them. Heavy census artifacts (`d4_facet_classes.npz`, `d4_group_seed.pkl`) ship in-repo, so no

@@ -1,0 +1,620 @@
+% ============================================================
+% PAPER B — The Obstruction Spectrum of Weyl Context Families
+%           and the 2-adic Tower
+% arXiv submission source.
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{lmodern}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\ipz}[2]{\langle #1,#2\rangle_{\Z}}
+\DeclareMathOperator{\col}{col}
+\DeclareMathOperator{\rowspace}{rowspace}
+\DeclareMathOperator{\supp}{supp}
+
+\title{The Obstruction Spectrum of Weyl Context Families\\ and the 2-adic Tower}
+\author{Manuel Flores Gordillo\thanks{ORCID \texttt{0009-0006-8246-0343};
+\texttt{manuel.flores@columbia.edu}. Verification scripts and data:
+\url{https://github.com/manuflog/contextuality-obstructions}.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+State-independent contextuality of qudit stabilizer measurements is not just present or absent --- it
+comes in a definite strength. For $m$-qudit Weyl--Heisenberg context families in local dimension $d$,
+the achievable all-versus-nothing obstruction value is exactly $\{0,d/2\}$ for every even $d$ and
+$\{0\}$ for odd $d$. \textbf{This value classification --- the even/odd dichotomy and the fixed value
+$d/2$ --- is due to Abramsky, Cercelescu and Constantin~\cite{ACC24}}, whose parity obstruction
+$2k\equiv 0\pmod d$ (their Thm.~16) and normal-form classification (their Thm.~21) settle it; our
+Obstruction Spectrum Theorem (Theorem~\ref{thm:spectrum}) recovers their $2S\equiv 0\pmod d$ in
+explicit Weyl-certificate language. On this basis we develop three further layers. (i) A closed-form
+calculus: contextuality is decided by an integer commutator carry
+$b(C)=\sum_{\{u,v\}}\ipz{u}{v}/d \pmod 2$ (Theorem~\ref{thm:carry}) --- no phases or matrices --- with
+an exact value-bit formula (Theorem~\ref{thm:valuebit}) and a cycle criterion
+(Theorem~\ref{thm:cycle}), in which the carry invariant $Q$ has the algebraic form of a
+Pontryagin-square quadratic refinement (we do not construct the cohomology operation here).
+(ii) A $2$-adic tower structure: the obstruction lives at the top layer and no single lift carries it
+(Depth Rigidity, Theorem~\ref{thm:depth}), with a fiber doubling law governing its propagation
+$d\to 2d$ (generativity obstruction $G=\lfloor\Sigma M/2\rfloor\oplus\lfloor K/2\rfloor$).
+(iii) A three-device superconducting replication of the $d=2$ witness. The obstruction's geometric
+home --- a canonical degree-$2$ class of order $n$ on the stack $[X/\mathrm{PU}(n)]$ of maximal
+abelian subalgebras --- is developed in the companion paper.
+\end{abstract}
+
+\section{Setting and the question}
+Fix $m$ qudits of local dimension $d$ and symmetric Weyl lifts
+$W(v)=\tau^{-q(v)}X^{a_1}Z^{b_1}\otimes\cdots$, $\tau=e^{i\pi/d}$, integer representatives $0..d-1$,
+$q(v)=\sum_i a_ib_i$. A \emph{context} $C$ is a word of pairwise-commuting $v$'s
+($\ip{u}{v}\equiv 0 \bmod d$) with $\sum v\equiv 0 \bmod d$; its product is a scalar $\omega^{s(C)}$,
+$\omega=e^{2\pi i/d}$. A \emph{certificate} is $\lambda\in\Z_d^{\mathrm{ctx}}$ with
+$\lambda^{\mathsf T}A\equiv 0\pmod d$, where $A$ is the context-by-observable multiplicity matrix; its
+value is $S=\lambda^{\mathsf T}s\bmod d$. A nonzero value is a state-independent all-versus-nothing
+(AvN) obstruction: no $\Z_d$-valued noncontextual assignment is consistent with the family. Which values $S$ can occur was settled by~\cite{ACC24}; our aim is to recast that answer in explicit
+certificate language and add the carry calculus, the $2$-adic tower, and a hardware replication. Let
+$H(d,m)\subseteq\Z_d$ be the set of achievable values.
+
+\paragraph{Practical takeaway.} Three facts are directly usable. (i) \emph{Even/odd dichotomy}:
+state-independent Weyl contextuality exists exactly for even $d$; in odd $d$ every such family is
+noncontextual ($H=\{0\}$), so an experiment seeking a preparation-untrusted contextuality witness must
+use even local dimension. (ii) \emph{Fixed strength}: when present, the obstruction takes the single
+value $d/2$ (the sign $-1=\omega^{d/2}$) --- there is no continuum of strengths to tune, and
+correspondingly no additive resource monotone (the obstruction is a saturating support, not a charge).
+(iii) \emph{Cheap witnesses}: contextuality is decided by an integer commutator carry
+$b(C)=\sum_{i<j}\ip{c_i}{c_j}/d \bmod 2$ with no matrices or phases, and a witness at $2d$ can be
+generated from one at $d$ by the fiber construction (though genuine AvN minimality is a $\Z_d$-cycle
+condition, Proposition~\ref{prop:zd}, not the $\Z_2$ shadow). The natural application is
+state-independent certification of quantumness in even-$d$ hardware: the witnesses hold for any input
+state, including the maximally mixed one, so they benchmark a device without trusting state
+preparation. We claim no bridge to code performance or $T$-count; the obstruction value classifies a
+cohomological invariant, not a computational resource.
+
+\paragraph{Operational certification (application).} The dichotomy gives a concrete measurement
+protocol. For a Weyl family one measures, in each context $C$, the joint outcomes of its commuting
+generators and forms the product statistic; the noncontextual functional
+$S=\sum_C \cos\!\big(2\pi(\hat s_C-s(C))/d\big)$ has a classical bound below the quantum value exactly
+when $H\neq\{0\}$, i.e.\ for even $d$. Two features make this device-friendly. First, the context
+product operator is the scalar $\omega^{s(C)}I$, so the statistic is fixed by the operator algebra and
+is independent of the input state (the maximally mixed state included); state-preparation error does
+not degrade it, and only measurement imperfection enters. A protocol caveat is essential here and is
+easily overlooked: the scalar identity $\prod_{O\in C}O=\omega^{s(C)}I$ means that a single joint
+measurement of a context---diagonalizing the commuting family and reading all outcomes from one basis
+label---returns the product $\omega^{s(C)}$ on every shot as an algebraic identity, independently of
+the device, so it certifies nothing (it reproduces the ideal value even on random outcomes). The
+measurement-limited character is recovered only when the observables of a context are measured in
+physically separate operations (sequential non-destructive readout, or one ancilla per observable):
+the outcomes are then no longer bound by the identity, and measurement error genuinely degrades the
+correlator below $|\omega^{s(C)}|=1$. This preparation-untrusted, measurement-limited character of
+state-independent contextuality is well established experimentally on trapped ions, photons, and
+superconducting qubits~\cite{Kirchmair,Qu,EJP}; we use it rather than claim it. Second, and specific
+to the present classification, the quantity being certified is not merely the presence of
+contextuality but its \emph{value}: the graded invariant $S=d/2$, together with the even/odd signature
+(the same construction is provably noncontextual in odd $d$), is a structural fingerprint of the
+obstruction spectrum. A ququart-encoded ($d=4$) witness realizing this on qubit hardware needs only
+shallow circuits and tolerates measurement error at the several-percent scale, well within current
+devices; the value-graded hardware certification is developed separately.
+
+\section{The Obstruction Spectrum Theorem}
+\begin{theorem}[Obstruction Spectrum]\label{thm:spectrum}
+For every even $d$, every $m$, every Weyl context family and every certificate, $2S\equiv 0\pmod d$;
+hence $S\in\{0,d/2\}$. For odd $d$ (in the Gross convention $W'(v)=\omega^{-2^{-1}q(v)}T(v)$), $S=0$
+always. Thus the only state-independent obstruction value achievable by Weyl context families in any
+even dimension is $-1=\omega^{d/2}$.
+\end{theorem}
+\begin{proof}
+The Weyl product obeys $W(u)W(v)=\tau^{c(u,v)}W((u+v)\bmod d)$ with
+$c(u,v)=-q(u)-q(v)+2\beta(u,v)+q((u+v)\bmod d)$, $\beta(u,v)=\sum_i u_{b,i}v_{a,i}$ (machine-verified
+against matrices at $d=4,6,9,16$, $25/25$ contexts each). Telescoping a context word from the
+identity, the $q$-terms of the partial sums cancel:
+\begin{equation}\label{eq:mod2d}
+2s(C)\equiv -\sum_i q(u_i)+2\sum_{j<i}\beta(u_j,u_i)\pmod{2d},
+\end{equation}
+$B(C)=\sum_i \beta(P_i,u_i)$, $P_i$ the prefix sums; reducing mod $d$, bilinearity gives
+$B(C)\equiv\sum_{j<i}\beta(u_j,u_i)$. On commuting pairs $\beta(u,v)-\beta(v,u)=\ip{u}{v}\equiv 0$, so
+$\beta$ is symmetric mod $d$ there; polarizing $\beta(\sigma,\sigma)$ at $\sigma=\sum_i u_i\equiv 0$,
+using $\beta(u,u)=q(u)$, yields $2\sum_{j<i}\beta(u_j,u_i)\equiv -\sum_i q(u_i)\pmod d$. Substituting
+into~\eqref{eq:mod2d} reduced mod $d$:
+\[
+2s(C)\equiv -2\sum_{u\in C}q(u)\pmod d :
+\]
+the doubled phase is a coboundary with explicit potential $-q$. Therefore
+$2S=\lambda\cdot 2s\equiv -2(\lambda^{\mathsf T}A)\cdot q\equiv 0\pmod d$. For odd $d$, $2$ is
+invertible mod $d$ and the Gross-convention telescoping gives $s(C)\equiv-\sum_{u\in C}q(u)\pmod d$
+outright, so every certificate value vanishes.
+\end{proof}
+
+\noindent\emph{Verification.} The potential identity holds $0/3000$ at each of $d=2,4,6,8,12,16$ and
+$0/18521$ across mixed $(d,m)$; the mod-$2d$ strengthening fails ${\sim}50\%$ --- the residue is
+exactly the obstruction bit, so the theorem is sharp. Odd-$d$ triviality: single value $\{0\}$ at
+$d=3,5,9$ (\texttt{spectrum\_test2.py}; full ledger in the repository \texttt{INDEX.md}).
+
+\begin{corollary}[The obstruction is one bit]\label{cor:bit}
+$s\bmod (d/2)$ is exact with potential $-q$; all obstruction content lives in
+$b(C):=\big(s(C)+\sum_{u\in C}q(u)\big)/(d/2)\in\Z_2$, and $S=(d/2)\,(\bar\lambda\cdot b\bmod 2)$ with
+$\bar\lambda=\lambda\bmod 2$. Only $\lambda\bmod 2$ carries value; any attaining certificate has odd
+entries. The value group is always $\subseteq\mu_2\subset\mu_d$: the physics factors through the real
+shadow at every even $d$, tying the two-tier structure of Paper~A to a quantitative statement here.
+\end{corollary}
+
+\begin{remark}[No higher-order qudit parity proofs]\label{rem:nohigher}
+Theorem~\ref{thm:spectrum} fixes the value in $\{0,d/2\}$ for any incidence structure, of any
+multiplicity: if each observable lies in $r$ contexts, the concatenated word has every letter $r$
+times, yet the achievable value is still only $0$ or $d/2$, independent of $r$. Since $d/2$ is the
+order-two element of $\mu_d$ (Corollary~\ref{cor:bit}), there is no obstruction of order $>2$ in any
+Weyl family --- the value is always $2$-primary and visible to the mod-$2$ shadow. In particular the
+natural expectation that high-multiplicity covers ($d\mid r$, $r>2$) would yield genuinely order-$d$
+``qudit parity proofs'' fails: any such cover, if contextual, still carries the single bit $d/2$.
+(Verified: stacking a $d=4$ certificate to multiplicities $r=4,6$ keeps the value group
+$\subseteq\{0,2\}$, never $\{1,3\}$.)
+\end{remark}
+
+\section{The commutator-carry form}
+\begin{theorem}[Carry form]\label{thm:carry}
+Exactly, $2s(C)\equiv -\sum_i q(u_i)+2\sum_{j<i}\beta(u_j,u_i)\pmod{2d}$, and consequently
+\[
+b(C)\equiv\sum_{\{u,v\}\subseteq C}\ipz{u}{v}/d\pmod 2
+\]
+--- the obstruction bit is the total commutator carry. The whole theory is combinatorial: no phases,
+no matrices, only symplectic carries.
+\end{theorem}
+\noindent\emph{Verification.} Carry form $0/2500$ at each $d=2,4,6,8,12,16$, and $0/800$ per $d$ with
+zero letters and high multiplicity.
+
+\section{Depth Rigidity}
+A lift of a level-$d$ family to level $2d$ chooses $x_v\in\{0,1\}^{2m}$ per observable
+($\tilde v=v+d\,x_v$) keeping all contexts commuting and sum-zero mod $2d$ (a $\mathrm{GF}(2)$-linear
+system with carry right-hand sides).
+\begin{theorem}[Depth Rigidity]\label{thm:depth}
+(a) If the commutation block of the lift system is solvable then
+$b(C)\equiv\sum_{v\in C}\ip{x_v}{v}\pmod 2$ is a coboundary, so every certificate value of the lifted
+family is $0$. (b) Conversely, if a level-$d$ family attains (some $\lambda$ with value $d/2$), the
+$\bar\lambda$-weighted commutation equations have identically zero left side and right side
+$\sum_j\bar\lambda_j b(C_j)\equiv 1$; hence attaining families never lift. The obstruction sits at the
+top $2$-adic layer and is carried by no single section.
+\end{theorem}
+\noindent\emph{Verification.} On the $d=8$ pool the full mod-$8$ kernel has value group $\{0,4\}$ but
+the $2$-divisible / liftable part gives only $\{0\}$; the $d=8$ certificate $\lambda$ is odd on
+$62/89$ contexts. The dual no-lift witness for the $d=8\to 16$ step is machine-verified (data in the
+repository).
+
+\section{The value-bit formula}
+\begin{theorem}[Value-bit formula]\label{thm:valuebit}
+For any mod-$2d$ kernel element $\tilde\lambda$ of a pure fiber pool, with odd support $\supp$ and
+lift data $u=\tilde v\bmod d$, $x=\tilde v\ \mathrm{div}\ d$, the value bit $P$ ($S=d\,P$) is
+\[
+P\equiv \tfrac12\Big[\textstyle\sum_{\supp}K+\sum_{\supp}\Lambda(x)+(d/2)\sum_{\supp}Q(x)\Big]\pmod 2,
+\]
+$K=\sum_{i<i'}\ipz{u_i}{u_{i'}}/d$, $\Lambda(x)=\ip{\sum_i x_i}{\sigma}-\sum_i\ip{x_i}{u_i}
+-2\sum_i\ip{x_i}{P_i}$, $Q(x)=\sum_{i<i'}\ip{x_i}{x_{i'}}$; the bracket is always even. The
+$(d/2)$-terms are visible mod $2$ only for $d\equiv 2\pmod 4$, reproducing the regime split.
+\end{theorem}
+\noindent\emph{Verification.} $0/550$ on each of $\mathrm{PM}\to 4$, $\mathrm{cert4}\to 8$, and
+non-attaining pools, non-vacuously (\texttt{Wformula.py}).
+
+\section{Attainment and the classification}
+The upper bound (Theorem~\ref{thm:spectrum}) is complemented by attainment at every even $d$.
+\begin{theorem}[Attainment / classification]\label{thm:attain}
+For every even $d$ and $m\ge 2$, the value $d/2$ is attained, so $H(d,m)=\{0,d/2\}$; for odd $d$,
+$H(d,m)=\{0\}$.
+\end{theorem}
+\noindent For general even $d$ the lower bound is the ROZF construction~\cite{ROZF}, whose even-$d$
+attainment we translate to Weyl certificates; the \emph{generality} of attainment is inherited from
+that construction, while the explicit, self-contained certificates below --- independently
+matrix-verified at $d=8$ (value $4$, $89$ contexts) and $d=16$ (value $8$, $363$ contexts) --- are
+new. The ROZF face construction attains $\{0,d/2\}$ at $d=4,6,8,10,12,16,20$; \texttt{verify\_cert8.py}
+confirms the $d=8$, $S=4$ certificate on raw $64\times 64$ matrices (commuting, scalar,
+$\lambda^{\mathsf T}A\equiv 0\bmod 8$, value $4$, system provably infeasible), and
+\texttt{verify\_cert16.py} confirms $d=16$, $S=8$ on raw $256\times 256$ matrices. The classification
+is thus a theorem, not contingent on the tower results of the next section; the $d=16$ certificate in
+particular shows there is no depth ceiling.
+
+\section{A closed-form contextuality criterion}
+The value-bit machinery yields, for even $d$, an exact and elementary criterion for contextuality in
+terms of a single symplectic invariant of each cycle. Fix a family of contexts $\{C_r\}$, each a set
+of Weyl observables (symplectic vectors in $\Z_d^{2m}$) summing to $0\bmod d$; let $A$ be its $\Z_2$
+context--observable incidence and $b_r=\sum_{i<j\in C_r}\ip{c_i}{c_j}/d\bmod 2$ the carry vector. A
+\emph{cycle} is a left-kernel vector $\lambda$ ($\lambda^{\mathsf T}A\equiv 0$), i.e.\ an
+even-multiplicity combination of contexts.
+\begin{theorem}[Cycle value $=$ symplectic self-pairing]\label{thm:cycle}
+Let $d$ be even and $\lambda$ a cycle. Then
+\[
+\lambda\cdot b=Q(\lambda):=\sum_{a<b\ \text{in the observable multiset of }\lambda}\ip{v_a}{v_b}/d
+\pmod 2.
+\]
+Consequently the family is contextual if and only if some cycle $\lambda$ has $Q(\lambda)$ odd.
+\end{theorem}
+\begin{proof}
+By definition $\lambda\cdot b=\sum_{r:\lambda_r=1}\sum_{i<j\in C_r}\ip{c_i}{c_j}/d$, the intra-context
+pairs. Splitting $Q$ into intra- and inter-context pairs, $Q=\text{intra}+\text{inter}$ with
+$\text{inter}=\sum_{a<b}\sum_{u\in C_a,v\in C_b}\ip{u}{v}/d$. By bilinearity
+$\sum_{u\in C_a,v\in C_b}\ip{u}{v}=\ip{S_a}{S_b}$ where $S_r\in\Z^{2m}$ is the integer sum of the
+observables of $C_r$. Each context sums to $0\bmod d$, so $S_r=d\,t_r$ for an integer vector $t_r$;
+hence $\ip{S_a}{S_b}=d^2\ip{t_a}{t_b}$ and $\text{inter}=\sum_{a<b}d\ip{t_a}{t_b}\equiv 0\pmod 2$ since
+$d$ is even. Thus $Q=\text{intra}=\lambda\cdot b$. The family is contextual iff
+$b\notin\rowspace(A)$, i.e.\ iff some left-kernel $\lambda$ has $\lambda\cdot b=1$, i.e.\ $Q(\lambda)$
+odd.
+\end{proof}
+The invariant $Q$ has the algebraic form of a Pontryagin-square quadratic refinement of the cycle:
+contextuality is the oddness of this quantity on some cycle. This is the sense in which the value
+obstruction resembles the support of a type-III (Pontryagin) anomaly of the Weyl--Heisenberg group ---
+the obstruction saturates rather than adds under stacking. We do not here construct the cochain
+complex, coefficient sequence, and cohomology operation that would identify $Q$ with the Pontryagin
+square on the nose; that precise identification is left open (see \S\ref{sec:open}). Generic cycles have $Q=0$ (verified $300/300$ on random families); attaining
+certificates are precisely those carrying a cycle with $Q=1$. For odd $d$ the halving step fails and
+the family is noncontextual ($H=\{0\}$), consistent with the absence of odd-$Q$ cycles.
+
+\begin{proposition}[The exact $\Z_d$ criterion; $Q$ is its shadow]\label{prop:zd}
+Let $M$ be the $\Z_d$ incidence matrix and $\gamma(C)=\sum_{i<j}\ip{c_i}{c_j}/d\in\Z_d$ the context
+scalar. By the Fredholm alternative over $\Z_d$, a family is state-independent contextual
+($\gamma\notin\col(M)$) if and only if there is a $\Z_d$-cycle $\lambda$
+($\lambda^{\mathsf T}M\equiv 0\pmod d$) with $\lambda\cdot\gamma\not\equiv 0\pmod d$. The odd-$Q$
+criterion of Theorem~\ref{thm:cycle} is the mod-$2$ shadow of this. For \emph{even} $d$ the shadow
+is sound, and the proof is two lines: if $Mx\equiv\gamma\pmod d$ then also $Mx\equiv\gamma\pmod 2$,
+so any $\lambda$ with $\lambda^{\mathsf T}M\equiv 0\pmod 2$ has
+$\lambda\cdot\gamma\equiv\lambda^{\mathsf T}Mx\equiv 0\pmod 2$. Hence the shadow can \emph{never}
+fire on a noncontextual system: odd-$Q$ has no false positives at any even $d$.
+
+It is, however, \emph{incomplete}, and in the opposite direction: a $\Z_d$-cycle certifies
+contextuality when $\lambda\cdot\gamma\not\equiv0\pmod d$, and if that value is nonzero but
+\emph{even} its mod-$2$ reduction vanishes, so the shadow stays silent on a genuinely contextual
+system. An explicit non-degenerate $d=8$ witness is pinned in
+\texttt{shadow\_soundness\_exact.py}.
+\end{proposition}
+\begin{remark}[Correction to v1]\label{rem:v2fix}
+Version~1 of this paper stated the gap backwards. It claimed that a minimal odd-$Q$ support
+``can carry the $\Z_2$ shadow obstruction without closing over $\Z_d$'', cited ``an explicit false
+certificate at $d=8$ \dots\ recorded in the repository'', and reported that $28.6\%$ of random
+$d=8$ incidence systems carrying a $\Z_2$-odd cycle are not genuinely $\Z_d$-contextual. All three
+are wrong. The false-positive rate is not $28.6\%$ but exactly $0$, by the proof above; no such
+certificate exists to be recorded, which is why the cited artifact was never committed; and the
+true defect is the missed-detection direction described above. The error made the criterion look
+weaker than it is. What survives is the sentence that followed it, on certificate minimization:
+a minimal odd-$Q$ \emph{support} need not be a $\Z_d$-cycle, so it can be a false \emph{witness}
+even though the \emph{verdict} is always right. Version~1 conflated witness with verdict.
+\end{remark}
+\noindent\emph{Why $Q$ is nonetheless a good criterion: a Weyl-specific fact.} On generic $\Z_d$
+scenarios the mod-$2$ shadow is a poor proxy --- not because it lies, which it cannot, but because
+it is often blind: under the protocol of \texttt{shadow\_soundness\_exact.py} it misses roughly
+$39\%$ of genuinely $\Z_8$-contextual random incidence systems. On Weyl families, by contrast, the
+$\Z_2$ shadow and the true $\Z_d$ obstruction agree generically ($300/300$ on random families); the
+discrepancy appears only on engineered minimal cycle supports. Thus the completeness of the odd-$Q$
+criterion is not linear algebra but a consequence of the symplectic structure of the Weyl group, which
+forces the carry shadow to be faithful. For certificate minimization one must still search over
+$\Z_d$-cycles, since minimality is where the shadow can fail.
+
+\section{The 2-adic tower (structural)}
+Beyond the classification lies the question of how the obstruction is generated across dimensions. The
+explicit certificates were all found by a uniform construction --- the pure fiber pool over the
+minimal attaining family one level below (all local lifts of every base context) --- and the
+obstruction propagates up the $2$-adic tower $\mathrm{PM}\to d{=}4\to d{=}8\to d{=}16$ through fibers,
+never through sections (Theorem~\ref{thm:depth}). We record what is proved and what remains.
+\begin{theorem}[Fiber projection]\label{thm:fiber}
+For $\tilde\lambda$ in the mod-$2d$ kernel of a fiber pool $\mathrm{Fib}(F)$, the projection
+$\pi(\tilde\lambda)_j=\sum_x\tilde\lambda_{j,x}$ satisfies $\pi^{\mathsf T}A_{\mathrm{base}}\equiv
+0\pmod{2d}$ and is everywhere even; hence $\mu=\pi/2$ is a mod-$d$ base kernel element. Consequently
+the value group of $\mathrm{Fib}(F)$ at $2d$ is $\subseteq 2\cdot(\text{value group of }F)$ under
+$\Z_d\hookrightarrow\Z_{2d}$.
+\end{theorem}
+\begin{conjecture}[Fiber doubling law, $m_0\ge 4$]\label{conj:doubling}
+For a base family $F$ at even level $m_0\ge 4$ outside a generative subclass, the value-group
+generators obey $g_{\mathrm{fiber}}=2\,g_{\mathrm{base}}$. The reflect direction ($F$ attains
+$\Rightarrow\mathrm{Fib}(F)$ attains) holds on every attaining family tested; the preserve direction
+($F$ trivial $\Rightarrow\mathrm{Fib}(F)$ trivial) fails on a positive fraction of trivial bases even
+at $m_0=4$ (see below), so the law holds exactly on the non-generative subclass, characterized in
+closed form below.
+\end{conjecture}
+\noindent\emph{Status.} Verified $51/51$ across attaining anchors (PM, cert4, $\mathrm{ROZF}(d)$,
+$d\le 10$) and random families, and $10/10$ on ROZF families $d=4..22$. The reflect direction is solid
+on every attaining family tested. Preserve, however, leaks: pre-filtering random bases by actual
+base-triviality, a positive fraction (empirically ${\sim}12\text{--}15\%$ at $m_0=4,6$) of trivial
+bases have an attaining fiber. So the remaining obligation is not a blanket $\delta$-vanishing lemma
+but a characterization of the non-generative trivial bases on which every fiber certificate has value
+$0$. Via Theorems~\ref{thm:valuebit},~\ref{thm:fiber} this is a finite $\mathrm{GF}(2)$ statement, and
+this session localizes the obstruction precisely to the carry of $\tfrac12(T_A+T_B)$ in the value-bit
+formula (the base-commutator piece $T_A$ and the high quadratic $(d/2)T_Q$ both vanish for
+$4\mid m_0$; integer halving does not distribute over $T_A+T_B$, and that carry is the entire
+content). [open]
+
+\paragraph{The generativity mechanism, made exact.}
+Using the criterion of Theorem~\ref{thm:cycle}, the fiber cycle value decomposes exactly. Writing each
+fiber observable as $\tilde v=u+d\,x$ ($u\in\Z_d$ the base residue, $x\in\{0,1\}$ the lift bit), the
+fiber $Q$ is
+\[
+Q_{\mathrm{fiber}}=Q_{\text{base-residue}}\ \oplus\ \sum_{a<b}\Big\lfloor
+\tfrac{\ip{u_a}{u_b}+d\,M_{ab}+d^2\ip{x_a}{x_b}}{2d}\Big\rfloor-\Big\lfloor\tfrac{\ip{u_a}{u_b}}{2d}
+\Big\rfloor\pmod 2,
+\]
+with $M_{ab}=\ip{u_a}{x_b}+\ip{x_a}{u_b}$ (the underbraced term is the lift-induced halving carry).
+Generativity is precisely the event that this lift-induced carry is odd while the base is trivial.
+Crucially it is a floor-carry, not a quadratic form in the lift bits --- which is why an Arf/quadratic
+treatment of the doubling law does not close it: the obstruction is of the same carry type as the
+value bit $b$ itself. This carry now has a closed form on all fiber cycles. Writing
+$\Sigma M=\sum_{a<b}M_{ab}$ and $K=\#\{a<b:M_{ab}\ \text{odd}\}$,
+\[
+G=\big\lfloor\tfrac{\Sigma M}{2}\big\rfloor\oplus\big\lfloor\tfrac{K}{2}\big\rfloor\pmod 2,
+\]
+verified exactly ($7500/7500$ at $d=4$, $1200/1200$ at $d=6$). The first term is the intrinsic pairing
+$\Sigma M=\ip{U}{X}-\sum_i\ip{u_i}{x_i}$ of the cycle's total base-residue $U=\sum u_i$ and total
+lift-bit $X=\sum x_i$; the second is the carry produced by summing the odd cross-terms (the
+sum-of-floors versus floor-of-sum defect), which vanishes exactly when $K$ is even --- in particular
+on repeat-free cycles, recovering the intrinsic criterion $\ip{U}{X}-\sum_i\ip{u_i}{x_i}\equiv 0,1
+\pmod 4$. The generativity/doubling-law obstruction is thus fully characterized: a cycle is
+non-generative iff $G=0$.
+
+The carry decomposition is provable as an exact integer identity. For any integers
+$M_1,\dots,M_N$ with $S=\sum_a M_a$ and $K=\#\{a:M_a\ \text{odd}\}$,
+\[
+\sum_a\big\lfloor\tfrac{M_a}{2}\big\rfloor=\big\lfloor\tfrac{S}{2}\big\rfloor\oplus
+\big\lfloor\tfrac{K}{2}\big\rfloor\pmod 2,
+\]
+since $\lfloor M/2\rfloor=(M-(M\bmod 2))/2$ gives $\sum_a\lfloor M_a/2\rfloor=(S-K)/2$, while
+$S\equiv K\pmod 2$ gives $\lfloor S/2\rfloor=(S-(K\bmod 2))/2$, and the difference is
+$-\lfloor K/2\rfloor$. Hence the closed form for $G$ is proved once $Q_{\mathrm{fiber}}$ is the sum of
+the per-pair halving carries $\lfloor M_{ab}/2\rfloor$ (the one remaining verified geometric step); the
+arithmetic that turns the per-pair carries into the two-term formula is exact.
+
+\begin{remark}[Generativity and contextuality activation]\label{rem:activation}
+The fiber can be generative: a base with trivial value group can have an attaining fiber, creating
+contextuality absent below. This is strongest at $m_0=2$ but, correcting an earlier expectation,
+persists at $m_0=4,6$ at a ${\sim}12\text{--}15\%$ rate per random trivial base; generativity is a
+generic tower phenomenon, not a qubit-only artifact. Read as a protocol, this is contextuality
+activation by dimension embedding: a passive embedding $\Z_d\hookrightarrow\Z_{2d}$ (a free operation
+--- no entanglement or magic) converts a noncontextual family into a state-independent contextual one.
+The yield is tunable by the number of base contexts $k$, rising monotonically $5.6\%$ ($k{=}3$)
+$\to 76.4\%$ ($k{=}12$) ($250$ trials per point, Wilson $95\%$ CI), plausibly $\to 1$ for large $k$.
+Because the witness is state-independent, the certified nonclassicality holds for any input state,
+including the maximally mixed one --- a preparation-assumption-free feature. Crucially, generativity
+is a single-context fiber effect and is structurally distinct from the multi-context certificate
+cycles that carry the value-$d/2$ obstruction (see Section~\ref{sec:open}).
+\end{remark}
+
+\paragraph{Connection to quasiprobability negativity.} The equivalence between (measurement)
+noncontextuality and the existence of a nonnegative quasiprobability representation is a general
+theorem~\cite{Spekkens,Wallman}; on the quasiprobability side, no nonnegative diagram-preserving
+representation exists in any even dimension~\cite{Wallman}, which is the even/odd dichotomy seen here
+from the dual direction. Our contribution in this language is constructive and quantitative: the
+odd-$Q$ / $\Z_d$-cycle criterion is a closed-form, decidable test for whether a Weyl measurement
+family admits such a representation (the general equivalence is non-constructive), and the value
+classification refines the binary present/absent statement to a fixed obstruction strength $d/2$. We
+add no new simulation bound: the state-independent obstruction places even-$d$ Weyl measurement
+families on the negative-representation side of the measurement axis, but classical simulation cost is
+governed by state negativity, a distinct quantity.
+
+\section{Related work}
+Existence of parity/AvN obstructions and the cohomological criterion ``proof exists $\iff[\beta]\neq
+0$'' are due to Okay--Roberts--Bartlett--Raussendorf~\cite{ORBR}; our certificate framework repackages
+the existence side. Even-$d$ cohomological obstructions and general-$d$ attainment are ROZF~\cite{ROZF};
+odd-$d$ noncontextuality and the $2^{-1}\bmod d$ mechanism are Gross and Raussendorf et
+al.~\cite{Gross,RBDOB}. Linear-algebra enumeration of $\Z_2$ parity proofs (product $\pm I$ only, no $\Z_d$
+spectra, no towers) is Lison\v{e}k--Raussendorf--Singh~\cite{LRS}. The formulation of observable-based
+contextuality as the unsolvability of a $\mathrm{GF}(2)$ linear system, with the qubit Pauli group
+encoded in the symplectic polar space $W_n$ and a numerically computed degree of contextuality
+(minimum unsatisfied weight), is the Saniga--Holweck--de~Boutray--Giorgetti
+program~\cite{deBoutray,Muller}; it is qubit-only ($d=2$) and computes the decision by SAT/heuristic
+search. Our even-$d$ commutator-carry $b$ and incidence matrix $A$ are the $\Z_d$ lift of their $W_n$
+encoding; the distinction is that our obstruction admits a closed-form per-cycle evaluation
+(Theorem~\ref{thm:cycle}) rather than a min-weight search, and extends to even qudits with a value
+spectrum. Conversely, their quantitative degree of contextuality $d_H(E,\mathrm{Im}\,A)$ lifts verbatim
+to even $d$ through our carry vector $b$: it counts how many context constraints must be flipped to
+restore a valuation, and is a distinct, orthogonal axis to the value classification (a family of
+degree $1$ can carry the maximal value $d/2$). A qudit contextuality-degree over $\Z_d$ (rather than
+the $\Z_2$ coset weight) is a natural open refinement. A complete characterization of which qubit
+stabilizer states admit an AvN proof (the AvN-triple theorem: every such argument reduces to a
+GHZ-equivalent triple) is Abramsky--Barbosa--Car\`u--Perdrix~\cite{ABCP}, with completeness /
+false-negative analysis by Car\`u and Abramsky et al.~\cite{ABKLM}; a state-independent AvN class via
+partial closure of commuting observables is Kim--Abramsky~\cite{KimAbramsky}. \textbf{The even/odd dichotomy and the value classification $\{0,d/2\}$ are due to Abramsky--Cercelescu--Constantin~\cite{ACC24}} (parity obstruction $2k\equiv0$, their Thm.~16; commutation-group normal-form classification, their Thm.~21), who also give a $\Z_2\to\Z_{2k}$ transfer construction. Our Theorem~\ref{thm:spectrum} recovers their result in Weyl-certificate language; the contribution here is the explicit carry/value-bit calculus, the $2$-adic tower (Depth Rigidity and the doubling law), and the hardware, with the geometric/cohomological account of the obstruction in the companion paper. All of this AvN
+literature works over $\Z_2$ (qubit stabilizers, product $\pm I$) and characterizes AvN existence. Our
+distinct contributions are of a different kind: the even-$d$ value classification $H(d,m)=\{0,d/2\}$ (a
+spectrum over $\Z_d$, not existence over $\Z_2$); the closed commutator-carry form
+(Theorem~\ref{thm:carry}); Depth Rigidity with a certificate-derived no-lift witness
+(Theorem~\ref{thm:depth}); the explicit high-$d$ certificates; and the fiber-tower program.
+
+\paragraph{Relation to Abramsky--Cercelescu--Constantin: dictionary and logical status.}
+Under the identifications
+\begin{center}\small
+\begin{tabular}{ll}
+\hline
+\emph{this paper (Weyl realization)} & \emph{Abramsky--Cercelescu--Constantin~\cite{ACC24}}\\
+\hline
+Weyl label $v$ & commutation-group generator / vector\\
+symplectic form $\ip{u}{v}$ & commutator matrix entry $\mu(x,y)=v_{x,y}$\\
+closed context $C$ & commuting subword / relation\\
+certificate $\lambda$ & contextual word\\
+value $S$ & central phase $k$\\
+carry $b(C)$ & commutation factor $\sum\mathcal I(w)$ (inversion sum)\\
+$\Z_d$ value assignment & left splitting / noncontextual homomorphism\\
+\hline
+\end{tabular}
+\end{center}
+Theorem~\ref{thm:spectrum} is the Weyl--Heisenberg \emph{specialization} of their Theorem~16: their
+inversion sum $\sum\mathcal I(w)$ is our carry accumulation, their polarization
+$2\sum\mathcal I(w)=\sum_{x<y}n_xn_y\,v_{yx}$ is our polarization of $\beta$, and their $2k\equiv0\pmod d$
+is our $2S\equiv0\pmod d$. Our spectrum theorem is therefore neither independent of nor a strengthening
+of theirs; it re-derives their classification in the Weyl realization, and the carry $b(C)$ is their
+commutation factor in symplectic-form coordinates --- a change of realization and an explicit closed
+form, not a new invariant. What is \emph{not} present in~\cite{ACC24} and is offered here as the
+candidate new content: the explicit value-bit closed form for $2$-adically lifted certificates
+(Theorem~\ref{thm:valuebit}); the \emph{cross-dimensional} tower statements --- Depth Rigidity
+(Theorem~\ref{thm:depth}) and the doubling law --- which concern relations \emph{between} $d$ and $2d$
+rather than the parity constraint at a single $d$ (and must be read as such, not as restatements of it);
+the hardware replication; and the geometric/cohomological home (companion paper). A full
+theorem-by-theorem equivalence with~\cite{ACC24}'s normal-form invariants is the natural next step.
+The extended arXiv version of~\cite{ACC24} additionally provides a Darboux-normal-form reduction and
+a closed-form relative-parity criterion for the existence of state-independent contextuality in
+general commutation groups; that existence classification is complementary to the value spectrum and
+state-sector facet geometry developed here. Information-theoretic ``cost of contextuality'' measures
+\cite{BookkeepingCost,CoordinationCost} quantify simulation overhead rather than the cohomological
+obstruction value studied here.
+
+\section{Open problems}\label{sec:open}
+(1) The $\delta$-vanishing lemma, closing Conjecture~\ref{conj:doubling} for $m_0\ge 4$. The
+closed-form criterion (Theorem~\ref{thm:cycle}) settles the static contextuality question exactly ---
+contextual iff some cycle has odd $Q$ --- and clarifies the tower question: propagation $d\to 2d$ is
+now the statement that the odd-$Q$ property transfers from base cycles to fiber cycles. The certificate
+quadratic form $q$ is genuine (third differences vanish, verified) and on a multi-cycle space the
+fiber-attainment map is quadratic with nonzero polarization, so an Arf invariant governs the fiber
+transfer. We caution that an earlier ``multi-cycle $\Rightarrow$ contextual'' expectation is false: by
+Theorem~\ref{thm:cycle}, generic cycles have $Q=0$ and are noncontextual (verified $300/300$ on random
+$m{=}2$ families); contextuality requires the special odd-$Q$ condition. (2) The activation subclass of
+Remark~\ref{rem:activation} as a protocol (the generativity carry $G$ is now closed; what remains is
+its operational reach). (3) Ramification necessity: do attaining families always live on the mod-$d$
+colliding locus? (both known minimal attaining families do). (4) Minimize the $d=16$ certificate.
+(5) AvNR/Car\`u-style completeness of the admissible-cycle certificates.
+
+\paragraph{The geometric step of the doubling law.}
+We record the identity $Q_{\mathrm{fiber}}\equiv\sum_{a<b}\lfloor M_{ab}/2\rfloor\pmod 2$ together with
+its proof, as it completes the value-transfer arithmetic. Writing each level-$2d$ observable as
+$v=u+d\,x$ ($u$ the base representative mod $d$, $x\in\{0,1\}^{2m}$ the lift bits) and
+$q_u=\lfloor\ip{u_a}{u_b}/d\rfloor$, $M_{ab}=\ip{u_a}{x_b}+\ip{x_a}{u_b}$, $s_{xx}=\ip{x_a}{x_b}$, the
+exact per-pair carry is
+\[
+\Big\lfloor\tfrac{\ip{v_a}{v_b}}{2d}\Big\rfloor\equiv\Big\lfloor\tfrac{q_u+M_{ab}+d\,s_{xx}}{2}
+\Big\rfloor\pmod 2
+\]
+(a pure floor identity, since $0\le\ip{u_a}{u_b}\bmod d<d$ prevents the remainder from carrying;
+verified exactly at $d=4,6,8$). For even $d$ this splits as
+$\lfloor q_u/2\rfloor+\lfloor M_{ab}/2\rfloor+\tfrac d2 s_{xx}+(q_u\bmod 2)(M_{ab}\bmod 2)$, so
+\[
+Q_{\mathrm{fiber}}-\sum_{a<b}\big\lfloor\tfrac{M_{ab}}{2}\big\rfloor\equiv\sum_{a<b}
+\big\lfloor\tfrac{q_u}{2}\big\rfloor+\tfrac d2 s_{xx}+(q_u\bmod 2)(M_{ab}\bmod 2)\pmod 2.
+\]
+The first term $\sum\lfloor q_u/2\rfloor$ depends only on the base $u$'s and is identically zero as a
+base-context vector (checked for the minimal attaining families at $d=4,6,8$), so it vanishes on every
+fiber. The term $\tfrac d2\sum_{a<b}s_{xx}$ closes in general even $d$: it is nonzero only for
+$d\equiv 2\pmod 4$, and there the polarization identity for the quadratic refinement
+$Q(x)=\sum_i x_{2i}x_{2i+1}$ gives $\sum_{a<b}\ip{x_a}{x_b}=Q(r_C)+\sum_{v\in C}Q(x_v)$ (using the
+fiber closure $\sum_{v\in C}x_v=r_C$, $r_C=\tfrac1d\sum_{v\in C}u_v\bmod 2$), so the term is the
+explicit per-observable coboundary $\phi(v)=\tfrac d2 Q(x_v)$ plus the base-context constant
+$\tfrac d2 Q(r_C)$, itself a base coboundary (verified $d=4,6,10,14$). The last term
+$\sum_{a<b}(q_u\bmod 2)(M_{ab}\bmod 2)$ reorganizes as $\sum_v\ip{w_v}{x_v}$ with
+$w_c=\sum_{a\neq c}(q_{u_a}\bmod 2)\,u_a$: a per-observable coboundary of linear form in the lift bits,
+whose $\F_2$-system is solvable with no base-context correction ($t\equiv 0$), verified at
+$d=4,6,8,10,12,14$; hence this term too lies in the column space of $A$ and pairs to zero with every
+cycle. This solvability holds for all even $d$, which completes the geometric step. Split by $d\bmod 4$:
+for $d\equiv 0\pmod 4$ the base symbol $u=\tfrac d2 p$ has $\tfrac d2$ even, hence $u\equiv 0\pmod 2$
+componentwise; since $M_{ab}$ is bilinear, $M_{ab}\equiv 0\pmod 2$ on every fiber context, so the term
+$\equiv 0$ identically. For $d\equiv 2\pmod 4$, $\tfrac d2$ is odd, so $u\equiv p\pmod 2$ and
+$M_{ab}\bmod 2$ depends only on the fixed base symbols $p$ and the lift bits $x$, not on $d$; labeling
+observables and contexts by their $d$-independent (symbol, lift) signature, the coboundary matrix $A$
+and the target vector $T_{\mathrm{mix}}$ are identical for every $d\equiv 2\pmod 4$ --- one fixed
+$768\times 144$ $\F_2$ system (byte-identical for $d=6,10,14,18,22,26,30$, weight
+$|T_{\mathrm{mix}}|=128$). Solvability is therefore a single fact about this fixed system, established
+at $d=6$, and transfers verbatim to every $d\equiv 2\pmod 4$.
+The complementary class $d\equiv 0\pmod 4$ is settled separately, and more easily: writing
+$u=hp \bmod d$ with $h=d/2$, bilinearity gives $q_u=\mathrm{symp}(u_a,u_b)/d=h s$ where
+$\mathrm{symp}(p_a,p_b)=2s$, so $h$ even forces every $q_u$ to be even and $T_{\mathrm{mix}}$
+to vanish \emph{identically}, pointwise, with no cocycle summation required. The whole system is
+thus a function of $d\bmod 4$ alone, constant within each class and vanishing outright on one of
+them (verified $d=4,\dots,20$; see \texttt{mod4\_dichotomy.py}).
+Hence $T_{\mathrm{mix}}$ is a coboundary for all even $d$; together with the vanishing of $\sum\lfloor q_u/2\rfloor$ and the explicit potential
+$\phi(v)=\tfrac d2 Q(x_v)$ for the $s_{xx}$ term, the geometric step of the doubling law is established
+for all even $d$.
+
+\section{Hardware validation at the base of the tower ($d=2$)}
+The $d=2$ endpoint of the spectrum---value $d/2=1$, i.e.\ the Peres--Mermin obstruction---was executed
+on a superconducting device (IBM \texttt{ibm\_marrakesh}) to validate the protocol of the preceding
+remark. Each of the six contexts was realized as a three-observable sequential non-destructive
+measurement (one shared ancilla, Hadamard-test readout of each commuting Pauli into its own bit, with
+reset between), so that the per-context correlator is not algebraically pinned and genuinely responds
+to device error. The Cabello witness
+$S=\langle R_1\rangle+\langle R_2\rangle+\langle R_3\rangle+\langle C_1\rangle+\langle C_2\rangle
+-\langle C_3\rangle$ has noncontextual bound $4$ and quantum value $6$. On each device we pinned all
+six contexts to a single low-error qubit triple (selected by readout- and two-qubit-gate error),
+enabled dynamical decoupling and measurement twirling, and took $8192$ shots per context. Replicating
+the identical protocol across three IBM Heron devices gave, per device,
+\[
+S_{\mathrm{marrakesh}}=4.94\pm 0.02,\quad S_{\mathrm{fez}}=4.56\pm 0.02,\quad
+S_{\mathrm{kingston}}=4.74\pm 0.02,
+\]
+each individually violating the bound by $32$--$61\sigma$, with an inverse-variance-weighted
+combination
+\[
+S=4.761\pm 0.010\qquad(80\sigma\text{, shot-noise only}),
+\]
+and per-context magnitudes $0.74$--$0.85$ (e.g.\ $\langle C_3\rangle$ ranging $-0.74$ to $-0.82$),
+consistent with reported superconducting realizations. This combined figure is shot-noise-only: the
+three devices are \emph{not} mutually consistent (a homogeneity test gives $\chi^2\approx266$ on $2$
+degrees of freedom), so once the chip-to-chip scatter is honored a systematics-aware (Birge-scaled)
+combination gives $\approx7\sigma$. The robust statement is therefore the \emph{per-device} violation
+($32$--$61\sigma$, shot noise); the $80\sigma$ combined number should not be read as a single-$S$
+significance, and no nondisturbance/compatibility diagnostic has been performed (repository
+\texttt{hardware/COMPATIBILITY.md}). The $0.38$ spread in $S$ across devices is
+genuine chip-to-chip variation and leaves every device far above the classical bound. An initial run
+in which contexts were transpiled independently placed one context on poorer qubits and yielded a
+marginal $S=4.06\pm 0.03$ ($2.0\sigma$); the fixed-layout, error-suppressed, multi-device figure above
+is the reliable one. We report this only as a validation of the measurement methodology at the base of
+the tower; it certifies the presence of the $d=2$ obstruction, not the value grading, whose hardware
+realization at $d=4$ we leave to the separate value-graded study. We note that, by
+Corollary~\ref{cor:bit}, the obstruction phase equals $e^{2\pi i(d/2)/d}=-1$ at every even $d$, so
+higher-$d$ hardware witnesses exhibit the same $-1$ signature: the $d$-dependence of the spectrum is an
+algebraic ($\Z_d$) datum, certified in software, rather than a distinct analog phase on-device.
+
+\appendix
+\section{Computational certificates}
+All load-bearing certificates ship in the companion repository, with each claim mapped to a script and
+its pinned one-line output in \texttt{INDEX.md}:
+\texttt{spectrum\_test2.py} (potential identity, odd-$d$ Gross convention);
+\texttt{Wformula.py} (Theorem~\ref{thm:valuebit});
+\texttt{verify\_cert8.py}, \texttt{verify\_cert16.py} (raw-matrix $d=8,16$ certificates);
+\texttt{criterion.py} (the closed-form odd-$Q$ criterion);
+\texttt{tmix\_dindep.py}, \texttt{close\_T2\_proof.py} (the fixed $\F_2$ system and the geometric step
+of the doubling law); \texttt{kernelpk.py}, \texttt{howell.py} (Smith/Howell-form solvers,
+brute-force unit-tested). The additional stress tests reported inline (large-sample potential-identity
+and carry-form scans, the ROZF attainment sweep $d\le 20$, the fiber doubling-law statistics, and the
+$d=8$ false-certificate example) are archived in the same repository ledger.
+
+\begin{thebibliography}{99}
+\bibitem{ORBR} C.~Okay, S.~Roberts, S.~D.~Bartlett, R.~Raussendorf,
+\emph{Quantum Inf.\ Comput.} \textbf{17}, 1135 (2017), arXiv:1701.01888.
+\bibitem{ROZF} R.~Raussendorf, C.~Okay, M.~Zurel, P.~Feldmann,
+\emph{Quantum} \textbf{7}, 979 (2023), arXiv:2110.11631.
+\bibitem{Gross} D.~Gross, \emph{Hudson's theorem for finite-dimensional quantum systems},
+J.~Math.\ Phys.\ \textbf{47}, 122107 (2006), arXiv:quant-ph/0602001.
+\bibitem{RBDOB} R.~Raussendorf, D.~E.~Browne, N.~Delfosse, C.~Okay, J.~Bermejo-Vega,
+\emph{Contextuality and Wigner function negativity in qubit quantum computation},
+\emph{Phys.\ Rev.\ A} \textbf{95}, 052334 (2017), arXiv:1511.08506.
+\bibitem{LRS} P.~Lison\v{e}k, R.~Raussendorf, V.~Singh, arXiv:1401.3035.
+\bibitem{Spekkens} R.~W.~Spekkens, \emph{Negativity and contextuality are equivalent notions of
+nonclassicality}, \emph{Phys.\ Rev.\ Lett.} \textbf{101}, 020401 (2008).
+\bibitem{Kirchmair} G.~Kirchmair et al., \emph{State-independent experimental test of quantum
+contextuality}, \emph{Nature} \textbf{460}, 494 (2009).
+\bibitem{Qu} D.~Qu, K.~Wang, L.~Xiao, X.~Zhan, P.~Xue, \emph{State-independent test of quantum
+contextuality with either single photons or coherent light}, \emph{npj Quantum Inf.} \textbf{7}, 154
+(2021).
+\bibitem{EJP} \emph{A demonstration of contextuality using quantum computers}, \emph{Eur.\ J.\ Phys.}
+\textbf{43}, 045403 (2022), DOI 10.1088/1361-6404/ac79e0 (Peres--Mermin square on IBM superconducting
+qubits).
+\bibitem{Wallman} J.~J.~Wallman, S.~D.~Bartlett, \emph{Non-negative subtheories and quasiprobability
+representations of qubits}, \emph{Phys.\ Rev.\ A} \textbf{85}, 062121 (2012), arXiv:1203.2652.
+\bibitem{deBoutray} H.~de~Boutray, F.~Holweck, A.~Giorgetti, P.-A.~Masson, M.~Saniga,
+\emph{Contextuality degree of quadrics in multi-qubit symplectic polar spaces}, \emph{J.\ Phys.\ A}
+\textbf{55}, 475301 (2022), arXiv:2105.13798.
+\bibitem{Muller} A.~Muller, M.~Saniga, A.~Giorgetti, F.~Holweck, C.~Kelleher, \emph{A new heuristic
+approach for contextuality degree estimates}, arXiv:2407.02928.
+\bibitem{KimAbramsky} B.~Kim, S.~Abramsky, \emph{State-independent all-versus-nothing arguments},
+arXiv:2311.11218 (2023).
+\bibitem{ACC24} S.~Abramsky, \c{S}.-I.~Cercelescu, C.~Constantin, \emph{Commutation Groups and State-Independent Contextuality}, FSCD 2024, LIPIcs \textbf{299}, 28:1--28:20; extended version arXiv:2603.12197 (2026).
+\bibitem{BookkeepingCost} arXiv:2601.20167 (2026).
+\bibitem{CoordinationCost} arXiv:2606.23577 (2026).
+\bibitem{ABCP} S.~Abramsky, R.~Soares~Barbosa, G.~Car\`u, S.~Perdrix, \emph{A complete characterisation
+of All-versus-Nothing arguments for stabiliser states}, \emph{Phil.\ Trans.\ R.\ Soc.\ A} \textbf{375},
+20160385 (2017), arXiv:1705.08459.
+\bibitem{ABKLM} S.~Abramsky, R.~Soares~Barbosa, K.~Kishida, R.~Lal, S.~Mansfield, \emph{Contextuality,
+cohomology and paradox}, CSL 2015; G.~Car\`u, false-negative analysis (2018).
+\end{thebibliography}
+
+\end{document}

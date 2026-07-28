@@ -21,6 +21,7 @@ cd "$(dirname "$0")"
 # "script|regex that MUST appear in the output for the run to count as a pass"
 SCRIPTS=(
   "check_import_safety|check_import_safety PASS"
+  "shadow_soundness_exact|shadow_soundness_exact PASS"
   "verify_cert8|ALL CHECKS PASS"
   "verify_cert16|VERDICT: PASS"
   "spectrum_test2|spectrum_test2 PASS"

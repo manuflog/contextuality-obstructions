@@ -145,3 +145,32 @@ that printed no verdict of its own, once by a script that printed someone else's
 incidents in this program were introduced by the commit that was *supposed* to eliminate silent
 failures. Hardening is itself a change, and changes need the gate applied to them. A verdict
 token is only evidence if it is attributable to the process being judged.
+
+
+## A published claim corrected, 2026-07-28
+
+Paper B v1, Prop. 9 said the odd-Q shadow could produce a **false certificate**, quoted 28.6% for
+the rate, and cited an explicit d=8 example "recorded in the repository". The example was not in
+the repository. Setting out to construct it produced a better answer than a missing file: the
+claim is impossible.
+
+For even d, if `Mx = gamma (mod d)` is solvable then `Mx = gamma (mod 2)`, so any lambda with
+`lambda.M = 0 (mod 2)` has `lambda.gamma = (lambda.M).x = 0 (mod 2)`. The shadow cannot fire on a
+noncontextual system. **False-positive rate 0, provably, at every even d** — not 28.6%. The cited
+artifact was never committed because no such artifact exists.
+
+The criterion is nonetheless incomplete, in the opposite direction: a Z_d-cycle certifies when
+`lambda.gamma != 0 (mod d)`, and if that value is nonzero but **even** its mod-2 reduction dies and
+the shadow stays silent on a genuinely contextual system. Under the protocol in
+`shadow_soundness_exact.py` that happens on ~39% of contextual random incidence systems; a pinned
+non-degenerate d=8 witness is asserted there.
+
+So the error made the criterion look **weaker** than it is, while pointing at the wrong failure
+mode. Paper B v2 carries this as a labelled Remark, not a silent edit. What survives of v1 is its
+next sentence: a minimal odd-Q *support* need not be a Z_d-cycle, so it can be a false *witness*
+even though the *verdict* is always right. v1 conflated witness with verdict.
+
+The lesson worth keeping is not about this proposition. A missing artifact is usually treated as
+an administrative problem — commit the file. Twice now, going to produce a cited-but-absent
+artifact has instead revealed that the claim was wrong. **When a citation points at something that
+isn't there, check whether it could have been there before you go and make it.**

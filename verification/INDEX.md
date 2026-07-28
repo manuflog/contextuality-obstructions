@@ -27,7 +27,22 @@ in the paper, a **computational verification** script here, or both. Scripts are
 | **Thm W** | exact value-bit formula for lifted certificates | `Wformula.py` → `violations 0/550` (×4 families), verdict `Wformula PASS` |
 | **Thm Q** | closed-form criterion: contextual ⟺ some cycle has odd $Q=\sum_{a<b}\langle v_a,v_b\rangle/d$ (Pontryagin-square-type quadratic refinement) | `criterion.py` → `criterion PASS` (incl. an in-script recomputed random-cycle control; the printed "300/300" is a quoted historical figure) |
 | **Thm attain** | attainment at every even $d$; explicit certificates | `verify_cert8.py` → `ALL CHECKS PASS` ($S{=}4$); `verify_cert16.py` → `PASS` ($S{=}8$) |
+| **Prop. 9 CORRECTED (V54, 2026-07-28)** | the odd-$Q$ shadow has **NO false positives at any even $d$** — proof: $Mx\equiv\gamma \bmod d$ with $d$ even gives $Mx\equiv\gamma \bmod 2$, so $\lambda^{\mathsf T}M\equiv0 \bmod 2 \Rightarrow \lambda\cdot\gamma\equiv0 \bmod 2$. It **is** incomplete, in the OTHER direction: a $\Z_d$-cycle can certify with a nonzero but EVEN value, invisible mod 2 | `shadow_soundness_exact.py` → `shadow_soundness_exact PASS` (0 false positives over 571+ firing samples; pinned non-degenerate $d=8$ blind witness; ~39% miss rate under the stated protocol) |
 | Doubling law (geometric step) | $T_{\mathrm{mix}}\equiv0$; $\mathbb{F}_2$ system is $d$-independent | `close_T2_proof.py` (structural, **proof CORRECTED 2026-07-24** — the old per-context route (P1) is false in bulk; the identity holds via the quadratic refinement + the realized base-multiplicity sublattice $N$) + `tmix_dindep.py` (byte-identical across $d\equiv2\bmod4$) → `tmix_dindep PASS` |
+
+### Correction of record, 2026-07-28 (V54)
+
+Paper B v1's Prop. 9 asserted (a) that an explicit **false certificate** at $d=8$ was recorded in
+this repository, and (b) that $28.6\%$ of random $d=8$ incidence systems carrying a $\Z_2$-odd
+cycle are not genuinely $\Z_d$-contextual. Going to construct the missing artifact showed that
+**both are false, and false in the direction that makes the criterion stronger than published**:
+the false-positive rate is provably $0$, so no such certificate can exist — which is why it was
+never committed. The real gap is missed detection, not false detection. Paper B **v2** carries the
+correction as a labelled Remark rather than a silent edit.
+
+Note for the record: $28.6\% = 2/7$ exactly, which looks like a small exact count rather than a
+sampled rate. The most likely history is that a true number got attached to the wrong statement.
+That is a guess, not a finding.
 
 ## Paper C — *What Contextual Holonomy Detects*
 

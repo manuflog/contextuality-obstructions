@@ -14,11 +14,10 @@
 [Paper D — observer-context category](https://doi.org/10.5281/zenodo.21630697) ·
 [Note — local validity (v3)](https://doi.org/10.5281/zenodo.21630739)
 
-Paper C is **not posted**. The draft in `papers/` now carries the retraction, the
-Abramsky–Cercelescu–Constantin and ROZF attributions, and the hardware caveat, but three
-adversarial gate passes left items that need the author's judgement rather than an editor's —
-they are enumerated under "Why paper C is still NOT published" in
-[`verification/INDEX.md`](verification/INDEX.md). It goes up when those are settled, not before.
+Paper C went up after three adversarial gate passes; what each pass found, and how it was
+closed, is recorded in [`verification/INDEX.md`](verification/INDEX.md) rather than quietly
+fixed. It carries a labelled retraction of an earlier $\sqrt2$ reading, and it states plainly
+where its own evidence is thin — two of its sweeps drew no positive instances at all.
 
 Repository archive: [10.5281/zenodo.21498498](https://doi.org/10.5281/zenodo.21498498)
 
@@ -39,12 +38,12 @@ verifications, hardware validation, and the supporting software package.
   (FSCD 2024)**; this program recasts it via an explicit commutator-carry calculus, adds a 2-adic tower
   and a 3-device hardware replication, and gives the obstruction its geometric/cohomological home (Papers A/D).
   The carry invariant has the algebraic form of a Pontryagin-square quadratic refinement.
-- **Paper C — *What Contextual Holonomy Detects*. (UNDER REVISION — not posted.)**
+- **Paper C — *What Contextual Holonomy Detects*.**
   The state sector: the $d=2$ codeword-polytope classification with the exact contextual-fraction
   formula, the $d=4$ tower laws, $\tau$-necessity, and the complete $d=4$ facet census
-  (61 classes, 23,256 facets, derived twice by independent methods). The draft here carries
-  **Retraction 1**, withdrawing an earlier "Tsirelson's $\sqrt2$ sits in the tier-two bounds"
-  reading as a normalization artifact — every facet functional in the census is rational.
+  (61 classes, 23,256 facets, derived twice by independent methods). Carries **Retraction 1**,
+  withdrawing an earlier "Tsirelson's $\sqrt2$ sits in the tier-two bounds" reading as a
+  normalization artifact — every facet functional in the census is rational.
 - **Paper D — *The Observer-Context Category*.**
   Relative facts, the gauge-robust $\mathbb{Z}_2$ switching invariant, the movable cut, and the
   localization of the Frauchiger–Renner cycle.

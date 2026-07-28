@@ -92,7 +92,14 @@ vanishing; we do not claim it, and the supporting evidence at odd $d$ is samplin
 \cite[Prop.~9]{paperB} records that it can be incomplete in general. The families fixed
 above are closed-triple, which is the regime the certificates cover, and
 \texttt{shadow\_gap.py} samples exactly that regime and finds no false certificate at
-$d=2,4,8$. Readers should not extrapolate the theorem past that hypothesis.
+$d=2,4,8$. \emph{That evidence should be read for what it is}: across $6{,}500$ trials the
+sweep drew no contextual family at all at any of the three dimensions, so it establishes the
+absence of false certificates only vacuously; the positive instances are the two pinned
+controls. It is a consistency check on the implementation, not a search that could have
+failed. Note also that restricting to closed triples is the \emph{conservative} move --- it
+is safe whether or not the general-family incompleteness of \cite[Prop.~9]{paperB} is ever
+witnessed by an explicit example, and we have not verified that it is. Readers should not
+extrapolate the theorem past this hypothesis.
 \end{remark}
 
 Both directions of Theorem~\ref{thm:equiv} are now proved: the criterion direction is
@@ -123,8 +130,9 @@ self-pairing, and the achievable AvN value at $d=3$ is $0$ --- the odd-$d$ half 
 Abramsky--Cercelescu--Constantin classification \cite{ACC}.
 \end{proposition}
 Verified exhaustively in \texttt{d3\_gap\_certificate.py}. Hence a nontrivial canonical
-class does not imply operational (AvN) contextuality: the weakening adopted for the
-gerbe-theoretic program \cite{cmp} is necessary, not cautious.
+class does not imply operational (AvN) contextuality. Proposition~\ref{prop:gap1} is by
+itself the reason any such program must weaken ``encodes'' to ``detects''; the weakening is
+forced by this certificate, not adopted out of caution.
 
 \begin{proposition}[Contextuality, zero class shadow]\label{prop:gap2}
 The KCBS pentagon in $d=3$ attains quantum value $\sqrt{5}\approx 2.2361$ against the
@@ -204,7 +212,8 @@ global frame itself (\texttt{ghw\_net\_necessity.py}).
 Genuine Gibbons--Hoffman--Wootters nets evade Lemma~\ref{lem:nonet} by retreating to
 $\mathrm{GF}(4)$ translation covariance; sweeping all $1024$ of them
 (\texttt{gf4\_net\_necessity.py}) eliminates global frames in both remaining directions:
-a state with contextual fraction $0.3462$ on the trivial-class family admits a
+a state with contextual fraction $0.3462$ (the seeded pool's \texttt{rand16}, pinned on
+the \texttt{(a')} line of that script's output) on the trivial-class family admits a
 nonnegative representation in some net (necessity fails), while $T\otimes T$ is negative
 in every net (best case $-1/4$) with contextual fraction $0$ (sufficiency fails); all
 $60$ stabilizer states are nonnegative in some net (construction sanity). Together with
@@ -265,8 +274,14 @@ $y_\sigma$ with ghost coordinates $\sigma$ and all others zero is a valid
 parity-supported no-signalling model (every remaining context contains at most one ghost
 observable, so its probabilities are $(1\pm1)/4$ or $1/4$), attaining $\sigma\cdot c=3$;
 Abramsky--Barbosa--Mansfield duality then gives
-$\mathrm{CF}=\max_\sigma(S_\sigma-1)/(3-1)$ exactly. The $d=2$ theorem is thus proved
-end to end. Corollary: joint eigenstates of $C^*$ with an operative
+$\mathrm{CF}=\max_\sigma(S_\sigma-1)/(3-1)$ exactly. \emph{What this proves, exactly:} the
+closed-form classification is established end to end \emph{for the deletion families treated
+here} --- Peres--Mermin with one context removed --- upper bound analytically, equality by the
+Completion Lemma. Theorem~\ref{thm:pair} as stated quantifies over all closed-triple Weyl
+families at $d=2$, and in that generality it is \emph{machine-validated} ($40/40$ on both
+subfamilies), not proved; the general compressed-coordinate statement is recorded as open in
+the verification ledger (V52). We label the theorem accordingly and do not close that gap
+here. Corollary: joint eigenstates of $C^*$ with an operative
 pattern attain $S^*=3$ and hence $\mathrm{CF}=1$ --- for the deleted odd column these
 are the Bell states, so \emph{maximal contextuality survives the deletion of the very
 context that carried the class}: the class does not disappear, it flips the ghost
@@ -426,8 +441,6 @@ responsibility for the results, including any errors.
 and the Peres--Mermin Obstruction}, Zenodo, 2026. \texttt{doi:10.5281/zenodo.21630431}
 \bibitem{paperB} M.~Flores Gordillo, \emph{The Obstruction Spectrum of Weyl Context
 Families and the 2-adic Tower}, Zenodo, 2026. \texttt{doi:10.5281/zenodo.21630630}
-\bibitem{cmp} M.~Flores Gordillo, \emph{Contextual Holonomy, Lifting Bundle Gerbes, and
-the Geometric Structure of Quantum Contextuality}, in preparation.
 \bibitem{ROZF} R.~Raussendorf, C.~Okay, M.~Zurel, P.~Feldmann,
 \emph{Quantum} \textbf{7}, 979 (2023), arXiv:2110.11631.
 \bibitem{ACC} S.~Abramsky, \c{S}.-I.~Cercelescu, C.~Constantin, \emph{Commutation Groups and

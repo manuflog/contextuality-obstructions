@@ -40,44 +40,45 @@ the tokens are what the current code actually prints.
 |---|---|---|
 | Thm 1 (Equivalence, AvN sector; **even $d$**) | unsolvability of $A\gamma\equiv s$ $\iff$ some cycle has odd self-pairing $Q$ | `holonomy_vs_solvability.py` → `d=2: 1500 random families, unsolvable 3, equivalence mismatches: 0` / `d=4: 600 random families, unsolvable 0, equivalence mismatches: 0` / `pinned cert4 d=4: unsolvable=True, odd-cycle=True, agree=True`. **Read the sample honestly:** the $d=4$ random draw contains **zero** positive instances, so the "if" direction at $d=4$ is exercised only by the pinned certificate. |
 | Prop 1 (nontrivial class, zero AvN) | order exactly 3 at $d=3$, achievable AvN value $\{0\}$ | `d3_gap_certificate.py` → `GAP CERTIFIED: nontrivial order-3 class AND AvN value {0}` (0 coboundary hits over all $3^9=19{,}683$ cochains) |
-| Prop 2 (contextuality, zero class shadow) | KCBS $\sqrt5$ vs classical 2, class shadow 0 | `kcbs_converse.py` |
-| Obs 1 (Wigner–friend level split) | projective holonomy $+1$, determinant-section holonomy $-i$ | `wf_loop_holonomy.py` (200 gauge randomizations, 500 closers) |
+| Prop 2 (contextuality, zero class shadow) | KCBS $\sqrt5$ vs classical 2, class shadow 0 | `kcbs_converse.py` → `PASS: contextual (2.23607 > 2) with zero d=3 class shadow => converse gap certified` |
+| Obs 1 (Wigner–friend level split) | projective holonomy $+1$, determinant-section holonomy $-i$ | `wf_loop_holonomy.py` → `ray-level: strands +0.25pi, -0.25pi; loop product = 1, gauge-invariant 200/200: True` / `det-section holonomy over 500 SU(2) closers: {-1j}  (square = -1)` / `PASS` |
 | Lemma 1 (net necessity) | — | `ghw_net_necessity.py` → `PASS` (`Lagrangians: 15, rank over F2: 10`) |
 | 1024-net sweep | — | `gf4_net_necessity.py` → `PASS` |
 | $2^{15}$ frame sweep | net-robust-negativity classifier refuted on this family | `net_robust_negativity.py` → `PASS` (`11 CF=0 robustly-negative states`) |
 | Thm 2 constructive half | — | `paired_frame_construction.py` → `PASS(unified)` |
 | ghost facet theorem + closed CF formula | 24 = 20 in-context + 4 ghost | `ghost_facet_theorem.py` → `PASS(completion)` |
-| gauge invariance of the PM witness | 512 gauges | `pm_gauge_invariance.py` |
-| $d=4$ tier-2 arithmetic | 61 classes, 18 species, **all functionals rational** | `d4_arithmetic_profile.py` — **this is the certificate behind Retraction 1 of paper C** |
+| gauge invariance of the PM witness | 512 gauges | `pm_gauge_invariance.py` → `six-sign product over all 512 sign gauges: {np.float64(-1.0)}` / `PASS` |
+| $d=4$ tier-2 arithmetic | 61 classes, 18 species, **all functionals rational** | `d4_arithmetic_profile.py 2` → `All tier-2 facet functionals are RATIONAL: they admit exact {0,+-1}-coefficient lifts in the 150 character coordinates with integer bounds {6,7}` — **the certificate behind Retraction 1 of paper C** |
 
-**Not pinned, and flagged rather than hidden.** Four rows above name a script but pin no output
-string (`kcbs_converse`, `wf_loop_holonomy`, `pm_gauge_invariance`, `d4_arithmetic_profile`); until
-they do, paper C's promise that "expected one-line outputs are pinned in INDEX.md" is only
-partly kept.
+**Every row above now pins an actual output string**, re-run 2026-07-27. Paper C's promise that
+"expected one-line outputs are pinned in `verification/INDEX.md`" is, for the first time, true.
 
-**Why paper C is still NOT published**, as of 2026-07-27, after three adversarial gate passes:
+**The five gate items are now CLOSED** (2026-07-27, after three adversarial passes):
 
-1. **`\cite{cmp}` is "in preparation"** and load-bearing for the "necessary, not cautious" remark.
-2. **V52 status of the $d=2$ theorem is unresolved.** V52(ii) calls the compressed-coordinate
-   reading — which it identifies as *paper C's $d=2$ correlator vector* — the substantive OPEN
-   form, while paper C says "proved end to end". Independently, the end-to-end argument covers
-   Peres–Mermin-minus-one-context while the theorem is stated for all closed-triple families at
-   $d=2$. This needs the author's call, not an editor's.
-3. **`shadow_gap.py` supports its claim vacuously.** Paper C cites it for "no false certificate at
-   $d=2,4,8$", but the run is 6,500 trials with ZERO positive instances at every dimension — you
-   cannot observe a false certificate in a sample containing no certificates. The only positives
-   are two pinned controls. Same defect as the $d=4$ draw in `holonomy_vs_solvability`, which IS
-   disclosed; this one is not.
-4. **CF $=0.3462$ (paper C §Lemma 1 discussion) is unpinned.** It is attributed to the 1024-net
-   sweep, but `gf4_net_necessity.py` never prints it, and the state pool is randomly drawn, so the
-   value may not even be stable across runs.
-5. **Paper B's Prop 9 cites an artifact that does not exist** — "an explicit false certificate at
-   $d=8$ is recorded in the repository". It is not; nor are the four scripts `shadow_gap.py`'s
-   own header names as Paper B's missing artifacts. Paper C now leans on Prop 9.
-
-The automorphism-order point (1536 vs 768) previously listed here is **withdrawn as a defect**:
-`d4_arithmetic_profile.py` prints `|G|=768 (x2 conj = 1536 on tier-2)`, and paper C's "times
-conjugation — order 1536" agrees with it.
+1. ~~`\cite{cmp}` "in preparation" load-bearing~~ — the "necessary, not cautious" remark no longer
+   leans on an unpublished paper; Proposition 1's own certificate is the reason the weakening is
+   forced. The uncited in-preparation bibitem was removed.
+2. ~~V52 vs "proved end to end"~~ — scoped. What is proved end to end is the closed-form
+   classification **for the deletion families treated** (Peres–Mermin minus one context): upper
+   bound analytically, equality by the Completion Lemma. Theorem 2 as stated quantifies over all
+   closed-triple $d=2$ families, and in that generality it is **machine-validated (40/40), not
+   proved**; the general compressed-coordinate statement stays open here and in V52(ii). The paper
+   now says exactly this.
+3. ~~`shadow_gap.py` supports its claim vacuously~~ — disclosed in the paper, in the same terms
+   already used for the $d=4$ draw: 6,500 trials with **zero** contextual families drawn at any
+   dimension, so the absence of false certificates is established only vacuously; the positives are
+   two pinned controls. Recorded as a consistency check on the implementation, not a search that
+   could have failed.
+4. ~~CF $=0.3462$ unpinned~~ — **fixed at the source.** `gf4_net_necessity.py` now prints it:
+   `(a') rescued state rand16: contextual fraction 0.3462 (exact 0.34623981314502794)`. The pool is
+   drawn from `default_rng(5)`, so the figure is reproducible, not incidental. An unpinned number
+   is an unverifiable number.
+5. ~~Paper B Prop 9's missing artifact~~ — Paper B claims "an explicit false certificate at $d=8$ is
+   recorded in the repository"; **it is not**, and neither are the four scripts `shadow_gap.py`'s
+   own header names as Paper B's missing artifacts. This is a **Paper B defect, still open** and
+   recorded here. Paper C no longer depends on it: restricting to closed triples is the conservative
+   move, sound whether or not the general-family incompleteness is ever witnessed, and the paper
+   says so.
 
 ## Open (honestly labelled in the papers)
 - Paper B: base-level closed form for **generativity** of the doubling law (governed by the standard

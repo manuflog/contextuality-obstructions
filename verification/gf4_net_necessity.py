@@ -95,6 +95,12 @@ nec=all(r[2]<-1e-9 for r in pos); resc=[r[0] for r in pos if r[2]>-1e-9]
 tt=next(r for r in rows if r[0]=='TxT')
 print(f"GHW nets: {len(NETS)}; Mz={Mz}")
 print(f"(a) CF>0 states negative in EVERY GHW net: {nec} ({len(pos)} states; rescued: {resc if resc else 'none'})")
+# Pin the rescued state's contextual fraction. Paper C quotes this number in the text, so it
+# has to be PRINTED, not merely computed -- an unpinned figure is an unverifiable figure.
+# The state pool is drawn from default_rng(5) above, so this is reproducible, not incidental.
+for _nm in resc:
+    _cf = next(r[1] for r in rows if r[0] == _nm)
+    print(f"(a') rescued state {_nm}: contextual fraction {_cf:.4f} (exact {_cf!r})")
 print(f"(b) TxT best-case over nets: {tt[2]:+.4f} (CF={tt[1]:.4f}) - sufficiency stays dead")
 # (c) stabilizer census
 P1={'I':I2,'X':Xm,'Y':Ym,'Z':Zm}

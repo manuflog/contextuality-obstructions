@@ -10,8 +10,8 @@
 # separation LP, keep those with tight-vertex rank exactly 32 (true facets of the 33-dim
 # hull), and snap the normal onto a grid.
 #
-# *** RETRACTED 2026-07-27 -- READ THIS BEFORE QUOTING ANYTHING FROM THIS HEADER. ***
-# The version of these PINNED FACTS that stood here until 2026-07-27 read:
+# *** RETRACTED 2026-07-27. ***
+# An earlier version of these PINNED FACTS read:
 #     "tier-2 facet normals live on the Z[1/sqrt2] grid with a SINGLE coefficient
 #      magnitude 3/(2*sqrt2)"  and  "in unit-coefficient normalization: {4*sqrt2,
 #      14*sqrt2/3} - Tsirelson's sqrt2 sits in the bound".
@@ -22,16 +22,15 @@
 # artifact of a rounding collision in this script's magnitude bookkeeping, where
 # |+-1|*2*sqrt2 and |3/(2*sqrt2)|*2*sqrt2 both round to 3. Every facet functional in the
 # census is RATIONAL and Q(sqrt2) is not among the 18 canonical arithmetic fields.
-# The retraction is carried in Paper C (Retraction 1) and in INDEX.md V53.
+# Carried in Paper C as Retraction 1, and in INDEX.md under V53.
 #
 # WHAT SURVIVES from this script: tight-rank exactly 32; integer bounds {6,7}; five
 # (bound, tight-count) classes with the b=7 class uniform at 48 tight vertices; and
 # tier-1 (tau-twisted ghost triangles) + tier-2 exact facets classifying 40/40 states.
 import numpy as np, itertools, json, os
 import scipy.optimize as so
-# d4_odd_sector_facets prints its own verdict at import time; suppressed so that this
-# script's stdout carries only this script's verdict (see the 2026-07-27 token-bleed note
-# in KNOWN_LIMITATIONS.md -- a verdict is only evidence if it is attributable).
+# d4_odd_sector_facets prints its own verdict at import time; suppressed so this script's
+# stdout carries only its own verdict.
 import contextlib as _ctx, io as _io
 if not os.path.exists('/tmp/v35_cache.npz'):
     with _ctx.redirect_stdout(_io.StringIO()):
@@ -61,7 +60,12 @@ mags=sorted(set(int(round(x)) for fc in facets for x in np.abs(fc[1][np.abs(fc[1
 bset=sorted(set(b for _,_,b in facets))
 ag=sum((bool(vis[j]) or any(float(mus[j]@fs-b)>1e-7 for _,fs,b in facets))==(cfs[j]>1e-4) for j in range(40))
 print(f"tier-2 exact facets: {len(facets)} | coeff |c|*2sqrt2 values: {mags} | bounds: {bset}")
-print(f"unit-normalized bounds: {[round(b*2*s2/3,4) for b in bset]}  (= 4*sqrt2 = {4*s2:.4f}, 14*sqrt2/3 = {14*s2/3:.4f})")
+# The magnitude figure below is the LEGACY 2*sqrt2-scale bookkeeping of this script, retained
+# only so the historical PASS condition still means what it used to. It is NOT the intrinsic
+# arithmetic: |+-1|*2*sqrt2 and |3/(2*sqrt2)|*2*sqrt2 both round to 3, which is exactly the
+# collision that produced the retracted sqrt2 reading. The intrinsic statement is the {0,+-1}
+# lift with integer bounds {6,7}; see d4_arithmetic_profile.py (V53).
+print(f"legacy magnitude bookkeeping (2*sqrt2 scale): {mags}  -- see header; not the intrinsic arithmetic")
 print(f"COMBINED CLASSIFICATION (tier1 + tier2 exact): {ag}/40")
 print("NOTE: 40/40 above is the CONSTRUCTION sample (partially circular); fresh-sample")
 print("completeness is open - see header. Exact facet arithmetic is the pinned result.")

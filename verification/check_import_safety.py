@@ -1,27 +1,13 @@
 # Import-safety gate for the verification suite.
 #
-# WHY THIS EXISTS. On 2026-07-27 a commit whose message was "harden the suite" appended a
-# bare module-level `sys.exit(0)` to criterion.py. Python runs a module's whole body on
-# import, so every script that did `import criterion` -- nine of them, directly or through
-# evend_frame_probe -- terminated DURING THE IMPORT, ran none of its own checks, printed
-# criterion.py's "criterion PASS" line, and exited 0.
+# RULE ENFORCED. A module that is imported anywhere in the suite must not, at import time, call
+# sys.exit / exit / quit / os._exit, nor raise SystemExit. Python runs a module body on import,
+# so such a call terminates the IMPORTER, silently, with status 0 -- the importing script then
+# reports success having executed none of its own checks. This gate exists because that happened.
 #
-# Nine scripts were dead. All nine looked green. run_all.sh could not see it, because the
-# verdict token it grepped for was genuinely present in the output -- it just belonged to a
-# different script. The mathematics was fine; the harness was lying.
-#
-# THE RULE THIS ENFORCES. A module that is imported anywhere in the suite must not, at
-# import time, call sys.exit / exit / quit / os._exit, nor raise SystemExit. Falling off
-# the end of a script already exits 0; a bare exit buys nothing and costs this.
-#
-# HISTORY OF THIS FILE. Its first version (same day) tested for a __main__ guard with
-# `"__main__" in src` -- a bare substring test that SKIPPED THE SCAN ENTIRELY for any file
-# merely containing that string, whether or not the exit was inside the guard. Seven of the
-# thirteen imported modules were exempted by accident, including arf_global, which sits one
-# link further up the same import chain as criterion. A gate with a hole in exactly the
-# place it was written to cover is worse than no gate, because it is trusted. The check
-# below therefore resolves guards STRUCTURALLY, follows module-level calls into
-# module-level helper functions, and handles import aliasing.
+# Exits inside a real `if __name__ == "__main__":` guard are allowed; the guard is resolved
+# structurally, not by substring. Also caught: exits behind an `if`, inside a `try`, reached via
+# an alias (`import sys as s`), or through a module-level call into a module-level helper.
 #
 # Expect: "check_import_safety PASS" and exit 0. Any violation exits 1 and names the file.
 

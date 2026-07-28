@@ -38,5 +38,5 @@ print("VERDICT:", "PASS - independent matrix path confirms S=8 at d=16" if (not 
 import sys
 assert not bad, f"lambda^T A != 0 mod 16: {len(bad)} observables with wrong multiplicity"
 assert S == 8, f"certificate value S = {S}, expected 8"
-# (no sys.exit here: a bare module-level exit kills any script that IMPORTS this one,
-#  silently, with status 0. See KNOWN_LIMITATIONS.md. Falling off the end already exits 0.)
+# No sys.exit here: a module-level exit terminates any script that imports this one,
+# silently, with status 0. Falling off the end already exits 0.

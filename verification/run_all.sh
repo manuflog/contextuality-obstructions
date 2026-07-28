@@ -2,19 +2,11 @@
 # Run every canonical verification and report pass/fail.
 # Exits nonzero if any script fails, so CI catches regressions.
 #
-# HARDENED 2026-07-24. Exit code alone is NOT enough: a script can print "P1: False"
-# for its own load-bearing premise, contain no assert, and still exit 0 -- which is
-# exactly how close_T2_proof.py sat inside a suite reporting "14/14 passed".
-# Each script must now ALSO print its expected verdict token on stdout, and must NOT
-# print any failure token. All three conditions are checked; any one failing is loud.
-#
-# HARDENED AGAIN 2026-07-27, because the 07-24 hardening itself introduced the next
-# silent failure. A bare module-level `sys.exit(0)` appended to criterion.py killed the
-# SEVEN scripts that import it (directly or through evend_frame_probe): each died during
-# the import, ran none of its own checks, printed criterion.py's "criterion PASS", and
-# exited 0. Exit code: clean. Verdict token: present. Both gates satisfied, by a token
-# belonging to a different script. check_import_safety.py now runs FIRST and refuses any
-# module-level exit in a module that anything imports.
+# A script counts as passing only if ALL of these hold: exit code 0, its expected verdict token
+# present in stdout, no failure token present, and (first entry) the suite is import-safe.
+# Exit code alone is not sufficient -- a script can print a negative result for its own premise,
+# contain no assertion, and still exit 0. A verdict token alone is not sufficient either, unless
+# it is attributable to the script being run; see check_import_safety.py.
 set -uo pipefail
 cd "$(dirname "$0")"
 

@@ -1,39 +1,24 @@
-# V54 - THE ODD-Q SHADOW: SOUNDNESS IS ABSOLUTE, AND PAPER B's PROP. 9 GETS THE GAP BACKWARDS.
+# V54 - THE ODD-Q SHADOW: SOUND WITH NO EXCEPTIONS, AND INCOMPLETE IN THE OTHER DIRECTION.
 #
-# WHY THIS EXISTS. Paper B, Prop. 9 asserts two things about the mod-2 (odd-Q) shadow of the
-# exact Z_d criterion:
-#   (a) "an explicit false certificate at d=8 is recorded in the repository";
-#   (b) "among random incidence systems at d=8 carrying a Z_2-odd cycle, 28.6% are not genuinely
-#        Z_d-contextual".
-# Claim (a) pointed at an artifact that was never committed. Going to construct it turned up
-# something better than a missing file: BOTH CLAIMS ARE FALSE, and false in the direction that
-# makes the criterion STRONGER than published, not weaker.
+# CORRECTS Paper B v1, Prop. 9, which stated that the mod-2 (odd-Q) shadow of the exact Z_d
+# criterion can produce a FALSE CERTIFICATE, quoted 28.6% for the rate at d=8, and cited an
+# explicit example in this repository. All three are wrong.
 #
-# THEOREM (proved below, two lines, and then stress-tested).
-#   Let d be EVEN. If M x = gamma (mod d) is solvable, then every mod-2 cycle pairs evenly with
-#   gamma; equivalently, the shadow can never fire on a noncontextual system.
-#   Proof. M x = gamma (mod d) and d even => M x = gamma (mod 2). So for any lambda with
-#   lambda.M = 0 (mod 2):   lambda.gamma = lambda.(M x) = (lambda.M).x = 0 (mod 2).  QED
+# THEOREM. Let d be EVEN. If M x = gamma (mod d) is solvable then M x = gamma (mod 2), so any
+# lambda with lambda.M = 0 (mod 2) satisfies lambda.gamma = (lambda.M).x = 0 (mod 2). The shadow
+# therefore cannot fire on a noncontextual system: the false-positive rate is exactly 0 at every
+# even d, and no false certificate exists to be exhibited.
 #
-#   Consequences:
-#     * The odd-Q shadow has NO false positives, ever, at any even d. The rate is 0, not 28.6%.
-#     * Therefore no "explicit false certificate at d=8" exists to be recorded, in the repository
-#       or anywhere else. Claim (a) is not a missing artifact; it is an impossible one.
+# THE REAL GAP. The shadow is INCOMPLETE, in the opposite direction: a Z_d-cycle certifies
+# contextuality when lambda.gamma != 0 (mod d), and if that value is nonzero but EVEN its mod-2
+# reduction vanishes, so the shadow is blind to a genuinely contextual system. A pinned
+# non-degenerate d=8 witness is asserted below, and the miss rate is measured under a stated
+# protocol.
 #
-# WHERE THE REAL GAP IS. The shadow is sound but genuinely INCOMPLETE, in the opposite direction
-# from the one Prop. 9 describes: a system can be Z_d-contextual while the shadow stays silent.
-# A Z_d-cycle lambda certifies contextuality when lambda.gamma != 0 (mod d); if that value is
-# NONZERO BUT EVEN (4, 2, 6 at d=8) its mod-2 reduction vanishes and the shadow sees nothing.
-# Explicit non-degenerate witnesses are constructed and asserted below.
+# WHAT STANDS from Prop. 9: a minimal odd-Q SUPPORT need not be a Z_d-cycle, so certificate
+# MINIMIZATION must search over Z_d. That is a false WITNESS, not a false VERDICT.
 #
-# WHAT SURVIVES OF PROP. 9. The sentence immediately after it -- "for certificate minimization one
-# must still search over Z_d-cycles, since minimality is where the shadow can fail" -- is correct
-# and is the real content. A minimal odd-Q SUPPORT need not be a Z_d-cycle, so it is a false
-# WITNESS, not a false VERDICT. Paper B conflated the two. The fix is a wording correction plus
-# deletion of the 28.6% figure, not a retraction of the criterion.
-#
-# NOTHING HERE IS ABOUT WEYL FAMILIES. On closed-triple Weyl families see shadow_gap.py (V44),
-# and read its zero-positive sample honestly, as that file says.
+# SCOPE. Nothing here concerns Weyl families; for those see shadow_gap.py (V44).
 #
 # Expect: "shadow_soundness_exact PASS". Exit 1 on any failure. ~25 s.
 
@@ -199,16 +184,11 @@ if __name__ == "__main__":
     print("[3] INCOMPLETENESS: how common is it?")
     rate = test_incompleteness_is_common()
     print()
-    print("SUMMARY -- this CORRECTS a published paper.")
-    print("  Paper B Prop. 9 says the shadow can produce a false certificate, quotes 28.6%, and")
-    print("  cites an artifact in this repository. All three are wrong: the rate is provably 0,")
-    print("  no such artifact can exist, and the missing file was missing because the thing it")
-    print("  was supposed to contain is impossible.")
-    print("  The shadow is SOUND with no exceptions at any even d (two-line proof, in the header).")
-    print(f"  It is INCOMPLETE, in the other direction, at rate ~{rate:.0%} under the stated protocol:")
-    print("  a Z_d-cycle can certify contextuality with an even value, which the mod-2 shadow")
-    print("  cannot see. An explicit non-degenerate witness is pinned above.")
-    print("  What survives of Prop. 9 is its next sentence: minimal odd-Q SUPPORTS need not be")
-    print("  Z_d-cycles, so certificate MINIMIZATION must search over Z_d. False witness, not")
-    print("  false verdict. Paper B conflated the two; fix by wording, not retraction.")
+    print("SUMMARY")
+    print("  Soundness: the shadow cannot fire on a noncontextual system. Rate 0 at every even d,")
+    print("  by the two-line proof in the header. Paper B v1's 28.6% and its cited false")
+    print("  certificate are withdrawn in v2.")
+    print(f"  Incompleteness: real, and in the other direction -- ~{rate:.0%} of contextual systems")
+    print("  under the stated protocol, with a pinned non-degenerate witness above.")
+    print("  Certificate minimization must still search over Z_d-cycles.")
     print("shadow_soundness_exact PASS")

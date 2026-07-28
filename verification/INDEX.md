@@ -30,30 +30,29 @@ in the paper, a **computational verification** script here, or both. Scripts are
 | **Prop. 9 CORRECTED (V54, 2026-07-28)** | the odd-$Q$ shadow has **NO false positives at any even $d$** — proof: $Mx\equiv\gamma \bmod d$ with $d$ even gives $Mx\equiv\gamma \bmod 2$, so $\lambda^{\mathsf T}M\equiv0 \bmod 2 \Rightarrow \lambda\cdot\gamma\equiv0 \bmod 2$. It **is** incomplete, in the OTHER direction: a $\Z_d$-cycle can certify with a nonzero but EVEN value, invisible mod 2 | `shadow_soundness_exact.py` → `shadow_soundness_exact PASS` (0 false positives over 571+ firing samples; pinned non-degenerate $d=8$ blind witness; ~39% miss rate under the stated protocol) |
 | Doubling law (geometric step) | $T_{\mathrm{mix}}\equiv0$; $\mathbb{F}_2$ system is $d$-independent | `close_T2_proof.py` (structural, **proof CORRECTED 2026-07-24** — the old per-context route (P1) is false in bulk; the identity holds via the quadratic refinement + the realized base-multiplicity sublattice $N$) + `tmix_dindep.py` (byte-identical across $d\equiv2\bmod4$) → `tmix_dindep PASS` |
 
-### Correction of record, 2026-07-28 (V54)
+### Correction to Paper B, Prop. 9 (2026-07-28, published as Paper B v2)
 
-Paper B v1's Prop. 9 asserted (a) that an explicit **false certificate** at $d=8$ was recorded in
-this repository, and (b) that $28.6\%$ of random $d=8$ incidence systems carrying a $\Z_2$-odd
-cycle are not genuinely $\Z_d$-contextual. Going to construct the missing artifact showed that
-**both are false, and false in the direction that makes the criterion stronger than published**:
-the false-positive rate is provably $0$, so no such certificate can exist — which is why it was
-never committed. The real gap is missed detection, not false detection. Paper B **v2** carries the
-correction as a labelled Remark rather than a silent edit.
+Paper B v1 stated that the odd-Q shadow can produce a **false certificate**, quoted 28.6% as the
+rate among random d=8 incidence systems carrying a Z_2-odd cycle, and cited an explicit d=8
+example in this repository. All three are wrong.
 
-Note for the record: $28.6\% = 2/7$ exactly, which looks like a small exact count rather than a
-sampled rate. The most likely history is that a true number got attached to the wrong statement.
-That is a guess, not a finding.
+For even d, `Mx = gamma (mod d)` solvable implies `Mx = gamma (mod 2)`, so any lambda with
+`lambda.M = 0 (mod 2)` has `lambda.gamma = (lambda.M).x = 0 (mod 2)`. The shadow cannot fire on a
+noncontextual system: **the false-positive rate is 0 at every even d**, and no such certificate
+exists. The criterion is incomplete in the opposite direction — a Z_d-cycle can certify with a
+nonzero but even value, invisible mod 2. Certificate and pinned witness:
+`shadow_soundness_exact.py`.
+
+What stands from v1 is the point about certificate minimization: a minimal odd-Q *support* need
+not be a Z_d-cycle, so it can be a false *witness* while the *verdict* is always correct.
 
 ## Paper C — *What Contextual Holonomy Detects*
 
-Added 2026-07-27. Paper C states that "expected one-line outputs are pinned in
-`verification/INDEX.md`"; before this section that was **false** — no Paper C entries existed here.
-Every script below was re-run on 2026-07-27 after the import-safety fix (see `KNOWN_LIMITATIONS.md`);
-the tokens are what the current code actually prints.
+Every token below is what the current code prints; all were re-run 2026-07-27.
 
 | Claim (paper C) | Statement | Script → expected one-line output |
 |---|---|---|
-| Thm 1 (Equivalence, AvN sector; **even $d$**) | unsolvability of $A\gamma\equiv s$ $\iff$ some cycle has odd self-pairing $Q$ | `holonomy_vs_solvability.py` → `d=2: 1500 random families, unsolvable 3, equivalence mismatches: 0` / `d=4: 600 random families, unsolvable 0, equivalence mismatches: 0` / `pinned cert4 d=4: unsolvable=True, odd-cycle=True, agree=True`. **Read the sample honestly:** the $d=4$ random draw contains **zero** positive instances, so the "if" direction at $d=4$ is exercised only by the pinned certificate. |
+| Thm 1 (Equivalence, AvN sector; **even $d$**) | unsolvability of $A\gamma\equiv s$ $\iff$ some cycle has odd self-pairing $Q$ | `holonomy_vs_solvability.py` → `d=2: 1500 random families, unsolvable 3, equivalence mismatches: 0` / `d=4: 600 random families, unsolvable 0, equivalence mismatches: 0` / `pinned cert4 d=4: unsolvable=True, odd-cycle=True, agree=True`. Note the $d=4$ random draw contains **zero** positive instances, so that direction is exercised at $d=4$ only by the pinned certificate. |
 | Prop 1 (nontrivial class, zero AvN) | order exactly 3 at $d=3$, achievable AvN value $\{0\}$ | `d3_gap_certificate.py` → `GAP CERTIFIED: nontrivial order-3 class AND AvN value {0}` (0 coboundary hits over all $3^9=19{,}683$ cochains) |
 | Prop 2 (contextuality, zero class shadow) | KCBS $\sqrt5$ vs classical 2, class shadow 0 | `kcbs_converse.py` → `PASS: contextual (2.23607 > 2) with zero d=3 class shadow => converse gap certified` |
 | Obs 1 (Wigner–friend level split) | projective holonomy $+1$, determinant-section holonomy $-i$ | `wf_loop_holonomy.py` → `ray-level: strands +0.25pi, -0.25pi; loop product = 1, gauge-invariant 200/200: True` / `det-section holonomy over 500 SU(2) closers: {-1j}  (square = -1)` / `PASS` |
@@ -68,32 +67,18 @@ the tokens are what the current code actually prints.
 **Every row above now pins an actual output string**, re-run 2026-07-27. Paper C's promise that
 "expected one-line outputs are pinned in `verification/INDEX.md`" is, for the first time, true.
 
-**The five gate items are now CLOSED** (2026-07-27, after three adversarial passes):
+**Scope limits stated in Paper C itself**, and repeated here because they bear on how the
+entries above should be read:
 
-1. ~~`\cite{cmp}` "in preparation" load-bearing~~ — the "necessary, not cautious" remark no longer
-   leans on an unpublished paper; Proposition 1's own certificate is the reason the weakening is
-   forced. The uncited in-preparation bibitem was removed.
-2. ~~V52 vs "proved end to end"~~ — scoped. What is proved end to end is the closed-form
-   classification **for the deletion families treated** (Peres–Mermin minus one context): upper
-   bound analytically, equality by the Completion Lemma. Theorem 2 as stated quantifies over all
-   closed-triple $d=2$ families, and in that generality it is **machine-validated (40/40), not
-   proved**; the general compressed-coordinate statement stays open here and in V52(ii). The paper
-   now says exactly this.
-3. ~~`shadow_gap.py` supports its claim vacuously~~ — disclosed in the paper, in the same terms
-   already used for the $d=4$ draw: 6,500 trials with **zero** contextual families drawn at any
-   dimension, so the absence of false certificates is established only vacuously; the positives are
-   two pinned controls. Recorded as a consistency check on the implementation, not a search that
-   could have failed.
-4. ~~CF $=0.3462$ unpinned~~ — **fixed at the source.** `gf4_net_necessity.py` now prints it:
-   `(a') rescued state rand16: contextual fraction 0.3462 (exact 0.34623981314502794)`. The pool is
-   drawn from `default_rng(5)`, so the figure is reproducible, not incidental. An unpinned number
-   is an unverifiable number.
-5. ~~Paper B Prop 9's missing artifact~~ — Paper B claims "an explicit false certificate at $d=8$ is
-   recorded in the repository"; **it is not**, and neither are the four scripts `shadow_gap.py`'s
-   own header names as Paper B's missing artifacts. This is a **Paper B defect, still open** and
-   recorded here. Paper C no longer depends on it: restricting to closed triples is the conservative
-   move, sound whether or not the general-family incompleteness is ever witnessed, and the paper
-   says so.
+- Theorem 1 is asserted for **closed-triple** Weyl families at **even** d. Neither hypothesis is
+  decorative; the paper says so.
+- Theorem 2 is **machine-validated (40/40), not proved**, in the generality in which it is stated.
+  The closed form is proved end to end for the deletion families treated. The general
+  compressed-coordinate statement is open — see V52(ii).
+- Two sweeps quoted in the paper contain **no positive instances**: the d=4 half of the
+  2,100-family equivalence test, and the 6,500-trial false-certificate sweep in `shadow_gap.py`,
+  which draws no contextual family at any of d=2,4,8. They are consistency checks on the
+  implementation, not searches that could have failed. Both are disclosed in the paper.
 
 ## Open (honestly labelled in the papers)
 - Paper B: base-level closed form for **generativity** of the doubling law (governed by the standard
@@ -130,7 +115,7 @@ See `../hardware/` — 3-device $d=2$ Peres–Mermin replication, combined $S=4.
 - `d4_arithmetic_profile.py` + `ap_species_table.json` (V53): **ARITHMETIC PROFILE OF THE 61 CLASSES COMPLETE (open problem (b), profile part)** — exactly **18 arithmetic species**, completely classified by (integer bound, ||λ||²) where λ is the exact minimal-norm lift into the 150-dim character metric (all rational, denominators ∈ {2,4,6,12} — the (1/12)Z grid); species table with orbit sizes, stabilizers, tight-counts, supports, unit bounds (18 real quadratic fields Q(√m), m ∈ {3,6,7,21,26,31,33,35,37,43,93,159,309,327,345,381,498,534}). Structural facts proven exactly: all 61 classes have tight-rank exactly 32; b′ = cB for all classes; exactly one ghost class (id 59, the τ-twisted ghost triangles); **no class factors through the order-2 shadow — τ-level data is necessary for ALL 61 classes** (sharpens V34). **CORRECTION (pinned): the tier-2 unit bounds "4√2 and 14√2/3" were a NORMALIZATION ARTIFACT** — every tier-2 facet admits an exact {0,±1}-coefficient lift with INTEGER bound ∈ {6,7} (a constant-magnitude 3/(2√2) vector can never attain a NONZERO integer bound on integer vertices — exactness margin asserted); **every facet functional in the census is rational**; Q(√2) is not among the canonical fields (it appears only in the 33-coord metric on classes {48,49,52} — these are bound-7 classes, but NOT the only bound-7 classes: 37 and 53 are too). The V36/V41 "Tsirelson √2 in tier-2" framing should be read at this corrected scope. Also pinned: the stored tier-2 orbit maps onto 14 census classes but is NOT arithmetically closed (four invariant-twin groups straddle the boundary — quantitative confirmation of the V36/V41 completion caveat). General-d conjecture recorded in-script (rational facet data at every even d; real quadratic fields from tight-set Grams; ghost tier persists). Feasibility: full d=6 census defensible on Colab only if |L| ≲ 300 (protocol in-script); d=8 direct conversion out of reach — target ghost tier + transported orbits instead. Expect: `python3 d4_arithmetic_profile.py 1|2|3|4`, each <2 s.
 - `pm_local_system.py` (V54): **TWO-LAYER UNIFICATION — PM MILESTONE ACHIEVED (open problem (a))** — the V49/V50 object (rank-1 local system: Gram magnitudes + U(1) holonomy on the non-orthogonality graph) carries the AvN sector too, on the Peres 24-ray configuration of the six PM contexts (9-regular exclusivity graph, H¹ rank 145). (i) **Transversal Parity THEOREM** (proven + verified on all 4096 transversals): every transversal has an odd number of orthogonal shared-observable pairs ⇒ ν(L) = −1, a graph-forced Z₂ invariant = V44's kernel pairing u·s = d/2 in ray language; corollaries α = 5, no independent transversal, CF ≡ 1. (ii) Eigenplane-cycle lemma (proven): every eigenplane 4-cycle carries Bargmann holonomy −1; canonical class h(z_obs) = (−1)⁹ = −1. (iii) **KS-rigidity as the layer switch** (verified numerically, infinitesimal + global 12/12): the PM exclusivity graph pins the ENTIRE local system (flex dimension 0), making all holonomy invariants realization-independent = state-independent; KCBS C₅ has flex dimension 2 = exactly V49's magnitude/holonomy moduli. **Flexes = state-dependent U(1) layer; rigidity + forced torsion = AvN layer.** (iv) Hexagon holonomy law (verified, all 12 K₃,₃ hexagons; proof open, flagged: stabilizer-cocycle expansion should identify −1 with the V44 odd carry): h₆ = −1 exactly on chordless transversal hexagons (192). (v) Interface: ΣP = 6I tight frame ⇒ every state is a top eigenstate of the V49 detector (λ_max = 6 > 5 = α) — state-independence as spectral degeneracy. Caveats pinned: rigidity is d=4-numeric (proof open); no ν = +1 control exists at (2,2) (every closed 3×3 Pauli grid is magic). General dictionary (flex dim = state moduli; rigid + forced torsion ⇔ AvN) stated as conjecture. Expect: `CU UNIFY PROBE PASS` (~3 s).
 - **Open (named, carried forward)**: the **Θ-coherence congruence** (V52) remains the sharpest open lemma; a proof attempt was cut short (session limit) and should be resumed — the two-generator transgression closed form (V46-style) is the suggested first step.
-- **External adversarial pass (2026-07-11)**: the author's pass over note v3, paper D, and the V44–V54 session found no flaws and awarded 52 → 100. **SUPERSEDED — a second external audit (2026-07-11, later) DID find real errors in the S4/collapse and observer layers (see correction ledger below); per the standing rule, errors found move the score down, so the score is no longer 100.** Remaining named open items: Θ-coherence congruence (V52), the rigidity dictionary (V54), Conjecture 1 compressed form, general-d census (V53 protocol), paper B generativity, paper A Yu–Oh/gerbe, CMP repair track.
+- **Audit history (2026-07-11)**: a first review pass over note v3, paper D and the V44–V54 material found no flaws; a second, later pass **did** find real errors in the S4/collapse and observer layers (see the correction ledger below), which are recorded there. Remaining named open items: Θ-coherence congruence (V52), the rigidity dictionary (V54), Conjecture 1 compressed form, general-d census (V53 protocol), paper B generativity, paper A Yu–Oh/gerbe, CMP repair track.
 
 - **CORRECTION LEDGER — measurement-instrument & observer audit (2026-07-11, second external pass):** genuine errors found and fixed; the core Weyl/AvN obstruction-spectrum program (papers A/B, V23–V54 spectrum results) is **not** affected.
   1. **V37 CP range (`lueders_instrument.py`)**: the commutant-covariant depolarizing family's complete-positivity domain was misstated as p∈[0,1]. The exact interval on a rank-r block is **−1/(r²−1) ≤ p ≤ 1** (Choi bound; verified exactly in the new `lueders_cp_interval.py`). The family is **affine**, not the convex [Lüders, depolarize] segment. Lüders (p=1) remains the unique single-Kraus member.

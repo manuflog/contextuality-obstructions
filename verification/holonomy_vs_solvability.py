@@ -4,12 +4,8 @@
 # invariant is criterion.py's self-pairing Q (top 2-adic layer). Zero mismatches expected.
 # This is the precise, repaired form of note S3's 'holonomy encodes contextuality'.
 import numpy as np, itertools
-# Imported helper modules below print their own verdicts at import time. Their output is
-# suppressed here so that this script's stdout contains ONLY this script's verdict.
-# Reason (2026-07-27): run_all.sh judges a script by grepping for a verdict token. When an
-# imported module printed its own PASS into this script's stdout, that gate could be satisfied
-# by a token belonging to a different process -- which is exactly how nine dead scripts passed.
-# A verdict is only evidence if it is attributable to the thing being judged.
+# Imported modules below print at import time; suppressed so this script's stdout carries
+# only its own verdict.
 import contextlib as _ctx, io as _io
 with _ctx.redirect_stdout(_io.StringIO()):
     from criterion import carry_data, left_kernel, sympinv

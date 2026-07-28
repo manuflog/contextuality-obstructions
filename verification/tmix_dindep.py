@@ -84,5 +84,5 @@ for l in _bad: print(f"  FAILED CHECK: {l}")
 assert not _bad, "tmix_dindep load-bearing checks FAILED: "+"; ".join(_bad)
 print(f"tmix_dindep: {len(checks)}/{len(checks)} load-bearing checks passed")
 print("tmix_dindep PASS")
-# (no sys.exit here: a bare module-level exit kills any script that IMPORTS this one,
-#  silently, with status 0. See KNOWN_LIMITATIONS.md. Falling off the end already exits 0.)
+# No sys.exit here: a module-level exit terminates any script that imports this one,
+# silently, with status 0. Falling off the end already exits 0.

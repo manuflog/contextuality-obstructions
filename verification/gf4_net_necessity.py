@@ -6,12 +6,8 @@
 # (b) sufficiency sanity: T x T best-case over nets (must stay negative);
 # (c) census: how many of the 60 stabilizer states are rescuable by SOME net?
 import numpy as np, itertools
-# Imported helper modules below print their own verdicts at import time. Their output is
-# suppressed here so that this script's stdout contains ONLY this script's verdict.
-# Reason (2026-07-27): run_all.sh judges a script by grepping for a verdict token. When an
-# imported module printed its own PASS into this script's stdout, that gate could be satisfied
-# by a token belonging to a different process -- which is exactly how nine dead scripts passed.
-# A verdict is only evidence if it is attributable to the thing being judged.
+# Imported modules below print at import time; suppressed so this script's stdout carries
+# only its own verdict.
 import contextlib as _ctx, io as _io
 with _ctx.redirect_stdout(_io.StringIO()):
     from evend_frame_probe import CTX5, Pv, model, contextual_fraction, T
@@ -95,9 +91,8 @@ nec=all(r[2]<-1e-9 for r in pos); resc=[r[0] for r in pos if r[2]>-1e-9]
 tt=next(r for r in rows if r[0]=='TxT')
 print(f"GHW nets: {len(NETS)}; Mz={Mz}")
 print(f"(a) CF>0 states negative in EVERY GHW net: {nec} ({len(pos)} states; rescued: {resc if resc else 'none'})")
-# Pin the rescued state's contextual fraction. Paper C quotes this number in the text, so it
-# has to be PRINTED, not merely computed -- an unpinned figure is an unverifiable figure.
-# The state pool is drawn from default_rng(5) above, so this is reproducible, not incidental.
+# Pin the rescued state's contextual fraction; Paper C quotes it. The state pool comes from
+# default_rng(5) above, so the value is reproducible.
 for _nm in resc:
     _cf = next(r[1] for r in rows if r[0] == _nm)
     print(f"(a') rescued state {_nm}: contextual fraction {_cf:.4f} (exact {_cf!r})")

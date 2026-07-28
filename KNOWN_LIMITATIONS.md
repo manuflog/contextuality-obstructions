@@ -87,127 +87,38 @@ gap. The gaps they flag:
   **single class on the whole category** (Baues–Wirsching/Thomason H² / a U(1)-gerbe over the
   enlargement category) is open. Holonomy and the movable cut need only the fiberwise section.
 
-## Harness failure, found and fixed 2026-07-27 (recorded, not quietly patched)
 
-For roughly one day the verification suite reported green on nine scripts that never ran.
+## Verification-suite defects found and fixed, 2026-07-27/28
 
-**What happened.** A commit whose message was "harden the suite" appended a bare module-level
-`sys.exit(0)` to `verification/criterion.py`. Python executes a module's entire body on import,
-so every script doing `import criterion` died *during the import*: it executed none of its own
-checks, printed `criterion PASS` (criterion's own token, emitted before the exit), and returned
-status 0. Affected, directly or through `evend_frame_probe`:
+Recorded because the suite's value depends on its failures being visible.
 
-`holonomy_vs_solvability.py`, `d3_gap_certificate.py`, `evend_frame_probe.py`,
-`pauli_slice_bridge.py`, `ghost_facet_theorem.py`, `paired_frame_construction.py`,
-`ghw_net_necessity.py`, `gf4_net_necessity.py`, `net_robust_negativity.py`.
+**1. Import-time exits disabled nine scripts.** A bare module-level `sys.exit(0)` in
+`criterion.py` terminated every script that imported it, directly or through
+`evend_frame_probe`: `holonomy_vs_solvability`, `d3_gap_certificate`, `evend_frame_probe`,
+`pauli_slice_bridge`, `ghost_facet_theorem`, `paired_frame_construction`, `ghw_net_necessity`,
+`gf4_net_necessity`, `net_robust_negativity`. Each exited 0 having run none of its own checks.
+No published claim was affected: all nine were re-run after the fix and every quoted number
+reproduces. Fixed, and `check_import_safety.py` now runs first in `run_all.sh` and rejects
+import-time exits in any imported module.
 
-Between them these carry the Paper C equivalence stress test, the d=3 gap certificate, the ghost
-facet theorem, Lemma 1's net necessity, and the 2^15 frame sweep.
+**2. Token bleed.** Four modules printed at import time, so an importer's stdout could carry
+another script's verdict token — which is how the failure above stayed invisible to a gate that
+greps for tokens. Every importer now suppresses import-time output, so each script's stdout
+carries only its own verdict.
 
-**Why neither existing gate caught it.** `run_all.sh` checks exit code *and* a verdict token. The
-exit code was 0 and the token was present — it just belonged to a different script. A gate that
-greps for a string cannot tell which process printed it.
+**3. Tier-2 arithmetic.** The header of `d4_tier2_catalogue.py` asserted that tier-2 facet
+normals live on a `Z[1/sqrt2]` grid with coefficient magnitude `3/(2 sqrt2)`, and that
+"Tsirelson's sqrt2 sits in the bound". That presentation was a normalization artifact and is
+withdrawn: the stored lift has coefficients in `{0,+-1}` with integer bounds `{6,7}`, every facet
+functional in the census is rational, and `Q(sqrt2)` is not among the eighteen canonical fields.
+Certificate: `d4_arithmetic_profile.py`. The retraction is carried in Paper C.
 
-**What the failure did NOT do.** It did not make any published claim wrong. All nine scripts were
-re-run after the fix and every quoted number reproduced exactly (1500/600 families, 0 mismatches;
-0 coboundary hits over 19683 cochains; 24 = 20 + 4 facets; 40/40; rank 10 over F2; 1024 nets).
-The mathematics was sound; the harness was lying about having checked it.
+**4. Paper B Prop. 9.** See the correction note in `verification/INDEX.md`. The claimed
+false-certificate rate of 28.6% is wrong; the true rate is 0, provably, at every even d. The
+criterion is incomplete in the opposite direction. Corrected in Paper B v2.
 
-**Fix.** The bare exits are removed (falling off the end of a script already exits 0), and
-`verification/check_import_safety.py` now runs FIRST in `run_all.sh`. It AST-parses every script,
-works out which modules are imported by another, and fails on any exit-like effect reachable at
-IMPORT time in one of them: `sys.exit` / `exit` / `quit` / `os._exit` / `raise SystemExit`,
-including behind an `if`, inside a `try`, via an alias (`import sys as s`), or through a
-module-level call into a module-level helper. Exits inside a real `if __name__ == '__main__':`
-guard are allowed, and the guard is resolved structurally.
-
-**That last point is itself a corrected error.** The first version of this gate, written the same
-day, tested for the guard with `"__main__" in src` — a bare substring test that skipped the scan
-entirely for any file merely containing the string. Seven of the thirteen imported modules were
-exempted by accident, including `arf_global`, which sits one link further up the same import chain
-as `criterion`. A gate with a hole in exactly the place it was written to cover is worse than no
-gate, because it is trusted. Ten evasion cases are now checked explicitly.
-
-**Token bleed — the underlying surface — is now closed too.** The import-safety gate stops a
-module from *killing* its importer, but the deeper problem was that a module could *speak for*
-its importer: `criterion.py` printed `criterion PASS` into the stdout of its four importers, and
-`evend_frame_probe`, `state_sector_probe` and `d4_odd_sector_facets` did the same to theirs. That
-is what let nine dead scripts satisfy a token gate. Every importer now wraps the noisy import in
-`contextlib.redirect_stdout`, so each script's stdout contains only its own verdict. Verified:
-`d3_gap_certificate` went from emitting `criterion PASS` to three clean lines of its own, and no
-canonical script emits another's token. 21/21 green.
-
-The principle worth keeping: **a verdict is only evidence if it is attributable to the thing being
-judged.** Both silent-failure incidents in this program came from violating it — once by a script
-that printed no verdict of its own, once by a script that printed someone else's.
-
-**The general lesson, which is the reason this section exists.** Two of the three silent-failure
-incidents in this program were introduced by the commit that was *supposed* to eliminate silent
-failures. Hardening is itself a change, and changes need the gate applied to them. A verdict
-token is only evidence if it is attributable to the process being judged.
-
-
-## A published claim corrected, 2026-07-28
-
-Paper B v1, Prop. 9 said the odd-Q shadow could produce a **false certificate**, quoted 28.6% for
-the rate, and cited an explicit d=8 example "recorded in the repository". The example was not in
-the repository. Setting out to construct it produced a better answer than a missing file: the
-claim is impossible.
-
-For even d, if `Mx = gamma (mod d)` is solvable then `Mx = gamma (mod 2)`, so any lambda with
-`lambda.M = 0 (mod 2)` has `lambda.gamma = (lambda.M).x = 0 (mod 2)`. The shadow cannot fire on a
-noncontextual system. **False-positive rate 0, provably, at every even d** — not 28.6%. The cited
-artifact was never committed because no such artifact exists.
-
-The criterion is nonetheless incomplete, in the opposite direction: a Z_d-cycle certifies when
-`lambda.gamma != 0 (mod d)`, and if that value is nonzero but **even** its mod-2 reduction dies and
-the shadow stays silent on a genuinely contextual system. Under the protocol in
-`shadow_soundness_exact.py` that happens on ~39% of contextual random incidence systems; a pinned
-non-degenerate d=8 witness is asserted there.
-
-So the error made the criterion look **weaker** than it is, while pointing at the wrong failure
-mode. Paper B v2 carries this as a labelled Remark, not a silent edit. What survives of v1 is its
-next sentence: a minimal odd-Q *support* need not be a Z_d-cycle, so it can be a false *witness*
-even though the *verdict* is always right. v1 conflated witness with verdict.
-
-The lesson worth keeping is not about this proposition. A missing artifact is usually treated as
-an administrative problem — commit the file. Twice now, going to produce a cited-but-absent
-artifact has instead revealed that the claim was wrong. **When a citation points at something that
-isn't there, check whether it could have been there before you go and make it.**
-
-
-## A fabricated citation, found 2026-07-28 (found by Manu, not by any of our gates)
-
-Paper 2, in print on Zenodo, cited paper 1 as:
-
-    M. Flores Gordillo, Exact rigidity certificates ... , Preprints.org 224406 (2026).
-
-**We have never posted anything to Preprints.org, and 224406 is not an identifier of anything.**
-Both the venue and the number are fabricated. The paper was published with that citation in its
-bibliography and in a header comment.
-
-This is the most serious defect found in the program so far, and it is a different KIND of defect
-from the others. Every previous error was a claim that was wrong — an overreach, a broken proof, a
-mislabelled gap. Those are the errors a verification suite is built to catch, and mostly it did.
-This one is a claim about the world outside the mathematics, of a form no script in the suite
-tests: it asserts that a document exists at a place it does not exist. A machine-checked paper can
-be entirely correct in its mathematics and still tell a reader to go to an address that was
-invented.
-
-Nothing in the verification suite would ever have caught this, because the suite checks
-mathematics and this is bibliography. It was caught by a human reading the reference list.
-
-**Sweep performed.** Every self-citation in all nine papers was audited against what is actually
-published. Found and fixed:
-- the fabricated `Preprints.org 224406` (paper 2) -> the real Zenodo concept DOI;
-- stale "in preparation" citations in the note and paper 3 for papers that are now published;
-- bare "companion paper, 2026" citations in paper D, with no identifier at all, for four
-  published papers;
-- version DOIs instead of concept DOIs in papers 3, 4 and the tower draft.
-
-**Standing rule added.** Before any paper is published or revised, every reference to a venue or
-identifier must be checked to point at something that exists. Self-citations are the dangerous
-case, because they are written from memory of intent ("this will be on X") rather than from the
-record of what happened. A citation is a factual claim about the world and gets the same evidence
-discipline as a mathematical one. "In preparation" is a claim with an expiry date; when the thing
-is published, the claim becomes false and must be updated.
+**5. Bibliography.** A self-citation in Paper 2 named a venue and identifier that do not exist.
+Every self-citation across all papers was then audited against what is actually published, and
+stale "in preparation" references, missing identifiers, and version-instead-of-concept DOIs were
+corrected. Verification scripts do not check bibliographies; this class of defect needs a reading
+pass, and now gets one before any deposit.

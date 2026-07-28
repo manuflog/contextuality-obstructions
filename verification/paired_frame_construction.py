@@ -7,12 +7,8 @@
 #   (ii) the marginal system determines W uniquely (rank |L|)  =>  nonneg W <=> NC model,
 #   (iii) hence CF(F,rho) > 0  <=>  min W_F < 0,  and quantitatively CF vs negativity.
 import numpy as np, itertools
-# Imported helper modules below print their own verdicts at import time. Their output is
-# suppressed here so that this script's stdout contains ONLY this script's verdict.
-# Reason (2026-07-27): run_all.sh judges a script by grepping for a verdict token. When an
-# imported module printed its own PASS into this script's stdout, that gate could be satisfied
-# by a token belonging to a different process -- which is exactly how nine dead scripts passed.
-# A verdict is only evidence if it is attributable to the thing being judged.
+# Imported modules below print at import time; suppressed so this script's stdout carries
+# only its own verdict.
 import contextlib as _ctx, io as _io
 with _ctx.redirect_stdout(_io.StringIO()):
     from evend_frame_probe import Pv, contextual_fraction, T

@@ -174,3 +174,40 @@ The lesson worth keeping is not about this proposition. A missing artifact is us
 an administrative problem — commit the file. Twice now, going to produce a cited-but-absent
 artifact has instead revealed that the claim was wrong. **When a citation points at something that
 isn't there, check whether it could have been there before you go and make it.**
+
+
+## A fabricated citation, found 2026-07-28 (found by Manu, not by any of our gates)
+
+Paper 2, in print on Zenodo, cited paper 1 as:
+
+    M. Flores Gordillo, Exact rigidity certificates ... , Preprints.org 224406 (2026).
+
+**We have never posted anything to Preprints.org, and 224406 is not an identifier of anything.**
+Both the venue and the number are fabricated. The paper was published with that citation in its
+bibliography and in a header comment.
+
+This is the most serious defect found in the program so far, and it is a different KIND of defect
+from the others. Every previous error was a claim that was wrong — an overreach, a broken proof, a
+mislabelled gap. Those are the errors a verification suite is built to catch, and mostly it did.
+This one is a claim about the world outside the mathematics, of a form no script in the suite
+tests: it asserts that a document exists at a place it does not exist. A machine-checked paper can
+be entirely correct in its mathematics and still tell a reader to go to an address that was
+invented.
+
+Nothing in the verification suite would ever have caught this, because the suite checks
+mathematics and this is bibliography. It was caught by a human reading the reference list.
+
+**Sweep performed.** Every self-citation in all nine papers was audited against what is actually
+published. Found and fixed:
+- the fabricated `Preprints.org 224406` (paper 2) -> the real Zenodo concept DOI;
+- stale "in preparation" citations in the note and paper 3 for papers that are now published;
+- bare "companion paper, 2026" citations in paper D, with no identifier at all, for four
+  published papers;
+- version DOIs instead of concept DOIs in papers 3, 4 and the tower draft.
+
+**Standing rule added.** Before any paper is published or revised, every reference to a venue or
+identifier must be checked to point at something that exists. Self-citations are the dangerous
+case, because they are written from memory of intent ("this will be on X") rather than from the
+record of what happened. A citation is a factual claim about the world and gets the same evidence
+discipline as a mathematical one. "In preparation" is a claim with an expiry date; when the thing
+is published, the claim becomes false and must be updated.

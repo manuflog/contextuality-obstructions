@@ -5,12 +5,12 @@
 \newtheorem{definition}{Definition}\newtheorem{corollary}{Corollary}\newtheorem*{remark}{Remark}
 \title{The Observer--Context Category: Relative Facts,\\ a $\mathbb Z_2$ Switching Invariant, and the Movable Cut}
 \author{Manuel Flores Gordillo}
-\date{July 2026 --- draft v0.3 (adversarial self-pass; FR theorem added), pending review}
+\date{July 2026}
 \begin{document}\maketitle
 \begin{abstract}
 We make ``observer'' a mathematical object: an isometric enlargement of the system
 together with a measurement context on the enlarged algebra, organized into a category
-(whose invertible switches form a subgroupoid) carrying the $U(1)$ cocycle of the companion papers. Four results follow, each backed
+(whose invertible switches form a subgroupoid) carrying the $U(1)$ cocycle of the companion papers~\cite{paperA,paperB,paperC}. Four results follow, each backed
 by machine certificates and one anchored by superconducting-hardware data.
 (1)~\emph{Relative facts}: every observer admits an exact local classical section,
 while no global value assignment exists for the Peres--Mermin family --- nor for any
@@ -40,13 +40,16 @@ holonomy content of complementary switching, and the movability of the Heisenber
 The finite certificates and numerical checks are supplied in the public verification suite
 (\texttt{observer\_groupoid.py} and companions), while analytic proofs and interpretive
 consequences are labeled separately; the holonomy split of Section~\ref{sec:inv} carries a
-hardware measurement.
+hardware measurement. Concurrent work benchmarks Wigner's-friend circuits on superconducting
+hardware from an operational standpoint \cite{Altman26}, and the measurement-problem no-go
+theorems have been sharpened in \cite{OVB26}; the present categorical construction is
+complementary to both.
 
 \section{The observer--context category}
 Fix the finite Weyl model at dimension $d$ with $m$ registers: observables are Weyl
 operators $W(v)$, a \emph{context} is a closed commuting Weyl family (not necessarily
 maximal), and the section $W(u)W(v)=\tau^{c(u,v)}W(u{+}v)$, $\tau=e^{i\pi/d}$, defines
-the $2$-cocycle $c$ of the companion papers.
+the $2$-cocycle $c$ of the companion papers~\cite{paperA,paperC}.
 \begin{definition}[Observer; morphisms]
 An \emph{observer} is a pair $o=(\iota,C)$: an isometric enlargement
 $\iota:\mathcal H\to\mathcal H\otimes\mathcal H_O$ (the \emph{cut datum}) and a context
@@ -163,7 +166,7 @@ holonomy is fully gauge-invariant. The FR paradox is therefore \emph{not} a holo
 phenomenon: the natural conjecture that observer-cycle paradoxes measure holonomy is
 refuted by the machinery of this program itself.
 (ii) The paradox is state-sector: $\mathrm{CF}(F_{\mathrm{FR}},\psi)=1/6$ exactly,
-and by the codeword-polytope theorem of the companion paper the FR contradiction is
+and by the codeword-polytope theorem of the companion paper \cite{paperC} the FR contradiction is
 equivalent to the moment vector of $\psi$ lying outside $\mathrm{conv}\,L$. The
 separating facet, extracted by exact separation, is the CHSH inequality
 $\langle\bar ZZ\rangle-\langle\bar ZX\rangle+\langle\bar XX\rangle
@@ -180,10 +183,20 @@ events'' fails where the codeword polytope is exited, at a quantified rate.
 Open: the general-$d$ tower refinement of Section~\ref{sec:inv}; multi-round dynamics
 beyond a single update; whether any observer-network paradox is genuinely
 holonomy-sector (Theorem~\ref{thm:fr} says FR is not --- a candidate would need an
-odd cycle, i.e.\ an AvN core); and review of this draft beyond its adversarial
-self-passes.
+odd cycle, i.e.\ an AvN core); and external review beyond the author's own adversarial checks.
 \begin{thebibliography}{9}\small
-\bibitem{note} M. Flores Gordillo, \emph{Local validity and contextual holonomy}, note, 2026; companion Papers A--C and verification suite, \texttt{github.com/manuflog/contextuality-obstructions}.
+\bibitem{note} M. Flores Gordillo, \emph{Local validity and contextual holonomy}, Zenodo (2026), doi:10.5281/zenodo.21630739; companion Papers A--C and verification suite, \texttt{github.com/manuflog/contextuality-obstructions}.
+\bibitem{paperA} M. Flores Gordillo, \emph{The Canonical Class of the MASA Context Stack and the
+Peres--Mermin Obstruction}, Zenodo (2026), doi:10.5281/zenodo.21630431.
+\bibitem{paperB} M. Flores Gordillo, \emph{The Obstruction Spectrum of Weyl Context Families and the
+2-adic Tower}, Zenodo (2026), doi:10.5281/zenodo.21630630.
+\bibitem{paperC} M. Flores Gordillo, \emph{What Contextual Holonomy Detects: the All-versus-Nothing
+Sector, Two Gap Certificates, and the Section Dependence of Wigner--Friend Holonomy}, companion
+paper, 2026.
+\bibitem{Altman26} C. Altman, \emph{Wigner's friend as a circuit: inter-branch communication witness
+benchmarks on superconducting quantum hardware}, arXiv:2601.16004 (2026).
+\bibitem{OVB26} N. Ormrod, V. Vilasini, J. Barrett, \emph{Which theories have a measurement
+problem?}, New J. Phys. \textbf{28} (2026); arXiv:2303.03353.
 \bibitem{KS} S. Kochen, E. Specker, J. Math. Mech. \textbf{17}, 59 (1967).
 \bibitem{Mermin} N. D. Mermin, Rev. Mod. Phys. \textbf{65}, 803 (1993).
 \bibitem{AB} S. Abramsky, A. Brandenburger, New J. Phys. \textbf{13}, 113036 (2011).

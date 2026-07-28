@@ -1,5 +1,5 @@
 % Local Validity and Contextual Holonomy -- v3 (full rewrite)
-% Working draft -- pending adversarial review.
+% Preprint source.
 % Discipline: every claim is (a) a cited theorem of papers A-D, (b) a named machine
 % verification in manuflog/contextuality-obstructions, or (c) explicitly labeled
 % Conjecture/Open. No claim of readiness is made in this file.
@@ -21,7 +21,7 @@
 \newcommand{\tr}{\operatorname{tr}}
 \title{Local Validity and Contextual Holonomy:\\ A Structural Formulation of the Copenhagen Principle\\[2pt] \large (v3 --- complete rewrite)}
 \author{Manuel Flores Gordillo\\ \small Independent Researcher \quad ORCID 0009-0006-8246-0343\\ \small \texttt{manuel.flores@columbia.edu}}
-\date{July 2026 --- draft v3, pending adversarial review}
+\date{July 2026}
 \begin{document}
 \maketitle
 
@@ -35,7 +35,7 @@ classicality of every single context --- is a theorem with an explicit witness;
 loops, which detects exactly the all-versus-nothing sector of contextuality (an equivalence,
 now proved), with the
 achievable state-independent values classified (the value classification --- even/odd dichotomy and
-fixed value $d/2$ --- is due to Abramsky, Cercelescu \& Constantin, FSCD 2024, and is recast here in
+fixed value $d/2$ --- is due to Abramsky, Cercelescu \& Constantin, FSCD 2024 \cite{ACC}, and is recast here in
 certificate language) and the state sector governed by a facet
 geometry that is now completely enumerated in the certified $d=4$ example ($23{,}256$
 facets in $61$ symmetry classes) and classified in closed form at $d=2$;
@@ -219,7 +219,7 @@ geometry.
 For closed-triple Weyl families at $d=2$, $\CF(F,\rho)=0$ if and only if the correlation
 vector $c(\rho)$ lies in the convex hull of the codeword set $L(F)$; quantitatively
 $\CF=\max\bigl(0,(S^*-1)/2\bigr)$, where $S^*$ is the optimal facet value, proved
-end-to-end via a completion lemma and Abramsky--Barbosa--Mansfield duality.
+end-to-end via a completion lemma and Abramsky--Barbosa--Mansfield duality \cite{ABM}.
 \end{theorem}
 
 \begin{proposition}[On-hull]\label{lem:onhull}
@@ -333,7 +333,7 @@ deterministic member only for $m\ge 3$.
 \end{theorem}
 
 \begin{remark}[Position]
-Theorems~\ref{thm:lueders}--\ref{thm:twin} give the Leifer--Spekkens thesis a sharpened
+Theorems~\ref{thm:lueders}--\ref{thm:twin} give the Leifer--Spekkens thesis \cite{LS} a sharpened
 form: \emph{conditional on} statistics, repeatability and full commutant covariance, the
 admissible update rule is restricted to an affine depolarizing family whose unique single-Kraus
 member is L\"uders, with Bayes' rule as the classical shadow of the same axioms. This is a
@@ -421,7 +421,14 @@ $24$-ray configuration the same local system is Kochen--Specker--rigid with pure
 holonomy, and the AvN $-1$ is its \emph{forced} holonomy invariant (transversal parity
 theorem; $h(z_{\mathrm{obs}})=-1$), with flex dimension --- $0$ for PM, $2$ for KCBS
 --- as the switch between the two layers. The general dictionary (flexes $=$ state
-moduli; rigidity $+$ forced torsion $\Leftrightarrow$ AvN) remains conjectural. (b)
+moduli; rigidity $+$ forced torsion $\Leftrightarrow$ AvN) remains conjectural. Since this
+note, the rigidity sub-program has been carried substantially further: exact rigidity
+certificates have been produced across the known Kochen--Specker census, assembled into a
+graded flex dictionary, and analyzed via the Peres--Penrose circle, published as a flagship
+paper \cite{rigidity24}. This settles the certificate-production question across the census
+but not the conceptual one posed here: the specific pairing conjectured above (flex
+$\Leftrightarrow$ AvN/forced-torsion) is not thereby resolved and remains open exactly as
+stated. (b)
 The general-$d$ facet census. The $d=4$ arithmetic profile is complete (V53): $18$
 species, all facet functionals rational (the tier-2 ``$4\sqrt2$'' unit bounds were a
 normalization artifact --- exact $\{0,\pm1\}$ lifts with integer bounds $\{6,7\}$
@@ -462,14 +469,22 @@ hardware & --- & \texttt{ibm\_fez} job \texttt{d986q62f47jc73a7hm2g}\\
 \end{center}
 
 \begin{thebibliography}{9}
-\bibitem{paperA} M.~Flores Gordillo, \emph{The Canonical Class of the MASA Context
-Stack and the Peres--Mermin Obstruction}, working draft, 2026.
-\bibitem{paperB} M.~Flores Gordillo, \emph{The Obstruction Spectrum of Weyl Context
-Families and the 2-adic Tower}, working draft, 2026.
-\bibitem{paperC} M.~Flores Gordillo, \emph{What Contextual Holonomy Detects}, working
-draft, 2026.
+\bibitem{ACC} S.~Abramsky, \c{S}.-I.~Cercelescu, C.~Constantin, \emph{Commutation Groups and
+State-Independent Contextuality}, in \emph{9th International Conference on Formal Structures for
+Computation and Deduction (FSCD 2024)}, LIPIcs \textbf{299}; extended version arXiv:2603.12197
+(2026).
+\bibitem{ABM} S.~Abramsky, R.~S.~Barbosa, S.~Mansfield, \emph{Contextual fraction as a measure of
+contextuality}, Phys.\ Rev.\ Lett.\ \textbf{119}, 050504 (2017).
+\bibitem{LS} M.~S.~Leifer, R.~W.~Spekkens, \emph{Towards a formulation of quantum theory as a
+causally neutral theory of Bayesian inference}, Phys.\ Rev.\ A \textbf{88}, 052130 (2013).
+\bibitem{rigidity24} M.~Flores Gordillo, \emph{Exact rigidity certificates for Kochen--Specker
+sets, the graded flex dictionary, and the Peres--Penrose circle}, Zenodo (2026),
+doi:10.5281/zenodo.21488473.
+\bibitem{paperA} M.~Flores Gordillo, \emph{The Canonical Class of the MASA Context Stack and the Peres--Mermin Obstruction}, Zenodo (2026), doi:10.5281/zenodo.21630431.
+\bibitem{paperB} M.~Flores Gordillo, \emph{The Obstruction Spectrum of Weyl Context Families and the 2-adic Tower}, Zenodo (2026), doi:10.5281/zenodo.21630630.
+\bibitem{paperC} M.~Flores Gordillo, \emph{What Contextual Holonomy Detects}, Zenodo (2026), doi:10.5281/zenodo.21633744.
 \bibitem{paperD} M.~Flores Gordillo, \emph{The Observer-Context Category: Relative
-Facts, a $\mathbb Z_2$ Switching Invariant, and the Movable Cut}, working draft v0.3,
+Facts, a $\mathbb Z_2$ Switching Invariant, and the Movable Cut}, in preparation,
 2026.
 \bibitem{repo} \texttt{github.com/manuflog/contextuality-obstructions}, verification
 suite, 2026.

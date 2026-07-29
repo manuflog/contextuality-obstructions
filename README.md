@@ -6,7 +6,15 @@
 [flagship](https://doi.org/10.5281/zenodo.21488473) ·
 [circle geometry](https://doi.org/10.5281/zenodo.21498342) ·
 [alphabet theorems](https://doi.org/10.5281/zenodo.21498385) ·
-[a second KS circle, in dimension four](https://doi.org/10.5281/zenodo.21516711)
+[a second KS circle, in dimension four](https://doi.org/10.5281/zenodo.21516711) ·
+[a tower of KS circles, and the maximal-Galois holonomy law](https://doi.org/10.5281/zenodo.21680457)
+
+The tower paper (posted 2026-07-29) climbs the family to dimensions 4, 6, 8, 10 and 12 and shows
+the Wilczek–Zee holonomy has full symmetric Galois group $S_d$ at every even rung built, for cores
+with irreducible coupling. It went out only after two adversarial gate passes; the first found a
+theorem that was **false as stated** — universally quantified over a class containing a
+counterexample the same paper exhibits — and the second found that the repair was still too weak.
+Both are recorded in [`arxiv/JUDGEMENT_LOG.md`](arxiv/JUDGEMENT_LOG.md) rather than quietly fixed.
 
 **Obstruction program (Zenodo, CC BY 4.0, posted 2026-07-27):**
 [Paper A — MASA context stack](https://doi.org/10.5281/zenodo.21630431) ·

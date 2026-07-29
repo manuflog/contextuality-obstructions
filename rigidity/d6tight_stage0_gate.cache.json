@@ -1,0 +1,1 @@
+{"passed": true, "checks": [{"case": "d4_M9", "expect": 1, "exact": 1, "modp": 1, "pass_": true}, {"case": "d4_M10", "expect": 2, "exact": 2, "modp": 2, "pass_": true}, {"case": "d6_46ray", "expect": 17, "exact": 17, "modp": 17, "pass_": true}]}

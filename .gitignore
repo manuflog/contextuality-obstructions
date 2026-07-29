@@ -11,6 +11,18 @@ __pycache__/
 # so no verification needs heavy compute) and are re-included below.
 *.cache.json
 !rigidity/d4flex_*_done.cache.json
+# Tower-paper (paper #5) checkpoint caches: shipped so every branch_* script runs from a
+# clean clone without hours of recomputation. Heavy intermediates (>3 MB) stay untracked.
+!rigidity/d6flex_*.cache.json
+!rigidity/d6galois_*.cache.json
+!rigidity/d6anchor_*.cache.json
+!rigidity/d6tight_*.cache.json
+!rigidity/d6geo_*.cache.json
+!rigidity/d8galois_*.cache.json
+!rigidity/d10_*.cache.json
+!rigidity/d12_*.cache.json
+!rigidity/m9geo_*.cache.json
+!rigidity/sdattack_*.cache.json
 
 # LaTeX build artifacts (PDFs are tracked; intermediates are not)
 *.aux

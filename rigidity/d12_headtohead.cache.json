@@ -1,0 +1,1 @@
+{"scanned_to": 231379, "nprimes": 20549, "found": {"odd": [3, [4, 3, 3, 1, 1]], "dcycle": [5, [12]], "d1cycle": [7, [11, 1]], "transp_power": [13, [5, 3, 2, 1, 1]], "p7": [59, [7, 2, 2, 1]]}, "dens_lit": "1/7257600", "dens_pt": "63/512", "routeA": true, "old_literal": false, "old_power": true, "wA": 59, "wB": null, "wBp": 13}

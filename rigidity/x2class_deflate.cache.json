@@ -1,0 +1,290 @@
+[
+ {
+  "name": "L30 t=2   x=sqrt3+i",
+  "closed": [
+   145,
+   390,
+   30
+  ],
+  "D": [
+   49,
+   138,
+   18
+  ],
+  "D_colorable": false,
+  "order_ratio": 6,
+  "labelled_equals_omega": true
+ },
+ {
+  "name": "L30 t=4   x=2sqrt3+2i",
+  "closed": [
+   145,
+   390,
+   30
+  ],
+  "D": [
+   49,
+   138,
+   18
+  ],
+  "D_colorable": false,
+  "order_ratio": 6,
+  "labelled_equals_omega": true
+ },
+ {
+  "name": "L30 t=2/3 x=(sqrt3+i)/3",
+  "closed": [
+   145,
+   390,
+   30
+  ],
+  "D": [
+   49,
+   138,
+   18
+  ],
+  "D_colorable": false,
+  "order_ratio": 6,
+  "labelled_equals_omega": true
+ },
+ {
+  "name": "L30 t=sqrt5",
+  "closed": [
+   145,
+   390,
+   30
+  ],
+  "D": [
+   49,
+   138,
+   18
+  ],
+  "D_colorable": false,
+  "order_ratio": 6,
+  "labelled_equals_omega": true
+ },
+ {
+  "name": "L30 t=1   x=e^{i30}",
+  "closed": [
+   109,
+   312,
+   24
+  ],
+  "D": [
+   49,
+   138,
+   18
+  ],
+  "D_colorable": false,
+  "order_ratio": 6,
+  "labelled_equals_omega": true
+ },
+ {
+  "name": "L30 t=sqrt3 x=2+omega",
+  "closed": [
+   145,
+   486,
+   38
+  ],
+  "D": [
+   49,
+   138,
+   18
+  ],
+  "D_colorable": false,
+  "order_ratio": 6,
+  "labelled_equals_omega": true
+ },
+ {
+  "name": "L60 t=2   x=1+isqrt3",
+  "closed": [
+   145,
+   438,
+   62
+  ],
+  "D": [
+   49,
+   138,
+   18
+  ],
+  "D_colorable": false,
+  "order_ratio": 3,
+  "labelled_equals_omega": true
+ },
+ {
+  "name": "L60 t=1/2 x=(1+isqrt3)/4",
+  "closed": [
+   145,
+   414,
+   54
+  ],
+  "D": [
+   49,
+   138,
+   18
+  ],
+  "D_colorable": false,
+  "order_ratio": 3,
+  "labelled_equals_omega": true
+ },
+ {
+  "name": "L60 t=4   x=2+2isqrt3",
+  "closed": [
+   145,
+   390,
+   30
+  ],
+  "D": [
+   49,
+   138,
+   18
+  ],
+  "D_colorable": false,
+  "order_ratio": 3,
+  "labelled_equals_omega": true
+ },
+ {
+  "name": "L60 t=2/3 x=(1+isqrt3)/3",
+  "closed": [
+   145,
+   390,
+   30
+  ],
+  "D": [
+   49,
+   138,
+   18
+  ],
+  "D_colorable": false,
+  "order_ratio": 3,
+  "labelled_equals_omega": true
+ },
+ {
+  "name": "L60 t=sqrt5",
+  "closed": [
+   145,
+   390,
+   30
+  ],
+  "D": [
+   49,
+   138,
+   18
+  ],
+  "D_colorable": false,
+  "order_ratio": 3,
+  "labelled_equals_omega": true
+ },
+ {
+  "name": "L60 t=1   x=e^{i60}",
+  "closed": [
+   57,
+   174,
+   22
+  ],
+  "D": [
+   49,
+   138,
+   18
+  ],
+  "D_colorable": false,
+  "order_ratio": 3,
+  "labelled_equals_omega": true
+ },
+ {
+  "name": "H+ x=3/2+isqrt7/2",
+  "closed": [
+   145,
+   378,
+   22
+  ],
+  "D": [
+   49,
+   114,
+   10
+  ],
+  "D_colorable": true,
+  "order_ratio": null,
+  "labelled_equals_omega": false
+ },
+ {
+  "name": "H- x=1/4+3i/4",
+  "closed": [
+   145,
+   378,
+   22
+  ],
+  "D": [
+   49,
+   114,
+   10
+  ],
+  "D_colorable": true,
+  "order_ratio": null,
+  "labelled_equals_omega": false
+ },
+ {
+  "name": "U  x=(3+4i)/5",
+  "closed": [
+   109,
+   276,
+   16
+  ],
+  "D": [
+   49,
+   114,
+   10
+  ],
+  "D_colorable": true,
+  "order_ratio": null,
+  "labelled_equals_omega": false
+ },
+ {
+  "name": "D45 x=2+2i",
+  "closed": [
+   127,
+   321,
+   19
+  ],
+  "D": [
+   31,
+   69,
+   7
+  ],
+  "D_colorable": true,
+  "order_ratio": 4,
+  "labelled_equals_omega": false
+ },
+ {
+  "name": "M2 x=(1+7i)/5",
+  "closed": [
+   145,
+   378,
+   34
+  ],
+  "D": [
+   49,
+   114,
+   10
+  ],
+  "D_colorable": true,
+  "order_ratio": null,
+  "labelled_equals_omega": false
+ },
+ {
+  "name": "CTRL x=1+2i",
+  "closed": [
+   145,
+   366,
+   22
+  ],
+  "D": [
+   49,
+   114,
+   10
+  ],
+  "D_colorable": true,
+  "order_ratio": null,
+  "labelled_equals_omega": false
+ }
+]

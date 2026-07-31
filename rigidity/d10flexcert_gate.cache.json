@@ -1,0 +1,1 @@
+{"passed": true, "checks": [["full core", "x5", 10872], ["full core", "x13", 10872], ["subcore[:90]", "x5", 732], ["subcore[:90]", "x13", 732]], "secs": 4.31}

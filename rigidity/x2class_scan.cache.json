@@ -1,0 +1,2178 @@
+{
+ "L30 t=2   x=sqrt3+i|True": {
+  "name": "L30 t=2   x=sqrt3+i",
+  "p": "sqrt(3)",
+  "q": "1.0",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false,
+  "loci": [
+   "L30"
+  ],
+  "N": "4"
+ },
+ "L30 t=2   x=sqrt3+i|False": {
+  "name": "L30 t=2   x=sqrt3+i",
+  "p": "sqrt(3)",
+  "q": "1.0",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L30"
+  ],
+  "N": "4"
+ },
+ "L30 t=4   x=2sqrt3+2i|True": {
+  "name": "L30 t=4   x=2sqrt3+2i",
+  "p": "2*sqrt(3)",
+  "q": "2.0",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false,
+  "loci": [
+   "L30"
+  ],
+  "N": "16"
+ },
+ "L30 t=4   x=2sqrt3+2i|False": {
+  "name": "L30 t=4   x=2sqrt3+2i",
+  "p": "2*sqrt(3)",
+  "q": "2.0",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L30"
+  ],
+  "N": "16"
+ },
+ "L30 t=6   x=3sqrt3+3i|True": {
+  "name": "L30 t=6   x=3sqrt3+3i",
+  "p": "3*sqrt(3)",
+  "q": "3.0",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false,
+  "loci": [
+   "L30"
+  ],
+  "N": "36"
+ },
+ "L30 t=6   x=3sqrt3+3i|False": {
+  "name": "L30 t=6   x=3sqrt3+3i",
+  "p": "3*sqrt(3)",
+  "q": "3.0",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L30"
+  ],
+  "N": "36"
+ },
+ "L30 t=2/3 x=(sqrt3+i)/3|True": {
+  "name": "L30 t=2/3 x=(sqrt3+i)/3",
+  "p": "sqrt(3)/3",
+  "q": "1/3",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false,
+  "loci": [
+   "L30"
+  ],
+  "N": "4/9"
+ },
+ "L30 t=2/3 x=(sqrt3+i)/3|False": {
+  "name": "L30 t=2/3 x=(sqrt3+i)/3",
+  "p": "sqrt(3)/3",
+  "q": "1/3",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L30"
+  ],
+  "N": "4/9"
+ },
+ "L30 t=5   x=5(sqrt3+i)/2|True": {
+  "name": "L30 t=5   x=5(sqrt3+i)/2",
+  "p": "5*sqrt(3)/2",
+  "q": "2.5",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false,
+  "loci": [
+   "L30"
+  ],
+  "N": "25"
+ },
+ "L30 t=5   x=5(sqrt3+i)/2|False": {
+  "name": "L30 t=5   x=5(sqrt3+i)/2",
+  "p": "5*sqrt(3)/2",
+  "q": "2.5",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L30"
+  ],
+  "N": "25"
+ },
+ "L30 t=sqrt3 x=2+omega|True": {
+  "name": "L30 t=sqrt3 x=2+omega",
+  "p": "3/2",
+  "q": "sqrt(3)/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 486,
+  "triads": 38,
+  "colorable": false,
+  "loci": [
+   "M5",
+   "L30"
+  ],
+  "N": "3"
+ },
+ "L30 t=sqrt3 x=2+omega|False": {
+  "name": "L30 t=sqrt3 x=2+omega",
+  "p": "3/2",
+  "q": "sqrt(3)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 72,
+  "triads": 8,
+  "colorable": true,
+  "loci": [
+   "M5",
+   "L30"
+  ],
+  "N": "3"
+ },
+ "L30 t=sqrt5 x=sqrt15/2+isqrt5/2|True": {
+  "name": "L30 t=sqrt5 x=sqrt15/2+isqrt5/2",
+  "p": "sqrt(15)/2",
+  "q": "sqrt(5)/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false,
+  "loci": [
+   "L30"
+  ],
+  "N": "5"
+ },
+ "L30 t=sqrt5 x=sqrt15/2+isqrt5/2|False": {
+  "name": "L30 t=sqrt5 x=sqrt15/2+isqrt5/2",
+  "p": "sqrt(15)/2",
+  "q": "sqrt(5)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L30"
+  ],
+  "N": "5"
+ },
+ "L30 t=sqrt2 (also on M2)|True": {
+  "name": "L30 t=sqrt2 (also on M2)",
+  "p": "sqrt(6)/2",
+  "q": "sqrt(2)/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 402,
+  "triads": 42,
+  "colorable": false,
+  "loci": [
+   "M2",
+   "L30"
+  ],
+  "N": "2"
+ },
+ "L30 t=sqrt2 (also on M2)|False": {
+  "name": "L30 t=sqrt2 (also on M2)",
+  "p": "sqrt(6)/2",
+  "q": "sqrt(2)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 66,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "M2",
+   "L30"
+  ],
+  "N": "2"
+ },
+ "L30 t=1   x=e^{i30} (also |x|=1)|True": {
+  "name": "L30 t=1   x=e^{i30} (also |x|=1)",
+  "p": "sqrt(3)/2",
+  "q": "0.5",
+  "closed": true,
+  "rays": 109,
+  "pairs": 312,
+  "triads": 24,
+  "colorable": false,
+  "loci": [
+   "L30",
+   "H+",
+   "U"
+  ],
+  "N": "1"
+ },
+ "L30 t=1   x=e^{i30} (also |x|=1)|False": {
+  "name": "L30 t=1   x=e^{i30} (also |x|=1)",
+  "p": "sqrt(3)/2",
+  "q": "0.5",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "L30",
+   "H+",
+   "U"
+  ],
+  "N": "1"
+ },
+ "L60 t=2   x=1+isqrt3  [special]|True": {
+  "name": "L60 t=2   x=1+isqrt3  [special]",
+  "p": "1.0",
+  "q": "sqrt(3)",
+  "closed": true,
+  "rays": 145,
+  "pairs": 438,
+  "triads": 62,
+  "colorable": false,
+  "loci": [
+   "L60"
+  ],
+  "N": "4"
+ },
+ "L60 t=2   x=1+isqrt3  [special]|False": {
+  "name": "L60 t=2   x=1+isqrt3  [special]",
+  "p": "1.0",
+  "q": "sqrt(3)",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L60"
+  ],
+  "N": "4"
+ },
+ "L60 t=1/2 x=(1+isqrt3)/4 [special]|True": {
+  "name": "L60 t=1/2 x=(1+isqrt3)/4 [special]",
+  "p": "1/4",
+  "q": "sqrt(3)/4",
+  "closed": true,
+  "rays": 145,
+  "pairs": 414,
+  "triads": 54,
+  "colorable": false,
+  "loci": [
+   "L60"
+  ],
+  "N": "1/4"
+ },
+ "L60 t=1/2 x=(1+isqrt3)/4 [special]|False": {
+  "name": "L60 t=1/2 x=(1+isqrt3)/4 [special]",
+  "p": "1/4",
+  "q": "sqrt(3)/4",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L60"
+  ],
+  "N": "1/4"
+ },
+ "L60 t=4   x=2+2isqrt3|True": {
+  "name": "L60 t=4   x=2+2isqrt3",
+  "p": "2.0",
+  "q": "2*sqrt(3)",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false,
+  "loci": [
+   "L60"
+  ],
+  "N": "16"
+ },
+ "L60 t=4   x=2+2isqrt3|False": {
+  "name": "L60 t=4   x=2+2isqrt3",
+  "p": "2.0",
+  "q": "2*sqrt(3)",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L60"
+  ],
+  "N": "16"
+ },
+ "L60 t=6   x=3+3isqrt3|True": {
+  "name": "L60 t=6   x=3+3isqrt3",
+  "p": "3.0",
+  "q": "3*sqrt(3)",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false,
+  "loci": [
+   "L60"
+  ],
+  "N": "36"
+ },
+ "L60 t=6   x=3+3isqrt3|False": {
+  "name": "L60 t=6   x=3+3isqrt3",
+  "p": "3.0",
+  "q": "3*sqrt(3)",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L60"
+  ],
+  "N": "36"
+ },
+ "L60 t=2/3 x=(1+isqrt3)/3|True": {
+  "name": "L60 t=2/3 x=(1+isqrt3)/3",
+  "p": "1/3",
+  "q": "sqrt(3)/3",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false,
+  "loci": [
+   "L60"
+  ],
+  "N": "4/9"
+ },
+ "L60 t=2/3 x=(1+isqrt3)/3|False": {
+  "name": "L60 t=2/3 x=(1+isqrt3)/3",
+  "p": "1/3",
+  "q": "sqrt(3)/3",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L60"
+  ],
+  "N": "4/9"
+ },
+ "L60 t=5   x=5(1+isqrt3)/2|True": {
+  "name": "L60 t=5   x=5(1+isqrt3)/2",
+  "p": "2.5",
+  "q": "5*sqrt(3)/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false,
+  "loci": [
+   "L60"
+  ],
+  "N": "25"
+ },
+ "L60 t=5   x=5(1+isqrt3)/2|False": {
+  "name": "L60 t=5   x=5(1+isqrt3)/2",
+  "p": "2.5",
+  "q": "5*sqrt(3)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L60"
+  ],
+  "N": "25"
+ },
+ "L60 t=sqrt3 x=sqrt3/2+3i/2|True": {
+  "name": "L60 t=sqrt3 x=sqrt3/2+3i/2",
+  "p": "sqrt(3)/2",
+  "q": "3/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false,
+  "loci": [
+   "L60"
+  ],
+  "N": "3"
+ },
+ "L60 t=sqrt3 x=sqrt3/2+3i/2|False": {
+  "name": "L60 t=sqrt3 x=sqrt3/2+3i/2",
+  "p": "sqrt(3)/2",
+  "q": "3/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L60"
+  ],
+  "N": "3"
+ },
+ "L60 t=sqrt5 x=sqrt5/2+isqrt15/2|True": {
+  "name": "L60 t=sqrt5 x=sqrt5/2+isqrt15/2",
+  "p": "sqrt(5)/2",
+  "q": "sqrt(15)/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false,
+  "loci": [
+   "L60"
+  ],
+  "N": "5"
+ },
+ "L60 t=sqrt5 x=sqrt5/2+isqrt15/2|False": {
+  "name": "L60 t=sqrt5 x=sqrt5/2+isqrt15/2",
+  "p": "sqrt(5)/2",
+  "q": "sqrt(15)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "L60"
+  ],
+  "N": "5"
+ },
+ "L60 t=1   x=e^{i60} (also M3)|True": {
+  "name": "L60 t=1   x=e^{i60} (also M3)",
+  "p": "0.5",
+  "q": "sqrt(3)/2",
+  "closed": true,
+  "rays": 57,
+  "pairs": 174,
+  "triads": 22,
+  "colorable": false,
+  "loci": [
+   "M3",
+   "M5",
+   "L60",
+   "H-",
+   "U"
+  ],
+  "N": "1"
+ },
+ "L60 t=1   x=e^{i60} (also M3)|False": {
+  "name": "L60 t=1   x=e^{i60} (also M3)",
+  "p": "0.5",
+  "q": "sqrt(3)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 138,
+  "triads": 18,
+  "colorable": false,
+  "loci": [
+   "M3",
+   "M5",
+   "L60",
+   "H-",
+   "U"
+  ],
+  "N": "1"
+ },
+ "H+ x=3/4+i/4      N=5/8|True": {
+  "name": "H+ x=3/4+i/4      N=5/8",
+  "p": "3/4",
+  "q": "1/4",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "5/8"
+ },
+ "H+ x=3/4+i/4      N=5/8|False": {
+  "name": "H+ x=3/4+i/4      N=5/8",
+  "p": "3/4",
+  "q": "1/4",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "5/8"
+ },
+ "H+ x=9/8+7i/8     N=65/32|True": {
+  "name": "H+ x=9/8+7i/8     N=65/32",
+  "p": "9/8",
+  "q": "7/8",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "65/32"
+ },
+ "H+ x=9/8+7i/8     N=65/32|False": {
+  "name": "H+ x=9/8+7i/8     N=65/32",
+  "p": "9/8",
+  "q": "7/8",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "65/32"
+ },
+ "H+ x=1+isqrt2/2   N=3/2|True": {
+  "name": "H+ x=1+isqrt2/2   N=3/2",
+  "p": "1",
+  "q": "sqrt(2)/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "3/2"
+ },
+ "H+ x=1+isqrt2/2   N=3/2|False": {
+  "name": "H+ x=1+isqrt2/2   N=3/2",
+  "p": "1",
+  "q": "sqrt(2)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "3/2"
+ },
+ "H+ x=3/2+isqrt7/2 N=4|True": {
+  "name": "H+ x=3/2+isqrt7/2 N=4",
+  "p": "3/2",
+  "q": "sqrt(7)/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "4"
+ },
+ "H+ x=3/2+isqrt7/2 N=4|False": {
+  "name": "H+ x=3/2+isqrt7/2 N=4",
+  "p": "3/2",
+  "q": "sqrt(7)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "4"
+ },
+ "H+ x=2+isqrt14/2  N=15/2|True": {
+  "name": "H+ x=2+isqrt14/2  N=15/2",
+  "p": "2",
+  "q": "sqrt(14)/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "15/2"
+ },
+ "H+ x=2+isqrt14/2  N=15/2|False": {
+  "name": "H+ x=2+isqrt14/2  N=15/2",
+  "p": "2",
+  "q": "sqrt(14)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "15/2"
+ },
+ "H+ x=sqrt2+isqrt6/2 N=7/2|True": {
+  "name": "H+ x=sqrt2+isqrt6/2 N=7/2",
+  "p": "sqrt(2)",
+  "q": "sqrt(6)/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "7/2"
+ },
+ "H+ x=sqrt2+isqrt6/2 N=7/2|False": {
+  "name": "H+ x=sqrt2+isqrt6/2 N=7/2",
+  "p": "sqrt(2)",
+  "q": "sqrt(6)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "7/2"
+ },
+ "H+ x=5/2+isqrt23/2 N=12|True": {
+  "name": "H+ x=5/2+isqrt23/2 N=12",
+  "p": "5/2",
+  "q": "sqrt(23)/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "12"
+ },
+ "H+ x=5/2+isqrt23/2 N=12|False": {
+  "name": "H+ x=5/2+isqrt23/2 N=12",
+  "p": "5/2",
+  "q": "sqrt(23)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H+"
+  ],
+  "N": "12"
+ },
+ "H+ x=sqrt2/2 (real, =M2)|True": {
+  "name": "H+ x=sqrt2/2 (real, =M2)",
+  "p": "sqrt(2)/2",
+  "q": "0",
+  "closed": true,
+  "rays": 49,
+  "pairs": 120,
+  "triads": 16,
+  "colorable": false,
+  "loci": [
+   "M2",
+   "H+",
+   "RE"
+  ],
+  "N": "1/2"
+ },
+ "H+ x=sqrt2/2 (real, =M2)|False": {
+  "name": "H+ x=sqrt2/2 (real, =M2)",
+  "p": "sqrt(2)/2",
+  "q": "0",
+  "closed": false,
+  "rays": 49,
+  "pairs": 120,
+  "triads": 16,
+  "colorable": false,
+  "loci": [
+   "M2",
+   "H+",
+   "RE"
+  ],
+  "N": "1/2"
+ },
+ "H- x=1/4+3i/4      N=5/8|True": {
+  "name": "H- x=1/4+3i/4      N=5/8",
+  "p": "1/4",
+  "q": "3/4",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H-"
+  ],
+  "N": "5/8"
+ },
+ "H- x=1/4+3i/4      N=5/8|False": {
+  "name": "H- x=1/4+3i/4      N=5/8",
+  "p": "1/4",
+  "q": "3/4",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H-"
+  ],
+  "N": "5/8"
+ },
+ "H- x=7/8+9i/8      N=65/32|True": {
+  "name": "H- x=7/8+9i/8      N=65/32",
+  "p": "7/8",
+  "q": "9/8",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H-"
+  ],
+  "N": "65/32"
+ },
+ "H- x=7/8+9i/8      N=65/32|False": {
+  "name": "H- x=7/8+9i/8      N=65/32",
+  "p": "7/8",
+  "q": "9/8",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H-"
+  ],
+  "N": "65/32"
+ },
+ "H- x=sqrt2/2+i     N=3/2|True": {
+  "name": "H- x=sqrt2/2+i     N=3/2",
+  "p": "sqrt(2)/2",
+  "q": "1",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H-"
+  ],
+  "N": "3/2"
+ },
+ "H- x=sqrt2/2+i     N=3/2|False": {
+  "name": "H- x=sqrt2/2+i     N=3/2",
+  "p": "sqrt(2)/2",
+  "q": "1",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H-"
+  ],
+  "N": "3/2"
+ },
+ "H- x=sqrt7/2+3i/2  N=4|True": {
+  "name": "H- x=sqrt7/2+3i/2  N=4",
+  "p": "sqrt(7)/2",
+  "q": "3/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H-"
+  ],
+  "N": "4"
+ },
+ "H- x=sqrt7/2+3i/2  N=4|False": {
+  "name": "H- x=sqrt7/2+3i/2  N=4",
+  "p": "sqrt(7)/2",
+  "q": "3/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H-"
+  ],
+  "N": "4"
+ },
+ "H- x=sqrt14/2+2i   N=15/2|True": {
+  "name": "H- x=sqrt14/2+2i   N=15/2",
+  "p": "sqrt(14)/2",
+  "q": "2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H-"
+  ],
+  "N": "15/2"
+ },
+ "H- x=sqrt14/2+2i   N=15/2|False": {
+  "name": "H- x=sqrt14/2+2i   N=15/2",
+  "p": "sqrt(14)/2",
+  "q": "2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H-"
+  ],
+  "N": "15/2"
+ },
+ "H- x=sqrt6/2+isqrt2 N=7/2|True": {
+  "name": "H- x=sqrt6/2+isqrt2 N=7/2",
+  "p": "sqrt(6)/2",
+  "q": "sqrt(2)",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true,
+  "loci": [
+   "H-"
+  ],
+  "N": "7/2"
+ },
+ "H- x=sqrt6/2+isqrt2 N=7/2|False": {
+  "name": "H- x=sqrt6/2+isqrt2 N=7/2",
+  "p": "sqrt(6)/2",
+  "q": "sqrt(2)",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "H-"
+  ],
+  "N": "7/2"
+ },
+ "H- x=isqrt2/2 (=M2)|True": {
+  "name": "H- x=isqrt2/2 (=M2)",
+  "p": "0",
+  "q": "sqrt(2)/2",
+  "closed": true,
+  "rays": 49,
+  "pairs": 120,
+  "triads": 16,
+  "colorable": false,
+  "loci": [
+   "M2",
+   "H-",
+   "IM"
+  ],
+  "N": "1/2"
+ },
+ "H- x=isqrt2/2 (=M2)|False": {
+  "name": "H- x=isqrt2/2 (=M2)",
+  "p": "0",
+  "q": "sqrt(2)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 120,
+  "triads": 16,
+  "colorable": false,
+  "loci": [
+   "M2",
+   "H-",
+   "IM"
+  ],
+  "N": "1/2"
+ },
+ "H- x=1/2+isqrt3/2 (=M3,omega6)|True": {
+  "name": "H- x=1/2+isqrt3/2 (=M3,omega6)",
+  "p": "1/2",
+  "q": "sqrt(3)/2",
+  "closed": true,
+  "rays": 57,
+  "pairs": 174,
+  "triads": 22,
+  "colorable": false,
+  "loci": [
+   "M3",
+   "M5",
+   "L60",
+   "H-",
+   "U"
+  ],
+  "N": "1"
+ },
+ "H- x=1/2+isqrt3/2 (=M3,omega6)|False": {
+  "name": "H- x=1/2+isqrt3/2 (=M3,omega6)",
+  "p": "1/2",
+  "q": "sqrt(3)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 138,
+  "triads": 18,
+  "colorable": false,
+  "loci": [
+   "M3",
+   "M5",
+   "L60",
+   "H-",
+   "U"
+  ],
+  "N": "1"
+ },
+ "U x=(3+4i)/5|True": {
+  "name": "U x=(3+4i)/5",
+  "p": "3/5",
+  "q": "4/5",
+  "closed": true,
+  "rays": 109,
+  "pairs": 276,
+  "triads": 16,
+  "colorable": true,
+  "loci": [
+   "U"
+  ],
+  "N": "1"
+ },
+ "U x=(3+4i)/5|False": {
+  "name": "U x=(3+4i)/5",
+  "p": "3/5",
+  "q": "4/5",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "U"
+  ],
+  "N": "1"
+ },
+ "U x=(5+12i)/13|True": {
+  "name": "U x=(5+12i)/13",
+  "p": "5/13",
+  "q": "12/13",
+  "closed": true,
+  "rays": 109,
+  "pairs": 276,
+  "triads": 16,
+  "colorable": true,
+  "loci": [
+   "U"
+  ],
+  "N": "1"
+ },
+ "U x=(5+12i)/13|False": {
+  "name": "U x=(5+12i)/13",
+  "p": "5/13",
+  "q": "12/13",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "U"
+  ],
+  "N": "1"
+ },
+ "U x=(8+15i)/17|True": {
+  "name": "U x=(8+15i)/17",
+  "p": "8/17",
+  "q": "15/17",
+  "closed": true,
+  "rays": 109,
+  "pairs": 276,
+  "triads": 16,
+  "colorable": true,
+  "loci": [
+   "U"
+  ],
+  "N": "1"
+ },
+ "U x=(8+15i)/17|False": {
+  "name": "U x=(8+15i)/17",
+  "p": "8/17",
+  "q": "15/17",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "U"
+  ],
+  "N": "1"
+ },
+ "U x=(7+24i)/25|True": {
+  "name": "U x=(7+24i)/25",
+  "p": "7/25",
+  "q": "24/25",
+  "closed": true,
+  "rays": 109,
+  "pairs": 276,
+  "triads": 16,
+  "colorable": true,
+  "loci": [
+   "U"
+  ],
+  "N": "1"
+ },
+ "U x=(7+24i)/25|False": {
+  "name": "U x=(7+24i)/25",
+  "p": "7/25",
+  "q": "24/25",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "U"
+  ],
+  "N": "1"
+ },
+ "U x=(20+21i)/29|True": {
+  "name": "U x=(20+21i)/29",
+  "p": "20/29",
+  "q": "21/29",
+  "closed": true,
+  "rays": 109,
+  "pairs": 276,
+  "triads": 16,
+  "colorable": true,
+  "loci": [
+   "U"
+  ],
+  "N": "1"
+ },
+ "U x=(20+21i)/29|False": {
+  "name": "U x=(20+21i)/29",
+  "p": "20/29",
+  "q": "21/29",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "U"
+  ],
+  "N": "1"
+ },
+ "IM x=2i|True": {
+  "name": "IM x=2i",
+  "p": "0",
+  "q": "2",
+  "closed": true,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "IM"
+  ],
+  "N": "4"
+ },
+ "IM x=2i|False": {
+  "name": "IM x=2i",
+  "p": "0",
+  "q": "2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "IM"
+  ],
+  "N": "4"
+ },
+ "IM x=3i|True": {
+  "name": "IM x=3i",
+  "p": "0",
+  "q": "3",
+  "closed": true,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "IM"
+  ],
+  "N": "9"
+ },
+ "IM x=3i|False": {
+  "name": "IM x=3i",
+  "p": "0",
+  "q": "3",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "IM"
+  ],
+  "N": "9"
+ },
+ "IM x=5i/2|True": {
+  "name": "IM x=5i/2",
+  "p": "0",
+  "q": "5/2",
+  "closed": true,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "IM"
+  ],
+  "N": "25/4"
+ },
+ "IM x=5i/2|False": {
+  "name": "IM x=5i/2",
+  "p": "0",
+  "q": "5/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "IM"
+  ],
+  "N": "25/4"
+ },
+ "IM x=isqrt3|True": {
+  "name": "IM x=isqrt3",
+  "p": "0",
+  "q": "sqrt(3)",
+  "closed": true,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "IM"
+  ],
+  "N": "3"
+ },
+ "IM x=isqrt3|False": {
+  "name": "IM x=isqrt3",
+  "p": "0",
+  "q": "sqrt(3)",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "IM"
+  ],
+  "N": "3"
+ },
+ "IM x=isqrt5|True": {
+  "name": "IM x=isqrt5",
+  "p": "0",
+  "q": "sqrt(5)",
+  "closed": true,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "IM"
+  ],
+  "N": "5"
+ },
+ "IM x=isqrt5|False": {
+  "name": "IM x=isqrt5",
+  "p": "0",
+  "q": "sqrt(5)",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "IM"
+  ],
+  "N": "5"
+ },
+ "IM x=i/3|True": {
+  "name": "IM x=i/3",
+  "p": "0",
+  "q": "1/3",
+  "closed": true,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "IM"
+  ],
+  "N": "1/9"
+ },
+ "IM x=i/3|False": {
+  "name": "IM x=i/3",
+  "p": "0",
+  "q": "1/3",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "IM"
+  ],
+  "N": "1/9"
+ },
+ "D45 x=1+i|True": {
+  "name": "D45 x=1+i",
+  "p": "1",
+  "q": "1",
+  "closed": true,
+  "rays": 127,
+  "pairs": 477,
+  "triads": 63,
+  "colorable": false,
+  "loci": [
+   "M2",
+   "M5",
+   "D45"
+  ],
+  "N": "2"
+ },
+ "D45 x=1+i|False": {
+  "name": "D45 x=1+i",
+  "p": "1",
+  "q": "1",
+  "closed": false,
+  "rays": 49,
+  "pairs": 78,
+  "triads": 14,
+  "colorable": true,
+  "loci": [
+   "M2",
+   "M5",
+   "D45"
+  ],
+  "N": "2"
+ },
+ "D45 x=2+2i|True": {
+  "name": "D45 x=2+2i",
+  "p": "2",
+  "q": "2",
+  "closed": true,
+  "rays": 127,
+  "pairs": 321,
+  "triads": 19,
+  "colorable": true,
+  "loci": [
+   "D45"
+  ],
+  "N": "8"
+ },
+ "D45 x=2+2i|False": {
+  "name": "D45 x=2+2i",
+  "p": "2",
+  "q": "2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "D45"
+  ],
+  "N": "8"
+ },
+ "D45 x=3+3i|True": {
+  "name": "D45 x=3+3i",
+  "p": "3",
+  "q": "3",
+  "closed": true,
+  "rays": 127,
+  "pairs": 321,
+  "triads": 19,
+  "colorable": true,
+  "loci": [
+   "D45"
+  ],
+  "N": "18"
+ },
+ "D45 x=3+3i|False": {
+  "name": "D45 x=3+3i",
+  "p": "3",
+  "q": "3",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "D45"
+  ],
+  "N": "18"
+ },
+ "D45 x=sqrt2+isqrt2|True": {
+  "name": "D45 x=sqrt2+isqrt2",
+  "p": "sqrt(2)",
+  "q": "sqrt(2)",
+  "closed": true,
+  "rays": 127,
+  "pairs": 321,
+  "triads": 19,
+  "colorable": true,
+  "loci": [
+   "D45"
+  ],
+  "N": "4"
+ },
+ "D45 x=sqrt2+isqrt2|False": {
+  "name": "D45 x=sqrt2+isqrt2",
+  "p": "sqrt(2)",
+  "q": "sqrt(2)",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "D45"
+  ],
+  "N": "4"
+ },
+ "D45 x=5/2+5i/2|True": {
+  "name": "D45 x=5/2+5i/2",
+  "p": "5/2",
+  "q": "5/2",
+  "closed": true,
+  "rays": 127,
+  "pairs": 321,
+  "triads": 19,
+  "colorable": true,
+  "loci": [
+   "D45"
+  ],
+  "N": "25/2"
+ },
+ "D45 x=5/2+5i/2|False": {
+  "name": "D45 x=5/2+5i/2",
+  "p": "5/2",
+  "q": "5/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "D45"
+  ],
+  "N": "25/2"
+ },
+ "CTRL x=3|True": {
+  "name": "CTRL x=3",
+  "p": "3",
+  "q": "0",
+  "closed": true,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "RE"
+  ],
+  "N": "9"
+ },
+ "CTRL x=3|False": {
+  "name": "CTRL x=3",
+  "p": "3",
+  "q": "0",
+  "closed": false,
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "RE"
+  ],
+  "N": "9"
+ },
+ "CTRL x=1+2i|True": {
+  "name": "CTRL x=1+2i",
+  "p": "1",
+  "q": "2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 366,
+  "triads": 22,
+  "colorable": true,
+  "loci": [],
+  "N": "5"
+ },
+ "CTRL x=1+2i|False": {
+  "name": "CTRL x=1+2i",
+  "p": "1",
+  "q": "2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [],
+  "N": "5"
+ },
+ "CTRL x=2+3i|True": {
+  "name": "CTRL x=2+3i",
+  "p": "2",
+  "q": "3",
+  "closed": true,
+  "rays": 145,
+  "pairs": 366,
+  "triads": 22,
+  "colorable": true,
+  "loci": [],
+  "N": "13"
+ },
+ "CTRL x=2+3i|False": {
+  "name": "CTRL x=2+3i",
+  "p": "2",
+  "q": "3",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [],
+  "N": "13"
+ },
+ "CTRL x=4+i|True": {
+  "name": "CTRL x=4+i",
+  "p": "4",
+  "q": "1",
+  "closed": true,
+  "rays": 145,
+  "pairs": 366,
+  "triads": 22,
+  "colorable": true,
+  "loci": [],
+  "N": "17"
+ },
+ "CTRL x=4+i|False": {
+  "name": "CTRL x=4+i",
+  "p": "4",
+  "q": "1",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [],
+  "N": "17"
+ },
+ "CTRL x=1+3i|True": {
+  "name": "CTRL x=1+3i",
+  "p": "1",
+  "q": "3",
+  "closed": true,
+  "rays": 145,
+  "pairs": 366,
+  "triads": 22,
+  "colorable": true,
+  "loci": [],
+  "N": "10"
+ },
+ "CTRL x=1+3i|False": {
+  "name": "CTRL x=1+3i",
+  "p": "1",
+  "q": "3",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [],
+  "N": "10"
+ },
+ "CTRL x=sqrt5+2i|True": {
+  "name": "CTRL x=sqrt5+2i",
+  "p": "sqrt(5)",
+  "q": "2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 366,
+  "triads": 22,
+  "colorable": true,
+  "loci": [],
+  "N": "9"
+ },
+ "CTRL x=sqrt5+2i|False": {
+  "name": "CTRL x=sqrt5+2i",
+  "p": "sqrt(5)",
+  "q": "2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 60,
+  "triads": 4,
+  "colorable": true,
+  "loci": [],
+  "N": "9"
+ },
+ "M2 x=(1+7i)/5    N=2|True": {
+  "name": "M2 x=(1+7i)/5    N=2",
+  "p": "1/5",
+  "q": "7/5",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 34,
+  "colorable": false,
+  "loci": [
+   "M2"
+  ],
+  "N": "2"
+ },
+ "M2 x=(1+7i)/5    N=2|False": {
+  "name": "M2 x=(1+7i)/5    N=2",
+  "p": "1/5",
+  "q": "7/5",
+  "closed": false,
+  "rays": 49,
+  "pairs": 66,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "M2"
+  ],
+  "N": "2"
+ },
+ "M2 x=(7+i)/5     N=2|True": {
+  "name": "M2 x=(7+i)/5     N=2",
+  "p": "7/5",
+  "q": "1/5",
+  "closed": true,
+  "rays": 145,
+  "pairs": 378,
+  "triads": 34,
+  "colorable": false,
+  "loci": [
+   "M2"
+  ],
+  "N": "2"
+ },
+ "M2 x=(7+i)/5     N=2|False": {
+  "name": "M2 x=(7+i)/5     N=2",
+  "p": "7/5",
+  "q": "1/5",
+  "closed": false,
+  "rays": 49,
+  "pairs": 66,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "M2"
+  ],
+  "N": "2"
+ },
+ "M2 x=(1+7i)/10   N=1/2|True": {
+  "name": "M2 x=(1+7i)/10   N=1/2",
+  "p": "1/10",
+  "q": "7/10",
+  "closed": true,
+  "rays": 145,
+  "pairs": 390,
+  "triads": 46,
+  "colorable": false,
+  "loci": [
+   "M2"
+  ],
+  "N": "1/2"
+ },
+ "M2 x=(1+7i)/10   N=1/2|False": {
+  "name": "M2 x=(1+7i)/10   N=1/2",
+  "p": "1/10",
+  "q": "7/10",
+  "closed": false,
+  "rays": 49,
+  "pairs": 66,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "M2"
+  ],
+  "N": "1/2"
+ },
+ "M2 x=sqrt2 (real)|True": {
+  "name": "M2 x=sqrt2 (real)",
+  "p": "sqrt(2)",
+  "q": "0",
+  "closed": true,
+  "rays": 49,
+  "pairs": 120,
+  "triads": 16,
+  "colorable": false,
+  "loci": [
+   "M2",
+   "RE"
+  ],
+  "N": "2"
+ },
+ "M2 x=sqrt2 (real)|False": {
+  "name": "M2 x=sqrt2 (real)",
+  "p": "sqrt(2)",
+  "q": "0",
+  "closed": false,
+  "rays": 49,
+  "pairs": 120,
+  "triads": 16,
+  "colorable": false,
+  "loci": [
+   "M2",
+   "RE"
+  ],
+  "N": "2"
+ },
+ "M2 x=1+i (Gaussian)|True": {
+  "name": "M2 x=1+i (Gaussian)",
+  "p": "1",
+  "q": "1",
+  "closed": true,
+  "rays": 127,
+  "pairs": 477,
+  "triads": 63,
+  "colorable": false,
+  "loci": [
+   "M2",
+   "M5",
+   "D45"
+  ],
+  "N": "2"
+ },
+ "M2 x=1+i (Gaussian)|False": {
+  "name": "M2 x=1+i (Gaussian)",
+  "p": "1",
+  "q": "1",
+  "closed": false,
+  "rays": 49,
+  "pairs": 78,
+  "triads": 14,
+  "colorable": true,
+  "loci": [
+   "M2",
+   "M5",
+   "D45"
+  ],
+  "N": "2"
+ },
+ "M2 x=(1+isqrt7)/2 Heegner|True": {
+  "name": "M2 x=(1+isqrt7)/2 Heegner",
+  "p": "1/2",
+  "q": "sqrt(7)/2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 522,
+  "triads": 42,
+  "colorable": false,
+  "loci": [
+   "M2",
+   "M3"
+  ],
+  "N": "2"
+ },
+ "M2 x=(1+isqrt7)/2 Heegner|False": {
+  "name": "M2 x=(1+isqrt7)/2 Heegner",
+  "p": "1/2",
+  "q": "sqrt(7)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 78,
+  "triads": 14,
+  "colorable": true,
+  "loci": [
+   "M2",
+   "M3"
+  ],
+  "N": "2"
+ },
+ "M2 x=isqrt2|True": {
+  "name": "M2 x=isqrt2",
+  "p": "0",
+  "q": "sqrt(2)",
+  "closed": true,
+  "rays": 49,
+  "pairs": 120,
+  "triads": 16,
+  "colorable": false,
+  "loci": [
+   "M2",
+   "IM"
+  ],
+  "N": "2"
+ },
+ "M2 x=isqrt2|False": {
+  "name": "M2 x=isqrt2",
+  "p": "0",
+  "q": "sqrt(2)",
+  "closed": false,
+  "rays": 49,
+  "pairs": 120,
+  "triads": 16,
+  "colorable": false,
+  "loci": [
+   "M2",
+   "IM"
+  ],
+  "N": "2"
+ },
+ "M3 x=1/2+3i|True": {
+  "name": "M3 x=1/2+3i",
+  "p": "1/2",
+  "q": "3",
+  "closed": true,
+  "rays": 145,
+  "pairs": 462,
+  "triads": 30,
+  "colorable": true,
+  "loci": [
+   "M3"
+  ],
+  "N": "37/4"
+ },
+ "M3 x=1/2+3i|False": {
+  "name": "M3 x=1/2+3i",
+  "p": "1/2",
+  "q": "3",
+  "closed": false,
+  "rays": 49,
+  "pairs": 72,
+  "triads": 8,
+  "colorable": true,
+  "loci": [
+   "M3"
+  ],
+  "N": "37/4"
+ },
+ "M3 x=1/2+2i|True": {
+  "name": "M3 x=1/2+2i",
+  "p": "1/2",
+  "q": "2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 462,
+  "triads": 30,
+  "colorable": true,
+  "loci": [
+   "M3"
+  ],
+  "N": "17/4"
+ },
+ "M3 x=1/2+2i|False": {
+  "name": "M3 x=1/2+2i",
+  "p": "1/2",
+  "q": "2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 72,
+  "triads": 8,
+  "colorable": true,
+  "loci": [
+   "M3"
+  ],
+  "N": "17/4"
+ },
+ "M3 x=1/2+i/3|True": {
+  "name": "M3 x=1/2+i/3",
+  "p": "1/2",
+  "q": "1/3",
+  "closed": true,
+  "rays": 145,
+  "pairs": 462,
+  "triads": 30,
+  "colorable": true,
+  "loci": [
+   "M3"
+  ],
+  "N": "13/36"
+ },
+ "M3 x=1/2+i/3|False": {
+  "name": "M3 x=1/2+i/3",
+  "p": "1/2",
+  "q": "1/3",
+  "closed": false,
+  "rays": 49,
+  "pairs": 72,
+  "triads": 8,
+  "colorable": true,
+  "loci": [
+   "M3"
+  ],
+  "N": "13/36"
+ },
+ "M3 x=-1/2+2i|True": {
+  "name": "M3 x=-1/2+2i",
+  "p": "-1/2",
+  "q": "2",
+  "closed": true,
+  "rays": 145,
+  "pairs": 462,
+  "triads": 30,
+  "colorable": true,
+  "loci": [
+   "M3"
+  ],
+  "N": "17/4"
+ },
+ "M3 x=-1/2+2i|False": {
+  "name": "M3 x=-1/2+2i",
+  "p": "-1/2",
+  "q": "2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 72,
+  "triads": 8,
+  "colorable": true,
+  "loci": [
+   "M3"
+  ],
+  "N": "17/4"
+ },
+ "M5 x=2/5+4i/5|True": {
+  "name": "M5 x=2/5+4i/5",
+  "p": "2/5",
+  "q": "4/5",
+  "closed": true,
+  "rays": 145,
+  "pairs": 462,
+  "triads": 30,
+  "colorable": true,
+  "loci": [
+   "M5"
+  ],
+  "N": "4/5"
+ },
+ "M5 x=2/5+4i/5|False": {
+  "name": "M5 x=2/5+4i/5",
+  "p": "2/5",
+  "q": "4/5",
+  "closed": false,
+  "rays": 49,
+  "pairs": 72,
+  "triads": 8,
+  "colorable": true,
+  "loci": [
+   "M5"
+  ],
+  "N": "4/5"
+ },
+ "M5 x=1/5+3i/5|True": {
+  "name": "M5 x=1/5+3i/5",
+  "p": "1/5",
+  "q": "3/5",
+  "closed": true,
+  "rays": 145,
+  "pairs": 462,
+  "triads": 30,
+  "colorable": true,
+  "loci": [
+   "M5"
+  ],
+  "N": "2/5"
+ },
+ "M5 x=1/5+3i/5|False": {
+  "name": "M5 x=1/5+3i/5",
+  "p": "1/5",
+  "q": "3/5",
+  "closed": false,
+  "rays": 49,
+  "pairs": 72,
+  "triads": 8,
+  "colorable": true,
+  "loci": [
+   "M5"
+  ],
+  "N": "2/5"
+ },
+ "M5 x=8/5+4i/5|True": {
+  "name": "M5 x=8/5+4i/5",
+  "p": "8/5",
+  "q": "4/5",
+  "closed": true,
+  "rays": 145,
+  "pairs": 462,
+  "triads": 30,
+  "colorable": true,
+  "loci": [
+   "M5"
+  ],
+  "N": "16/5"
+ },
+ "M5 x=8/5+4i/5|False": {
+  "name": "M5 x=8/5+4i/5",
+  "p": "8/5",
+  "q": "4/5",
+  "closed": false,
+  "rays": 49,
+  "pairs": 72,
+  "triads": 8,
+  "colorable": true,
+  "loci": [
+   "M5"
+  ],
+  "N": "16/5"
+ },
+ "M4 x=(1+sqrt5)/2 golden|True": {
+  "name": "M4 x=(1+sqrt5)/2 golden",
+  "p": "1/2 + sqrt(5)/2",
+  "q": "0",
+  "closed": true,
+  "rays": 49,
+  "pairs": 138,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "M4",
+   "RE"
+  ],
+  "N": "sqrt(5)/2 + 3/2"
+ },
+ "M4 x=(1+sqrt5)/2 golden|False": {
+  "name": "M4 x=(1+sqrt5)/2 golden",
+  "p": "1/2 + sqrt(5)/2",
+  "q": "0",
+  "closed": false,
+  "rays": 49,
+  "pairs": 138,
+  "triads": 10,
+  "colorable": true,
+  "loci": [
+   "M4",
+   "RE"
+  ],
+  "N": "sqrt(5)/2 + 3/2"
+ },
+ "M1 x=2|True": {
+  "name": "M1 x=2",
+  "p": "2",
+  "q": "0",
+  "closed": true,
+  "rays": 49,
+  "pairs": 138,
+  "triads": 26,
+  "colorable": false,
+  "loci": [
+   "M1",
+   "M5",
+   "RE"
+  ],
+  "N": "4"
+ },
+ "M1 x=2|False": {
+  "name": "M1 x=2",
+  "p": "2",
+  "q": "0",
+  "closed": false,
+  "rays": 49,
+  "pairs": 138,
+  "triads": 26,
+  "colorable": false,
+  "loci": [
+   "M1",
+   "M5",
+   "RE"
+  ],
+  "N": "4"
+ },
+ "M1 x=1/2|True": {
+  "name": "M1 x=1/2",
+  "p": "1/2",
+  "q": "0",
+  "closed": true,
+  "rays": 49,
+  "pairs": 138,
+  "triads": 26,
+  "colorable": false,
+  "loci": [
+   "M1",
+   "M3",
+   "RE"
+  ],
+  "N": "1/4"
+ },
+ "M1 x=1/2|False": {
+  "name": "M1 x=1/2",
+  "p": "1/2",
+  "q": "0",
+  "closed": false,
+  "rays": 49,
+  "pairs": 138,
+  "triads": 26,
+  "colorable": false,
+  "loci": [
+   "M1",
+   "M3",
+   "RE"
+  ],
+  "N": "1/4"
+ },
+ "deg x=i|True": {
+  "name": "deg x=i",
+  "p": "0",
+  "q": "1",
+  "closed": true,
+  "rays": 31,
+  "pairs": 69,
+  "triads": 7,
+  "colorable": true,
+  "loci": [
+   "U",
+   "IM"
+  ],
+  "N": "1"
+ },
+ "deg x=i|False": {
+  "name": "deg x=i",
+  "p": "0",
+  "q": "1",
+  "closed": false,
+  "rays": 31,
+  "pairs": 69,
+  "triads": 7,
+  "colorable": true,
+  "loci": [
+   "U",
+   "IM"
+  ],
+  "N": "1"
+ },
+ "deg x=1|True": {
+  "name": "deg x=1",
+  "p": "1",
+  "q": "0",
+  "closed": true,
+  "rays": 13,
+  "pairs": 24,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "U",
+   "RE"
+  ],
+  "N": "1"
+ },
+ "deg x=1|False": {
+  "name": "deg x=1",
+  "p": "1",
+  "q": "0",
+  "closed": false,
+  "rays": 13,
+  "pairs": 24,
+  "triads": 4,
+  "colorable": true,
+  "loci": [
+   "U",
+   "RE"
+  ],
+  "N": "1"
+ },
+ "deg x=omega|True": {
+  "name": "deg x=omega",
+  "p": "-1/2",
+  "q": "sqrt(3)/2",
+  "closed": true,
+  "rays": 57,
+  "pairs": 174,
+  "triads": 22,
+  "colorable": false,
+  "loci": [
+   "M3",
+   "M5",
+   "L60",
+   "H-",
+   "U"
+  ],
+  "N": "1"
+ },
+ "deg x=omega|False": {
+  "name": "deg x=omega",
+  "p": "-1/2",
+  "q": "sqrt(3)/2",
+  "closed": false,
+  "rays": 49,
+  "pairs": 138,
+  "triads": 18,
+  "colorable": false,
+  "loci": [
+   "M3",
+   "M5",
+   "L60",
+   "H-",
+   "U"
+  ],
+  "N": "1"
+ }
+}

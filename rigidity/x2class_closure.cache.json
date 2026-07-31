@@ -1,0 +1,350 @@
+{
+ "Integer(1)|Integer(2)": {
+  "rays": 145,
+  "pairs": 366,
+  "triads": 22,
+  "colorable": true
+ },
+ "Integer(2)|Integer(2)": {
+  "rays": 127,
+  "pairs": 321,
+  "triads": 19,
+  "colorable": true
+ },
+ "Integer(2)|Integer(-2)": {
+  "rays": 127,
+  "pairs": 321,
+  "triads": 19,
+  "colorable": true
+ },
+ "Rational(3, 4)|Rational(1, 4)": {
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true
+ },
+ "Rational(1, 4)|Rational(3, 4)": {
+  "rays": 145,
+  "pairs": 378,
+  "triads": 22,
+  "colorable": true
+ },
+ "Integer(0)|Integer(3)": {
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true
+ },
+ "Pow(Integer(3), Rational(1, 2))|Integer(1)": {
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false
+ },
+ "Integer(1)|Pow(Integer(3), Rational(1, 2))": {
+  "rays": 145,
+  "pairs": 438,
+  "triads": 62,
+  "colorable": false
+ },
+ "Rational(1, 5)|Rational(7, 5)": {
+  "rays": 145,
+  "pairs": 378,
+  "triads": 34,
+  "colorable": false
+ },
+ "Rational(1, 10)|Rational(7, 10)": {
+  "rays": 145,
+  "pairs": 390,
+  "triads": 46,
+  "colorable": false
+ },
+ "Rational(1, 2)|Integer(3)": {
+  "rays": 145,
+  "pairs": 462,
+  "triads": 30,
+  "colorable": true
+ },
+ "Rational(-1, 2)|Integer(3)": {
+  "rays": 145,
+  "pairs": 462,
+  "triads": 30,
+  "colorable": true
+ },
+ "Rational(2, 5)|Rational(4, 5)": {
+  "rays": 145,
+  "pairs": 462,
+  "triads": 30,
+  "colorable": true
+ },
+ "Rational(-2, 5)|Rational(4, 5)": {
+  "rays": 145,
+  "pairs": 462,
+  "triads": 30,
+  "colorable": true
+ },
+ "Integer(3)|Integer(0)": {
+  "rays": 49,
+  "pairs": 114,
+  "triads": 10,
+  "colorable": true
+ },
+ "Rational(3, 5)|Rational(4, 5)": {
+  "rays": 109,
+  "pairs": 276,
+  "triads": 16,
+  "colorable": true
+ },
+ "Mul(Integer(-1), Rational(1, 2), Pow(Integer(2), Rational(1, 2)))|Mul(Integer(-1), Rational(1, 2), Pow(Integer(2), Rational(1, 2)))": {
+  "rays": 91,
+  "pairs": 231,
+  "triads": 13,
+  "colorable": true
+ },
+ "Mul(Integer(-1), Rational(1, 2), Pow(Integer(2), Rational(1, 2)))|Mul(Rational(1, 2), Pow(Integer(2), Rational(1, 2)))": {
+  "rays": 91,
+  "pairs": 231,
+  "triads": 13,
+  "colorable": true
+ },
+ "Mul(Integer(-1), Rational(1, 2), Pow(Integer(5), Rational(1, 2)))|Mul(Integer(-1), Rational(1, 2), Pow(Integer(3), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 390,
+  "triads": 34,
+  "colorable": false
+ },
+ "Add(Rational(1, 2), Mul(Rational(1, 2), Pow(Integer(2), Rational(1, 2))))|Mul(Integer(-1), Pow(Add(Rational(1, 4), Mul(Rational(1, 2), Pow(Integer(2), Rational(1, 2)))), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 474,
+  "triads": 30,
+  "colorable": true
+ },
+ "Add(Mul(Integer(-1), Rational(1, 2), Pow(Integer(2), Rational(1, 2))), Rational(-1, 2))|Mul(Integer(-1), Pow(Add(Rational(1, 4), Mul(Rational(1, 2), Pow(Integer(2), Rational(1, 2)))), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 474,
+  "triads": 30,
+  "colorable": true
+ },
+ "Mul(Integer(-1), Rational(1, 2), Pow(Integer(3), Rational(1, 2)))|Mul(Integer(-1), Rational(1, 2), Pow(Integer(5), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 390,
+  "triads": 34,
+  "colorable": false
+ },
+ "Integer(0)|Mul(Integer(-1), Pow(Integer(2), Rational(1, 2)))": {
+  "rays": 49,
+  "pairs": 120,
+  "triads": 16,
+  "colorable": false
+ },
+ "Integer(0)|Integer(-1)": {
+  "rays": 31,
+  "pairs": 69,
+  "triads": 7,
+  "colorable": true
+ },
+ "Mul(Integer(-1), Rational(1, 2), Pow(Integer(6), Rational(1, 2)))|Mul(Integer(-1), Rational(1, 2), Pow(Integer(2), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 402,
+  "triads": 42,
+  "colorable": false
+ },
+ "Mul(Integer(-1), Rational(1, 4), Pow(Integer(6), Rational(1, 2)))|Mul(Integer(-1), Rational(1, 4), Pow(Integer(2), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 414,
+  "triads": 54,
+  "colorable": false
+ },
+ "Rational(1, 2)|Mul(Integer(-1), Rational(1, 6), Pow(Integer(3), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 486,
+  "triads": 38,
+  "colorable": false
+ },
+ "Rational(-1, 2)|Mul(Integer(-1), Rational(1, 6), Pow(Integer(3), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 486,
+  "triads": 38,
+  "colorable": false
+ },
+ "Rational(3, 2)|Mul(Integer(-1), Rational(1, 2), Pow(Integer(3), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 486,
+  "triads": 38,
+  "colorable": false
+ },
+ "Rational(-3, 2)|Mul(Integer(-1), Rational(1, 2), Pow(Integer(3), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 486,
+  "triads": 38,
+  "colorable": false
+ },
+ "Mul(Integer(-1), Rational(1, 2), Pow(Integer(2), Rational(1, 2)))|Mul(Integer(-1), Rational(1, 2), Pow(Integer(6), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 402,
+  "triads": 42,
+  "colorable": false
+ },
+ "Mul(Integer(-1), Rational(1, 4), Pow(Integer(2), Rational(1, 2)))|Mul(Integer(-1), Rational(1, 4), Pow(Integer(6), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 414,
+  "triads": 54,
+  "colorable": false
+ },
+ "Rational(1, 2)|Mul(Integer(-1), Rational(1, 2), Pow(Integer(7), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 522,
+  "triads": 42,
+  "colorable": false
+ },
+ "Rational(-1, 2)|Mul(Integer(-1), Rational(1, 2), Pow(Integer(7), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 522,
+  "triads": 42,
+  "colorable": false
+ },
+ "Mul(Integer(-1), Pow(Integer(2), Rational(1, 2)))|Integer(0)": {
+  "rays": 49,
+  "pairs": 120,
+  "triads": 16,
+  "colorable": false
+ },
+ "Rational(1, 4)|Mul(Integer(-1), Rational(1, 4), Pow(Integer(7), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 486,
+  "triads": 54,
+  "colorable": false
+ },
+ "Rational(-1, 4)|Mul(Integer(-1), Rational(1, 4), Pow(Integer(7), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 486,
+  "triads": 54,
+  "colorable": false
+ },
+ "Add(Rational(1, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(5), Rational(1, 2))))|Integer(0)": {
+  "rays": 49,
+  "pairs": 138,
+  "triads": 10,
+  "colorable": true
+ },
+ "Integer(-1)|Integer(0)": {
+  "rays": 13,
+  "pairs": 24,
+  "triads": 4,
+  "colorable": true
+ },
+ "Integer(1)|Integer(1)": {
+  "rays": 127,
+  "pairs": 477,
+  "triads": 63,
+  "colorable": false
+ },
+ "Integer(-1)|Integer(-1)": {
+  "rays": 127,
+  "pairs": 477,
+  "triads": 63,
+  "colorable": false
+ },
+ "Rational(1, 2)|Rational(1, 2)": {
+  "rays": 127,
+  "pairs": 465,
+  "triads": 51,
+  "colorable": false
+ },
+ "Rational(-1, 2)|Rational(-1, 2)": {
+  "rays": 127,
+  "pairs": 465,
+  "triads": 51,
+  "colorable": false
+ },
+ "Integer(1)|Integer(-1)": {
+  "rays": 127,
+  "pairs": 477,
+  "triads": 63,
+  "colorable": false
+ },
+ "Integer(-1)|Integer(1)": {
+  "rays": 127,
+  "pairs": 477,
+  "triads": 63,
+  "colorable": false
+ },
+ "Rational(1, 2)|Rational(-1, 2)": {
+  "rays": 127,
+  "pairs": 465,
+  "triads": 51,
+  "colorable": false
+ },
+ "Rational(-1, 2)|Rational(1, 2)": {
+  "rays": 127,
+  "pairs": 465,
+  "triads": 51,
+  "colorable": false
+ },
+ "Mul(Integer(-1), Rational(1, 2), Pow(Integer(3), Rational(1, 2)))|Rational(-1, 2)": {
+  "rays": 109,
+  "pairs": 312,
+  "triads": 24,
+  "colorable": false
+ },
+ "Mul(Integer(-1), Rational(1, 2), Pow(Integer(2), Rational(1, 2)))|Integer(0)": {
+  "rays": 49,
+  "pairs": 120,
+  "triads": 16,
+  "colorable": false
+ },
+ "Integer(0)|Mul(Integer(-1), Rational(1, 2), Pow(Integer(2), Rational(1, 2)))": {
+  "rays": 49,
+  "pairs": 120,
+  "triads": 16,
+  "colorable": false
+ },
+ "Rational(1, 2)|Integer(0)": {
+  "rays": 49,
+  "pairs": 138,
+  "triads": 26,
+  "colorable": false
+ },
+ "Rational(-1, 2)|Integer(0)": {
+  "rays": 49,
+  "pairs": 138,
+  "triads": 26,
+  "colorable": false
+ },
+ "Integer(2)|Integer(0)": {
+  "rays": 49,
+  "pairs": 138,
+  "triads": 26,
+  "colorable": false
+ },
+ "Integer(-2)|Integer(0)": {
+  "rays": 49,
+  "pairs": 138,
+  "triads": 26,
+  "colorable": false
+ },
+ "Rational(1, 2)|Mul(Integer(-1), Rational(1, 2), Pow(Integer(3), Rational(1, 2)))": {
+  "rays": 57,
+  "pairs": 174,
+  "triads": 22,
+  "colorable": false
+ },
+ "Rational(-1, 2)|Mul(Integer(-1), Rational(1, 2), Pow(Integer(3), Rational(1, 2)))": {
+  "rays": 57,
+  "pairs": 174,
+  "triads": 22,
+  "colorable": false
+ },
+ "Rational(1, 4)|Mul(Rational(1, 4), Pow(Integer(3), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 414,
+  "triads": 54,
+  "colorable": false
+ },
+ "Integer(2)|Mul(Integer(2), Pow(Integer(3), Rational(1, 2)))": {
+  "rays": 145,
+  "pairs": 390,
+  "triads": 30,
+  "colorable": false
+ }
+}

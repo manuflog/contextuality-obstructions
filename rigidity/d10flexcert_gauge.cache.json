@@ -1,0 +1,1 @@
+{"primes": [998244353, 999999937], "x5": {"generators": 460, "ceiling": 459, "ranks": {"998244353": 459, "999999937": 459}, "exact": true, "gauge_dim": 459}, "x13": {"generators": 460, "ceiling": 459, "ranks": {"998244353": 459, "999999937": 459}, "exact": true, "gauge_dim": 459}, "secs": 0.99}

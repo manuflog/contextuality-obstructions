@@ -1,0 +1,117 @@
+{
+ "n_cases": 224,
+ "n_impossible": 126,
+ "n_plane": 0,
+ "new_curves": [
+  [
+   "Add(Mul(Integer(3), Pow(Symbol('p', real=True), Integer(2))), Mul(Integer(-1), Pow(Symbol('q', real=True), Integer(2))))",
+   "3*p**2 - q**2",
+   1,
+   "+N +x^2 +(x*)^2 = 0"
+  ],
+  [
+   "Add(Pow(Symbol('p', real=True), Integer(2)), Mul(Integer(-1), Integer(3), Pow(Symbol('q', real=True), Integer(2))))",
+   "p**2 - 3*q**2",
+   1,
+   "+N -x^2 -(x*)^2 = 0"
+  ],
+  [
+   "Add(Mul(Integer(2), Pow(Symbol('p', real=True), Integer(2))), Mul(Integer(-1), Integer(2), Pow(Symbol('q', real=True), Integer(2))), Integer(1))",
+   "2*p**2 - 2*q**2 + 1",
+   1,
+   "+1 +x^2 +(x*)^2 = 0"
+  ],
+  [
+   "Add(Mul(Integer(2), Pow(Symbol('p', real=True), Integer(2))), Mul(Integer(-1), Integer(2), Pow(Symbol('q', real=True), Integer(2))), Integer(-1))",
+   "2*p**2 - 2*q**2 - 1",
+   1,
+   "+1 -x^2 -(x*)^2 = 0"
+  ]
+ ],
+ "new_points": [
+  [
+   "-1",
+   "-sqrt(3)",
+   2,
+   "+x +x -(x*)^2 = 0",
+   [
+    "3*p**2 - q**2"
+   ]
+  ],
+  [
+   "-1",
+   "sqrt(3)",
+   2,
+   "+x +x -(x*)^2 = 0",
+   [
+    "3*p**2 - q**2"
+   ]
+  ],
+  [
+   "-1/4",
+   "-sqrt(3)/4",
+   2,
+   "+x -(x*)^2 -(x*)^2 = 0",
+   [
+    "3*p**2 - q**2"
+   ]
+  ],
+  [
+   "-1/4",
+   "sqrt(3)/4",
+   2,
+   "+x -(x*)^2 -(x*)^2 = 0",
+   [
+    "3*p**2 - q**2"
+   ]
+  ],
+  [
+   "1/4",
+   "-sqrt(3)/4",
+   2,
+   "+x +(x*)^2 +(x*)^2 = 0",
+   [
+    "3*p**2 - q**2"
+   ]
+  ],
+  [
+   "1/4",
+   "sqrt(3)/4",
+   2,
+   "+x +(x*)^2 +(x*)^2 = 0",
+   [
+    "3*p**2 - q**2"
+   ]
+  ],
+  [
+   "1",
+   "-sqrt(3)",
+   2,
+   "+x +x +(x*)^2 = 0",
+   [
+    "3*p**2 - q**2"
+   ]
+  ],
+  [
+   "1",
+   "sqrt(3)",
+   2,
+   "+x +x +(x*)^2 = 0",
+   [
+    "3*p**2 - q**2"
+   ]
+  ]
+ ],
+ "known_curves": {
+  "M2": 2,
+  "M3": 6,
+  "M5": 2
+ },
+ "known_points": {
+  "M1": 48,
+  "M2": 48,
+  "M4": 24,
+  "M3": 8
+ },
+ "runtime": 3.313417911529541
+}

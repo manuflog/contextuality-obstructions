@@ -1,0 +1,1 @@
+{"point": "x13", "V": 412, "n": 9888, "E": 19885, "kernel_violations": 0, "gauge_product_nonzeros": 0, "subset": [8, 12, 57, 78, 121, 125, 143, 181, 241, 272, 288, 354], "rank_TS": 154, "rank_TS_plus_vtheta": 155, "flex_ge_1": true, "secs": 39.09, "E_hash": "130ef3f41c84f5db8495eb086be90325"}

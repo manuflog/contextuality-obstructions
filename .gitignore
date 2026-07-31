@@ -20,6 +20,9 @@ __pycache__/
 !rigidity/d6geo_*.cache.json
 !rigidity/d8galois_*.cache.json
 !rigidity/d10_*.cache.json
+!rigidity/d8flexcert_*.cache.json
+!rigidity/d12flexcert_*.cache.json
+!rigidity/x2closed_*.cache.json
 !rigidity/d12_*.cache.json
 !rigidity/m9geo_*.cache.json
 !rigidity/sdattack_*.cache.json

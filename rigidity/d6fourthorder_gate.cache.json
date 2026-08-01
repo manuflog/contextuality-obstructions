@@ -1,0 +1,1 @@
+{"inherited_gate": true, "inherited_gauge": true, "x5": {"rows_identical": true, "equivariance_generators": 316}, "x13": {"rows_identical": true, "equivariance_generators": 316}, "sympy_toy_t6": {"V": 4, "d": 3, "rows": 14}, "secs": 0.56, "passed": true}

@@ -1,4 +1,4 @@
-% Local Validity and Contextual Holonomy -- v3 (full rewrite)
+% Local Validity and Contextual Holonomy
 % Preprint source.
 % Discipline: every claim is (a) a cited theorem of papers A-D, (b) a named machine
 % verification in manuflog/contextuality-obstructions, or (c) explicitly labeled
@@ -19,9 +19,12 @@
 \newcommand{\PU}{\mathrm{PU}}
 \newcommand{\CF}{\mathrm{CF}}
 \newcommand{\tr}{\operatorname{tr}}
-\title{Local Validity and Contextual Holonomy:\\ A Structural Formulation of the Copenhagen Principle\\[2pt] \large (v3 --- complete rewrite)}
-\author{Manuel Flores Gordillo\\ \small Independent Researcher \quad ORCID 0009-0006-8246-0343\\ \small \texttt{manuel.flores@columbia.edu}}
-\date{July 2026}
+\title{Local Validity and Contextual Holonomy:\\ A Structural Formulation of the Copenhagen Principle}
+\author{Manuel Flores Gordillo\thanks{Independent researcher. ORCID
+\texttt{0009-0006-8246-0343}; \texttt{manuel.flores@columbia.edu}.
+Verification scripts, data, and companion papers:
+\url{https://github.com/manuflog/contextuality-obstructions}.}}
+\date{August 2026}
 \begin{document}
 \maketitle
 
@@ -33,7 +36,8 @@ canonical $\U(1)$ $2$-cocycle. In this formulation: \emph{local validity} --- th
 classicality of every single context --- is a theorem with an explicit witness;
 \emph{complementarity} is the nonvanishing holonomy of the cocycle along closed context
 loops, which detects exactly the all-versus-nothing sector of contextuality (an equivalence,
-now proved), with the
+now proved for closed-triple Weyl families at even $d$ --- neither hypothesis is decorative),
+with the
 achievable state-independent values classified (the value classification --- even/odd dichotomy and
 fixed value $d/2$ --- is due to Abramsky, Cercelescu \& Constantin, FSCD 2024 \cite{ACC}, and is recast here in
 certificate language) and the state sector governed by a facet
@@ -48,8 +52,7 @@ argument localizes to an ordinary state-dependent violation (contextual fraction
 $1/6$) carried by a single CHSH facet, with the loop holonomy of the observer switch
 provably trivial. Two of these signatures have been measured on superconducting hardware.
 Each tenet is either a theorem of the companion papers, a machine-verified certificate in
-the public suite, or is explicitly labeled a conjecture. Version v1 of this note
-contained four errors of substance; \S\ref{sec:changed} states them and their repairs.
+the public suite, or is explicitly labeled a conjecture.
 \end{abstract}
 
 \section{Introduction: the principle, restated}\label{sec:intro}
@@ -62,7 +65,9 @@ apparatus --- the cut --- can be moved without empirical consequence. Critics ha
 held that these are attitudes rather than assertions. This note argues the opposite:
 each commitment is a precise structural statement about a single mathematical object,
 and each is now either proved, machine-certified in a public verification suite, or
-stated as an explicit conjecture with its current evidence.
+stated as an explicit conjecture with its current evidence. The hardware measurements
+reported in \S\ref{sec:observer} are the one exception to that trichotomy and are given
+with their assumptions.
 
 The object is the transformation groupoid
 \[
@@ -77,9 +82,9 @@ $\U(1)\to\U(n)\to\PU(n)$. The formulation is then:
 \emph{(i) Local validity.} Every single context is exactly classical: the restriction of
 the canonical cocycle to any one context trivializes, with an explicit trivializing
 cochain. \emph{(ii) Complementarity.} The cocycle does not trivialize globally; its
-holonomy along closed context loops is a quantized obstruction, and this obstruction is
-the all-versus-nothing sector of contextuality, with the state sector governed by an
-enumerable facet geometry. \emph{(iii) Collapse.} Statistics, repeatability, and covariance under the measured
+holonomy along closed context loops is a quantized obstruction, and for closed-triple Weyl
+families at even $d$ this obstruction \emph{is} the all-versus-nothing sector of
+contextuality, with the state sector governed by an enumerable facet geometry. \emph{(iii) Collapse.} Statistics, repeatability, and covariance under the measured
 observable's commutant pin the
 measurement update to a one-parameter family per degenerate block, with the L\"uders
 rule its unique efficient member; classically the same axioms force Bayesian
@@ -95,42 +100,6 @@ repository \cite{repo}, with the expected one-line output pinned in
 papers \cite{paperA,paperB,paperC,paperD}; this note is the synthesis; proofs
 live in the companion papers and the verification supplement, with the source of every
 numbered claim listed in Appendix~A.
-
-\section{What changed since v1}\label{sec:changed}
-Version v1 (February 2026) contained four errors of substance, found by adversarial
-review and machine checking. We state them because the credibility of a structural
-program rests on its error ledger.
-\begin{enumerate}[leftmargin=1.4em]
-\item \emph{Wrong groupoid.} v1 built the cocycle on $\U(n)\ltimes X$. The lifting class
-there is vacuous (Theorem~1 of \cite{paperA}; \texttt{thmG\_general.py}); the canonical
-class lives on $\PU(n)\ltimes X$, where it has order exactly $n$
-\cite[Thm.~8]{paperA}.
-\item \emph{Overclaim ``encodes''.} v1 asserted that holonomy \emph{encodes}
-contextuality. False in both directions: at $d=3$ the class is nontrivial of order $3$
-while the achievable state-independent all-versus-nothing value is $0$
-(\texttt{d3\_gap\_certificate.py}), and KCBS contextuality is invisible to the class
-(\texttt{kcbs\_converse.py}). The correct statement is \emph{detects the AvN sector}
-(Theorem~\ref{thm:avn} below).
-\item \emph{Level-unspecified Wigner--friend holonomy.} v1 attributed $-i$ to ``the''
-holonomy of the friend loop. The projective (ray-level) holonomy is $+1$; $-i$ is the
-determinant-\emph{section} holonomy, with section-independent square $-1$
-(\texttt{wf\_loop\_holonomy.py}). Claims must pin the level.
-\item \emph{Efficiency-restricted L\"uders uniqueness.} v1's uniqueness argument for the
-update rule quantified only over efficient (single-Kraus) instruments. The
-instrument-level theorem without that restriction is Theorem~\ref{thm:lueders} below.
-\end{enumerate}
-
-\paragraph{Corrections (2026-07-11, second external audit).} A follow-up adversarial pass found
-further defects in the measurement-update layer, now repaired (the core obstruction-spectrum results
-of \cite{paperA,paperB} are unaffected): (a) the collapse family's complete-positivity range was
-misstated --- on a rank-$r$ block it is the affine interval $-1/(r^2-1)\le p\le 1$, not $[0,1]$
-(Theorem~\ref{thm:lueders}); (b) the sharp-core counterexample $\mathrm{diag}(1,c)$ was invalid (its
-second outcome is not repeatable) and is replaced by a qutrit example (Theorem~\ref{thm:sharp}); (c)
-the classical twin's range is $-1/(m-1)\le t\le 1$ with a second deterministic member (the swap) at
-$m=2$ (Theorem~\ref{thm:twin}); (d) the V37 evidence is a numerical stress test, not a
-``machine-exact'' certificate; (e) the observer structure of \cite{paperD} is a \emph{category} with a
-switch subgroupoid, not a groupoid; and (f) the hardware significance is statistical (shot-noise) under
-the implemented witness model, conditional on compatibility/nondisturbance assumptions.
 
 \section{Local validity is exact}\label{sec:local}
 \begin{theorem}[Local classicality]\label{thm:local}
@@ -153,12 +122,10 @@ $d=3$ sharpness witness, in \texttt{mu\_d\_valuation.py} (V46).
 \end{proof}
 An immediate corollary of the parity lemma: at even $d$ every commuting closed
 context has \emph{even} $\tau$-level phase --- context products are always
-$\omega$-powers, and integrality is automatic rather than a gauge choice. (An earlier
-claim that half-steps $\tau\notin\mu_d$ are necessary at even $d$ traced to a label-layout
-artifact in a verification harness and is retracted; see V44/V46 in the suite index.
-Genuine $\tau$-steps are an odd-$d$ phenomenon. The \emph{state-sector}
-$\tau$-necessity results of \cite{paperC} are a different statement and are
-unaffected.) Explicit per-context trivializers: \texttt{local\_classicality.py} (V23),
+$\omega$-powers, and integrality is automatic rather than a gauge choice. Genuine
+$\tau$-steps are an odd-$d$ phenomenon. The \emph{state-sector} $\tau$-necessity results
+of \cite{paperC} concern a different object and are not in tension with this.
+Explicit per-context trivializers: \texttt{local\_classicality.py} (V23),
 for all rows and columns of the Peres--Mermin square at $d=2$, a $d=3$ sample family,
 and the certified $d=4$ family; the same script exhibits the global contrast (no joint
 $\lambda$ exists across contexts where the obstruction is present, cross-referencing
@@ -179,8 +146,11 @@ automatically $\omega$-powers). The following
 are equivalent: (a) no noncontextual value assignment over $\mathbb Z_d$ exists; (b)
 some left-kernel vector $u$ ($uA\equiv 0 \bmod d$) has $u\cdot s\equiv d/2 \pmod d$;
 (c) some certificate carries odd commutator carry \cite[Thm.~4]{paperB}. The achievable
-state-independent values are exactly $\{0,d/2\}$ for even $d$ and $\{0\}$ for odd $d$
-\cite[Thm.~1]{paperB}.
+state-independent values are exactly $\{0,d/2\}$ for even $d$ and $\{0\}$ for odd $d$:
+this even/odd dichotomy and the fixed value $d/2$ are \textbf{due to Abramsky, Cercelescu
+\& Constantin} \cite[Thm.~16]{ACC}; \cite[Thm.~1]{paperB} is a re-derivation in
+Weyl-certificate language, not an independent result and not a strengthening. The
+commutator-carry mechanism behind (c) is likewise theirs \cite[Lem.~15, Thm.~16]{ACC}.
 \end{theorem}
 \begin{proof}
 (b)$\Rightarrow$(a): a solution $\gamma$ would give $u\cdot s\equiv (uA)\gamma\equiv
@@ -190,20 +160,23 @@ and $u\cdot s\not\equiv 0 \pmod d$ (double annihilation over $\mathbb Z_d$); suc
 $u$ is a certificate of the multiplicity covered by \cite[Rem.~3]{paperB}, so by the
 Obstruction Spectrum Theorem \cite[Thm.~1]{paperB} its value satisfies $2(u\cdot
 s)\equiv 0$, forcing $u\cdot s\equiv d/2$. (b)$\Leftrightarrow$(c) is
-\cite[Thm.~4]{paperB}. Finally, no gauge hypothesis is needed: by the parity lemma of
+\cite[Thm.~4]{paperB}, whose mechanism is that of \cite[Lem.~15]{ACC}. Finally, no gauge hypothesis is needed: by the parity lemma of
 Theorem~\ref{thm:local}, every commuting closed context at even $d$ has even
 $\tau$-level phase, so $s=s^{(2d)}/2\in\mathbb Z_d^{\mathrm{ctx}}$ is canonical. (For
 general closed-triple data --- commuting or not --- the $q$-parity identity
 $s^{(2d)}\equiv A\bar q \pmod 2$, $\bar q_v=q(v)\bmod 2$, obtained by telescoping the
 Weyl product law, supplies the constructive gauge; kernel pairings are
 gauge-invariant.) Certified end-to-end, with random and pinned positives, in
-\texttt{solvability\_equivalence.py} (V44, layout-corrected),
+\texttt{solvability\_equivalence.py} (V44),
 \texttt{tau\_gauge\_general.py} (V45, including the $d=6$ extension), and
 \texttt{mu\_d\_valuation.py} (V46).
 \end{proof}
-What was, in v2, a machine-verified converse ($2{,}100$ families, zero mismatches) is
-thus a corollary of \cite{paperB}'s proven theorems plus five lines of ring theory ---
-the gap was assembly, not mathematics.
+The converse is thus a corollary of \cite{paperB}'s proven theorems plus a few lines of
+ring theory. It is also exercised over $2{,}100$ machine-checked families
+(\texttt{holonomy\_vs\_solvability.py}); that sweep is a consistency check on the
+implementation rather than a search that could have failed, since only three of the
+$1{,}500$ families at $d=2$ are unsolvable and none of the $600$ at $d=4$ are, so it
+contains almost no positive instances and carries correspondingly little weight.
 Both containments of the naive slogan fail, and strictly
 (\texttt{d3\_gap\_certificate.py}, \texttt{kcbs\_converse.py}): the class does not imply
 operational contextuality, and state-dependent contextuality can be class-invisible.
@@ -212,7 +185,7 @@ more and no less at the level of the canonical class.
 
 \subsection{The state sector: a facet geometry, now enumerated}\label{sec:state}
 State-dependent contextuality is quantified by the contextual fraction $\CF$. The
-following results replace v1's vague appeal to ``holonomy of the state'' with exact
+following results replace any loose appeal to ``holonomy of the state'' with exact
 geometry.
 
 \begin{theorem}[Codeword-polytope classification, $d=2$; V31/V32]\label{thm:d2}
@@ -289,8 +262,8 @@ has holonomy $e^{i\pi/6}$), while in the Weil-normalized section every loop holo
 lies in $\mu_{2d}$ for all odd $d$ --- the Gauss phase cancels the $\mu_4$ part of
 Schur's phase exactly ($\det F_W=(-1)^{\lfloor d/4\rfloor}$), $\det M_a$ is the Jacobi
 symbol $(a|d)$ by Zolotarev, and the Weil-attained group is $\mu_6$ if $3\mid d$ and
-$\mu_2$ otherwise, exhaustive only at $d=3$. Claims must pin the section --- the same
-lesson as v1's error (3).
+$\mu_2$ otherwise, exhaustive only at $d=3$. Claims must therefore pin the section: a holonomy statement that
+leaves the section unspecified is not yet a statement.
 
 \section{Collapse: the admissible update rule, and its classical twin}\label{sec:collapse}
 \begin{theorem}[Instrument-level L\"uders; V37]\label{thm:lueders}
@@ -318,9 +291,11 @@ admits no repeatable instrument at all. The folk claim ``repeatable $\Rightarrow
 projective'' is nevertheless false as stated, but a valid witness must be at least
 three-dimensional: the qutrit two-effect POVM $E_1=\mathrm{diag}(1,0,c)$,
 $E_2=\mathrm{diag}(0,1,1-c)$, $0<c<1$, admits a repeatable covariant instrument on \emph{every}
-outcome while $E_1$ is non-projective. (An earlier qubit example $\mathrm{diag}(1,c)$ was
-withdrawn: its second effect $\mathrm{diag}(0,1-c)$ has no eigenvalue $1$, so that outcome is not
-repeatable.)
+outcome while $E_1$ is non-projective. Dimension three is necessary: repeatability on a
+nonzero outcome forces its effect to have an eigenvalue-$1$ sharp core (V40), so at $d=2$ a
+two-outcome POVM with both outcomes repeatable has two orthogonal rank-one cores summing to
+the identity, hence is projective. The qutrit witness escapes this because the third
+dimension carries the shared weight $c$, $1-c$ without either core losing its eigenvalue $1$.
 \end{theorem}
 
 \begin{theorem}[Classical twin; V40]\label{thm:twin}
@@ -376,8 +351,8 @@ state-dependent violation: $\CF=1/6$ exactly, attained on the single CHSH facet
 $\langle \bar Z Z\rangle-\langle \bar Z X\rangle+\langle \bar X X\rangle+\langle \bar X
 Z\rangle\le 2$ at quantum value $7/3$ (\texttt{fr\_cycle.py}).
 \end{theorem}
-Theorem~\ref{thm:fr} \emph{refutes} v1's implicit suggestion (and \cite{paperD}'s own
-initial conjecture) that the FR argument is a holonomy phenomenon: the switch holonomy
+Theorem~\ref{thm:fr} \emph{refutes} the natural reading --- one this program held for a
+time --- that the FR argument is a holonomy phenomenon: the switch holonomy
 is trivial; what FR exercises is the state sector of \S\ref{sec:state}, with definite
 coordinates and a definite price.
 
@@ -392,8 +367,17 @@ On \texttt{ibm\_fez} (job \texttt{d986q62f47jc73a7hm2g}): the interferometric lo
 phase is $-2.93^\circ\pm1.55^\circ$, consistent with ray-level $+1$ and excluding $-i$
 at ${\sim}56\sigma$; on the same device the Peres--Mermin witness attains
 $S=4.6125\pm0.0173$, i.e.\ $35.4\sigma$ above the tight deterministic bound $4$
-(\texttt{hardware/results/ibm\_fez\_holonomy\_20260709.json}). One machine, both
-signatures, both sharp.
+(\texttt{hardware/results/ibm\_fez\_holonomy\_20260709.json}). \textbf{Both figures are
+shot-noise statistical only}, computed under the implemented witness model and conditional
+on compatibility and nondisturbance. They are not systematics-aware; calibration drift and
+look-elsewhere effects are not folded in, and neither run is loophole-free. The stored pubs
+carry no per-observable labels, so the central compatibility diagnostic cannot be recomputed
+from this data (\texttt{hardware/COMPATIBILITY.md}). Read them as consistency checks on real
+hardware, not as precision measurements. Note also that $-i$ is a determinant-section
+quantity: by Theorem~\ref{thm:fr} the ray-level holonomy is $+1$ gauge-invariantly, so an
+interferometer measuring a Pancharatnam phase could not have registered $-i$ in any case.
+The $56\sigma$ figure confirms the predicted ray-level value; it is not an empirical
+discrimination against a live alternative.
 
 \section{The principle, assembled}\label{sec:assembled}
 Principle~\ref{prin} now reads as a theorem schedule. (i) is
@@ -430,14 +414,30 @@ but not the conceptual one posed here: the specific pairing conjectured above (f
 $\Leftrightarrow$ AvN/forced-torsion) is not thereby resolved and remains open exactly as
 stated. (b)
 The general-$d$ facet census. The $d=4$ arithmetic profile is complete (V53): $18$
-species, all facet functionals rational (the tier-2 ``$4\sqrt2$'' unit bounds were a
-normalization artifact --- exact $\{0,\pm1\}$ lifts with integer bounds $\{6,7\}$
-exist), $\tau$-level data necessary for all $61$ classes; the general-$d$ census
+species, all facet functionals rational --- every tier-2 functional admits an exact
+$\{0,\pm1\}$ lift with integer bound in $\{6,7\}$, so no irrational unit bound occurs ---
+and $\tau$-level data necessary for all $61$ classes; the general-$d$ census
 itself needs Normaliz-class compute (protocol pinned in V53). (c)
 Conjecture~\ref{conj:pair} in the compressed reading: the $\Theta$-coherence
 congruence of V52 (its label half is proven; the odd-$d$ Weil-section case of
 Theorem~\ref{conj:tower} is now closed, V51).
 \end{openproblem}
+
+\section*{Data availability}
+All verification scripts named in the text, together with their pinned expected
+output, are in the public repository \cite{repo}; the index is
+\texttt{verification/INDEX.md}.
+
+\section*{Use of AI tools}
+Large-language-model assistants (Anthropic Claude) were used substantially in this
+work: drafting and revising the manuscript, writing and debugging the verification
+scripts, running literature searches, and proposing proof strategies. Every mathematical
+claim above is either a theorem of the companion papers, a machine-verified certificate in
+the public suite, or explicitly labeled a conjecture or open problem; the hardware results
+are the one exception and are reported with their stated assumptions. AI-proposed
+claims that failed verification were discarded rather than retained, and the author
+takes full responsibility for the final text and results.
+
 
 \appendix
 \section{Claims-to-verification table}
@@ -448,7 +448,7 @@ Claim & Source & Verification\\
 \midrule
 Thm.~\ref{thm:local} & this note & \texttt{local\_classicality.py} (V23); \texttt{mu\_d\_valuation.py} (V46)\\
 Thm.~\ref{thm:class} & \cite{paperA} Thm.~1, 8 & \texttt{thmG\_general.py}\\
-Thm.~\ref{thm:avn} & this note; \cite{paperB} Thm.~1, 4 & \texttt{solvability\_equivalence.py} (V44); \texttt{tau\_gauge\_general.py} (V45)\\
+Thm.~\ref{thm:avn} & \cite{ACC} Thm.~16 (values); \cite{paperB} Thm.~1, 4 & \texttt{solvability\_equivalence.py} (V44); \texttt{tau\_gauge\_general.py} (V45)\\
 Thm.~\ref{conj:tower} & this note & \texttt{tower\_holonomy.py} (V47); \texttt{weil\_section\_theorem.py} (V51)\\
 Conj.~\ref{conj:pair} (split status) & this note; \cite{paperC} & \texttt{scenario\_paired\_evidence.py} (V48); \texttt{paired\_classification\_theorem.py} (V52)\\
 gaps (both strict) & \cite{paperC} & \texttt{d3\_gap\_certificate.py}, \texttt{kcbs\_converse.py}\\
@@ -462,8 +462,8 @@ Thm.~\ref{thm:cut} & \cite{paperD} & V37 + \cite{paperD} \S3\\
 Thm.~\ref{thm:fr} & \cite{paperD} & \texttt{fr\_cycle.py} (V39)\\
 WF level split & \cite{paperC} & \texttt{wf\_loop\_holonomy.py}\\
 Prop.~\ref{lem:onhull} & this note & \texttt{d4\_facet\_census.py} (exact-rank lemma)\\
-S4/S5 proofs & v2 supplement & \texttt{note\_v2\_patch.md}\\
-hardware & --- & \texttt{ibm\_fez} job \texttt{d986q62f47jc73a7hm2g}\\
+S4/S5 proofs & supplement & \texttt{note\_v2\_patch.md} (\S S5's qubit example is superseded by Thm.~\ref{thm:sharp})\\
+hardware (shot-noise only) & measurement & \texttt{ibm\_fez} job \texttt{d986q62f47jc73a7hm2g}\\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -484,8 +484,8 @@ doi:10.5281/zenodo.21488473.
 \bibitem{paperB} M.~Flores Gordillo, \emph{The Obstruction Spectrum of Weyl Context Families and the 2-adic Tower}, Zenodo (2026), doi:10.5281/zenodo.21630630.
 \bibitem{paperC} M.~Flores Gordillo, \emph{What Contextual Holonomy Detects}, Zenodo (2026), doi:10.5281/zenodo.21633744.
 \bibitem{paperD} M.~Flores Gordillo, \emph{The Observer-Context Category: Relative
-Facts, a $\mathbb Z_2$ Switching Invariant, and the Movable Cut}, in preparation,
-2026.
+Facts, a $\mathbb Z_2$ Switching Invariant, and the Movable Cut}, Zenodo (2026),
+doi:10.5281/zenodo.21630697.
 \bibitem{repo} \texttt{github.com/manuflog/contextuality-obstructions}, verification
 suite, 2026.
 \end{thebibliography}

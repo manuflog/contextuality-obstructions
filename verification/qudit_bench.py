@@ -1,13 +1,18 @@
 # V58 - QUDIT BENCHMARKING SUITE, STAGE 1: witness inventory + exact robustness
 # margins + compatibility-assumption ledger + honest scope. (M3 of QC_BRIDGE.md.)
 #
-# CLAIM. (i) INVENTORY: the program possesses exactly ONE state-independent operator
-#   witness with a certified deterministic bound - the Peres-Mermin witness on two
-#   qubits (Hilbert dim 4): quantum value 6 (every state, incl. maximally mixed),
-#   noncontextual bound 4 (brute force over all 512 sign assignments). The Weyl
-#   certificates cert4/cert8/cert16 (values d/2 = 2/4/8 at d=4/8/16, m=2) are exact
-#   COCYCLE obstructions, not inequality witnesses: no deterministic bound is derived
-#   for them anywhere in this repository. The d=4 census's 61 facet classes (23,256
+# CLAIM. (i) INVENTORY (stage 1) + stage cert4bound (stage 2): the program possesses
+#   exactly TWO state-independent operator witnesses with certified deterministic
+#   bounds. (1) The Peres-Mermin witness on two qubits (Hilbert dim 4): quantum
+#   value 6 (every state, incl. maximally mixed), noncontextual bound 4 (brute
+#   force over all 512 sign assignments). (2) NEW, stage cert4bound: the paperB
+#   cos-functional on the six cert4 contexts (Weyl d=4, m=2, Hilbert dim 16):
+#   quantum value 6 (every state - each context correlator is a scalar identity),
+#   deterministic bound 4 by exhaustion over ALL 4^9 = 262,144 assignments (and
+#   the same bound on the 32,768 spectra-constrained ones) - the program's first
+#   operator-witness bound above d=2. The Weyl certificates cert8/cert16 (values
+#   d/2 = 4/8 at d=8/16, m=2) remain exact COCYCLE obstructions with no derived
+#   bound (8^100-scale exhaustion is infeasible). The d=4 census's 61 facet classes (23,256
 #   facets; tier-2 sub-orbit: 21,504 exact {0,+-1}-lifts with integer bounds {6,7})
 #   are STATE-DEPENDENT witnesses (CF(rho)>0 <=> facet violated, V43). At single-qudit
 #   d=6,8,10,12 the program has KS-colorability obstructions only (V57); NO operator
@@ -32,7 +37,7 @@
 #   census vertices rebuilt from scratch). Caches are read ONLY
 #   (cert*_min.json, fiber16_ctxs.json, cert16_lambda.npy, d4_facet_classes.npz,
 #   d4_tier2_orbit_data.npz); no file is written or modified.
-# STAGES (CLI):  python3 qudit_bench.py [inventory|margins|ledger|report|all]
+# STAGES (CLI):  python3 qudit_bench.py [inventory|margins|cert4bound|ledger|report|all]
 #   (default: all). EXPECTED FINAL OUTPUT LINE:  V58 PASS
 import sys, os, json, itertools
 from fractions import Fraction
@@ -426,11 +431,17 @@ def stage_inventory():
               f"{c['nobs']} observables | Weyl-COCYCLE certificate (state-independent)")
         print(f"    | cocycle value S = {c['value']} = d/2 (omega-exponent; recomputed here")
         print("    |   exactly: commutation, scalar products, multiplicity mod d, value)")
-        print("    | deterministic bound: NONE PINNED - this is an algebraic obstruction")
-        print("    |   certificate, NOT an inequality witness. paperB's cos-functional")
-        print("    |   S=sum_C cos(2pi(s_hat_C - s(C))/d) is stated with 'a classical bound")
-        print("    |   below the quantum value' as an EXISTENCE claim; no bound value is")
-        print("    |   computed anywhere in the repository for d >= 4. We do not invent one.")
+        if k == "cert4":
+            print("    | deterministic bound: 4 - DERIVED IN THIS SCRIPT (stage cert4bound):")
+            print("    |   paperB's cos-functional S=sum_C cos(2pi(s_hat_C - s(C))/d) on the")
+            print("    |   six cert4 contexts has classical max 4 (exhaustive, exact) vs")
+            print("    |   quantum value 6 -> a calibrated SIC operator witness at d=4.")
+        else:
+            print("    | deterministic bound: NONE PINNED - this is an algebraic obstruction")
+            print("    |   certificate, NOT an inequality witness. paperB's cos-functional")
+            print("    |   S=sum_C cos(2pi(s_hat_C - s(C))/d) is stated with 'a classical bound")
+            print("    |   below the quantum value' as an EXISTENCE claim; no bound value is")
+            print("    |   computed anywhere in the repository for d >= 8. We do not invent one.")
         src = {"cert4": "cert4_min.json", "cert8": "cert8_min.json (verify_cert8.py)",
                "cert16": "fiber16_ctxs.json + cert16_lambda.npy (verify_cert16.py)"}[k]
         print(f"    | pinned: {src} | certified: RECOMPUTED HERE (exact monomial algebra)")
@@ -467,10 +478,11 @@ def stage_inventory():
     print("-" * 78)
     print("paperB/paperC on d/2 holonomy values as witnesses: paperB frames the value d/2")
     print("  as a 'structural fingerprint' with a state-independent measurement protocol")
-    print("  (the cos-functional) whose classical bound is asserted to exist for even d")
-    print("  but is computed only at d=2 (PM: 4 vs 6). paperC's d/2 appears as the class")
-    print("  value and the ghost rotation (gamma - s* = d/2); both are exact algebraic")
-    print("  invariants, benchmarkable only through the d=2 operator witness above.")
+    print("  (the cos-functional) whose classical bound is asserted to exist for even d;")
+    print("  it is computed at d=2 (PM: 4 vs 6) and, in this script's cert4bound stage,")
+    print("  at d=4 (cert4: 4 vs 6). paperC's d/2 appears as the class value and the")
+    print("  ghost rotation (gamma - s* = d/2); both are exact algebraic invariants,")
+    print("  benchmarkable through the d=2 and (now) d=4 operator witnesses above.")
     print("V58 inventory PASS")
 
 def stage_margins():
@@ -537,6 +549,125 @@ def stage_margins():
     print("    stage-2 work, listed in arxiv/moonshots/QUDIT_BENCH.md, not claimed here.")
     print("V58 margins PASS")
 
+_C4B = None
+def cert4bound_certify():
+    """cert4 cos-functional: calibrated state-independent inequality at d=4, m=2.
+    CLAIM. Let C_1..C_6 be the cert4 contexts (cert4_min.json; each a triple of
+      pairwise-commuting Weyl observables on (C^4)^{x2}, product = omega^{s(C)} I,
+      s = (0,2,2,0,2,0), omega = i). paperB's noncontextual functional
+        S(g) = sum_C cos(2*pi*(s_hat_C(g) - s(C))/4),
+        s_hat_C(g) = sum_{v in C} g(v) mod 4   (g assigns an omega-exponent
+        outcome to each of the 9 observables),
+      satisfies: (a) quantum value v_Q = 6 for EVERY state (each context correlator
+      Re<omega^{-s(C)} prod_C> equals 1 identically - the product IS the scalar,
+      re-verified here as an operator identity; and 6 is the maximum since each
+      term is Re of a unitary's expectation, <= 1); (b) deterministic bound 4:
+      max S(g) = 4 over ALL 4^9 = 262,144 assignments g in Z_4^9 (9,216 attain)
+      AND over the 32,768 spectra-constrained assignments g(v) in spec(W(v))
+      (1,664 attain) - identical bound on both spaces, so the KS spectral
+      constraint is not load-bearing; (c) S(g) is always even, with value
+      distribution (ambient) {-4:9216, -2:61440, 0:120832, 2:61440, 4:9216};
+      no assignment reaches 5 or 6. Strict gap v_Q - bound = 2.
+    PROOF. Exact throughout: at d=4 the functional's values cos(2*pi*k/4) are the
+      INTEGERS {1, 0, -1, 0} for k = 0..3, so the decision path is pure integer
+      arithmetic (a fortiori exact in Q(zeta_8); floats appear nowhere). Operator
+      facts by the exact monomial algebra above. Analytic cap, re-derived
+      independently by the exhaustion: for ANY g in Z_4^9 the multiplicity
+      identity gives sum_C lam_C s_hat_C = sum_v (lam^T A)_v g(v) == 0 mod 4,
+      hence sum_C lam_C (s_hat_C - s(C)) == -2 == 2 mod 4 with every lam_C odd
+      (lam = 1,3,3,1,3,1); so either some delta_C is odd - then an even number
+      >= 2 are odd, contributing >= 2 zero terms - or all delta_C are even with
+      an odd count of delta_C = 2, contributing a -1 term; either way S <= 4.
+      The exhaustion (exact int64 linear algebra) certifies attainment and the
+      full distribution.
+    EXPECTED. bound = 4, v_Q = v_mixed = 6, eta* = 2/3, eps* = 1/3."""
+    global _C4B
+    if _C4B is not None: return _C4B
+    d = 4
+    W = weyl_builder(d, 2)
+    c4 = json.load(open("cert4_min.json"))
+    items = [([tuple(v) for v in it["ctx"]], int(it["lam"])) for it in c4["items"]]
+    svals = cert_verify(4, items, int(c4["value"]))     # full certificate re-check
+    fam = [C for C, _ in items]; lams = [l for _, l in items]
+    obs = sorted({v for C in fam for v in C}); oi = {v: k for k, v in enumerate(obs)}
+    assert len(fam) == 6 and len(obs) == 9
+    assert all(l % 2 == 1 for l in lams), "analytic cap needs every lam odd"
+    # (a) operator identity: every context product IS omega^{s(C)} I, so the
+    # context correlator is 1 for EVERY state; each term <= 1 caps v_Q at 6.
+    for C, s in zip(fam, svals):
+        P = m_id(16, 8)
+        for v in C: P = m_mul(P, W(v))
+        assert m_scalar(P) == (2 * s) % 8
+    # exact spectra (omega-exponent sets; also asserts W(v)^4 = I)
+    spec = {v: eig_omega_set(W(v), 4) for v in obs}
+    # (b) exhaustion, exact int64: S(g) = sum_C COS[(s_hat_C - s_C) mod 4]
+    COS = np.array([1, 0, -1, 0], dtype=np.int64)   # cos(2 pi k / 4), exact
+    Actx = np.zeros((6, 9), dtype=np.int64)
+    for r, C in enumerate(fam):
+        for v in C: Actx[r, oi[v]] += 1
+    grid = np.array(list(itertools.product(range(4), repeat=9)), dtype=np.int64)
+    delta = (grid @ Actx.T - np.array(svals, dtype=np.int64)) % 4
+    Sg = COS[delta].sum(axis=1)
+    ok = np.ones(len(grid), dtype=bool)
+    for v in obs:
+        ok &= np.isin(grid[:, oi[v]], spec[v])
+    assert int(ok.sum()) == 32768, "spectra-constrained space size"
+    h_amb = Counter(int(x) for x in Sg)
+    h_spc = Counter(int(x) for x in Sg[ok])
+    assert Sg.max() == 4 and Sg[ok].max() == 4, "deterministic bound"
+    assert h_amb[5] == 0 and h_amb[6] == 0
+    assert (Sg % 2 == 0).all(), "parity of the value distribution"
+    assert h_amb == {-4: 9216, -2: 61440, 0: 120832, 2: 61440, 4: 9216}
+    assert h_spc == {-4: 1664, -2: 7680, 0: 14080, 2: 7680, 4: 1664}
+    v_Q = Fraction(6); bound = Fraction(4); v_mixed = Fraction(6)
+    _C4B = dict(v_Q=v_Q, bound=bound, v_mixed=v_mixed, svals=svals, lams=lams,
+                n_amb=len(grid), n_spc=int(ok.sum()),
+                att_amb=h_amb[4], att_spc=h_spc[4],
+                h_amb=dict(sorted(h_amb.items())), h_spc=dict(sorted(h_spc.items())),
+                eta=bound / v_Q, eps=1 - bound / v_Q)
+    return _C4B
+
+def stage_cert4bound():
+    print("=" * 78)
+    print("V58 STAGE cert4bound - calibrated inequality from the cert4 Weyl certificate")
+    print("=" * 78)
+    c = cert4bound_certify()
+    print("[functional] paperB cos-functional on the six cert4 contexts (d=4, m=2,")
+    print("  Hilbert dim 16): S(g) = sum_C cos(2pi(s_hat_C - s(C))/4), s_hat_C = sum of")
+    print(f"  assigned omega-exponents in C mod 4; exact context phases s = {c['svals']}")
+    print(f"  (products = omega^s I, re-verified as operator identities), lam = {c['lams']}.")
+    print("  At d=4 all functional values are INTEGERS (cos(2pi k/4) in {1,0,-1}):")
+    print("  the entire decision path is exact integer arithmetic, floats nowhere.")
+    print(f"[quantum]   v_Q = {c['v_Q']} for EVERY state incl. maximally mixed (each context")
+    print("  correlator is identically 1 - scalar operator identity; each term <= 1, so")
+    print(f"  6 is the quantum maximum). v_mixed = {c['v_mixed']} = v_Q.")
+    print(f"[classical] bound = {c['bound']} by EXHAUSTION: ambient Z_4^9 ({c['n_amb']} assignments,")
+    print(f"  {c['att_amb']} attain 4, none reach 5 or 6, distribution {c['h_amb']});")
+    print(f"  spectra-constrained ({c['n_spc']} assignments with g(v) in spec(W(v)),")
+    print(f"  {c['att_spc']} attain 4, distribution {c['h_spc']}).")
+    print("  Same bound on both spaces -> the KS spectral constraint is not load-bearing.")
+    print("  Analytic cross-check (from the certificate itself): sum_C lam_C s_hat_C == 0")
+    print("  mod 4 for ANY assignment, so sum lam_C delta_C == 2 mod 4 with all lam odd;")
+    print("  hence >= 2 zero terms or >= 1 minus-one term -> S <= 4. Exhaustion agrees.")
+    print(f"[gap]       v_Q - bound = {c['v_Q'] - c['bound']} > 0: STRICT quantum-classical gap - the")
+    print("  program's first operator-witness bound above d=2 (stage-2 item 1 of")
+    print("  QUDIT_BENCH.md, now closed).")
+    print("[margins - V58 conventions, all Fractions]")
+    print(f"  state-depolarizing threshold eps* = (v_Q - bound)/(v_Q - v_mixed): denominator")
+    print(f"  {c['v_Q'] - c['v_mixed']} -> UNDEFINED, exactly as PM: state noise never degrades a")
+    print("  state-independent witness; the binding model is measurement noise.")
+    print(f"  uniform context-correlator visibility S(eta) = 6*eta: threshold eta* =")
+    print(f"  bound/v_Q = {c['eta']}, tolerated effective noise eps* = {c['eps']} exactly -")
+    print("  the SAME constants as PM (6, 4, 2/3, 1/3), now at d=4.")
+    print("  calibration point: NONE - no d=4 hardware run exists in this repository;")
+    print("  no number is invented for one.")
+    print("[protocol caveat - paperB, applies verbatim] a single joint measurement of a")
+    print("  context returns omega^{s(C)} identically (algebraic identity) and certifies")
+    print("  nothing; the bound is operational only under physically separate (sequential/")
+    print("  ancilla) readout of the three observables, where the ledger stage's")
+    print("  assumptions (A1)-(A4) apply unchanged.")
+    print("V58 cert4bound PASS")
+
 def stage_ledger():
     print("=" * 78)
     print("V58 STAGE ledger - compatibility-assumption ledger (sequential benchmarks)")
@@ -596,7 +727,10 @@ def stage_report():
     print("    margins - facet-COMPLETE robustness data, which per the M3 literature")
     print("    scout nobody in the literature ships.")
     print("  - A cocycle-certificate tower (cert4/cert8/cert16, values d/2) re-verified")
-    print("    in float-free arithmetic.")
+    print("    in float-free arithmetic; for cert4 the stage cert4bound derives the")
+    print("    calibrated inequality exactly (quantum 6 every state, classical bound 4")
+    print("    by full 4^9 exhaustion, eps* = 1/3) - the first operator-witness bound")
+    print("    above d=2 in the program.")
     print("WHAT THIS SUITE IS NOT:")
     print("  - NOT self-testing: our own V57 shows the program's KS cores are NON-RIGID")
     print("    at every rung d=4..12, so configuration self-testing claims from these")
@@ -613,12 +747,12 @@ def stage_report():
     print("V58 report PASS")
 
 STAGES = dict(inventory=stage_inventory, margins=stage_margins,
-              ledger=stage_ledger, report=stage_report)
+              cert4bound=stage_cert4bound, ledger=stage_ledger, report=stage_report)
 
 def main():
     arg = sys.argv[1] if len(sys.argv) > 1 else "all"
     if arg == "all":
-        for name in ("inventory", "margins", "ledger", "report"):
+        for name in ("inventory", "margins", "cert4bound", "ledger", "report"):
             STAGES[name]()
         print("V58 PASS")
     elif arg in STAGES:

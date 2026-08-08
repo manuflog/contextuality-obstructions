@@ -48,12 +48,17 @@ supp I_j(rho) <= ker(I - E_j) = K_j. For v in K_j: sum_{k != j} E_k v = (I - E_j
 and each E_k >= 0 gives E_k v = 0; hence for w in K_k, <v,w> = <v, E_k w> = <E_k v, w> = 0.
 If K_j = 0 then I_j = 0, contradicting (i) on any rho with tr(E_j rho) > 0. QED
 
-**Remark (a standing error, corrected).** "Repeatable implies projective" is FALSE:
-E_1 = diag(1, c), E_2 = diag(0, 1-c) with I_j(rho) = tr(E_j rho) |e_j><e_j| satisfies
-(i), (ii), complete positivity, trace preservation, and covariance under the commutant
-of {E_j} (V40, part A-b). The correct statement is Theorem A: axioms (i)-(ii) force a
-*sharp repeatable core* {P_j = proj K_j}, onto which the update factors, while the
-statistics remain those of the unsharp effects.
+**Remark.** "Repeatable implies projective" is FALSE, but a witness must be at
+least three-dimensional. The qutrit two-effect POVM E_1 = diag(1,0,c), E_2 = diag(0,1,1-c),
+0 < c < 1, admits a repeatable covariant instrument on EVERY outcome while E_1 is
+non-projective. At d=2 the analogous pair E_1 = diag(1,c), E_2 = diag(0,1-c) does NOT
+work: E_2 has no eigenvalue 1, so K_2 = 0 and that outcome is not repeatable -- indeed
+by Theorem A every nonzero outcome needs an eigenvalue-1 sharp core, and at d=2 two
+orthogonal rank-one cores summing to I force projectivity. The correct general statement
+is Theorem A: axioms (i)-(ii) force a *sharp repeatable core* {P_j = proj K_j}, onto
+which the update factors, while the statistics remain those of the unsharp effects.
+(The d=2 pair above was used as the witness in an earlier revision of this file; it is
+replaced by the qutrit example, which is the witness cited in the note.)
 
 **Theorem B (uniqueness on the core; V37).** On the sharp core, adding
 (iii) covariance under every unitary commuting with the measured observable pins the

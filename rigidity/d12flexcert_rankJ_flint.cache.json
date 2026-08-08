@@ -1,0 +1,1 @@
+{"primes_flint": [998244353, 999999937], "x5": {"target": 9332, "comp_flint": {"998244353": 9332, "999999937": 9332}, "blas_agreement": true}, "x13": {"target": 9332, "comp_flint": {"998244353": 9332, "999999937": 9332}, "blas_agreement": true}}

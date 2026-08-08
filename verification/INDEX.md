@@ -27,7 +27,7 @@ in the paper, a **computational verification** script here, or both. Scripts are
 | **Thm W** | exact value-bit formula for lifted certificates | `Wformula.py` → `violations 0/550` (×4 families), verdict `Wformula PASS` |
 | **Thm Q** | closed-form criterion: contextual ⟺ some cycle has odd $Q=\sum_{a<b}\langle v_a,v_b\rangle/d$ (Pontryagin-square-type quadratic refinement) | `criterion.py` → `criterion PASS` (incl. an in-script recomputed random-cycle control; the printed "300/300" is a quoted historical figure) |
 | **Thm attain** | attainment at every even $d$; explicit certificates | `verify_cert8.py` → `ALL CHECKS PASS` ($S{=}4$); `verify_cert16.py` → `PASS` ($S{=}8$) |
-| **Prop. 9 CORRECTED (V54, 2026-07-28)** | the odd-$Q$ shadow has **NO false positives at any even $d$** — proof: $Mx\equiv\gamma \bmod d$ with $d$ even gives $Mx\equiv\gamma \bmod 2$, so $\lambda^{\mathsf T}M\equiv0 \bmod 2 \Rightarrow \lambda\cdot\gamma\equiv0 \bmod 2$. It **is** incomplete, in the OTHER direction: a $\Z_d$-cycle can certify with a nonzero but EVEN value, invisible mod 2 | `shadow_soundness_exact.py` → `shadow_soundness_exact PASS` (0 false positives over 571+ firing samples; pinned non-degenerate $d=8$ blind witness; ~39% miss rate under the stated protocol) |
+| **Prop. 9 CORRECTED (V55, 2026-07-28)** | the odd-$Q$ shadow has **NO false positives at any even $d$** — proof: $Mx\equiv\gamma \bmod d$ with $d$ even gives $Mx\equiv\gamma \bmod 2$, so $\lambda^{\mathsf T}M\equiv0 \bmod 2 \Rightarrow \lambda\cdot\gamma\equiv0 \bmod 2$. It **is** incomplete, in the OTHER direction: a $\Z_d$-cycle can certify with a nonzero but EVEN value, invisible mod 2 | `shadow_soundness_exact.py` → `shadow_soundness_exact PASS` (0 false positives over 571+ firing samples; pinned non-degenerate $d=8$ blind witness; ~39% miss rate under the stated protocol) |
 | Doubling law (geometric step) | $T_{\mathrm{mix}}\equiv0$; $\mathbb{F}_2$ system is $d$-independent | `close_T2_proof.py` (structural, **proof CORRECTED 2026-07-24** — the old per-context route (P1) is false in bulk; the identity holds via the quadratic refinement + the realized base-multiplicity sublattice $N$) + `tmix_dindep.py` (byte-identical across $d\equiv2\bmod4$) → `tmix_dindep PASS` |
 
 ### Correction to Paper B, Prop. 9 (2026-07-28, published as Paper B v2)
@@ -101,6 +101,29 @@ See `../hardware/` — 3-device $d=2$ Peres–Mermin replication, combined $S=4.
 - V42 `d4_exact_dd.py` (PREPARED, PENDING COMPUTE): exact settlement — the polytope is just 64 integer {-1,0,1} points in faithful dim-33 integer coordinates; its H-representation is the complete catalogue as a theorem. DD exceeded the interactive budget; run overnight (Colab): `python3 d4_exact_dd.py`.
 - V42 progress: lrs measured at ~1 facet/sec (1392 exact integer facets streamed and verified: d4_exact_dd_partial.npz); QUANTUM MOMENT VECTORS PROVEN ON-HULL numerically (residual ~1e-15) => the finished H-rep alone is the complete classifier. Ridge-walk-modulo-group designed as the in-session completeness route.
 - `d4_facet_census.py` (V43): **COMPLETE FACET CENSUS + CLASSIFICATION THEOREM, d=4 DROP=0** - conv(V) has exactly **23,256 facets in 61 classes** (|G|=768); quantum moments on-hull => **CF(rho)>0 <=> a facet is violated**. TWO independent derivations agree: (1) adjacency decomposition (facet-ridge BFS modulo G, every pivot exactly certified via integer nullspace recovery; heavy facets' ridges via cdd/Normaliz after lrs wedged reproducibly at 3195 rows - pinned); (2) Normaliz 3.10.2 direct enumeration (old input format; 23,256 exact hyperplanes). Method lesson pinned: an in-walk "121 classes / 46,508 facets" was a class-dict KEY-TYPE duplication (int vs bytes keys double-storing each orbit) caught ONLY by the independent cross-check. Data: `d4_facet_classes.npz` (61-class table + full 23,256 exact integer facets + pivot columns).
+
+## V-number conventions (read before citing a V-number)
+
+The authority for what a V-number means is **this file plus the header of the named script**.
+`ROADMAP_30.md` is a planning document: several slots there were never built and their numbers
+were later reused by shipped work. Where the two disagree, this file wins. The known
+divergences, stated rather than silently patched:
+
+| V | THIS FILE / script header (authoritative) | `ROADMAP_30.md` (planned, not built) |
+|---|---|---|
+| V10 | `local_classicality.py` — per-context trivializers, and the global contrast | `pm_gauge_invariance.py` |
+| V13 | `d3_gap_certificate.py` — order-3 Heisenberg class nontrivial, qutrit AvN value {0} | same |
+| V28 | `net_robust_negativity.py` — net-robust negativity; sufficiency refuted | `wf_interferometry_spec.py` |
+| V29 | `ghw_net_necessity.py` — necessity on genuine GHW nets | `convention_fuzz.py` |
+| V30 | `gf4_net_necessity.py` — necessity on the actual GF(4) Gibbons–Hoffman–Wootters nets | `property_harness.py` |
+| V31 | `paired_frame_construction.py` — the constructive half; codeword-polytope theorem | — |
+| V32 | `ghost_facet_theorem.py` — ghost facet theorem and closed formula | — |
+| V33 | `d4_ghost_tower.py` — tower ghost law, offset d/2 at d=4 | — |
+
+`V54` was used twice in earlier revisions of this file. It now means **`pm_local_system.py`**
+(the Peres–Mermin two-layer milestone) — that is the sense the Copenhagen note cites. The Paper B
+Prop. 9 correction, which nothing outside this file cites, is renumbered **V55**.
+
 - `d4_ghost_tower.py` — the d=4 ghost-rotation tower laws cited in the note's claims-to-verification table (ghost rotation d/2; stratification of operative facets by operator order). Companion to `d4_moment_facets.py`.
 - V43 addendum: **ON-HULL LEMMA proven** (exact integer rank): quantum behaviors satisfy normalization + shared-marginal + 24 spectral-support identities; constrained affine dim = 33 = deterministic span. The census classifier theorem is now unconditional. Incorporated in `d4_facet_census.py` and stated as Prop. in note v3.
 - `papers/note_v3_local_validity.tex` — the Copenhagen synthesis note: the five tenets as a theorem schedule, every claim citing papers A–D or a script in this suite, conjectures and open problems labeled as such. The hardware figures are shot-noise only under the implemented witness model (see `hardware/COMPATIBILITY.md`).

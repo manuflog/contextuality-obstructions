@@ -470,6 +470,23 @@ def stage_sat():
             syms = [tuple(v) for v in c["core_syms"]]
             pairs, _ = edges_and_bases(rays_at(syms, "x5"), d)
         bases = [tuple(b) for b in c["core_bases"]]
+        # HARDENING (gate fix 4): the cached bases must be genuine orthogonal d-cliques at
+        # BOTH circle points, and every ray must lie in at least one basis.  Previously this
+        # was imported by citation from the tower paper; now it is asserted in-certificate.
+        covered = set()
+        for ptn in ("x5", "x13"):
+            rr = rays_at([tuple(v) for v in c["core_syms"]], ptn)
+            eset = set(map(tuple, pairs))
+            for b in bases:
+                assert len(b) == d, f"d={d} {ptn}: basis {b} has size {len(b)} != {d}"
+                for i, j in combinations(sorted(b), 2):
+                    assert (i, j) in eset and bg6.hdot_ri_zero(rr[i], rr[j]), \
+                        f"d={d} {ptn}: basis pair ({i},{j}) not orthogonal"
+                covered.update(b)
+        assert covered == set(range(cfg["V"])), \
+            f"d={d}: {cfg['V'] - len(covered)} rays in no basis"
+        print(f"[sat d={d}] bases hardened: {len(bases)} orthogonal {d}-cliques at both "
+              f"points, all {cfg['V']} rays covered")
         col = sat_colorable(cfg["V"], pairs, bases)
         rec = dict(uncolorable=not col)
         print(f"[sat d={d}] uncolorable = {not col}", end="")

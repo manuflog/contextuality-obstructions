@@ -283,20 +283,51 @@ bound; the V37 script is a numerical affine-dimension stress test, and the CP in
 exactly in \texttt{lueders\_cp\_interval.py}.
 \end{theorem}
 
-\begin{theorem}[Sharp core; V40]\label{thm:sharp}
-For a POVM instrument, statistics plus repeatability force every output of
-$\mathcal I_j$ into the eigenvalue-$1$ subspace of its effect $E_j$, and these
-subspaces are mutually orthogonal. A strictly unsharp effect (no $1$-eigenvector)
-admits no repeatable instrument at all. The folk claim ``repeatable $\Rightarrow$
-projective'' is nevertheless false as stated, but a valid witness must be at least
-three-dimensional: the qutrit two-effect POVM $E_1=\mathrm{diag}(1,0,c)$,
-$E_2=\mathrm{diag}(0,1,1-c)$, $0<c<1$, admits a repeatable covariant instrument on \emph{every}
-outcome while $E_1$ is non-projective. Dimension three is necessary: repeatability on a
-nonzero outcome forces its effect to have an eigenvalue-$1$ sharp core (V40), so at $d=2$ a
-two-outcome POVM with both outcomes repeatable has two orthogonal rank-one cores summing to
-the identity, hence is projective. The qutrit witness escapes this because the third
-dimension carries the shared weight $c$, $1-c$ without either core losing its eigenvalue $1$.
+\begin{theorem}[Sharp core, and the efficiency dichotomy; V40, V56]\label{thm:sharp}
+\emph{(Known.)} For a POVM instrument, statistics plus repeatability force every output of
+$\mathcal I_j$ into the eigenvalue-$1$ subspace of its effect $E_j$, and these subspaces are
+mutually orthogonal; a strictly unsharp effect (no $1$-eigenvector) admits no repeatable
+instrument at all. \emph{(New here.)} Whether the folk claim ``repeatable $\Rightarrow$
+projective'' holds is decided by \emph{efficiency}:
+\begin{enumerate}[label=(\alph*),topsep=2pt,itemsep=1pt]
+\item If $\mathcal I_1(\rho)=K\rho K^{\dagger}$ is efficient (single Kraus operator) and
+repeatable on its outcome, then $E_1$ \emph{is} a projection, in every finite dimension.
+\item Without efficiency the claim is false already at $d=3$, and $d=3$ is minimal: the qutrit
+two-effect POVM $E_1=\mathrm{diag}(1,0,c)$, $E_2=\mathrm{diag}(0,1,1-c)$, $0<c<1$, admits a
+repeatable covariant instrument on \emph{every} outcome while $E_1$ is non-projective, whereas at
+$d=2$ two orthogonal eigenvalue-$1$ cores summing to the identity force projectivity.
+\end{enumerate}
 \end{theorem}
+\begin{proof}
+(a) Efficiency and the statistics condition give $K^{\dagger}K=E_1$; repeatability gives
+$\operatorname{tr}(E_1K\rho K^{\dagger})=\operatorname{tr}(E_1\rho)$ for all $\rho$, i.e.
+$K^{\dagger}E_1K=K^{\dagger}K$, so $K^{\dagger}(I-E_1)K=0$. Writing $I-E_1=S^{\dagger}S$ this
+reads $(SK)^{\dagger}(SK)=0$, hence $SK=0$ and $\operatorname{ran}K\subseteq\ker(I-E_1)$, the
+eigenvalue-$1$ eigenspace of $E_1$. Polar decomposition $K=U|K|$ with $|K|=E_1^{1/2}$ gives
+$\dim\operatorname{ran}K=\operatorname{rank}E_1$, so $\operatorname{rank}E_1\le\dim\ker(I-E_1)$;
+the reverse inequality always holds, so $\operatorname{ran}E_1=\ker(I-E_1)$ and $E_1$ is the
+orthogonal projector onto it. (b) The qutrit instrument
+$\mathcal I_j(\rho)=\operatorname{tr}(E_j\rho)\,|e_j\rangle\langle e_j|$, $j=1,2$, is repeatable
+and covariant; it needs $\operatorname{rank}E_1=2$ Kraus operators, so it is not efficient, in
+accordance with (a). At $d=2$ the two eigenvalue-$1$ cores are orthogonal and each nonzero,
+hence one-dimensional and spanning, so $E_1$ is the projector onto its own core.
+\end{proof}
+The known half is the norm-1 property of the measured observable: repeatability confines the
+posterior states to the unit-eigenvalue subspaces, which is Ozawa's framework \cite{Ozawa84} (where
+it also yields that repeatable measurements force discrete spectrum), developed systematically by
+Busch, Grabowski and Lahti \cite{BGL95}, named and studied as the norm-1 property by Heinonen,
+Lahti, Pellonp\"a\"a, Pulmannov\'a and Ylinen \cite{HLPPY03}, and consolidated in \cite{BLPY16}.
+In finite dimensions ``norm $1$'' is exactly ``has an eigenvalue-$1$ eigenvector'', so
+Theorem~\ref{thm:sharp}'s first sentence is that literature specialized to finite $d$ and is
+\emph{not} claimed as new. Part (a) is likewise the finite-dimensional content of
+Buscemi, D'Ariano and Perinotti \cite{BDP04}, who exhibit nonorthogonal perfectly repeatable
+measurements and show they occur only in infinite dimensions --- their analysis is carried out for
+\emph{pure} measurements, one contraction $M_e$ per outcome, which is precisely efficiency, so (a)
+is the reason their finite-dimensional conclusion holds and (b) is the reason it does not extend to
+general instruments. What is offered here as new is the packaging: the efficiency dichotomy stated
+as such, the covariance of the witness, and the minimality of $d=3$. Efficiency is the same hinge
+that singles out L\"uders in Theorem~\ref{thm:lueders}, which is the point of stating it this way.
+Certificate: \texttt{repeatable\_efficiency\_dichotomy.py} (V56).
 
 \begin{theorem}[Classical twin; V40]\label{thm:twin}
 The same axioms, interpreted for classical stochastic instruments on a finite outcome
@@ -456,7 +487,9 @@ Thm.~\ref{thm:d2} & \cite{paperC} Thm.~2 & \texttt{paired\_frame\_construction.p
 Thm.~\ref{thm:census} & this note; \cite{paperC} & \texttt{d4\_facet\_census.py} (V43)\\
 tower laws & \cite{paperC} & \texttt{d4\_ghost\_tower.py}, \texttt{d4\_moment\_facets.py}\\
 Thm.~\ref{thm:lueders} & this note & \texttt{lueders\_instrument.py} (V37)\\
-Thm.~\ref{thm:sharp}, \ref{thm:twin} & this note & \texttt{s4\_povm\_bayes.py} (V40)\\
+Thm.~\ref{thm:sharp} (sharp core) & \cite{Ozawa84,BGL95,HLPPY03,BLPY16} & \texttt{s4\_povm\_bayes.py} (V40)\\
+Thm.~\ref{thm:sharp}(a) & \cite{BDP04}, finite-$d$ form & \texttt{repeatable\_efficiency\_dichotomy.py} (V56)\\
+Thm.~\ref{thm:sharp}(b), Thm.~\ref{thm:twin} & this note & \texttt{s4\_povm\_bayes.py} (V40); V56\\
 Thm.~\ref{thm:relative}, \ref{thm:z2} & \cite{paperD} & \texttt{observer\_groupoid.py} (V38)\\
 Thm.~\ref{thm:cut} & \cite{paperD} & V37 + \cite{paperD} \S3\\
 Thm.~\ref{thm:fr} & \cite{paperD} & \texttt{fr\_cycle.py} (V39)\\
@@ -503,6 +536,19 @@ Computation and Deduction (FSCD 2024)}, LIPIcs \textbf{299}; extended version ar
 (2026).
 \bibitem{ABM} S.~Abramsky, R.~S.~Barbosa, S.~Mansfield, \emph{Contextual fraction as a measure of
 contextuality}, Phys.\ Rev.\ Lett.\ \textbf{119}, 050504 (2017).
+\bibitem{Ozawa84} M.~Ozawa, \emph{Quantum measuring processes of continuous observables},
+J.\ Math.\ Phys.\ \textbf{25}, 79--87 (1984), doi:10.1063/1.526000.
+\bibitem{BGL95} P.~Busch, M.~Grabowski, P.~J.~Lahti, \emph{Repeatable measurements in quantum
+theory: their role and feasibility}, Found.\ Phys.\ \textbf{25}, 1239--1266 (1995),
+doi:10.1007/BF02055331.
+\bibitem{HLPPY03} T.~Heinonen, P.~Lahti, J.-P.~Pellonp\"a\"a, S.~Pulmannov\'a, K.~Ylinen,
+\emph{The norm-1-property of a quantum observable}, J.\ Math.\ Phys.\ \textbf{44}, 1998--2008
+(2003), doi:10.1063/1.1566454; arXiv:quant-ph/0212091.
+\bibitem{BLPY16} P.~Busch, P.~Lahti, J.-P.~Pellonp\"a\"a, K.~Ylinen, \emph{Quantum Measurement},
+Theoretical and Mathematical Physics, Springer (2016), doi:10.1007/978-3-319-43389-9.
+\bibitem{BDP04} F.~Buscemi, G.~M.~D'Ariano, P.~Perinotti, \emph{There exist nonorthogonal quantum
+measurements that are perfectly repeatable}, Phys.\ Rev.\ Lett.\ \textbf{92}, 070403 (2004),
+doi:10.1103/PhysRevLett.92.070403; arXiv:quant-ph/0310041.
 \bibitem{LS} M.~S.~Leifer, R.~W.~Spekkens, \emph{Towards a formulation of quantum theory as a
 causally neutral theory of Bayesian inference}, Phys.\ Rev.\ A \textbf{88}, 052130 (2013).
 \bibitem{rigidity24} M.~Flores Gordillo, \emph{Exact rigidity certificates for Kochen--Specker
